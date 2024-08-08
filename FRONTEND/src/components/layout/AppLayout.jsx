@@ -3,6 +3,7 @@ import { Grid, Box,Divider } from '@mui/material';
 import TopBar from '../TopBar';
 import AppName from '../AppName';
 import SideBar from '../SideBar';
+import { Outlet } from 'react-router-dom';
 
 const AppLayout = ({ children }) => {
   return (
@@ -17,7 +18,7 @@ const AppLayout = ({ children }) => {
         <Box>
             <TopBar/>
           <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-            {children}
+            <Outlet></Outlet>
           </Box>
 
         </Box>
