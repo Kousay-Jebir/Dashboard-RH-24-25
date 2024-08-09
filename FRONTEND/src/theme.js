@@ -8,11 +8,15 @@ const theme = createTheme({
     secondary: {
       main: "#6A7177",
     },
+    neutral: {
+      main: "#0C0F12",
+      light: "#E9EAEB",
+    },
     error: {
       main: "#D02533",
     },
     blue: {
-      main: "#335CF",
+      main: "#2547D0",
     },
     lightBlue: {
       main: "#38D9E5",

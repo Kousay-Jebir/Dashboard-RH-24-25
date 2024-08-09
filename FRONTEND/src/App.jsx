@@ -1,11 +1,15 @@
+import { useTheme } from '@emotion/react'
 import './App.css'
+import MembersByCategory from './Components/Dashboard/MembersByCategory'
 
-function App() {
- 
+function App() { 
 
   return (
     <>
-      Hello!
+    Hi!
+    <div>Hello!</div>
+      
+      <MembersByCategory/>
     </>
   )
 }
