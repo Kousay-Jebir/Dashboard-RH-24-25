@@ -1,6 +1,6 @@
 import { Grid, useTheme } from '@mui/material';
 import React from 'react';
-import loginBg from '../../assets/loginbg.png'; // Adjust path if needed
+import loginBg from '../../assets/login_bg.png';
 import LoginForm from '../../components/LoginForm';
 
 const Login = () => {
@@ -41,7 +41,7 @@ const Login = () => {
                     width: '100%',
                 }}
             >
-                {/* Optionally add content or a component for the right side */}
+                
             </Grid>
         </Grid>
     );
