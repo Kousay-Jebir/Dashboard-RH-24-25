@@ -1,37 +1,36 @@
 {
-    "poles": [
-      {
-        "id": 1,
-        "label": "Pôle Projet",
-        "value": 53
-      },
-      {
-        "id": 2,
-        "label": "Pôle Commercial",
-        "value": 32
-      },
-      {
-        "id": 3,
-        "label": "Pôle Marketing",
-        "value": 14
-      }
-    ],
-    "membres": [
-      {
-        "id": 1,
-        "label": "Total",
-        "value": 99
-      },
-      {
-        "id": 2,
-        "label": "Homme",
-        "value": 62
-      },
-      {
-        "id": 3,
-        "label": "Femme",
-        "value": 37
-      }
-    ]
-  }
-  
+  "poles": [
+    {
+      "id": 1,
+      "label": "Pôle Projet",
+      "value": 53
+    },
+    {
+      "id": 2,
+      "label": "Pôle Commercial",
+      "value": 32
+    },
+    {
+      "id": 3,
+      "label": "Pôle Marketing",
+      "value": 14
+    }
+  ],
+  "membres": [
+    {
+      "id": 1,
+      "label": "Total",
+      "value": 99
+    },
+    {
+      "id": 2,
+      "label": "Homme",
+      "value": 62
+    },
+    {
+      "id": 3,
+      "label": "Femme",
+      "value": 37
+    }
+  ]
+}

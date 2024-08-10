@@ -1,6 +1,7 @@
 import { useTheme } from '@emotion/react'
 import './App.css'
 import MembersByCategory from './Components/Dashboard/MembersByCategory'
+import MembersByGender from './Components/Dashboard/MembersByGender'
 
 function App() { 
 
@@ -10,6 +11,7 @@ function App() {
     <div>Hello!</div>
       
       <MembersByCategory/>
+      <MembersByGender/>
     </>
   )
 }
