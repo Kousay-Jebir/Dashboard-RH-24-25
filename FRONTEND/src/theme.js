@@ -8,11 +8,12 @@ const theme = createTheme({
     secondary: {
       main: "#6A7177",
     },
-    error: {
-      main: "#D02533",
+    neutral: {
+      main: "#0C0F12",
+      light: "#E9EAEB",
     },
     blue: {
-      main: "#335CF",
+      main: "#2547D0",
     },
     lightBlue: {
       main: "#38D9E5",
@@ -30,12 +31,19 @@ const theme = createTheme({
       purple: "#7D52F4",
       green: "#3CE5B8",
     },
+    text: {
+      main: "#0C0F12 ",
+      light: "#6A7177",
+      dark: "#000",
+    },
   },
   typography: {
-    fontFamily: "Inter, sans-serif", // Use Inter as the default font family
-    fontWeightRegular: 400,
-    fontWeightMedium: 500,
-    fontWeightBold: 700,
+    fontFamily: "Inter",
+    light:300,
+    regular: 400,
+    medium: 500,
+    600: 600,
+    bold: 700,
   },
 });
 
