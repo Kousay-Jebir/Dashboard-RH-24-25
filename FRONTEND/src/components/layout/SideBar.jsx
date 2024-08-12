@@ -20,7 +20,7 @@ export default function SideBar({
 
   const menuItems = [
     { text: 'Dashboard', icon: <DashboardOutlinedIcon />, path: '/dashboard' },
-    { text: 'Recruitment', icon: <GroupOutlinedIcon />, path: '/recruitment' },
+    { text: 'Recruitement', icon: <GroupOutlinedIcon />, path: '/recruitement' },
     { text: 'Team members', icon: <GroupOutlinedIcon />, path: '/team-members' },
     { text: 'Meetings', icon: <CalendarTodayOutlinedIcon />, path: '/meetings' },
     { text: 'Evaluation', icon: <AssessmentOutlinedIcon />, path: '/evaluation' },
