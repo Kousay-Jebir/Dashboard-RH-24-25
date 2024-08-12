@@ -8,7 +8,7 @@ import AppBreadCrumbs from './AppBreadCrumbs';
 import NavigationTabs from '../NavigationTabs';
 import { Schedule } from '@mui/icons-material';
 
-const drawerWidth = 340;
+const drawerWidth = 305;
 
 function AppLayout() {
   const location = useLocation();
