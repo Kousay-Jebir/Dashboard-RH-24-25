@@ -14,7 +14,6 @@ function App() {
       <Route element={<AppLayout></AppLayout>}>
         <Route path='test1' element={<div>Dashboard</div>}></Route>
         <Route path='test2' element={<div>test2</div>}></Route>
-
         <Route path='dashboard'>
         </Route>
         <Route path='recruitement'>
