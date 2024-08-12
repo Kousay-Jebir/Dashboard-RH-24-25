@@ -10,19 +10,19 @@ const AppBreadCrumbs = () => {
 
   return (
     <Breadcrumbs>
-      <Typography color="textSecondary">HR Management</Typography> {/* Static base path */}
+      <Typography color="textSecondary" fontSize={'small'}>HR Management</Typography> {/* Static base path */}
       {pathnames.length > 0 ? (
         pathnames.map((value, index) => {
           const last = index === pathnames.length - 1;
 
           return (
-            <Typography color={last ? 'textPrimary' : 'textSecondary'} key={index}>
+            <Typography fontSize={'small'} color={last ? 'textPrimary' : 'textSecondary'} key={index}>
               {value}
             </Typography>
           );
         })
       ) : (
-        <Typography color="textPrimary">HR Management</Typography> 
+        <Typography fontSize={'small'} color="textPrimary">HR Management</Typography> 
       )}
     </Breadcrumbs>
   );
