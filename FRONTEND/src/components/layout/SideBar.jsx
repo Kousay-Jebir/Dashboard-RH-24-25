@@ -73,8 +73,8 @@ export default function SideBar({drawerWidth,mobileOpen,handleDrawerClose,handle
 
 
   const menuItems = [
-    { text: 'Dashboard', icon: <DashboardOutlinedIcon />, path: '/test1' },
-    { text: 'Recruitment', icon: <GroupOutlinedIcon />, path: '/test2' },
+    { text: 'Dashboard', icon: <DashboardOutlinedIcon />, path: '/dashboard' },
+    { text: 'Recruitment', icon: <GroupOutlinedIcon />, path: '/recruitement' },
     { text: 'Team members', icon: <GroupOutlinedIcon />, path: '/team-members' },
     { text: 'Meetings', icon: <CalendarTodayOutlinedIcon />, path: '/meetings' },
     { text: 'Evaluation', icon: <AssessmentOutlinedIcon />, path: '/evaluation' },
