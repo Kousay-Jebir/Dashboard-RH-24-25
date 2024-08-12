@@ -6,6 +6,7 @@ import TopBar from './TopBar';
 import SideBar from './SideBar';
 import AppBreadCrumbs from './AppBreadCrumbs';
 import NavigationTabs from '../NavigationTabs';
+import { Schedule } from '@mui/icons-material';
 
 const drawerWidth = 340;
 
@@ -39,20 +40,22 @@ function AppLayout() {
   function getSubPaths(basePath) {
     // Find the key that matches the base path
     for (const key in routesConfig) {
-        const value = routesConfig[key];
-        
-        // Check if value is an object and has the 'root' path matching the basePath
-        if (typeof value === 'object' && value.root === basePath) {
-            // Return all sub-path keys except 'root', prefixed with '/'
-            return Object.keys(value)
-                .filter(subKey => subKey !== 'root')
-                .map(subKey => `/${subKey}`);
+      const value = routesConfig[key];
+  
+      // Check if value is an object and has the 'root' path matching the basePath
+      if (typeof value === 'object' && value.root === basePath) {
+        // Return all sub-paths from the 'tabs' object, prefixed with '/'
+        const tabs = value.tabs;
+        if (tabs) {
+          return Object.keys(tabs)
+            .map(subKey => `/${subKey}`);
         }
+      }
     }
-
+  
     // If no matching base path is found, return an empty array
     return [];
-}
+  }
 
   let tabs = getSubPaths(basePath)
   console.log(tabs)
@@ -77,9 +80,11 @@ function AppLayout() {
         {tabs.length > 0 && (
           <Box>
             <NavigationTabs basePath={basePath} tabs={tabs} />
+            {/* <Schedule schedule={}></Schedule> */}
           </Box>
         )}
-        <Divider sx={{ border: 1, borderColor: 'neutral.light', position: 'relative', top: '-1%', zIndex: '-100' }} />
+        {tabs.length > 0 && (
+        <Divider sx={{ border: 1, borderColor: 'neutral.light', position: 'relative', top: '-1%', zIndex: '-100' }} />)}
         <Outlet />
       </Box>
     </Box>
