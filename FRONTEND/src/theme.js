@@ -45,7 +45,7 @@ const theme = createTheme({
     light:300,
     regular: 400,
     medium: 500,
-    600: 600,
+    extraMeduim: 570,
     bold: 700,
   },
 });

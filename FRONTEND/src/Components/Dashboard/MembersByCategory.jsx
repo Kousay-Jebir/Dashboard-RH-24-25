@@ -1,8 +1,8 @@
 import React from "react";
-import { Box, CardContent, Typography } from "@mui/material";
-import { BarChart } from "@mui/x-charts/BarChart";
+import { Box, Stack, Typography } from "@mui/material";
 import { useTheme } from "@mui/material";
-import data from "./MembersData.json";
+
+import MembersByCategoryChart from "./Charts/membersByCategoryChart";
 
 const MembersByCategory = () => {
   const theme = useTheme();
@@ -10,43 +10,35 @@ const MembersByCategory = () => {
   return (
     <Box
       sx={{
-        maxWidth: 400,
+        maxWidth: 380,
         border: 2,
         borderRadius: 2,
         borderColor: theme.palette.neutral.light,
+        margin: 2,
+        padding: 2,
       }}
     >
-      <CardContent>
-        <BarChart
-          borderRadius={8}
-          xAxis={[
-            {
-              id: "barCategories",
-              data: data.poles.map((pole) => pole.label),
-              scaleType: "band",
-              categoryGapRatio: 0.4,
-              colorMap: {
-                type: "ordinal",
-                colors: [
-                  theme.palette.green.main,
-                  theme.palette.lightBlue.main,
-                  theme.palette.blue.main,
-                ],
-              },
-              
-            },
-          ]}
-          
-          series={[
-            {
-              data: data.poles.map((pole) => pole.value ),
-            },
-          ]}
-        
-          width={450}
-          height={275}
-        />
-      </CardContent>
+      <Typography
+        sx={{
+          fontSize: 17,
+          fontWeight: theme.typography.extraMeduim,
+          color: theme.palette.text.main,
+        }}
+      >
+        Members by category
+      </Typography>
+      <Typography
+        sx={{
+          fontSize: 14,
+          fontWeight: theme.typography.meduim,
+          color: theme.palette.text.light,
+          marginBlock: 0.3,
+        }}
+      >
+        Members are organized into 3 departments based on their personal
+        interests or field of expertise.
+      </Typography>
+      <MembersByCategoryChart />
     </Box>
   );
 };
