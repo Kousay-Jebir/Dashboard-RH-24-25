@@ -10,7 +10,7 @@ function App() {
     <>
     <CssBaseline></CssBaseline>
     <Routes>
-      <Route element={<AppLayout></AppLayout>}>
+      <Route element={<AppLayout></AppLayout>} path='/'>
         <Route path='test1' element={<div>Dashboard</div>}></Route>
         <Route path='test2' element={<div>test2</div>}></Route>
 
@@ -37,6 +37,7 @@ function App() {
     </Routes>
     </>
   )
+ 
 }
 
 export default App

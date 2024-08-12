@@ -9,7 +9,7 @@ const AppBreadCrumbs = () => {
   const pathnames = location.pathname.split('/').filter(x => x);
 
   return (
-    <Breadcrumbs aria-label="breadcrumb" sx={{ p: 2.5, borderBottom: 1 }}>
+    <Breadcrumbs>
       <Typography color="textSecondary">HR Management</Typography> {/* Static base path */}
       {pathnames.length > 0 ? (
         pathnames.map((value, index) => {
