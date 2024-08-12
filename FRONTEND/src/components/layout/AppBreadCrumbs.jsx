@@ -9,20 +9,20 @@ const AppBreadCrumbs = () => {
   const pathnames = location.pathname.split('/').filter(x => x);
 
   return (
-    <Breadcrumbs aria-label="breadcrumb" sx={{ p: 2.5, borderBottom: 1 }}>
-      <Typography color="textSecondary">HR Management</Typography> {/* Static base path */}
+    <Breadcrumbs>
+      <Typography color="textSecondary" fontSize={'small'}>HR Management</Typography> {/* Static base path */}
       {pathnames.length > 0 ? (
         pathnames.map((value, index) => {
           const last = index === pathnames.length - 1;
 
           return (
-            <Typography color={last ? 'textPrimary' : 'textSecondary'} key={index}>
+            <Typography fontSize={'small'} color={last ? 'textPrimary' : 'textSecondary'} key={index}>
               {value}
             </Typography>
           );
         })
       ) : (
-        <Typography color="textPrimary">HR Management</Typography> 
+        <Typography fontSize={'small'} color="textPrimary">HR Management</Typography> 
       )}
     </Breadcrumbs>
   );

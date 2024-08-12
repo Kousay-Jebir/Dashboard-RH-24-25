@@ -2,17 +2,16 @@ import { CssBaseline } from '@mui/material'
 import './App.css'
 import AppLayout from './components/layout/AppLayout'
 import { Route, Routes } from 'react-router-dom'
+import { RoutesProvider } from './router/context/RoutesContext'
 
 function App() {
  
 
   return (
-    <>
+    <RoutesProvider>
     <CssBaseline></CssBaseline>
     <Routes>
-      <Route element={<AppLayout></AppLayout>}>
-        <Route path='test1' element={<div>Dashboard</div>}></Route>
-        <Route path='test2' element={<div>test2</div>}></Route>
+      <Route element={<AppLayout></AppLayout>} path='/'>
 
         <Route path='dashboard'>
 
@@ -35,8 +34,9 @@ function App() {
 
       </Route>
     </Routes>
-    </>
+    </RoutesProvider>
   )
+ 
 }
 
 export default App

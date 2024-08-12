@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 
-export default function ScheduleInterview() {
+export default function ScheduleInterview({schedule}) {
     return (
         <Button
             variant='contained'
@@ -11,7 +11,7 @@ export default function ScheduleInterview() {
                 textTransform: 'none', // Ensures text is not in all caps
             }}
         >
-            Schedule Interview
+            {"Schedule "+ schedule}
         </Button>
     );
 }
