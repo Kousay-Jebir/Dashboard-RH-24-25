@@ -1,7 +1,9 @@
-import { CssBaseline } from '@mui/material'
-import { Route, Routes } from 'react-router-dom'
-import './App.css'
-import AppLayout from './components/layout/AppLayout'
+import PersonIcon from '@mui/icons-material/Person'; // Import the Person icon
+import { CssBaseline } from '@mui/material';
+import { Route, Routes } from 'react-router-dom';
+import './App.css';
+import AppLayout from './components/layout/AppLayout';
+import TicketKPI from './components/TicketKPI';
 
 function App() {
  
@@ -14,6 +16,19 @@ function App() {
       <Route element={<AppLayout></AppLayout>}>
         <Route path='test1' element={<div>Dashboard</div>}></Route>
         <Route path='test2' element={<div>test2</div>}></Route>
+        <Route
+            path='kpi'
+            element={
+              <div>
+                <TicketKPI
+                  title="Example"
+                  value="123"
+                  
+                  icon={<PersonIcon/>} 
+                />
+              </div>
+            }
+          />
         <Route path='dashboard'>
         </Route>
         <Route path='recruitement'>
