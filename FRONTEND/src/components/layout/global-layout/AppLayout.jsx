@@ -78,7 +78,7 @@ function AppLayout() {
           </Box>
         )}
         {tabs.length > 0 && (
-          <Divider sx={{ border: 1, borderColor: 'neutral.light', position: 'relative', top: '-1%', zIndex: '-100' }} />)}
+          <Divider sx={{ border: 1, borderColor: 'neutral.light', position: 'relative', top: '-0.4%', zIndex: '-100' }} />)}
         <Outlet />
       </Box>
     </Box>
