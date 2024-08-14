@@ -1,7 +1,7 @@
-import { CssBaseline, useTheme } from '@mui/material'
+import { CssBaseline } from '@mui/material'
+import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import AppLayout from './components/layout/AppLayout'
-import { Route, Routes } from 'react-router-dom'
 import { RoutesProvider } from './router/context/RoutesContext'
 
 import Dashoboard from './Pages/Dashboard/Dashoboard'
