@@ -3,7 +3,7 @@ import { AppBar, Toolbar, Typography, IconButton, TextField, InputAdornment } fr
 import MenuIcon from '@mui/icons-material/Menu';
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
 import SearchIcon from '@mui/icons-material/Search';
-import BorderBox from '../BorderBox';
+import BorderBox from '../../BorderBox';
 
 export default function TopBar({ handleDrawerToggle, drawerWidth }) {
   return (

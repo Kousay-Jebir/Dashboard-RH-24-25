@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { Box, CssBaseline, Divider, Toolbar } from '@mui/material';
 import { useLocation, Outlet } from 'react-router-dom';
-import { useRoutes } from '../../router/context/RoutesContext';
+import { useRoutes } from '../../../router/context/RoutesContext';
 import TopBar from './TopBar';
 import SideBar from './SideBar';
 import AppBreadCrumbs from './AppBreadCrumbs';
-import NavigationTabs from '../NavigationTabs';
+import NavigationTabs from '../../NavigationTabs';
 import { Schedule } from '@mui/icons-material';
 
 const drawerWidth = 305;
