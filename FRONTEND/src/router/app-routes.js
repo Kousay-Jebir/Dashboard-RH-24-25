@@ -1,6 +1,9 @@
 // routesConfig.js
+import SmsRoundedIcon from '@mui/icons-material/SmsRounded';
+import HelpRoundedIcon from '@mui/icons-material/HelpRounded';
 import MenuIcon from '@mui/icons-material/Menu';
-import ViewKanbanIcon from '@mui/icons-material/ViewKanban';
+import ViewKanbanRoundedIcon from '@mui/icons-material/ViewKanbanRounded';
+import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
 const routesConfig = {
     dashboard: '/dashboard',
     recruitment: {
@@ -14,13 +17,13 @@ const routesConfig = {
         interviews:[
           {
             title: 'Recent interviews',
-            icon: MenuIcon,
+            icon: SmsRoundedIcon,
             path: '/recruitement/interviews/recent',
             secondaryMenu: [] // No nested menu
           },
           {
             title: 'Questions',
-            icon: MenuIcon,
+            icon: HelpRoundedIcon,
             path: '/recruitement/interviews/questions',
             secondaryMenu: [] // No nested menu
           }
@@ -34,7 +37,7 @@ const routesConfig = {
           },
           {
             title: 'Kanban board',
-            icon: MenuIcon,
+            icon: ViewKanbanRoundedIcon,
             path: '/recruitement/schedule/board',
             secondaryMenu: [] // No nested menu
           }
@@ -53,13 +56,13 @@ const routesConfig = {
         meetings: [
           {
               title: 'Recent meetings',
-              icon: MenuIcon,
+              icon: SmsRoundedIcon,
               path: '/meetings/meetings/recent',
               secondaryMenu: [] // No nested menu
           },
           {
               title: 'Schedule',
-              icon: ViewKanbanIcon,
+              icon: CalendarMonthRoundedIcon,
               path: '/meetings/meetings/schedule',
               secondaryMenu: [
                   {
