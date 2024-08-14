@@ -19,8 +19,14 @@ function App() {
         </Route>
         <Route element={<MainContentLayout/>}>
           <Route path='recruitement'>
-              <Route path='interviews'></Route>
-              <Route path='schedule'></Route>
+              <Route path='interviews'>
+                <Route path='recent'/>
+                <Route path='questions'/>
+              </Route>
+              <Route path='schedule'>
+                <Route path='list'/>
+                <Route path='board'/>
+              </Route>
               <Route path='settings'></Route>
           </Route>
           <Route path='team-members'>
