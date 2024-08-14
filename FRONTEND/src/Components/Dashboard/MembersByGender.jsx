@@ -1,7 +1,7 @@
 import { Box, Grid , Typography } from "@mui/material";
 import { useTheme } from "@emotion/react";
 
-import MembersByGenderChart from "./Charts/membersByGenderChart";
+import MembersByGenderChart from "./Charts/MembersByGenderChart";
 
 export default function MembersByGender() {
   const theme = useTheme();

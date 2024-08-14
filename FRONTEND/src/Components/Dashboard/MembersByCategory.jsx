@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Stack, Typography } from "@mui/material";
 import { useTheme } from "@mui/material";
 
-import MembersByCategoryChart from "./Charts/membersByCategoryChart";
+import MembersByCategoryChart from "./Charts/MembersByCategoryChart";
 
 const MembersByCategory = () => {
   const theme = useTheme();
