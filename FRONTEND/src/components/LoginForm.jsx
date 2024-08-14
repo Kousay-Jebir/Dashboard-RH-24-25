@@ -15,14 +15,14 @@ const LoginForm = () => {
       sx={{
         width: 388,
         height: 710,
-        //position: 'absolute',
+        
         top: 107,
         left: 153,
         backgroundColor: theme.palette.background.paper,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        opacity: 1, // Ensure visibility
+        
       }}
     >
       <Box
@@ -33,7 +33,7 @@ const LoginForm = () => {
           flexDirection: 'column',
           alignItems: 'center',
           gap: '8px',
-          opacity: 1, // Ensure visibility
+          
         }}
       >
         <Typography
@@ -45,7 +45,7 @@ const LoginForm = () => {
             fontWeight: 500,
             lineHeight: '23.99px',
             textAlign: 'center',
-            opacity: 1, // Ensure visibility
+            
           }}
         >
           HR Dashboard
@@ -59,7 +59,7 @@ const LoginForm = () => {
             fontWeight: 400,
             lineHeight: '18.15px',
             textAlign: 'center',
-            opacity: 1, // Ensure visibility
+            
           }}
         >
           Junior Entreprise INSAT
@@ -82,7 +82,7 @@ const LoginForm = () => {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          opacity: 1, // Ensure visibility
+          
         }}
       >
         <Box
@@ -92,7 +92,7 @@ const LoginForm = () => {
             display: 'flex',
             flexDirection: 'column',
             gap: '6px',
-            opacity: 1, // Ensure visibility
+            
           }}
         >
           <Typography
@@ -104,7 +104,7 @@ const LoginForm = () => {
               fontWeight: 500,
               lineHeight: '23.99px',
               textAlign: 'center',
-              opacity: 1, // Ensure visibility
+              
             }}
           >
             Login to your account
@@ -130,7 +130,7 @@ const LoginForm = () => {
             display: 'flex',
             flexDirection: 'column',
             gap: '12px',
-            opacity: 1, // Ensure visibility
+            
           }}
         >
           <TextField
@@ -182,7 +182,7 @@ const LoginForm = () => {
             height: 35,
             padding: '10px 12px',
             borderRadius: '5px',
-            opacity: 1, // Ensure visibility
+            
           }}
         >
           Login
@@ -203,7 +203,7 @@ const LoginForm = () => {
           fontWeight: 400,
           lineHeight: '14.52px',
           textAlign: 'center',
-          opacity: 1, // Ensure visibility
+          
         }}
       >
         2024 © HR Management By Junior Entreprise INSAT
