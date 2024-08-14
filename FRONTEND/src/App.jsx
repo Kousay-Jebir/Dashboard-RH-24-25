@@ -1,10 +1,10 @@
-import { CssBaseline, useTheme } from '@mui/material'
+import { CssBaseline } from '@mui/material'
+import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import AppLayout from './components/layout/AppLayout'
-import { Route, Routes } from 'react-router-dom'
+import GeneralInformation from './Components/Recruitement/Questions/GeneralInformation'
 import { RoutesProvider } from './router/context/RoutesContext'
 
-import Dashoboard from './Pages/Dashboard/Dashoboard'
 function App() { 
 
   return (
@@ -12,12 +12,11 @@ function App() {
     <CssBaseline></CssBaseline>
     <Routes>
       <Route element={<AppLayout></AppLayout>} path='/'>
-
         <Route path='dashboard'>
 
         </Route>
         <Route path='recruitement'>
-            <Route path='interviews'></Route>
+            <Route path='interviews' element={<GeneralInformation></GeneralInformation>}></Route>
             <Route path='schedule'></Route>
             <Route path='settings'></Route>
         </Route>
