@@ -7,168 +7,204 @@ const LoginForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    //  form submission here
+    // Form submission logic here
   };
 
   return (
     <Box
       sx={{
-        width: 330,
+        width: 388,
         height: 710,
-        //padding: theme.spacing(3),
-       backgroundColor: theme.palette.background.paper,
-
+        //position: 'absolute',
+        top: 107,
+        left: 153,
+        backgroundColor: theme.palette.background.paper,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        //boxShadow:1 ,
-        
+        opacity: 1, // Ensure visibility
       }}
     >
-      <Typography
-        variant="h5"
-        component="h1"
-        sx={{
-          fontWeight: theme.typography.fontWeightBold,
-          marginBottom: theme.spacing(0),
-          //marginTop: theme.spacing(-3),
-
-        }}
-      >
-        HR Dashboard
-      </Typography>
-      <Typography
-        variant="body2"
-        component="h4"
-        sx={{
-          fontWeight: theme.typography.fontWeightLight,
-          marginBottom: theme.spacing(10),
-        }}
-      >
-        Junior Entreprise INSAT
-      </Typography>
       <Box
         sx={{
-          width: '330px',
-          height: '320px',
-          border: '0.1px solid Lightgrey',
-
-          
-
-          //padding: theme.spacing(1),
+          width: '155px',
+          height: '50px',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          backgroundColor: theme.palette.background.default,
-          top: '169px',
-          padding: '18px 0px 0px 0px',
-          gap: '40px',              // the gap between the elements
-          borderRadius: '10px', 
-        
+          gap: '8px',
+          opacity: 1, // Ensure visibility
         }}
-        
       >
         <Typography
           variant="h5"
-          component="h2"
+          component="h1"
           sx={{
-            fontWeight: theme.typography.fontWeightBold,
-            marginBottom: theme.spacing(-5),
-            marginTop: theme.spacing(-1)
+            fontFamily: 'Inter Display',
+            fontSize: '19.83px',
+            fontWeight: 500,
+            lineHeight: '23.99px',
+            textAlign: 'center',
+            opacity: 1, // Ensure visibility
           }}
         >
-          Login to your account
+          HR Dashboard
         </Typography>
         <Typography
+          variant="body2"
+          component="h4"
+          sx={{
+            fontFamily: 'Inter Display',
+            fontSize: '15px',
+            fontWeight: 400,
+            lineHeight: '18.15px',
+            textAlign: 'center',
+            opacity: 1, // Ensure visibility
+          }}
+        >
+          Junior Entreprise INSAT
+        </Typography>
+      </Box>
+
+      <Box
+        component="form"
+        onSubmit={handleSubmit}
+        sx={{
+          width: 388,
+          height: 327,
+          position: 'absolute',
+          top: 169,
+          padding: '18px 0px 0px 0px',
+          gap: '42px',
+          borderRadius: '5px 0px 0px 0px',
+          border: '1px solid Lightgrey',
+          backgroundColor: theme.palette.background.default,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          opacity: 1, // Ensure visibility
+        }}
+      >
+        <Box
+          sx={{
+            width: 352,
+            height: '48px',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '6px',
+            opacity: 1, // Ensure visibility
+          }}
+        >
+          <Typography
+            variant="h5"
+            component="h2"
+            sx={{
+              fontFamily: 'Inter Display',
+              fontSize: '19.83px',
+              fontWeight: 500,
+              lineHeight: '23.99px',
+              textAlign: 'center',
+              opacity: 1, // Ensure visibility
+            }}
+          >
+            Login to your account
+          </Typography>
+          <Typography
             variant="body2"
             sx={{
-                fontWeight: theme.typography.fontWeightLight,
-                //marginBottom: theme.spacing(1),
-                textAlign:'center',
-
-
+              fontFamily: 'Inter',
+              fontSize: '14px',
+              fontWeight: 400,
+              lineHeight: '16.94px',
+              textAlign: 'center',
             }}
+          >
+            Enter your login details to access the dashboard
+          </Typography>
+        </Box>
 
-            >
-        Enter your login details to access to the dashboard
-        </Typography>
-        <TextField
-          margin="none"
-          required
-          fullWidth
-          id="email"
-          label="Email Address"
-          name="email"
-          autoComplete="email"
-          autoFocus
-          placeholder="Example@gmail.com"
+        <Box
           sx={{
-            width: '320px',
-            height: '20px',
-            padding: '4px 8px',
-            //gap: '6px',
-            borderRadius: '5px 0px 0px 0px',
-            //marginBottom: theme.spacing(4),
-
-            
+            width: 352,
+            height: 124,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '12px',
+            opacity: 1, // Ensure visibility
           }}
-          
-        />
-        <TextField
-          margin="normal"
-          required
-          fullWidth
-          name="password"
-          label="Password"
-          type="password"
-          id="password"
-          autoComplete="current-password"
-          placeholder="*************"
-          sx={{
-            width: '320px',
-            height: '20px',
-           padding: '4px 8px',
-            //gap: '10px',
-            borderRadius: '5px 0px 0px 0px',
-            //marginBottom: theme.spacing(6),
-
-           
-          }}
-          
-    
-        />
-       <Button
-            type="submit"
-            
-            variant="contained"
-            color="primary"
+        >
+          <TextField
+            margin="none"
+            required
+            fullWidth
+            id="email"
+            name="email"
+            autoComplete="email"
+            autoFocus
+            placeholder="Example@gmail.com"
             sx={{
-                width: '305px',
-                height: '35px',
-                padding: '4px 8px',
-                gap: '10px',
-                borderRadius: '5px',
-                //marginTop:theme.spacing(1),
-                marginBottom: theme.spacing(4),
-
-            
+              height: '40px',
+              padding: '10px',
+              borderRadius: '5px',
+              '& .MuiInputBase-input': {
+                fontFamily: 'Inter',
+                fontSize: '14px',
+              },
             }}
-            >
-            Login
-        </Button>
+          />
+          <TextField
+            margin="none"
+            required
+            fullWidth
+            name="password"
+            type="password"
+            id="password"
+            autoComplete="current-password"
+            placeholder="*************"
+            sx={{
+              height: '40px',
+              padding: '10px',
+              borderRadius: '5px',
+              '& .MuiInputBase-input': {
+                fontFamily: 'Inter',
+                fontSize: '14px',
+              },
+            }}
+          />
+        </Box>
 
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          sx={{
+            width: 352,
+            height: 35,
+            padding: '10px 12px',
+            borderRadius: '5px',
+            opacity: 1, // Ensure visibility
+          }}
+        >
+          Login
+        </Button>
       </Box>
+
       <Typography
         variant="body2"
         color="textSecondary"
         textAlign="center"
-        sx={{ marginTop: theme.spacing(7),
-            
-
-            fontWeight: theme.typography.fontWeightLight,
-
-            
-         }}
+        sx={{
+          position: 'absolute',
+          bottom: '20px',
+          width: 302,
+          height: '15px',
+          fontFamily: 'Inter',
+          fontSize: '12px',
+          fontWeight: 400,
+          lineHeight: '14.52px',
+          textAlign: 'center',
+          opacity: 1, // Ensure visibility
+        }}
       >
         2024 © HR Management By Junior Entreprise INSAT
       </Typography>
