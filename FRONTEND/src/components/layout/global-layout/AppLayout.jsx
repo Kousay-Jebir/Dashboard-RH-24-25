@@ -35,8 +35,7 @@ function AppLayout() {
   // Determine the current route and get the corresponding tabs configuration
   const currentPath = location.pathname.split('/').slice(0, 3).join('/'); // Gets the base path like /recruitment
   console.log(currentPath)
-  const basePath = currentPath.split('/').slice(0, 2).join('/'); // Gets the base path like /recruitment
-  
+  const basePath = currentPath.split('/').slice(0, 2).join('/');
   function getSubPaths(basePath) {
     // Find the key that matches the base path
     for (const key in routesConfig) {

@@ -11,14 +11,35 @@ const routesConfig = {
       settings: '/recruitement/settings',
       },
       menu : {
-        interviews:{
-        recent : '/recruitement/interviews/recent',
-        questions : '/recruitement/interviews/questions',
-        },
-        schedule:{
-            list: '/recruitement/schedule/list',
-            kanbanBoard : '/recruitement/schedule/board'
-        }
+        interviews:[
+          {
+            title: 'Recent interviews',
+            icon: MenuIcon,
+            path: '/recruitement/interviews/recent',
+            secondaryMenu: [] // No nested menu
+          },
+          {
+            title: 'Questions',
+            icon: MenuIcon,
+            path: '/recruitement/interviews/questions',
+            secondaryMenu: [] // No nested menu
+          }
+        ],
+        schedule:[
+          {
+            title: 'List',
+            icon: MenuIcon,
+            path: '/recruitement/schedule/list',
+            secondaryMenu: [] // No nested menu
+          },
+          {
+            title: 'Kanban board',
+            icon: MenuIcon,
+            path: '/recruitement/schedule/board',
+            secondaryMenu: [] // No nested menu
+          }
+
+        ]
       }
     },
     teamMembers: '/team-members',
