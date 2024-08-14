@@ -26,7 +26,15 @@ function App() {
           <Route path='team-members'>
           </Route>
           <Route path='meetings'>
-            <Route path='meetings'></Route>
+            <Route path='meetings'>
+            <Route path='recent'/>
+            <Route path='schedule'>
+              <Route path='department'/>
+              <Route path='general-assembly'/>
+              <Route path='team-building'/>
+              <Route path='event'/>
+            </Route>
+            </Route>
             <Route path='settings'></Route>
           </Route>
           <Route path='evaluation'>

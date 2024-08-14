@@ -1,4 +1,6 @@
 // routesConfig.js
+import MenuIcon from '@mui/icons-material/Menu';
+import ViewKanbanIcon from '@mui/icons-material/ViewKanban';
 const routesConfig = {
     dashboard: '/dashboard',
     recruitment: {
@@ -27,14 +29,45 @@ const routesConfig = {
       settings: '/meetings/settings',
       },
       menu : {
-        meetings: {
-            recent:'/meetings/meetings/recent',
-            schedule:'/meetings/meetings/schedule'}
-      }
-
-    },
+        meetings: [
+          {
+              title: 'Recent meetings',
+              icon: MenuIcon,
+              path: '/meetings/meetings/recent',
+              secondaryMenu: [] // No nested menu
+          },
+          {
+              title: 'Schedule',
+              icon: ViewKanbanIcon,
+              path: '/meetings/meetings/schedule',
+              secondaryMenu: [
+                  {
+                      title: 'Department',
+                      path: '/meetings/meetings/schedule/department',
+                      secondaryMenu: [] // No nested menu
+                  },
+                  {
+                      title: 'General Assembly',
+                      path: '/meetings/meetings/schedule/general-assembly',
+                      secondaryMenu: [] // No nested menu
+                  },
+                  {
+                      title: 'Team Building',
+                      path: '/meetings/meetings/schedule/team-building',
+                      secondaryMenu: [] // No nested menu
+                  },
+                  {
+                      title: 'Event',
+                      path: '/meetings/meetings/schedule/event',
+                      secondaryMenu: [] // No nested menu
+                  }
+              ]
+          }
+      ]
+  },
     evaluation: '/evaluation',
-  };
+  }
+};
   
   export default routesConfig;
   
