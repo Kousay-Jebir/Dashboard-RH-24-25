@@ -24,9 +24,9 @@ export default function SideBar({
 
   const menuItems = [
     { text: 'Dashboard', icon: <DashboardOutlinedIcon />, path: '/dashboard' },
-    { text: 'Recruitement', icon: <GroupOutlinedIcon />, path: '/recruitement' },
+    { text: 'Recruitement', icon: <GroupOutlinedIcon />, path: '/recruitement/interviews' },
     { text: 'Team members', icon: <GroupOutlinedIcon />, path: '/team-members' },
-    { text: 'Meetings', icon: <CalendarTodayOutlinedIcon />, path: '/meetings' },
+    { text: 'Meetings', icon: <CalendarTodayOutlinedIcon />, path: '/meetings/meetings' },
     { text: 'Evaluation', icon: <AssessmentOutlinedIcon />, path: '/evaluation' },
   ];
 
