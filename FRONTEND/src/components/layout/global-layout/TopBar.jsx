@@ -44,7 +44,7 @@ export default function TopBar({ handleDrawerToggle, drawerWidth }) {
         />
 
         <BorderBox radius={2} styles={{ display: 'flex', padding: 1 }}>
-          <NotificationsOutlinedIcon color="neutral" />
+          <NotificationsOutlinedIcon sx={{color:'text.secondary'}} />
         </BorderBox>
       </Toolbar>
     </AppBar>
