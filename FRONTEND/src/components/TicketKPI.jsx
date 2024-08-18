@@ -14,10 +14,10 @@ const TicketKPI = ({
                 
               />
    *  */             
- // width = '254.75px', 
-  //height = '84px',    
-  //padding = '15px 16px', 
-  //gap = '20px',       
+ width = '254.75px', 
+  height = '84px',    
+  padding = '15px 16px', 
+  gap = '20px',       
   borderRadius = '5px', 
   border = '0.1px solid Lightgrey', 
   titleVariant = 'body1', 
@@ -30,9 +30,9 @@ const TicketKPI = ({
   return (
     <Box
       sx={{
-       // width: width,
-       // height: height,
-       // padding: padding,
+       width: width,
+       height: height,
+       padding: padding,
         borderRadius: borderRadius,
         border: border,
         display: 'flex', 

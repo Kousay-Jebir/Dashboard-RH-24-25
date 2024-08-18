@@ -1,6 +1,7 @@
 import { CssBaseline } from '@mui/material';
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import AllTicketsKPI from './Components/AllTicketsKPI';
 import AppLayout from './components/layout/AppLayout';
 
 function App() {
@@ -10,15 +11,16 @@ function App() {
     <>
     <CssBaseline></CssBaseline>
     <Routes>
-      
+      <Route path='/' element={<AllTicketsKPI></AllTicketsKPI>}></Route>
       <Route element={<AppLayout></AppLayout>}>
         <Route path='test1' element={<div>Dashboard</div>}></Route>
         <Route path='test2' element={<div>test2</div>}></Route>
         
+
         <Route path='dashboard'>
         </Route>
         <Route path='recruitement'>
-            <Route path='interviews'></Route>
+            <Route path='interviews' ></Route>
             <Route path='schedule'></Route>
             <Route path='settings'></Route>
         </Route>
