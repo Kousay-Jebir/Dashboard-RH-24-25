@@ -2,8 +2,8 @@ import { CssBaseline } from '@mui/material'
 import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import AppLayout from './components/layout/AppLayout'
+import AllQuestions from './Components/Recruitement/Questions/AllQuestions'
 import { RoutesProvider } from './router/context/RoutesContext'
-
 function App() { 
 
   return (
@@ -15,7 +15,7 @@ function App() {
 
         </Route>
         <Route path='recruitement'>
-            <Route path='interviews'/*element={<AllQuestions></AllQuestions>}*/></Route>
+            <Route path='interviews' element={<AllQuestions></AllQuestions>}></Route>
 
             <Route path='schedule'></Route>
             <Route path='settings'></Route>
