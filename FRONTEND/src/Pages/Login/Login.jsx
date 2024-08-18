@@ -1,6 +1,6 @@
 import { Grid, useTheme } from '@mui/material';
 import React from 'react';
-import loginBg from '../../assets/login_bg.png';
+//import loginBg from '../../assets/login_bg.png';
 import LoginForm from '../../components/LoginForm';
 
 const Login = () => {
@@ -32,7 +32,7 @@ const Login = () => {
                     flexDirection: 'column',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    backgroundImage: `url(${loginBg})`,
+                    //backgroundImage: `url(${loginBg})`,
                     backgroundRepeat: 'no-repeat',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
