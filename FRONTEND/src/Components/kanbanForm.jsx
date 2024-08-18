@@ -36,8 +36,8 @@ const KanbanForm=()=>{
             height:'260px',
             gap:'7px',
             border:'1px solid lightGrey',
-            padding:'5px 5px 5px 5px',
-            justifyContent:'center',
+            padding:'5px 5px',
+            
         
         }}>
 
