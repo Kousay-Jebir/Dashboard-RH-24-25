@@ -1,16 +1,17 @@
-import { CssBaseline, useTheme } from '@mui/material'
+import { CssBaseline } from '@mui/material'
+import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import AppLayout from './components/layout/AppLayout'
-import { Route, Routes } from 'react-router-dom'
 import { RoutesProvider } from './router/context/RoutesContext'
 
-import Dashoboard from './Pages/Dashboard/Dashoboard'
+import KanbanForm from './Components/kanbanForm'
 function App() { 
 
   return (
     <RoutesProvider>
     <CssBaseline></CssBaseline>
     <Routes>
+      <Route path='/' element={<KanbanForm></KanbanForm>}></Route>
       <Route element={<AppLayout></AppLayout>} path='/'>
 
         <Route path='dashboard'>
