@@ -1,32 +1,119 @@
-import EmailIcon from '@mui/icons-material/Email';
-import PersonIcon from '@mui/icons-material/Person';
-import PhoneIcon from '@mui/icons-material/Phone';
-
-import SchoolIcon from '@mui/icons-material/School';
-import { Box, FormControl, FormControlLabel, InputAdornment, MenuItem, Radio, RadioGroup, Select, TextField, Typography } from '@mui/material';
+import {
+  Email as EmailIcon,
+  Person as PersonIcon,
+  Phone as PhoneIcon,
+  School as SchoolIcon,
+} from '@mui/icons-material';
+import {
+  Box,
+  FormControl,
+  FormControlLabel,
+  InputAdornment,
+  MenuItem,
+  Radio,
+  RadioGroup,
+  Select,
+  TextField,
+  Typography,
+} from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import React from 'react';
 
-
 const GeneralInformation = () => {
+  const theme = useTheme();
+
+  const renderTextField = (label, width, placeholder, icon) => (
+    <Box sx={{ width: width, display: 'flex', flexDirection: 'column', gap: '8px' }}>
+      <Typography
+        variant="body2"
+        sx={{
+          fontFamily: theme.typography.fontFamily,
+          fontSize: '14px',
+          fontWeight: theme.typography.regular,
+          lineHeight: '16.94px',
+          textAlign: 'left',
+        }}
+      >
+        {label}
+      </Typography>
+      <TextField
+        placeholder={placeholder}
+        sx={{
+          height: '41px',
+          '& .MuiInputBase-root': { height: '100%' },
+          '& .MuiInputBase-input': { fontFamily: theme.typography.fontFamily, fontSize: '12px' },
+        }}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              {icon}
+            </InputAdornment>
+          ),
+        }}
+      />
+    </Box>
+  );
+  const CustomSelect = ({ label, placeholder, options, icon }) => (
+    <Box sx={{ width: '250px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+      <Typography
+        variant="body2"
+        sx={{
+          fontFamily: theme.typography.fontFamily,
+          fontSize: '14px',
+          fontWeight: theme.typography.regular,
+          lineHeight: '16.94px',
+          textAlign: 'left',
+        }}
+      >
+        {label}
+      </Typography>
+      <Select
+        displayEmpty
+        sx={{
+          height: '41px',
+          '& .MuiInputBase-root': { height: '100%' },
+          '& .MuiInputBase-input': { fontFamily: theme.typography.fontFamily, fontSize: '12px' },
+        }}
+        startAdornment={
+          <InputAdornment position="start">
+            {icon}
+          </InputAdornment>
+        }
+      >
+        <MenuItem value="" disabled>
+          {placeholder}
+        </MenuItem>
+        {options.map((option, index) => (
+          <MenuItem key={index} value={option.value}>
+            {option.label}
+          </MenuItem>
+        ))}
+      </Select>
+    </Box>
+  );
+  
+  
+  
+  
   return (
     <Box
       sx={{
         width: '827px',
-        height: '315px', //210 
+        height: '315px',
         padding: '10px',
         gap: '14px',
         display: 'flex',
         flexDirection: 'column',
         opacity: 1,
-        border: '1px solid var(--neutral-50, #E9EAEB)',
+        border: `1px solid ${theme.palette.neutral.light}`,
       }}
     >
-      <Typography 
-        variant="h6" 
+      <Typography
+        variant="h6"
         sx={{
-          fontFamily: 'Inter',
+          fontFamily: theme.typography.fontFamily,
           fontSize: '16px',
-          fontWeight: 500,
+          fontWeight: theme.typography.medium,
           lineHeight: '19.36px',
           textAlign: 'left',
         }}
@@ -34,235 +121,21 @@ const GeneralInformation = () => {
         General Information
       </Typography>
 
-      <Box
-        sx={{
-          width: '807px',
-          height: '72px',
-          padding: '8px 0px 0px 0px',
-          gap: '14px',
-          opacity: 1,
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-        }}
-      >
-        <Box
-          sx={{
-            width: '230px',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '8px',
-          }}
-        >
-          <Typography 
-            variant="body2" 
-            sx={{
-              fontFamily: 'Inter',
-              fontSize: '14px',
-              fontWeight: 400,
-              lineHeight: '16.94px',
-              textAlign: 'left',
-            }}
-          >
-            Name
-          </Typography>
-          <TextField
-            placeholder="Enter the candidate's name"
-            sx={{
-              height: '41px',
-              '& .MuiInputBase-root': {
-                height: '100%', 
-              },
-              '& .MuiInputBase-input': {
-                fontFamily: 'Inter',
-                fontSize: '12px',
-              },
-              '& .MuiFormLabel-root': {
-                fontFamily: 'Inter',
-                fontSize: '14px',
-                fontWeight: 400,
-                lineHeight: '16.94px',
-                textAlign: 'left',
-              },
-            }}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <PersonIcon />
-                </InputAdornment>
-              ),
-            }}
-          />
-        </Box>
-
-        <Box
-          sx={{
-            width: '250px',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '8px',
-          }}
-        >
-          <Typography 
-            variant="body2" 
-            sx={{
-              fontFamily: 'Inter',
-              fontSize: '14px',
-              fontWeight: 400,
-              lineHeight: '16.94px',
-              textAlign: 'left',
-            }}
-          >
-            Last name
-          </Typography>
-          <TextField
-            placeholder="Enter the candidate's last name"
-            variant="outlined"
-            sx={{
-              height: '41px',
-              '& .MuiInputBase-root': {
-                height: '100%', 
-              },
-              '& .MuiInputBase-input': {
-                fontFamily: 'Inter',
-                fontSize: '12px',
-              },
-              '& .MuiFormLabel-root': {
-                fontFamily: 'Inter',
-                fontSize: '14px',
-                fontWeight: 400,
-                textAlign: 'left',
-              },
-            }}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <PersonIcon />
-                </InputAdornment>
-              ),
-            }}
-          />
-        </Box>
-
-        <Box
-          sx={{
-            width: '290px',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '8px',
-          }}
-        >
-          <Typography 
-            variant="body2" 
-            sx={{
-              fontFamily: 'Inter',
-              fontSize: '14px',
-              fontWeight: 400,
-              lineHeight: '16.94px',
-              textAlign: 'left',
-            }}
-          >
-            Email Address
-          </Typography>
-          <TextField
-            placeholder="Enter the candidate's email address"
-            variant="outlined"
-            sx={{
-              height: '41px',
-              '& .MuiInputBase-root': {
-                height: '100%', 
-              },
-              '& .MuiInputBase-input': {
-                fontFamily: 'Inter',
-                fontSize: '12px',
-              },
-              '& .MuiFormLabel-root': {
-                fontFamily: 'Inter',
-                fontSize: '14px',
-                fontWeight: 400,
-                lineHeight: '16.94px',
-                textAlign: 'left',
-              },
-            }}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <EmailIcon />
-                </InputAdornment>
-              ),
-            }}
-          />
-        </Box>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: '14px' }}>
+        {renderTextField('Name',230, "Enter the candidate's name", <PersonIcon />)}
+        {renderTextField('Last name',250, "Enter the candidate's last name", <PersonIcon />)}
+        {renderTextField('Email Address',290, "Enter the candidate's email address", <EmailIcon />)}
       </Box>
 
-      <Box
-        sx={{
-          width: '807px',
-          height: '72px',
-          padding: '8px 0px 0px 0px',
-          gap: '14px',
-          opacity: 1,
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-        }}
-      >
-        <Box
-          sx={{
-            width: '220px',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '8px',
-          }}
-        >
-          <Typography 
-            variant="body2" 
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: '14px' }}>
+        {renderTextField('Phone number', 230 ,'+216', <PhoneIcon />)}
+        <FormControl component="fieldset" sx={{ width: '560px', gap: '5px' }}>
+          <Typography
+            variant="subtitle1"
             sx={{
-              fontFamily: 'Inter',
+              fontFamily: theme.typography.fontFamily,
               fontSize: '14px',
-              fontWeight: 400,
-              lineHeight: '16.94px',
-              textAlign: 'left',
-            }}
-          >
-            Phone number
-          </Typography>
-          <TextField
-            placeholder="+216"
-            sx={{
-              height: '41px',
-              '& .MuiInputBase-root': {
-                height: '100%', 
-              },
-              '& .MuiInputBase-input': {
-                fontFamily: 'Inter',
-                fontSize: '12px',
-              },
-              '& .MuiFormLabel-root': {
-                fontFamily: 'Inter',
-                fontSize: '14px',
-                fontWeight: 400,
-                lineHeight: '16.94px',
-                textAlign: 'left',
-              },
-            }}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <PhoneIcon />
-                </InputAdornment>
-              ),
-            }}
-          />
-        </Box>
-
-        <FormControl component="fieldset" sx={{ width: '560px', height: '56px', gap: '5px', opacity: 1 }}>
-          <Typography 
-            variant="subtitle1" 
-            sx={{
-              fontFamily: 'Inter',
-              fontSize: '14px',
-              fontWeight: 400,
+              fontWeight: theme.typography.regular,
               lineHeight: '16.94px',
               textAlign: 'left',
             }}
@@ -275,209 +148,60 @@ const GeneralInformation = () => {
             defaultValue="projects"
             sx={{ display: 'flex', flexDirection: 'row', gap: '8px' }}
           >
-            <FormControlLabel
-              value="projects"
-              control={
-                <Radio
-                  sx={{
-                    '&.Mui-checked': {
-                      color: '#3559E9', 
-                    },
-                  }}
-                />
-              }
-              label={
-                <Typography
-                  sx={{
-                    fontFamily: 'Inter',
-                    fontSize: '12px',
-                    fontWeight: 400,
-                    lineHeight: '14.52px',
-                    textAlign: 'center',
-                  }}
-                >
-                  Projects
-                </Typography>
-              }
-            />
-            <FormControlLabel
-              value="development_commercial"
-              control={<Radio />}
-              label={
-                <Typography
-                  sx={{
-                    fontFamily: 'Inter',
-                    fontSize: '12px',
-                    fontWeight: 400,
-                    lineHeight: '14.52px',
-                    textAlign: 'center',
-                  }}
-                >
-                  Development Commercial
-                </Typography>
-              }
-            />
-            <FormControlLabel
-              value="cellule_qualite"
-              control={<Radio />}
-              label={
-                <Typography
-                  sx={{
-                    fontFamily: 'Inter',
-                    fontSize: '12px',
-                    fontWeight: 400,
-                    lineHeight: '14.52px',
-                    textAlign: 'center',
-                  }}
-                >
-                  Cellule Qualité
-                </Typography>
-              }
-            />
-            <FormControlLabel
-              value="marketing"
-              control={<Radio />}
-              label={
-                <Typography
-                  sx={{
-                    fontFamily: 'Inter',
-                    fontSize: '12px',
-                    fontWeight: 400,
-                    lineHeight: '14.52px',
-                    textAlign: 'center',
-                  }}
-                >
-                  Marketing
-                </Typography>
-              }
-            />
+            {['Projects', 'Development Commercial', 'Cellule Qualité', 'Marketing'].map((dept) => (
+              <FormControlLabel
+                key={dept}
+                value={dept.toLowerCase().replace(' ', '_')}
+                control={<Radio sx={{ '&.Mui-checked': { color: '#3559E9' } }} />}
+                label={
+                  <Typography
+                    sx={{
+                      fontFamily: theme.typography.fontFamily,
+                      fontSize: '12px',
+                      fontWeight: theme.typography.regular,
+                      lineHeight: '14.52px',
+                      textAlign: 'center',
+                    }}
+                  >
+                    {dept}
+                  </Typography>
+                }
+              />
+            ))}
           </RadioGroup>
         </FormControl>
       </Box>
 
-      <Box
-        sx={{
-          width: '807px',
-          height: '72px',
-          padding: '8px 0px 0px 0px',
-          gap: '14px',
-          opacity: 1,
-          display: 'flex',
-          flexDirection: 'row',
-          //justifyContent: 'space-between',
-        }}
-      >
-      <Box
-        sx={{
-          width: '230px',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '8px',
-        }}
-      >
-        <Typography 
-          variant="body2" 
-          sx={{
-            fontFamily: 'Inter',
-            fontSize: '14px',
-            fontWeight: 400,
-            lineHeight: '16.94px',
-            textAlign: 'left',
-          }}
-        >
-          Field
-        </Typography>
-        <Select
-          displayEmpty
-          placeholder="Select the candidate's field"
-          sx={{
-            height: '41px',
-          
-           
-            '& .MuiInputBase-root': {
-              height: '100%',
-            },
-            '& .MuiInputBase-input': {
-              fontFamily: 'Inter',
-              fontSize: '12px',
-            },
-          }}
-          startAdornment={
-            <InputAdornment position="start">
+      <Box sx={{ display: 'flex', gap: '14px' }}>
+    <CustomSelect
+      label="Field"
+      placeholder="Select the candidate's field"
+      options={[
+        { value: 'MPI', label: 'MPI' },
+        { value: 'CBA', label: 'CBA' },
+        { value: 'RT', label: 'RT' },
+        { value: 'IIA', label: 'IIA' },
+        { value: 'GL', label: 'GL' },
+        { value: 'IMI', label: 'IMI' },
+        { value: 'CH', label: 'CH' },
+        { value: 'BIO', label: 'BIO' },
 
-              <SchoolIcon />
-              
-
-            </InputAdornment>
-          }
-        >
-          <MenuItem value="" disabled>
-            Select the candidate's field
-          </MenuItem>
-          <MenuItem value="">MPI</MenuItem>
-          <MenuItem value="">CBA</MenuItem>
-          <MenuItem value="">GL</MenuItem>
-          <MenuItem value="">RT</MenuItem>
-          <MenuItem value="">IIA</MenuItem>
-          <MenuItem value="">IMI</MenuItem>
-          <MenuItem value="">CH</MenuItem>
-          <MenuItem value="">BIO</MenuItem>
-
-
-
-
-        </Select>
-      </Box>
-
-      <Box
-        sx={{
-          width: '250px',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '8px',
-        }}
-      >
-        <Typography 
-          variant="body2" 
-          sx={{
-            fontFamily: 'Inter',
-            fontSize: '14px',
-            fontWeight: 400,
-            lineHeight: '16.94px',
-            textAlign: 'left',
-          }}
-        >
-          Academic year
-        </Typography>
-        <Select
-          //displayEmpty
-          //placeholder="Select the candidate's year"
-          sx={{
-            height: '41px',
-            '& .MuiInputBase-root': {
-              height: '100%',
-            },
-            '& .MuiInputBase-input': {
-              fontFamily: 'Inter',
-              fontSize: '12px',
-            },
-          }}
-          startAdornment={
-            <InputAdornment position="start">
-              <SchoolIcon />
-            </InputAdornment>
-          }
-        >
-          <MenuItem value="" disabled>
-            Select the candidate's academic year
-          </MenuItem>
-          <MenuItem value="2021">1st year</MenuItem>
-          <MenuItem value="2022">2nd year</MenuItem>
-          <MenuItem value="2023">3rd year</MenuItem>
-          <MenuItem value="2024">4th year</MenuItem>
-        </Select>
-      </Box>
-      </Box>
+        
+      ]}
+      icon={<SchoolIcon />}
+    />
+    <CustomSelect
+      label="Academic year"
+      placeholder="Select the candidate's academic year"
+      options={[
+        { value: 1, label: '1st year' },
+        { value: 2, label: '2nd year' },
+        { value: 3, label: '3rd year' },
+        { value: 4, label: '4th year' },
+      ]}
+      icon={<SchoolIcon />}
+    />
+  </Box>
     </Box>
   );
 };
