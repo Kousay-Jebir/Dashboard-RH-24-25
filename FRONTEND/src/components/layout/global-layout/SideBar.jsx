@@ -1,13 +1,17 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
+import { List, ListItem, ListItemIcon, ListItemText,Box } from '@mui/material';
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined';
 import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
 import AssessmentOutlinedIcon from '@mui/icons-material/AssessmentOutlined';
 import { Toolbar, Avatar, Typography, Divider } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
+
+// Function to check if the current path is a nested route of the item path
+const isActivePath = (currentPath, itemPath) => {
+  return currentPath === itemPath || currentPath.startsWith(itemPath + '/');
+};
 
 export default function SideBar({
   drawerWidth,
@@ -20,9 +24,9 @@ export default function SideBar({
 
   const menuItems = [
     { text: 'Dashboard', icon: <DashboardOutlinedIcon />, path: '/dashboard' },
-    { text: 'Recruitement', icon: <GroupOutlinedIcon />, path: '/recruitement' },
+    { text: 'Recruitement', icon: <GroupOutlinedIcon />, path: '/recruitement/interviews' },
     { text: 'Team members', icon: <GroupOutlinedIcon />, path: '/team-members' },
-    { text: 'Meetings', icon: <CalendarTodayOutlinedIcon />, path: '/meetings' },
+    { text: 'Meetings', icon: <CalendarTodayOutlinedIcon />, path: '/meetings/meetings' },
     { text: 'Evaluation', icon: <AssessmentOutlinedIcon />, path: '/evaluation' },
   ];
 
@@ -44,7 +48,7 @@ export default function SideBar({
               key={item.text}
               onClick={() => navigate(item.path)}
               sx={{
-                backgroundColor: location.pathname === item.path ? 'neutral.light' : 'transparent',
+                backgroundColor: isActivePath(location.pathname, item.path) ? 'neutral.light' : 'transparent',
                 '&:hover': {
                   backgroundColor: 'neutral.light',
                 },
@@ -54,8 +58,15 @@ export default function SideBar({
                 marginBottom: 1
               }}
             >
-              <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.text} />
+              <ListItemIcon>
+                {React.cloneElement(item.icon, {
+                  color: isActivePath(location.pathname, item.path) ? 'neutral' : 'neutral.light'
+                })}
+              </ListItemIcon>
+              <ListItemText
+                primary={item.text}
+                sx={{ color: isActivePath(location.pathname, item.path) ? 'neutral' : 'text.secondary' }}
+              />
             </ListItem>
           ))}
         </List>
