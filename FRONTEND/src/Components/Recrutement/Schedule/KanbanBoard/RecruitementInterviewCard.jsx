@@ -2,19 +2,24 @@ import React from "react";
 import { Box, Grid, Typography, useTheme } from "@mui/material";
 import ForumRoundedIcon from "@mui/icons-material/ForumRounded";
 
-const RecruitementInterviewCard = () => {
-
+const RecruitementInterviewCard = ({ interview }) => {
   const theme = useTheme();
+
+  const departmentColors = {
+    'Dév. Commercial': theme.palette.lightBlue.main,
+    'Projet': theme.palette.blue.main,
+    'Marketing': theme.palette.green.main,
+  };
 
   return (
     <Box
-      mt={10}
       border={1}
       borderRadius={2}
       borderColor={theme.palette.neutral.light}
       p={1}
       width={240}
       position="relative" 
+      mb={2} 
     >
       <Grid container gap={0.5} alignItems="center">
         <Grid>
@@ -28,19 +33,23 @@ const RecruitementInterviewCard = () => {
         </Grid>
         <Grid>
           <Typography fontSize={11} color={theme.palette.neutral.normal}>
-            Recruitement interview
+            Recruitment interview
           </Typography>
         </Grid>
       </Grid>
-      <Typography fontSize={13} fontWeight={500}>
-        Inteview with Ben Marzouk Wahib
+      <Typography fontSize={13} fontWeight={500} mb={1}>
+        Interview with {interview.Interviewee}
       </Typography>
-      <Typography fontSize={11}>08/10/2024 - 9:00 AM - 9:45 AM</Typography>
-      <Box>
-        <Typography fontSize={11} color={theme.palette.neutral.normal}>
-          Will be interviewed by
+      <Typography fontSize={11} mb={1}>
+        {interview.Date} - {interview.Time}
+      </Typography>
+      <Box mb={1}>
+      <Typography fontSize={11}>
+          <span style={{ color: theme.palette.neutral.normal }}>
+            Will be interviewed by
+          </span>{" "}
+          {interview.Interviewer}
         </Typography>
-        <Typography fontSize={11}>Youssef Dhieb</Typography>
       </Box>
       <Box
         textAlign="left"
@@ -53,10 +62,10 @@ const RecruitementInterviewCard = () => {
           border={1}
           borderRadius={2}
           color={theme.palette.white.main}
-          bgcolor={theme.palette.purple.main}
+          bgcolor={departmentColors[interview.Department] || theme.palette.grey[300]}
           p={0.6} 
         >
-          <Typography fontSize={10}>Marketing</Typography>
+          <Typography fontSize={10}>{interview.Department}</Typography>
         </Box>
       </Box>
     </Box>
