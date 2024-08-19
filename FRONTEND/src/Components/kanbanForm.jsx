@@ -36,7 +36,9 @@ const KanbanForm=()=>{
             height:'260px',
             gap:'7px',
             border:'1px solid lightGrey',
-            padding:'5px 5px',
+            
+            paddingLeft: '10px',
+            paddingTop:'10px'
             
         
         }}>
@@ -74,54 +76,72 @@ const KanbanForm=()=>{
 
             </Box>
 
-            <Box sx={{
-                width:'216px',
-                height:'102px',
-                gap:'6px'
-            }}>
+            <Box
+              sx={{
+                width: '216px',
+                height: '102px',
+                gap: '8px',
+                //paddingLeft:'10px',
+                paddingTop:'10px'
 
-        <FormControl component="fieldset" /*sx={{gap: '5px' }}*/>
-          <Typography
-            variant="subtitle1"
-            sx={{
-              fontFamily: theme.typography.fontFamily,
-              fontSize: '10px',
-              fontWeight: theme.typography.regular,
-              lineHeight: '12.1px',
-              textAlign: 'left',
-            }}
-          >
-            Choose department
-          </Typography>
-          <RadioGroup
-            aria-label="department"
-            name="department"
-            defaultValue="projects"
-            sx={{ display: 'flex',flexDirection: 'row', gap: '0px' }}
-          >
-            {[ 'Development Commercial','Projects', 'Marketing', 'Cellule Qualité'].map((dept) => (
-              <FormControlLabel
-                key={dept}
-                value={dept.toLowerCase().replace(' ', '_')}
-                control={<Radio sx={{fontSize:'7px',  color: theme.palette.primary }} />}
-                label={
-                  <Typography
-                    sx={{
-                      fontFamily: theme.typography.fontFamily,
-                      fontSize: '10px',
-                      fontWeight: theme.typography.regular,
-                      lineHeight: '12.1px',
-                      textAlign: 'left',
-                    }}
-                  >
-                    {dept}
-                  </Typography>
-                }
+              }}
+            >
+  <FormControl component="fieldset">
+    <Typography
+      variant="subtitle1"
+      sx={{
+        fontFamily: theme.typography.fontFamily,
+        fontSize: '10px',
+        fontWeight: theme.typography.regular,
+        lineHeight: '12.1px',
+        textAlign: 'left',
+      }}
+    >
+      Choose department
+    </Typography>
+    <RadioGroup
+      aria-label="department"
+      name="department"
+      defaultValue="projects"
+      sx={{ display: 'flex', flexDirection: 'row', gap: '10px' ,marginLeft:'10px',marginTop:'5px'}}
+      onChange={(event) => console.log(event.target.value)} // Logs the value of the clicked button
+
+    >
+      {['Development Commercial', 'Projects', 'Marketing', 'Cellule Qualité'].map(
+        (dept) => (
+          <FormControlLabel
+            key={dept}
+            value={dept.toLowerCase().replace(' ', '_')}
+            control={
+              <Radio
+                sx={{
+                  width: '12px',
+                  height: '12px',
+                  marginRight:'4px'
+                  
+                }}
               />
-            ))}
-          </RadioGroup>
-        </FormControl>
-            </Box>
+            }
+            label={
+              <Typography
+                sx={{
+                  fontFamily: theme.typography.fontFamily,
+                  fontSize: '10px',
+                  fontWeight: theme.typography.regular,
+                  lineHeight: '12.1px',
+                  textAlign: 'left',
+                  gap:'5px'
+                }}
+              >
+                {dept}
+              </Typography>
+            }
+          />
+        )
+      )}
+    </RadioGroup>
+  </FormControl>
+</Box>
 
             <Box>
             <Button
