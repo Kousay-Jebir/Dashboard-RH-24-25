@@ -1,7 +1,6 @@
 import React from "react";
 import { Box, Grid, Typography, useTheme } from "@mui/material";
 import ForumRoundedIcon from "@mui/icons-material/ForumRounded";
-import Cellule from "./Cellule";
 
 const ScheduleCard = () => {
   const theme = useTheme();
