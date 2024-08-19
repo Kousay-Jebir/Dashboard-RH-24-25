@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
 
-import data from "./InterviewsData.json"; // Importing the JSON data
+import data from "./InterviewsData.json"; 
 
 const DataTable = () => {
   const theme = useTheme();
