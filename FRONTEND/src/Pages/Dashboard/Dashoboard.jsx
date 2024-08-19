@@ -1,11 +1,15 @@
 import React from "react";
-import { Box, Grid, useTheme } from "@mui/material";
+import { Box, Grid, Typography, useTheme } from "@mui/material";
 
 import MembersByCategory from "../../Components/Dashboard/MembersByCategory";
 import MembersByGender from "../../Components/Dashboard/MembersByGender";
+import WeekView from "../../Components/Dashboard/WeekView";
+import ScheduleCard from "../../Components/Dashboard/Schedule section/ScheduleCard";
 
 const Dashoboard = () => {
-
+  const handleDateChange = (newDate) => {
+    console.log("Selected Date:", newDate);
+  };
   const theme = useTheme();
   return (
     <Box
@@ -19,10 +23,14 @@ const Dashoboard = () => {
       }}
     >
       <Grid container spacing={0.5}>
-        <Grid item >
+        <Grid item>
+          <WeekView />
+          <ScheduleCard />
+        </Grid>
+        <Grid item>
           <MembersByCategory />
         </Grid>
-        <Grid item >
+        <Grid item>
           <MembersByGender />
         </Grid>
       </Grid>
