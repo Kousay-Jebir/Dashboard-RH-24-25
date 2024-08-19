@@ -1,41 +1,56 @@
 import { CssBaseline } from '@mui/material'
-import { Route, Routes } from 'react-router-dom'
 import './App.css'
-import AppLayout from './components/layout/AppLayout'
-import AllQuestions from './Components/Recruitement/Questions/AllQuestions'
-import { RoutesProvider } from './router/context/RoutesContext'
-function App() { 
 
+import AppLayout from './components/layout/global-layout/AppLayout';
+import { Route, Routes } from 'react-router-dom'
+import { RoutesProvider } from './router/context/RoutesContext'
+
+import MainContentLayout from './components/layout/main-content-layout/MainContentLayout';
+import Dashoboard from './Pages/Dashboard/Dashoboard'
+import Interviews from './Pages/Recrutement/Interviews'
+import KanbanBoard from './Components/Recrutement/Schedule/KanbanBoard'
+
+function App() { 
   return (
     <RoutesProvider>
-    <CssBaseline></CssBaseline>
-    <Routes>
-      <Route element={<AppLayout></AppLayout>} path='/'>
-        <Route path='dashboard'>
+      <CssBaseline />
+      <Routes>
+        <Route path="/" element={<AppLayout />}>
+          <Route path="dashboard" element={<Dashoboard />} />
 
-        </Route>
-        <Route path='recruitement'>
-            <Route path='interviews' element={<AllQuestions></AllQuestions>}></Route>
+          <Route element={<MainContentLayout />}>
+            <Route path="recruitement" >
+              <Route path="interviews" element={<Interviews/>}>
+                <Route path="recent" />
+                <Route path="questions" />
+              </Route>
+              <Route path="schedule">
+                <Route path="list" />
+                <Route path="board" element={<KanbanBoard/>} />
+              </Route>
+              <Route path="settings" />
+            </Route>
 
-            <Route path='schedule'></Route>
-            <Route path='settings'></Route>
-        </Route>
-        <Route path='team-members'>
+            <Route path="team-members" />
 
+            <Route path="meetings">
+              <Route path="meetings">
+                <Route path="recent" />
+                <Route path="schedule">
+                  <Route path="department" />
+                  <Route path="general-assembly" />
+                  <Route path="team-building" />
+                  <Route path="event" />
+                </Route>
+              </Route>
+              <Route path="settings" />
+            </Route>
+            <Route path="evaluation" />
+          </Route>
         </Route>
-        <Route path='meetings'>
-          <Route path='meetings'></Route>
-          <Route path='settings'></Route>
-        </Route>
-        <Route path='evaluation'>
-
-        </Route>
-
-      </Route>
-    </Routes>
+      </Routes>
     </RoutesProvider>
-  )
- 
+  );
 }
 
 export default App
