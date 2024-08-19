@@ -12,7 +12,6 @@ export default function Interviews(){
             padding: 2,
           }}>
             <InterviewsDataGrid/>
-            <Typography>Hello!</Typography>
         </Box>
     )
 }

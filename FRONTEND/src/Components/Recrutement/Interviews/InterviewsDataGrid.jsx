@@ -1,74 +1,79 @@
-import * as React from "react";
-import { Box } from "@mui/material";
-import { DataGrid } from '@mui/x-data-grid';
-const rows = [
-  {
-    id: 1,
-    name: "Snow Jon",
-    pole: "Dév. Commercial",
-    date: "20/10/2024",
-    durée: 13,
-    recruteur: "Amine Hamdi",
-    score: 75,
-  },
-  {
-    id: 2,
-    name: "Ben Marzouk Wahib",
-    pole: "Marketing",
-    date: "08/10/2024",
-    durée: 20,
-    recruteur: "Youssef Dhieb",
-    score: 99,
-  },
-  {
-    id: 3,
-    name: "Abid Aymen",
-    pole: "Dév. Commercial",
-    date: "03/10/2024",
-    durée: 19,
-    recruteur: "Amine Hamdi",
-    score: 60,
-  },
-  {
-    id: 4,
-    name: "Khemiri Sahar",
-    pole: "Projet",
-    date: "18/10/2024",
-    durée: 5,
-    recruteur: "Amine Hamdi",
-    score: 86,
-  },
-];
+import React from "react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Typography,
+  IconButton,
+  useTheme,
+} from "@mui/material";
+import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
 
-const getFullName = (value, row) => {
-  return `${row.firstName || ""} ${row.lastName || ""}`;
+import data from "./InterviewsData.json"; // Importing the JSON data
+
+const DataTable = () => {
+  const theme = useTheme();
+
+  return (
+    <TableContainer component={Paper} sx={{ width: 850 , padding: 1
+     }}>
+      <Table size="small">
+        <TableHead>
+          <TableRow>
+            <TableCell sx={{ borderBottom: "none" , color: theme.palette.neutral.normal }} >Name</TableCell>
+            <TableCell sx={{ borderBottom: "none" , color: theme.palette.neutral.normal }} >Department</TableCell>
+            <TableCell sx={{ borderBottom: "none" , color: theme.palette.neutral.normal }} >Date</TableCell>
+            <TableCell sx={{ borderBottom: "none" , color: theme.palette.neutral.normal }} >Duration</TableCell>
+            <TableCell sx={{ borderBottom: "none" , color: theme.palette.neutral.normal }} >Recruiter</TableCell>
+            <TableCell sx={{ borderBottom: "none" , color: theme.palette.neutral.normal }} >Grade</TableCell>
+            <TableCell sx={{ borderBottom: "none" , color: theme.palette.neutral.normal }} ></TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {data.map((row, index) => (
+            <TableRow
+              key={index}
+              sx={{ "&:last-child td, &:last-child th": { border: "none" } }}
+            >
+              <TableCell sx={{ borderBottom: "none" }} >{row.name}</TableCell>
+              <TableCell sx={{ borderBottom: "none" }} >
+                <Typography
+                  sx={{
+                    backgroundColor:
+                      row.department === "Dév. Commercial"
+                        ? theme.palette.lightBlue.main
+                        : row.department === "Projet"
+                        ? theme.palette.blue.main
+                        : theme.palette.green.main,
+                    color: theme.palette.common.white,
+                    display: "inline-block",
+                    borderRadius: "12px",
+                    padding: "2px 8px",
+                    fontSize: "0.875rem",
+                  }}
+                >
+                  {row.department}
+                </Typography>
+              </TableCell>
+              <TableCell sx={{ borderBottom: "none" }} >{row.date}</TableCell>
+              <TableCell sx={{ borderBottom: "none" }} >{row.duration}</TableCell>
+              <TableCell sx={{ borderBottom: "none" }} >{row.recruiter}</TableCell>
+              <TableCell sx={{ borderBottom: "none" }} >{row.grade}/100</TableCell>
+              <TableCell sx={{ borderBottom: "none" }} >
+                <IconButton size="small">
+                  <ArrowForwardIosRoundedIcon sx={{ fontSize: "1rem" }} />
+                </IconButton>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
 };
 
-const columns = [
-  { field: "name", headerName: "Name", width: 160 },
-  { field: "pole", headerName: "Pôle", width: 160 },
-  {
-    field: "date",
-    headerName: "Date",
-    width: 130,
-    //valueGetter: getFullName,
-  },
-  { field: "durée", headerName: "Durée", width: 130 },
-  { field: "recruteur", headerName: "Recruteur", width: 130 },
-  { field: "score", headerName: "Score", width: 130 },
-  //{
-  //   ...GRID_DETAIL_PANEL_TOGGLE_COL_DEF,
-  //   renderCell: (params) => (
-  //     <CustomDetailPanelToggle id={params.id} value={params.value} />
-  //   ),
-  // },
-];
-
-export default function InterviewsDataGrid() {
-  console.log("Hi!");
-  return (
-    <Box sx={{ height: 400, width: "100%" }}>
-      <DataGrid rows={rows} columns={columns} />
-    </Box>
-  );
-}
+export default DataTable;
