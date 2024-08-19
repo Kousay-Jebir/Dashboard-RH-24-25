@@ -24,16 +24,20 @@ const Dashoboard = () => {
         padding: 2,
       }}
     >
-      <Grid container spacing={0.5}>
+      <Grid container spacing={2}>
+
         <Grid item xs={4} >
           <MembersByCategory />
         </Grid>
+
         <Grid item xs={4} > 
           <MembersByGender />
         </Grid>
+
         <Grid item xs={4} >
           <Schedule />
         </Grid>
+
       </Grid>
     </Box>
   );

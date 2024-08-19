@@ -103,7 +103,7 @@ const WeekView = () => {
             sx={{
               backgroundColor: theme.palette.white.main,
               border: 2,
-              borderRadius: "4px",
+              borderRadius: 1,
               borderColor: theme.palette.neutral.light,
               width: 20,
               height: 20,
@@ -134,7 +134,7 @@ const WeekView = () => {
             sx={{
               backgroundColor: theme.palette.white.main,
               border: 2,
-              borderRadius: "4px",
+              borderRadius: 1,
               borderColor: theme.palette.neutral.light,
               width: 20,
               height: 20,
