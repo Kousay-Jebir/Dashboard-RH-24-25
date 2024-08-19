@@ -1,12 +1,11 @@
 import * as React from 'react';
 import { Box, CssBaseline, Divider, Toolbar } from '@mui/material';
 import { useLocation, Outlet } from 'react-router-dom';
-import { useRoutes } from '../../router/context/RoutesContext';
+import { useRoutes } from '../../../router/context/RoutesContext';
 import TopBar from './TopBar';
 import SideBar from './SideBar';
 import AppBreadCrumbs from './AppBreadCrumbs';
-import NavigationTabs from '../NavigationTabs';
-import { Schedule } from '@mui/icons-material';
+import NavigationTabs from '../../NavigationTabs';
 
 const drawerWidth = 305;
 
@@ -34,9 +33,8 @@ function AppLayout() {
 
   // Determine the current route and get the corresponding tabs configuration
   const currentPath = location.pathname.split('/').slice(0, 3).join('/'); // Gets the base path like /recruitment
-  console.log(currentPath)
-  const basePath = currentPath.split('/').slice(0, 2).join('/'); // Gets the base path like /recruitment
-  
+  const basePath = currentPath.split('/').slice(0, 2).join('/');
+
   function getSubPaths(basePath) {
     // Find the key that matches the base path
     for (const key in routesConfig) {
@@ -47,8 +45,7 @@ function AppLayout() {
         // Return all sub-paths from the 'tabs' object, prefixed with '/'
         const tabs = value.tabs;
         if (tabs) {
-          return Object.keys(tabs)
-            .map(subKey => `/${subKey}`);
+          return Object.keys(tabs).map(subKey => `/${subKey}`);
         }
       }
     }
@@ -57,9 +54,7 @@ function AppLayout() {
     return [];
   }
 
-  let tabs = getSubPaths(basePath)
-  console.log(tabs)
-  
+  let tabs = getSubPaths(basePath);
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -80,11 +75,10 @@ function AppLayout() {
         {tabs.length > 0 && (
           <Box>
             <NavigationTabs basePath={basePath} tabs={tabs} />
-            {/* <Schedule schedule={}></Schedule> */}
           </Box>
         )}
         {tabs.length > 0 && (
-        <Divider sx={{ border: 1, borderColor: 'neutral.light', position: 'relative', top: '-1%', zIndex: '-100' }} />)}
+          <Divider sx={{ border: 1, borderColor: 'neutral.light', position: 'relative', top: '-0.4%', zIndex: '-100' }} />)}
         <Outlet />
       </Box>
     </Box>

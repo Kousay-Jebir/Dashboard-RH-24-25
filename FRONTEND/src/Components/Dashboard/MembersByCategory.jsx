@@ -10,11 +10,10 @@ const MembersByCategory = () => {
   return (
     <Box
       sx={{
-        maxWidth: 380,
+        // maxWidth: 380,
         border: 2,
         borderRadius: 2,
         borderColor: theme.palette.neutral.light,
-        margin: 1,
         padding: 2,
       }}
     >

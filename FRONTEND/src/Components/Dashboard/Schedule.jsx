@@ -9,12 +9,11 @@ const Schedule = () => {
 
   return (
     <Box sx={{
-        maxWidth: 363,
-        minHeight: 486,
+        // maxWidth: 363,
+        // minHeight: 486,
         border: 2,
         borderRadius: 2,
         borderColor: theme.palette.neutral.light,
-        margin: 1,
         padding: 2,
       }}>
         <Typography fontSize={16} fontWeight={theme.typography.extraMeduim} mb={0.5}>

@@ -12,8 +12,8 @@ const ScheduleCard = () => {
       borderRadius={2}
       borderColor={theme.palette.neutral.light}
       p={1}
-      maxWidth={335}
-      position="relative" // Set position to relative
+      // maxWidth={335}
+      position="relative" 
     >
       <Grid container gap={0.5} alignItems="center">
         <Grid>
