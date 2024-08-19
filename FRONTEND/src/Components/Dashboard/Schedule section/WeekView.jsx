@@ -81,7 +81,6 @@ const WeekView = () => {
 
   return (
     <Box maxWidth={335} maxHeight={62}>
-      {/* Display Month and Year */}
 
       <Grid
         container
@@ -169,12 +168,12 @@ const WeekView = () => {
                 borderRadius={1}
                 bgcolor={
                   isSelectedDay
-                    ? theme.palette.primary.main // Highlight selected day
+                    ? theme.palette.primary.main 
                     : "transparent"
                 }
                 color={isSelectedDay ? "white" : "inherit"}
                 onClick={() => handleDayClick(day)}
-                style={{ cursor: "pointer" }} // Change cursor to pointer for clickable days
+                style={{ cursor: "pointer" }} 
               >
                 <Typography
                   fontSize={11}
