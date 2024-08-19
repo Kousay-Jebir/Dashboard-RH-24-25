@@ -1,12 +1,12 @@
 import React from 'react';
 import { Breadcrumbs, Typography } from '@mui/material';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 
 const AppBreadCrumbs = () => {
   const location = useLocation();
   
-  // Convert the location path into breadcrumb items
-  const pathnames = location.pathname.split('/').filter(x => x);
+  // Convert the location path into breadcrumb items, limiting to the first 2 segments
+  const pathnames = location.pathname.split('/').filter(x => x).slice(0, 2);
 
   return (
     <Breadcrumbs>
@@ -29,4 +29,3 @@ const AppBreadCrumbs = () => {
 };
 
 export default AppBreadCrumbs;
-
