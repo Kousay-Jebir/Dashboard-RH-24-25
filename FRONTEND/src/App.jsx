@@ -1,5 +1,6 @@
-import { CssBaseline, useTheme } from '@mui/material'
+import { CssBaseline } from '@mui/material'
 import './App.css'
+
 import AppLayout from './components/layout/global-layout/AppLayout';
 import { Route, Routes } from 'react-router-dom'
 import { RoutesProvider } from './router/context/RoutesContext'
@@ -44,7 +45,6 @@ function App() {
               </Route>
               <Route path="settings" />
             </Route>
-
             <Route path="evaluation" />
           </Route>
         </Route>
@@ -53,4 +53,4 @@ function App() {
   );
 }
 
-export default App;
+export default App
