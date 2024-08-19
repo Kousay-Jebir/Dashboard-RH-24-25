@@ -11,6 +11,7 @@ const theme = createTheme({
     neutral: {
       main: "#0C0F12",
       light: "#E9EAEB",
+      normal: "#6A7177",
     },
     blue: {
       main: "#2547D0",
@@ -23,6 +24,9 @@ const theme = createTheme({
     },
     green: {
       main: "#3CE5B8",
+    },
+    white: {
+      main: "#FFFFFF",
     },
 
     customColors: {
