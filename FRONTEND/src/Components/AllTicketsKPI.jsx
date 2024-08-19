@@ -20,7 +20,7 @@ const AllTicketsKPI = () => {
     
       }}
     >
-      <Grid item xs={3}>
+      <Grid item xs={3} >
         <TicketKPI 
           title="Total members"
           value="118"
