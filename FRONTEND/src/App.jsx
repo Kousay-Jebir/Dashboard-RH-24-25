@@ -5,6 +5,8 @@ import { Route, Routes } from 'react-router-dom'
 import { RoutesProvider } from './router/context/RoutesContext'
 
 import Dashoboard from './Pages/Dashboard/Dashoboard'
+import KanbanBoard from './Components/Recrutement/Schedule/KanbanBoard'
+
 function App() { 
 
   return (
@@ -18,7 +20,7 @@ function App() {
         </Route>
         <Route path='recruitement'>
             <Route path='interviews'></Route>
-            <Route path='schedule'></Route>
+            <Route path='schedule' element={<KanbanBoard/>}></Route>
             <Route path='settings'></Route>
         </Route>
         <Route path='team-members'>
