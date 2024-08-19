@@ -1,0 +1,35 @@
+[
+    {
+      "name": "Boukhchina Rayen Ayadi",
+      "department": "Dév. Commercial",
+      "date": "20/10/2024",
+      "duration": "13 mins",
+      "recruiter": "Amine Hamdi",
+      "grade": 75
+    },
+    {
+      "name": "Ben Marzouk Wahib",
+      "department": "Marketing",
+      "date": "08/10/2024",
+      "duration": "20 mins",
+      "recruiter": "Youssef Dhieb",
+      "grade": 99
+    },
+    {
+      "name": "Abid Aymen",
+      "department": "Dév. Commercial",
+      "date": "03/10/2024",
+      "duration": "19 mins",
+      "recruiter": "Amine Hamdi",
+      "grade": 60
+    },
+    {
+      "name": "Khemiri Sahar",
+      "department": "Projet",
+      "date": "18/10/2024",
+      "duration": "5 mins",
+      "recruiter": "Amine Hamdi",
+      "grade": 86
+    }
+  ]
+  
