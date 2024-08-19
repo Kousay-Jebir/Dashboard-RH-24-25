@@ -4,14 +4,12 @@ import './App.css'
 import AppLayout from './components/layout/AppLayout'
 import { RoutesProvider } from './router/context/RoutesContext'
 
-import KanbanForm from './Components/kanbanForm'
 function App() { 
 
   return (
     <RoutesProvider>
     <CssBaseline></CssBaseline>
     <Routes>
-      <Route path='/' element={<KanbanForm></KanbanForm>}></Route>
       <Route element={<AppLayout></AppLayout>} path='/'>
 
         <Route path='dashboard'>
