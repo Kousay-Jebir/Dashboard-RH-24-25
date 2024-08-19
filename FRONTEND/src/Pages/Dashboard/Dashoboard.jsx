@@ -3,10 +3,16 @@ import { Box, Grid, useTheme } from "@mui/material";
 
 import MembersByCategory from "../../Components/Dashboard/MembersByCategory";
 import MembersByGender from "../../Components/Dashboard/MembersByGender";
+import Schedule from "../../Components/Dashboard/Schedule";
 
 const Dashoboard = () => {
 
+  const handleDateChange = (newDate) => {
+    console.log("Selected Date:", newDate);
+  };
+
   const theme = useTheme();
+
   return (
     <Box
       sx={{
@@ -18,13 +24,20 @@ const Dashoboard = () => {
         padding: 2,
       }}
     >
-      <Grid container spacing={0.5}>
-        <Grid item >
+      <Grid container spacing={2}>
+
+        <Grid item xs={4} >
           <MembersByCategory />
         </Grid>
-        <Grid item >
+
+        <Grid item xs={4} > 
           <MembersByGender />
         </Grid>
+
+        <Grid item xs={4} >
+          <Schedule />
+        </Grid>
+
       </Grid>
     </Box>
   );
