@@ -6,6 +6,8 @@ import { RoutesProvider } from './router/context/RoutesContext';
 import Dashoboard from './Pages/Dashboard/Dashoboard';
 import MainContentLayout from './components/layout/main-content-layout/MainContentLayout';
 
+import KanbanBoard from './Components/Recrutement/Schedule/KanbanBoard'
+
 function App() { 
   return (
     <RoutesProvider>
@@ -20,7 +22,7 @@ function App() {
                 <Route path="recent" />
                 <Route path="questions" />
               </Route>
-              <Route path="schedule">
+              <Route path="schedule" element={<KanbanBoard/>}>
                 <Route path="list" />
                 <Route path="board" />
               </Route>
@@ -44,6 +46,7 @@ function App() {
 
             <Route path="evaluation" />
           </Route>
+
         </Route>
       </Routes>
     </RoutesProvider>
