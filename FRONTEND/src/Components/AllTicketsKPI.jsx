@@ -11,14 +11,14 @@ const AllTicketsKPI = () => {
     <Grid 
       container 
       spacing={2} 
-      sx={{
-        width: '1061px',
-        height:'84px',
-        position: 'absolute',
-        top: '216px',
-        left: '348px',
+      // sx={{
+      //   width: '1061px',
+      //   height:'84px',
+      //   position: 'absolute',
+      //   top: '216px',
+      //   left: '348px',
     
-      }}
+      // }}
     >
       <Grid item xs={3} >
         <TicketKPI 
