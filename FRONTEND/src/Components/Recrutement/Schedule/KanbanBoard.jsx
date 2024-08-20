@@ -4,6 +4,7 @@ import RecruitementInterviewCard from './KanbanBoard/RecruitementInterviewCard';
 
 
 import InterviewsData from "./KanbanBoard/KanbanBoardData.json"; // Importing the JSON data
+import InterviewStatus from './KanbanBoard/InterviewStatus';
 
 
 const KanbanBoard = () => {
@@ -11,10 +12,7 @@ const KanbanBoard = () => {
 
   return (
     <Box
-      border={2}
-      borderRadius={2}
       padding={2}
-      borderColor={theme.palette.neutral.light}
     >
       {InterviewsData.map((interview, index) => (
         <RecruitementInterviewCard key={index} interview={interview} />
