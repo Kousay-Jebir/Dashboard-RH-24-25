@@ -13,7 +13,6 @@ const KanbanBoard = () => {
     <Box
       border={2}
       borderRadius={2}
-      margin={2}
       padding={2}
       borderColor={theme.palette.neutral.light}
     >
