@@ -75,10 +75,11 @@ function AppLayout() {
         {tabs.length > 0 && (
           <Box>
             <NavigationTabs basePath={basePath} tabs={tabs} />
+            
+          <Divider sx={{ border: 1, borderColor: 'neutral.light', position: 'relative', top: '-0.4%', zIndex: '-100' }} />
           </Box>
         )}
-        {tabs.length > 0 && (
-          <Divider sx={{ border: 1, borderColor: 'neutral.light', position: 'relative', top: '-0.4%', zIndex: '-100' }} />)}
+        
         <Outlet />
       </Box>
     </Box>
