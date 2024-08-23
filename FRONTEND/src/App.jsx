@@ -23,8 +23,8 @@ function App() {
 
           <Route element={<MainContentLayout />}>
             <Route path="recruitement" >
-              <Route path="interviews" element={<Interviews/>}>
-                <Route path="recent" />
+              <Route path="interviews">
+                <Route path="recent"  element={<Interviews/>}/>
                 <Route path="questions" />
               </Route>
               <Route path="schedule">

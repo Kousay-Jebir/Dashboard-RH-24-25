@@ -24,9 +24,9 @@ export default function SideBar({
 
   const menuItems = [
     { text: 'Dashboard', icon: <DashboardOutlinedIcon />, path: '/dashboard',defaultLocation:'' },
-    { text: 'Recruitement', icon: <GroupOutlinedIcon />, path: '/recruitement' ,defaultLocation:'/interviews'},
+    { text: 'Recruitement', icon: <GroupOutlinedIcon />, path: '/recruitement' ,defaultLocation:'/interviews/recent'},
     { text: 'Team members', icon: <GroupOutlinedIcon />, path: '/team-members' ,defaultLocation:''},
-    { text: 'Meetings', icon: <CalendarTodayOutlinedIcon />, path: '/meetings' ,defaultLocation:'/meetings'},
+    { text: 'Meetings', icon: <CalendarTodayOutlinedIcon />, path: '/meetings' ,defaultLocation:'/meetings/recent'},
     { text: 'Evaluation', icon: <AssessmentOutlinedIcon />, path: '/evaluation' ,defaultLocation:''},
   ];
 
