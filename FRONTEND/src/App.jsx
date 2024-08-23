@@ -10,6 +10,7 @@ import Dashoboard from './Pages/Dashboard/Dashoboard'
 import Interviews from './Pages/Recrutement/Interviews'
 import Layout from './Components/Recrutement/Schedule/KanbanBoard/Layout';
 import StatusBar from './Components/Recrutement/Schedule/list/StatusBar';
+import KanbanBoard from './Pages/Recrutement/schedule/KanbanBoard';
 
 function App() { 
   return (
@@ -27,7 +28,7 @@ function App() {
               </Route>
               <Route path="schedule">
                 <Route path="list" element={<StatusBar/>}/>
-                <Route path="board" element={<Layout/>} />
+                <Route path="board" element={<KanbanBoard/>} />
               </Route>
               <Route path="settings" />
             </Route>
