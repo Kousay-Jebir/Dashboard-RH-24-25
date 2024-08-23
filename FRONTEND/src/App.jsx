@@ -11,6 +11,7 @@ import Interviews from './Pages/Recrutement/Interviews'
 import Layout from './Components/Recrutement/Schedule/KanbanBoard/Layout';
 import StatusBar from './Components/Recrutement/Schedule/list/StatusBar';
 import KanbanBoard from './Pages/Recrutement/schedule/KanbanBoard';
+import InterviewsList from './Pages/Recrutement/schedule/InterviewsList';
 
 function App() { 
   return (
@@ -27,7 +28,7 @@ function App() {
                 <Route path="questions" />
               </Route>
               <Route path="schedule">
-                <Route path="list" element={<StatusBar/>}/>
+                <Route path="list" element={<InterviewsList/>}/>
                 <Route path="board" element={<KanbanBoard/>} />
               </Route>
               <Route path="settings" />

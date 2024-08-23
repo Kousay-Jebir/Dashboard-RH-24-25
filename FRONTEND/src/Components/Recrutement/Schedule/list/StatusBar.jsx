@@ -34,7 +34,7 @@ export default function StatusBar() {
                 gap: 2,
                 padding: 2,
                 position: 'absolute',
-                top: 450, // Adjust as needed
+                top: 570, // Adjust as needed
                 left: 25,
                 backgroundColor: theme.palette.background.paper,
                 zIndex: 1200 // Ensure it's above other content
