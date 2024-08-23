@@ -23,11 +23,11 @@ export default function SideBar({
   const navigate = useNavigate();
 
   const menuItems = [
-    { text: 'Dashboard', icon: <DashboardOutlinedIcon />, path: '/dashboard' },
-    { text: 'Recruitement', icon: <GroupOutlinedIcon />, path: '/recruitement/interviews' },
-    { text: 'Team members', icon: <GroupOutlinedIcon />, path: '/team-members' },
-    { text: 'Meetings', icon: <CalendarTodayOutlinedIcon />, path: '/meetings/meetings' },
-    { text: 'Evaluation', icon: <AssessmentOutlinedIcon />, path: '/evaluation' },
+    { text: 'Dashboard', icon: <DashboardOutlinedIcon />, path: '/dashboard',defaultLocation:'' },
+    { text: 'Recruitement', icon: <GroupOutlinedIcon />, path: '/recruitement' ,defaultLocation:'/interviews'},
+    { text: 'Team members', icon: <GroupOutlinedIcon />, path: '/team-members' ,defaultLocation:''},
+    { text: 'Meetings', icon: <CalendarTodayOutlinedIcon />, path: '/meetings' ,defaultLocation:'/meetings'},
+    { text: 'Evaluation', icon: <AssessmentOutlinedIcon />, path: '/evaluation' ,defaultLocation:''},
   ];
 
   const drawerContent = (
@@ -46,7 +46,7 @@ export default function SideBar({
           {menuItems.map((item) => (
             <ListItem
               key={item.text}
-              onClick={() => navigate(item.path)}
+              onClick={() => navigate(item.path+item.defaultLocation)}
               sx={{
                 backgroundColor: isActivePath(location.pathname, item.path) ? 'neutral.light' : 'transparent',
                 '&:hover': {
