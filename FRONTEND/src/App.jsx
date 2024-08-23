@@ -9,6 +9,7 @@ import MainContentLayout from './components/layout/main-content-layout/MainConte
 import Dashoboard from './Pages/Dashboard/Dashoboard'
 import Interviews from './Pages/Recrutement/Interviews'
 import KanbanBoard from './Components/Recrutement/Schedule/KanbanBoard'
+import List from './Pages/Recrutement/List';
 
 function App() { 
   return (
@@ -25,7 +26,7 @@ function App() {
                 <Route path="questions" />
               </Route>
               <Route path="schedule">
-                <Route path="list" />
+                <Route path="list" element={<List/>} />
                 <Route path="board" element={<KanbanBoard/>} />
               </Route>
               <Route path="settings" />
