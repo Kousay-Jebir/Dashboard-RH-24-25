@@ -28,11 +28,11 @@ export default function MainContentLayout() {
   const menuData = getMenuData();
 
   return (
-    <Grid container p={3} pt={4} spacing={2} sx={{overflow:'auto'}} >
-      <Grid item xs={12} md={3}>
+    <Grid container p={3} pt={4}>
+      <Grid item xs={12} sm={4} md={2.5}>
         <SelectMenu menuData={menuData} />
       </Grid>
-      <Grid item xs={12} md={9} sx={{overflow:'auto'}}>
+      <Grid item xs={12} sm={8} md={9.5} sx={{overflow:'auto'}}>
         <Outlet />
       </Grid>
     </Grid>

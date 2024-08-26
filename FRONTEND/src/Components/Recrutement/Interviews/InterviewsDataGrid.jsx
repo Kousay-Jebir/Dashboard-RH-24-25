@@ -19,7 +19,7 @@ const DataTable = () => {
   const theme = useTheme();
 
   return (
-    <TableContainer component={Paper} sx={{  padding: 1
+    <TableContainer component={Paper} sx={{ padding: 1 , maxWidth: '100%' , overflowX: 'auto'
      }}>
       <Table size="small">
         <TableHead>
