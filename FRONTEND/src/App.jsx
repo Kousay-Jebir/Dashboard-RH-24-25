@@ -1,43 +1,59 @@
 import { CssBaseline } from '@mui/material'
-import { Route, Routes } from 'react-router-dom'
 import './App.css'
-import AppLayout from './components/layout/AppLayout'
-import Login from './Pages/Login/Login'
-function App() {
- 
 
+import AppLayout from './components/layout/global-layout/AppLayout';
+import { Route, Routes } from 'react-router-dom'
+import { RoutesProvider } from './router/context/RoutesContext'
+
+import MainContentLayout from './components/layout/main-content-layout/MainContentLayout';
+import Dashoboard from './Pages/Dashboard/Dashoboard'
+import Interviews from './Pages/Recrutement/Interviews'
+import Layout from './Components/Recrutement/Schedule/KanbanBoard/Layout';
+import StatusBar from './Components/Recrutement/Schedule/list/StatusBar';
+import KanbanBoard from './Pages/Recrutement/schedule/KanbanBoard';
+import InterviewsList from './Pages/Recrutement/schedule/InterviewsList';
+
+function App() { 
   return (
-    <>
-    <CssBaseline></CssBaseline>
-    <Routes>
-    <Route path="/" element={<Login/>} />
-      <Route element={<AppLayout></AppLayout>}>
-        <Route path='test1' element={<div>Dashboard</div>}></Route>
-        <Route path='test2' element={<div>test2</div>}></Route>
+    <RoutesProvider>
+      <CssBaseline />
+      <Routes>
+        <Route path="/" element={<AppLayout />}>
+          <Route path="dashboard" element={<Dashoboard />} />
 
-        <Route path='dashboard'>
+          <Route element={<MainContentLayout />}>
+            <Route path="recruitement" >
+              <Route path="interviews">
+                <Route path="recent"  element={<Interviews/>}/>
+                <Route path="questions" />
+              </Route>
+              <Route path="schedule">
+                <Route path="list" element={<InterviewsList/>}/>
+                <Route path="board" element={<KanbanBoard/>} />
+              </Route>
+              <Route path="settings" />
+            </Route>
 
-        </Route>
-        <Route path='recruitement'>
-            <Route path='interviews'></Route>
-            <Route path='schedule'></Route>
-            <Route path='settings'></Route>
-        </Route>
-        <Route path='team-members'>
+            <Route path="team-members" />
 
+            <Route path="meetings">
+              <Route path="meetings">
+                <Route path="recent" />
+                <Route path="schedule">
+                  <Route path="department" />
+                  <Route path="general-assembly" />
+                  <Route path="team-building" />
+                  <Route path="event" />
+                </Route>
+              </Route>
+              <Route path="settings" />
+            </Route>
+            <Route path="evaluation" />
+          </Route>
         </Route>
-        <Route path='meetings'>
-          <Route path='meetings'></Route>
-          <Route path='settings'></Route>
-        </Route>
-        <Route path='evaluation'>
-
-        </Route>
-
-      </Route>
-    </Routes>
-    </>
-  )
+      </Routes>
+    </RoutesProvider>
+  );
 }
 
 export default App

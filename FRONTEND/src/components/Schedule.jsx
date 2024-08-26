@@ -2,16 +2,20 @@ import React from 'react';
 import { Button } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 
-export default function ScheduleInterview() {
+export default function Schedule({schedule,sx={},variant='contained'}) {
     return (
         <Button
-            variant='contained'
+            
+            variant={variant}
             startIcon={<AddIcon />} // Adds the plus icon at the start
+            disableElevation
             sx={{
-                textTransform: 'none', // Ensures text is not in all caps
+                textTransform: 'none',
+                borderRadius:1.5,
+                ...sx
             }}
         >
-            Schedule Interview
+            {schedule}
         </Button>
     );
 }

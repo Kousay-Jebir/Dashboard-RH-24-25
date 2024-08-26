@@ -1,3 +1,4 @@
+import { green } from "@mui/material/colors";
 import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
@@ -8,11 +9,13 @@ const theme = createTheme({
     secondary: {
       main: "#6A7177",
     },
-    error: {
-      main: "#D02533",
+    neutral: {
+      main: "#0C0F12",
+      light: "#E9EAEB",
+      normal: "#6A7177",
     },
     blue: {
-      main: "#335CF",
+      main: "#2547D0",
     },
     lightBlue: {
       main: "#38D9E5",
@@ -23,6 +26,22 @@ const theme = createTheme({
     green: {
       main: "#3CE5B8",
     },
+    white: {
+      main: "#FFFFFF",
+    },
+
+    success:{
+      main:"#D0FBE9",
+      text:"#1DAF61"
+    },
+    warning:{
+      main:"#FFE3D5",
+      text:"#E97135"
+    },
+    error:{
+      main:"#FFD5D8",
+      text:"#E93544"
+    },
 
     customColors: {
       blue: "#335CF",
@@ -30,12 +49,19 @@ const theme = createTheme({
       purple: "#7D52F4",
       green: "#3CE5B8",
     },
+    text: {
+      main: "#0C0F12 ",
+      light: "#6A7177",
+      dark: "#000",
+    },
   },
   typography: {
-    fontFamily: "Inter, sans-serif", // Use Inter as the default font family
-    fontWeightRegular: 400,
-    fontWeightMedium: 500,
-    fontWeightBold: 700,
+    fontFamily: "Inter",
+    light:300,
+    regular: 400,
+    medium: 500,
+    extraMeduim: 570,
+    bold: 700,
   },
 });
 
