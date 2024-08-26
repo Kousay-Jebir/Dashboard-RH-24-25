@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Grid, useTheme } from "@mui/material";
+import { Box, Grid, Typography, useTheme } from "@mui/material";
 
 import MembersByCategory from "../../Components/Dashboard/MembersByCategory";
 import MembersByGender from "../../Components/Dashboard/MembersByGender";
@@ -17,14 +17,15 @@ const Dashoboard = () => {
     <Box
       sx={{
         minWidth: 1100,
-        border: 2,
-        borderRadius: 2,
-        borderColor: theme.palette.neutral.light,
         margin: 2,
         padding: 2,
       }}
     >
       <Grid container spacing={2}>
+
+        <Grid item xs={12}>
+          <Typography fontSize={26} fontWeight={theme.typography.extraMeduim}>Dashboard</Typography>
+        </Grid>
 
         <Grid item xs={12} >
           <AllTicketsKPI  />
