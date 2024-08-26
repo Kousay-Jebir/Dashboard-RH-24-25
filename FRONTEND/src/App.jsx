@@ -8,8 +8,6 @@ import { RoutesProvider } from './router/context/RoutesContext'
 import MainContentLayout from './components/layout/main-content-layout/MainContentLayout';
 import Dashoboard from './Pages/Dashboard/Dashoboard'
 import Interviews from './Pages/Recrutement/Interviews'
-import Layout from './Components/Recrutement/Schedule/KanbanBoard/Layout';
-import StatusBar from './Components/Recrutement/Schedule/list/StatusBar';
 import KanbanBoard from './Pages/Recrutement/schedule/KanbanBoard';
 import InterviewsList from './Pages/Recrutement/schedule/InterviewsList';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Tab, Tabs } from '@mui/material';
 import { useNavigate, useLocation } from 'react-router-dom';
-import Schedule from './Schedule';
+import Schedule from './ScheduleButton';
 
 const NavigationTabs = ({tabs}) => {
   const navigate = useNavigate();

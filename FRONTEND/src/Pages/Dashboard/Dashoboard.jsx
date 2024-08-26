@@ -5,9 +5,9 @@ import MembersByCategory from "../../Components/Dashboard/MembersByCategory";
 import MembersByGender from "../../Components/Dashboard/MembersByGender";
 import Schedule from "../../Components/Dashboard/Schedule";
 import AllTicketsKPI from "../../Components/AllTicketsKPI";
-import ScheduleButton from "../../Components/Schedule";
+import ScheduleButton from "../../components/ScheduleButton";
 
-const Dashoboard = () => {
+const Dashboard = () => {
   const handleDateChange = (newDate) => {
     console.log("Selected Date:", newDate);
   };
@@ -23,14 +23,30 @@ const Dashoboard = () => {
       }}
     >
       <Grid container spacing={2}>
-        <Grid item xs={9.9}>
+        <Grid item xs={8}>
           <Typography fontSize={26} fontWeight={theme.typography.extraMeduim}>
             Dashboard
           </Typography>
         </Grid>
 
-        <Grid item xs={2.1}>
-          <ScheduleButton />
+        <Grid item xs={2}>
+          <ScheduleButton
+            variant="text"  
+            schedule="Schedule interview" 
+            sx={{
+              color:theme.palette.primary.main
+            }}
+          />
+        </Grid>
+
+        <Grid item xs={2}>
+          <ScheduleButton
+            variant="contained"  
+            schedule="Schedule meeting" 
+            sx={{
+              backgroundColor: theme.palette.primary.main,
+            }}
+          />
         </Grid>
 
         <Grid item xs={12}>
@@ -53,4 +69,4 @@ const Dashoboard = () => {
   );
 };
 
-export default Dashoboard;
+export default Dashboard;

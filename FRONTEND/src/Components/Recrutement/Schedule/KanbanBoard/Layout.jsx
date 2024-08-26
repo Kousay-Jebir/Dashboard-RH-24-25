@@ -7,7 +7,7 @@ import { DndContext } from "@dnd-kit/core";
 import { useDroppable } from "@dnd-kit/core";
 import { columns } from "../../../../lib/react-beautiful-dnd/kanban-board/data";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
-import Schedule from "../../../../components/Schedule";
+import Schedule from "../../../ScheduleButton";
 
 export default function Layout() {
     const [boardColumns,setBoardColumns] = useState(columns)
