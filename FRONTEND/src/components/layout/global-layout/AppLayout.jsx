@@ -65,7 +65,7 @@ function AppLayout() {
         handleDrawerClose={handleDrawerClose}
         handleDrawerTransitionEnd={handleDrawerTransitionEnd}
       />
-      <Box component="main" sx={{ flexGrow: 1, width: { sm: `calc(100% - ${drawerWidth}px)` } }}>
+      <Box component="main" sx={{ overflow:'auto',flexGrow: 1, }}>
         <Toolbar />
         <Box mt={3} p={2}>
           <AppBreadCrumbs />

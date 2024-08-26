@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { colors, Grid } from "@mui/material";
 import InterviewStatus from "./InterviewStatus";
 import RecruitementInterviewCard from "./RecruitementInterviewCard";
 import InterviewsData from './KanbanBoardData.json'
@@ -7,6 +7,7 @@ import { DndContext } from "@dnd-kit/core";
 import { useDroppable } from "@dnd-kit/core";
 import { columns } from "../../../../lib/react-beautiful-dnd/kanban-board/data";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import Schedule from "../../../../components/Schedule";
 
 export default function Layout() {
     const [boardColumns,setBoardColumns] = useState(columns)
@@ -51,7 +52,7 @@ export default function Layout() {
     }
     return(
         <DragDropContext onDragEnd={result => onDragEnd(result,boardColumns,setBoardColumns)}>
-            <Grid container xs={12} sx={{overflow:'scroll'}} spacing={2}>
+            <Grid container xs={12} sx={{overflow:'auto',minWidth:835}} spacing={2}>
             {
                 Object.entries(boardColumns).map(([id,column])=>{
                     return(
@@ -61,9 +62,6 @@ export default function Layout() {
                                     <Grid item xs={4}
                                     {...provided.droppableProps}
                                     ref={provided.innerRef}
-                                    style={{
-                                        
-                                    }}
                                     >   
                                     <InterviewStatus columnId={id} columnLength={column.items.length}/>
                                         {column.items.map((item,index)=>{
@@ -87,7 +85,8 @@ export default function Layout() {
                                                 </Draggable>
                                             )
                                         })}
-                                        {provided.placeholder}
+                                        <Schedule schedule="Add Interview" variant="outlined" sx={{width:'100%',justifyContent:'start',paddingBlock:1 ,color:'text.primary',borderColor:'neutral.light',}}/>
+
                                     </Grid>
                                 )
                             }}
