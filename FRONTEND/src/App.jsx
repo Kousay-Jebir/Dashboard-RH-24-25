@@ -8,7 +8,10 @@ import { RoutesProvider } from './router/context/RoutesContext'
 import MainContentLayout from './components/layout/main-content-layout/MainContentLayout';
 import Dashoboard from './Pages/Dashboard/Dashoboard'
 import Interviews from './Pages/Recrutement/Interviews'
-import KanbanBoard from './Components/Recrutement/Schedule/KanbanBoard'
+import Layout from './Components/Recrutement/Schedule/KanbanBoard/Layout';
+import StatusBar from './Components/Recrutement/Schedule/list/StatusBar';
+import KanbanBoard from './Pages/Recrutement/schedule/KanbanBoard';
+import InterviewsList from './Pages/Recrutement/schedule/InterviewsList';
 
 function App() { 
   return (
@@ -20,12 +23,12 @@ function App() {
 
           <Route element={<MainContentLayout />}>
             <Route path="recruitement" >
-              <Route path="interviews" element={<Interviews/>}>
-                <Route path="recent" />
+              <Route path="interviews">
+                <Route path="recent"  element={<Interviews/>}/>
                 <Route path="questions" />
               </Route>
               <Route path="schedule">
-                <Route path="list" />
+                <Route path="list" element={<InterviewsList/>}/>
                 <Route path="board" element={<KanbanBoard/>} />
               </Route>
               <Route path="settings" />
