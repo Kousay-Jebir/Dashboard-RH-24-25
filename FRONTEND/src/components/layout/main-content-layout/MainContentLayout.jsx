@@ -32,7 +32,7 @@ export default function MainContentLayout() {
       <Grid item xs={12} sm={4} md={2.5}>
         <SelectMenu menuData={menuData} />
       </Grid>
-      <Grid item xs={12} sm={8} md={9.5}>
+      <Grid item xs={12} sm={8} md={9.5} sx={{overflow:'auto'}}>
         <Outlet />
       </Grid>
     </Grid>

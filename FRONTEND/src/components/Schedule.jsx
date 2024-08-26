@@ -5,14 +5,17 @@ import AddIcon from '@mui/icons-material/Add';
 export default function ScheduleButton({schedule}) {
     return (
         <Button
-            variant='contained'
+            
+            variant={variant}
             startIcon={<AddIcon />} // Adds the plus icon at the start
+            disableElevation
             sx={{
-                textTransform: 'none', // Ensures text is not in all caps
-                
+                textTransform: 'none',
+                borderRadius:1.5,
+                ...sx
             }}
         >
-            {"Schedule "+ schedule}
+            {schedule}
         </Button>
     );
 }

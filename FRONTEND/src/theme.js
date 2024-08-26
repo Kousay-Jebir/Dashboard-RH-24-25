@@ -1,3 +1,4 @@
+import { green } from "@mui/material/colors";
 import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
@@ -27,6 +28,19 @@ const theme = createTheme({
     },
     white: {
       main: "#FFFFFF",
+    },
+
+    success:{
+      main:"#D0FBE9",
+      text:"#1DAF61"
+    },
+    warning:{
+      main:"#FFE3D5",
+      text:"#E97135"
+    },
+    error:{
+      main:"#FFD5D8",
+      text:"#E93544"
     },
 
     customColors: {
