@@ -2,21 +2,62 @@ import EmailIcon from '@mui/icons-material/Email';
 import LockIcon from '@mui/icons-material/Lock';
 import { Box, Button, InputAdornment, TextField, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import React from 'react';
+import React, { useState } from 'react';
 
 const LoginForm = () => {
   const theme = useTheme();
 
+  
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  });
+
+  const [errors, setErrors] = useState({});
+
+  
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    // validate email
+   if (!emailRegex.test(formData.email.trim())) {
+      newErrors.email = "Please respect the format of the E-mail adress.";
+    }
+
+    // validate password
+    if (formData.password.length < 6) {
+      newErrors.password = "The password must be at least 6 characters long.";
+    }
+    else  if (formData.password.length > 20) {
+      newErrors.password = "The password is too long.";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Form submission logic 
+    if (validateForm()) {
+      console.log("form data", formData);
+      // Form validation and API call logic here
+    }
   };
 
   const typographyStyle = {
     fontFamily: theme.typography.fontFamily,
     fontSize: theme.typography.fontSize,
     fontWeight: theme.typography.fontWeightRegular,
-    //lineHeight: theme.typography.body2.lineHeight,
     textAlign: 'left',
   };
 
@@ -76,7 +117,6 @@ const LoginForm = () => {
           sx={{
             ...typographyStyle,
             fontSize: '15px',
-            //lineHeight: '18.15px',
             textAlign: 'center',
             color: theme.palette.secondary.main,
           }}
@@ -167,6 +207,22 @@ const LoginForm = () => {
               autoFocus
               placeholder="Example@gmail.com"
               sx={textFieldStyle}
+              value={formData.email}
+              onChange={handleChange}
+              error={!!errors.email}
+              helperText={errors.email}
+              FormHelperTextProps={{
+                sx: {
+                    fontFamily: theme.typography.fontFamily,
+                    fontSize: '10px',
+                    lineHeight: '12.1px',
+                    marginTop: '5px',
+                    textAlign: 'center'
+                    //marginBottom: '1px',
+                    
+
+                }
+            }}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -190,6 +246,23 @@ const LoginForm = () => {
             autoComplete="current-password"
             placeholder="*************"
             sx={textFieldStyle}
+            value={formData.password}
+            onChange={handleChange}
+            error={!!errors.password}
+            helperText={errors.password}
+            FormHelperTextProps={{
+              sx: {
+                  fontFamily: theme.typography.fontFamily,
+                  fontSize: '10px',
+                  lineHeight: '12.1px',
+                  marginTop: '5px',
+                  textAlign: 'center'
+
+                  //marginBottom: '1px',
+                  
+
+              }
+          }}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
