@@ -5,6 +5,7 @@ import MembersByCategory from "../../Components/Dashboard/MembersByCategory";
 import MembersByGender from "../../Components/Dashboard/MembersByGender";
 import Schedule from "../../Components/Dashboard/Schedule";
 import AllTicketsKPI from "../../Components/AllTicketsKPI";
+import ScheduleButton from "../../Components/Schedule";
 
 const Dashoboard = () => {
   const handleDateChange = (newDate) => {
@@ -22,13 +23,18 @@ const Dashoboard = () => {
       }}
     >
       <Grid container spacing={2}>
-
-        <Grid item xs={12}>
-          <Typography fontSize={26} fontWeight={theme.typography.extraMeduim}>Dashboard</Typography>
+        <Grid item xs={9.9}>
+          <Typography fontSize={26} fontWeight={theme.typography.extraMeduim}>
+            Dashboard
+          </Typography>
         </Grid>
 
-        <Grid item xs={12} >
-          <AllTicketsKPI  />
+        <Grid item xs={2.1}>
+          <ScheduleButton />
+        </Grid>
+
+        <Grid item xs={12}>
+          <AllTicketsKPI />
         </Grid>
 
         <Grid item xs={4}>
