@@ -1,20 +1,22 @@
-import { CssBaseline } from '@mui/material'
-import './App.css'
+import { CssBaseline } from '@mui/material';
+import './App.css';
 
+import { Route, Routes } from 'react-router-dom';
 import AppLayout from './components/layout/global-layout/AppLayout';
-import { Route, Routes } from 'react-router-dom'
-import { RoutesProvider } from './router/context/RoutesContext'
+import { RoutesProvider } from './router/context/RoutesContext';
 
+import KanbanForm from './Components/kanbanForm';
 import MainContentLayout from './components/layout/main-content-layout/MainContentLayout';
-import Dashoboard from './Pages/Dashboard/Dashoboard'
-import Interviews from './Pages/Recrutement/Interviews'
-import KanbanBoard from './Components/Recrutement/Schedule/KanbanBoard'
+import KanbanBoard from './Components/Recrutement/Schedule/KanbanBoard';
+import Dashoboard from './Pages/Dashboard/Dashoboard';
+import Interviews from './Pages/Recrutement/Interviews';
 
 function App() { 
   return (
     <RoutesProvider>
       <CssBaseline />
       <Routes>
+        <Route path='/' element={<KanbanForm></KanbanForm>}></Route>
         <Route path="/" element={<AppLayout />}>
           <Route path="dashboard" element={<Dashoboard />} />
 
