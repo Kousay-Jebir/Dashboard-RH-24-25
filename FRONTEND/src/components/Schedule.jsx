@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 
-export default function Schedule({schedule,sx={},variant='contained'}) {
+export default function ScheduleButton({schedule}) {
     return (
         <Button
             
