@@ -22,9 +22,9 @@ const NavigationTabs = ({tabs}) => {
 
   function renderScheduleButton() {
     if (location.pathname.startsWith('/recruitement')) {
-      return <Schedule schedule={'interview'} />;
+      return <Schedule schedule={'Schedule interview'} />;
     } else if (location.pathname.startsWith('/meetings')) {
-      return <Schedule schedule={'meeting'} />;
+      return <Schedule schedule={'Schedule meeting'} />;
     }
     return null; // Ensure there's a return value for all cases
   }
@@ -52,6 +52,7 @@ const NavigationTabs = ({tabs}) => {
           overflow: 'visible', // Ensure overflow is not hidden
           '.MuiTabs-indicator': {
             bottom: -10, // Adjust this value to push down the indicator
+            display: { xs: 'none', sm: 'block' }, // Hide indicator on extra-small screens
           },
           '.MuiTabs-root': {
             overflow: 'visible !important',
