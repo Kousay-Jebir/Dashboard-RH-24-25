@@ -11,8 +11,6 @@ export default function ScheduleButton({ variant, schedule, sx }) {
       sx={{
         textTransform: "none",
         borderRadius: 1.5,
-        margin: 0,
-        padding: 0,
         ...sx,
       }}
     >
