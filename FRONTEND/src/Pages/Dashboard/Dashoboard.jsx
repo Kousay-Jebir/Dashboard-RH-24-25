@@ -31,6 +31,7 @@ const Dashboard = () => {
 
         <Grid item xs={2}>
           <ScheduleButton  
+            variant="text"
             schedule="Schedule interview" 
             sx={{
               color:theme.palette.primary.main
@@ -42,9 +43,7 @@ const Dashboard = () => {
           <ScheduleButton
             variant="contained"  
             schedule="Schedule meeting" 
-            sx={{
-              backgroundColor: theme.palette.primary.main,
-            }}
+            
           />
         </Grid>
 
