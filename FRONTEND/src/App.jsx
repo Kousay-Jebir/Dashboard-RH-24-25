@@ -10,12 +10,14 @@ import Dashoboard from './Pages/Dashboard/Dashoboard'
 import Interviews from './Pages/Recrutement/Interviews'
 import KanbanBoard from './Pages/Recrutement/schedule/KanbanBoard';
 import InterviewsList from './Pages/Recrutement/schedule/InterviewsList';
+import Login from './Pages/Login/Login';
 
 function App() { 
   return (
     <RoutesProvider>
       <CssBaseline />
       <Routes>
+        <Route path='/login' element={<Login/>}/>
         <Route path="/" element={<AppLayout />}>
           <Route path="dashboard" element={<Dashoboard />} />
 
