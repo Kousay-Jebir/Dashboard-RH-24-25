@@ -7,13 +7,14 @@ import { useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import KanbanForm from "../../../kanbanForm";
 import ScheduleButton from "../../../ScheduleButton";
+import { statuses } from "../../interview-states";
 
 export default function Layout() {
 
     function sortByStatus(columns, items) {
         const updatedColumns = { ...columns };
         items.forEach(interview => {
-            const status = interview.Status.toLowerCase();
+            const status = interview.Status.toUpperCase();
             if (updatedColumns[status]) {
                 updatedColumns[status].items.push(interview);
             } else {
@@ -26,20 +27,20 @@ export default function Layout() {
     const items = InterviewsData; //fetch interview
     
     const columns = {
-        'confirmed': {
-            id: 'confirmed',
+        [statuses.CONFIRMED.id]: {
+            id: statuses.CONFIRMED.id,
             items: []
         },
-        'delayed': {
-            id: 'delayed',
+        [statuses.DELAYED.id]: {
+            id: statuses.DELAYED.id,
             items: []
         },
-        'cancelled': {
-            id: 'cancelled',
+        [statuses.CANCELLED.id]: {
+            id: statuses.CANCELLED.id,
             items: []
         }
     };
-    
+    console.log(columns)
     sortByStatus(columns,items);
     
     const [boardColumns, setBoardColumns] = useState(columns);
@@ -78,13 +79,26 @@ export default function Layout() {
             return;
         }
         const { source, destination } = result;
+    
+        // Helper function to get a column by id
+        const getColumnById = (id) => boardColumns[id];
+    
         if (source.droppableId !== destination.droppableId) {
-            const sourceColumn = boardColumns[source.droppableId];
-            const destColumn = boardColumns[destination.droppableId];
+            // Moving between columns
+            const sourceColumn = getColumnById(source.droppableId);
+            const destColumn = getColumnById(destination.droppableId);
             const sourceItems = [...sourceColumn.items];
             const destItems = [...destColumn.items];
             const [removed] = sourceItems.splice(source.index, 1);
-            destItems.splice(destination.index, 0, removed);
+    
+            // Update the status of the dragged item
+            const updatedItem = {
+                ...removed,
+                Status: destination.droppableId, // Update status to match destination column
+            };
+    
+            destItems.splice(destination.index, 0, updatedItem);
+    
             setBoardColumns({
                 ...boardColumns,
                 [source.droppableId]: {
@@ -97,10 +111,12 @@ export default function Layout() {
                 },
             });
         } else {
-            const column = boardColumns[source.droppableId];
+            // Moving within the same column
+            const column = getColumnById(source.droppableId);
             const copiedItems = [...column.items];
             const [removed] = copiedItems.splice(source.index, 1);
             copiedItems.splice(destination.index, 0, removed);
+    
             setBoardColumns({
                 ...boardColumns,
                 [source.droppableId]: {
@@ -109,7 +125,10 @@ export default function Layout() {
                 },
             });
         }
+        console.log(boardColumns)
     };
+
+    
 
     const handleAddInterviewClick = (columnId) => {
         setShowFormInColumn(showFormInColumn === columnId ? null : columnId); // Toggle form visibility
