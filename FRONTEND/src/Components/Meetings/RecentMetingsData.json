@@ -1,0 +1,16 @@
+[
+    {
+        "Title": "Réunion avec la consultante de la qualité",
+        "Department": "Cellule Qualité",
+        "Date": "20/10/2024",
+        "Time": "09:00 AM",
+        "Duration": "30 mins"
+    },
+    {
+        "Title": "Réunion avec la responsable de DevCo",
+        "Department": "Dév. Commercial",
+        "Date": "20/10/2024",
+        "Time": "10:45 AM",
+        "Duration": "45 mins"
+    }
+]
