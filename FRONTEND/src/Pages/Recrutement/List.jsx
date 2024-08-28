@@ -1,6 +1,5 @@
 import { Box, useTheme } from '@mui/material';
 import ScheduleDataGrid from '../../Components/Recrutement/Schedule/List/ScheduleDataGrid';
-import BorderBox from '../../Components/BorderBox';
 const List = () => {
 
   const theme = useTheme();
@@ -14,7 +13,6 @@ const List = () => {
       padding: 2,
     }}>
         <ScheduleDataGrid/>
-        <BorderBox radius={2}/>
     </Box>
   )
 }

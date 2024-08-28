@@ -1,6 +1,7 @@
 import React from "react";
 import DataTable from "../../../DataTable";
 import data from "./ScheduleDataGrid.json";
+import { Typography } from "@mui/material";
 
 const columns = [
   { id: "Name", label: "Name" },
