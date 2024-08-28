@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Tab, Tabs } from '@mui/material';
 import { useNavigate, useLocation } from 'react-router-dom';
-import Schedule from './ScheduleButton';
+import ScheduleButton from '../Components/ScheduleButton';
 
 const NavigationTabs = ({tabs}) => {
   const navigate = useNavigate();
@@ -22,9 +22,9 @@ const NavigationTabs = ({tabs}) => {
 
   function renderScheduleButton() {
     if (location.pathname.startsWith('/recruitement')) {
-      return <Schedule schedule={'Schedule interview'} />;
+      return <ScheduleButton schedule={'Schedule interview'} />;
     } else if (location.pathname.startsWith('/meetings')) {
-      return <Schedule schedule={'Schedule meeting'} />;
+      return <ScheduleButton schedule={'Schedule meeting'} />;
     }
     return null; // Ensure there's a return value for all cases
   }

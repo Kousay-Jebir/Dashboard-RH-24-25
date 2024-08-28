@@ -5,7 +5,7 @@ import MembersByCategory from "../../Components/Dashboard/MembersByCategory";
 import MembersByGender from "../../Components/Dashboard/MembersByGender";
 import Schedule from "../../Components/Dashboard/Schedule";
 import AllTicketsKPI from "../../Components/AllTicketsKPI";
-import ScheduleButton from "../../components/ScheduleButton";
+import ScheduleButton from "../../Components/ScheduleButton";
 
 const Dashboard = () => {
   const handleDateChange = (newDate) => {
@@ -30,8 +30,7 @@ const Dashboard = () => {
         </Grid>
 
         <Grid item xs={2}>
-          <ScheduleButton
-            variant="text"  
+          <ScheduleButton  
             schedule="Schedule interview" 
             sx={{
               color:theme.palette.primary.main
