@@ -22,14 +22,28 @@ const DataTable = ({ columns, rowData }) => {
     setExpandedRow(expandedRow === index ? null : index);
   };
 
-  const departmentStyles = (department) => {
-    switch (department) {
+  const departmentStyles = (Department) => {
+    switch (Department) {
       case "Dév. Commercial":
         return theme.palette.lightBlue.main;
       case "Projet":
-        return theme.palette.blue.main;
-      default:
         return theme.palette.green.main;
+      case "Cellule Qualité":
+        return theme.palette.purple.main;
+      default:
+        return theme.palette.blue.main;
+    }
+  };
+
+  const statusStyles = (status) => {
+    switch (status) {
+      case "Cancelled":
+        return { color: theme.palette.error.main };
+      case "Delayed":
+        return { color: theme.palette.warning.light };
+      case "Confirmed":
+      default:
+        return { color: theme.palette.success.main };
     }
   };
 
@@ -54,11 +68,14 @@ const DataTable = ({ columns, rowData }) => {
             <React.Fragment key={index}>
               <TableRow sx={{ "&:last-child td, &:last-child th": { border: "none" } }}>
                 {columns.map((column) => (
-                  <TableCell key={column.id} sx={{ borderBottom: "none" }}>
-                    {column.id === "department" ? (
+                  <TableCell key={column.id} sx={{
+                    borderBottom: "none",
+                    ...(column.id === "Status" && statusStyles(row.Status)),
+                  }}>
+                    {column.id === "Department" ? (
                       <Typography
                         sx={{
-                          backgroundColor: departmentStyles(row.department),
+                          backgroundColor: departmentStyles(row.Department),
                           color: theme.palette.common.white,
                           display: "inline-block",
                           borderRadius: "12px",
@@ -66,7 +83,7 @@ const DataTable = ({ columns, rowData }) => {
                           fontSize: "0.875rem",
                         }}
                       >
-                        {row.department}
+                        {row.Department}
                       </Typography>
                     ) : (
                       column.render ? column.render(row) : row[column.id]
