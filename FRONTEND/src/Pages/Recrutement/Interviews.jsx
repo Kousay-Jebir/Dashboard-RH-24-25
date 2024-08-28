@@ -1,5 +1,6 @@
 import { Box, useTheme ,Typography } from "@mui/material";
 import InterviewsDataGrid from "../../Components/Recrutement/Interviews/InterviewsDataGrid";
+import DateFilter from "../../Components/Recrutement/Interviews/DateFilter";
 
 export default function Interviews(){
     const theme = useTheme();
@@ -11,6 +12,7 @@ export default function Interviews(){
             margin: 2,
             padding: 2,
           }}>
+            <DateFilter/>
             <InterviewsDataGrid/>
         </Box>
     )
