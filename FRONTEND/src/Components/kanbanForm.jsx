@@ -9,7 +9,7 @@ const KanbanForm = ({getFormData}) => {
     const [formData, setFormData] = useState({
         interviewWith: '',
         interviewedBy: '',
-        department: 'projects'
+        department: 'Projects'
     });
 
     // Handler for input changes
@@ -126,7 +126,7 @@ const KanbanForm = ({getFormData}) => {
                             (dept) => (
                                 <FormControlLabel
                                     key={dept}
-                                    value={dept.toLowerCase().replace(' ', '_')}
+                                    value={dept}
                                     control={
                                         <Radio
                                             sx={{
