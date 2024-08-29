@@ -3,7 +3,7 @@ import SearchIcon from '@mui/icons-material/Search';
 export default function SearchBar({placeHolder}){
     return(
         <TextField
-          sx={{ maxWidth: '40%',
+          sx={{ 
             '& .MuiOutlinedInput-root': {
       borderRadius: 1.5, // Customize border radius
       '& fieldset': {

@@ -9,7 +9,6 @@ const List = () => {
       border: 2,
       borderRadius: 2,
       borderColor: theme.palette.neutral.light,
-      margin: 2,
       padding: 2,
     }}>
         <ScheduleDataGrid/>
