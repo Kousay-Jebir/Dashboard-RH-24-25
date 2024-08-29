@@ -8,6 +8,7 @@ import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import KanbanForm from "../../../kanbanForm";
 import ScheduleButton from "../../../ScheduleButton";
 import { statuses } from "../../interview-states";
+import { getDepartmentIdByDepartmentTitle } from "../../jei-departments";
 
 export default function Layout() {
 
@@ -60,6 +61,7 @@ export default function Layout() {
             Time: formData.time, // assuming time is part of the formData
             Interviewer: formData.interviewedBy,
             Department: formData.department,
+            DepartmentId: getDepartmentIdByDepartmentTitle(formData.department),
             Status: showFormInColumn // Use showFormInColumn to determine status
         };
 

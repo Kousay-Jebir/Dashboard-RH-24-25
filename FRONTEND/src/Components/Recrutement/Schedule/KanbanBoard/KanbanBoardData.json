@@ -6,6 +6,7 @@
       "Time": "9:00 AM - 9:45 AM",
       "Interviewer": "Youssef Dhieb",
       "Department": "Marketing",
+      "DepartmentId":1,
       "Status": "Confirmed"
     },
     {
@@ -15,6 +16,7 @@
       "Time": "10:00 AM - 10:30 AM",
       "Interviewer": "Amine Hamdi",
       "Department": "Dév. Commercial",
+      "DepartmentId":3,
       "Status": "Confirmed"
     },
     {
@@ -24,6 +26,7 @@
       "Time": "9:00 AM - 9:45 AM",
       "Interviewer": "Aymen Bouhaha",
       "Department": "Projet",
+      "DepartmentId":2,
       "Status": "Confirmed"
     },
     {
@@ -33,6 +36,7 @@
       "Time": "9:00 AM - 9:45 AM",
       "Interviewer": "Youssef Dhieb",
       "Department": "Marketing",
+      "DepartmentId":1,
       "Status": "Delayed"
     },
     {
@@ -42,6 +46,7 @@
       "Time": "9:00 AM - 9:45 AM",
       "Interviewer": "Aymen Bouhaha",
       "Department": "Projet",
+      "DepartmentId":2,
       "Status": "Delayed"
     },
     {
@@ -51,6 +56,7 @@
       "Time": "9:00 AM - 9:45 AM",
       "Interviewer": "Youssef Dhieb",
       "Department": "Marketing",
+      "DepartmentId":1,
       "Status": "Delayed"
     },
     {
@@ -60,6 +66,7 @@
       "Time": "9:00 AM - 9:45 AM",
       "Interviewer": "Youssef Dhieb",
       "Department": "Marketing",
+      "DepartmentId":1,
       "Status": "Cancelled"
     },
     {
@@ -69,6 +76,7 @@
       "Time": "9:00 AM - 9:45 AM",
       "Interviewer": "Aymen Bouhaha",
       "Department": "Projet",
+      "DepartmentId":2,
       "Status": "Cancelled"
     },
     {
@@ -78,6 +86,7 @@
       "Time": "9:00 AM - 9:45 AM",
       "Interviewer": "Youssef Dhieb",
       "Department": "Marketing",
+      "DepartmentId":1,
       "Status": "Cancelled"
     }
   ]

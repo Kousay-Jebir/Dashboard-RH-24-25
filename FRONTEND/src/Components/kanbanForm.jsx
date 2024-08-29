@@ -1,6 +1,7 @@
 import { Box, Button, FormControl, FormControlLabel, Radio, RadioGroup, TextField, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import React, { useState } from 'react';
+import { departments } from './Recrutement/jei-departments';
 
 const KanbanForm = ({getFormData}) => {
     const theme = useTheme();
@@ -9,7 +10,7 @@ const KanbanForm = ({getFormData}) => {
     const [formData, setFormData] = useState({
         interviewWith: '',
         interviewedBy: '',
-        department: 'Projects'
+        department: departments.PROJET.title
     });
 
     // Handler for input changes
@@ -122,11 +123,11 @@ const KanbanForm = ({getFormData}) => {
                         onChange={handleChange}
                         sx={{ display: 'flex', flexDirection: 'row', gap: '10px', marginLeft: '10px', marginTop: '5px' }}
                     >
-                        {['Development Commercial', 'Projects', 'Marketing', 'Cellule Qualité'].map(
+                        {Object.values(departments).map(
                             (dept) => (
                                 <FormControlLabel
-                                    key={dept}
-                                    value={dept}
+                                    key={dept.id}
+                                    value={dept.title}
                                     control={
                                         <Radio
                                             sx={{
@@ -147,7 +148,7 @@ const KanbanForm = ({getFormData}) => {
                                                 gap: '5px'
                                             }}
                                         >
-                                            {dept}
+                                            {dept.title}
                                         </Typography>
                                     }
                                 />
