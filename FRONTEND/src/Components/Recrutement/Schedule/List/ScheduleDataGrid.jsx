@@ -1,6 +1,5 @@
 import React from "react";
 import DataTable from "../../../DataTable";
-import data from "./ScheduleDataGrid.json";
 import { Typography } from "@mui/material";
 
 const columns = [
@@ -17,7 +16,7 @@ const columns = [
 //   status: item.grade >= 60 ? 'Passed' : 'Failed'
 // }));
 
-const ScheduleDataGrid = () => {
+const ScheduleDataGrid = ({data}) => {
   return <DataTable columns={columns} rowData={data} />;
 };
 

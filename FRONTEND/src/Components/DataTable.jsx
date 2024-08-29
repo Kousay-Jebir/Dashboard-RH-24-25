@@ -38,12 +38,12 @@ const DataTable = ({ columns, rowData }) => {
   const statusStyles = (status) => {
     switch (status) {
       case "Cancelled":
-        return { color: theme.palette.error.main };
+        return { color: theme.palette.error.text };
       case "Delayed":
-        return { color: theme.palette.warning.light };
+        return { color: theme.palette.warning.text };
       case "Confirmed":
       default:
-        return { color: theme.palette.success.main };
+        return { color: theme.palette.success.text };
     }
   };
 

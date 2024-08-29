@@ -8,16 +8,21 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { statuses } from '../../interview-states'; // Adjust the import path as needed
 
 const Status = ({ title, icon: Icon, count, id, styles, setActive ,closeMenu=null}) => {
+
+    const handleStatusSelect = () => {
+        setActive(id);closeMenu()
+    }
+
     return (
-        <Box display={'flex'} alignItems={'center'} gap={1} onClick={() => {setActive(id);closeMenu()}} sx={{ cursor: 'pointer' }}>
+        <Box display={'flex'} alignItems={'center'} gap={1} onClick={handleStatusSelect} sx={{ cursor: 'pointer' }}>
             {Icon && <Icon fontSize="small" sx={{ color: styles.color }} />}
             <Typography sx={{ ...styles }}>{`${title} (${count})`}</Typography>
         </Box>
     );
 };
 
-export default function StatusBar() {
-    const [activeStatus, setActiveStatus] = useState('ALL');
+export default function StatusBar({activeStatus,setActiveStatus}) {
+    
     const [menuOpen, setMenuOpen] = useState(false);
     const theme = useTheme();
     const isMobile = useMediaQuery('(max-width:622px)');
