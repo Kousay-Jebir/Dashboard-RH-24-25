@@ -1,10 +1,17 @@
 import React from "react";
 import RecentMeetingsGrid from "../../Components/Meetings/RecentMeetingsGrid";
-import { Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
+import SearchBar from "../../components/SearchBar";
+import BorderBox from "../../components/BorderBox";
 
 const RecentMeetings = () => {
   return (
-      <RecentMeetingsGrid />
+      <Box>
+        <Box mb={2}><SearchBar placeHolder={'Search for meeting'}/></Box>
+        <BorderBox radius={2}>
+          <RecentMeetingsGrid />
+        </BorderBox>
+      </Box>
   );
 };
 

@@ -48,7 +48,7 @@ const DataTable = ({ columns, rowData }) => {
   };
 
   return (
-    <TableContainer component={Paper} sx={{ padding: 1, maxWidth: "100%", overflowX: "auto" }}>
+    <TableContainer component={Paper} sx={{maxWidth: "100%", overflowX: "auto" }} elevation={0}>
       <Table size="small">
         <TableHead>
           <TableRow>
