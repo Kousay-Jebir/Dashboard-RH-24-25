@@ -4,7 +4,7 @@ import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import WhatshotIcon from '@mui/icons-material/Whatshot';
 import Grid from '@mui/material/Grid';
 import React from 'react';
-import TicketKPI from './TicketKPI';
+import TicketKPI from '../components/TicketKPI';
 
 const AllTicketsKPI = () => {
   return (

@@ -8,11 +8,11 @@ const routesConfig = {
     dashboard: '/dashboard',
     recruitment: {
       root: '/recruitement',
-      tabs : {
-      interviews: '/recruitement/interviews',
-      schedule: '/recruitement/schedule',
-      settings: '/recruitement/settings',
-      },
+      tabs : [
+        {title:'Interviews',path:'/recruitement/interviews',default:'/recent'},
+        {title:'schedule',path:'/recruitement/schedule',default:'/list'},
+        {title:'Settings',path:'/recruitement/settings',default:''},
+      ],
       menu : {
         interviews:[
           {
@@ -48,10 +48,10 @@ const routesConfig = {
     teamMembers: '/team-members',
     meetings: {
       root: '/meetings',
-      tabs : {
-      meetings: '/meetings/meetings',
-      settings: '/meetings/settings',
-      },
+      tabs : [
+        {title:'Meetings',path:'/meetings/meetings',default:'/recent'},
+        { title:'Settings',path:'/meetings/settings',default:''},
+      ],
       menu : {
         meetings: [
           {

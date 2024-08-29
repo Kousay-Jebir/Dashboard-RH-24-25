@@ -17,9 +17,7 @@ const RecruitementInterviewCard = ({ interview }) => {
       borderRadius={2}
       borderColor={theme.palette.neutral.light}
       p={1}
-      width={240}
-      position="relative" 
-      mb={2} 
+      mb={1} 
     >
       <Grid container gap={0.5} alignItems="center">
         <Grid>
