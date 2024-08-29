@@ -1,11 +1,11 @@
-import React from 'react'
+import React from "react";
+import RecentMeetingsGrid from "../../Components/Meetings/RecentMeetingsGrid";
+import { Grid } from "@mui/material";
 
 const RecentMeetings = () => {
   return (
-    <div>
-      
-    </div>
-  )
-}
+      <RecentMeetingsGrid />
+  );
+};
 
-export default RecentMeetings
+export default RecentMeetings;

@@ -107,7 +107,7 @@ const DataTable = ({ columns, rowData }) => {
                   <TableCell colSpan={columns.length + 1} sx={{ paddingBottom: 2, borderBottom: "none" }}>
                     <Box p={2}>
                       <Typography variant="body2">
-                        Additional details for {row.name}...
+                        Additional details for {row.name || row.Title}...
                       </Typography>
                     </Box>
                   </TableCell>
