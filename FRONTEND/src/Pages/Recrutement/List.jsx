@@ -1,5 +1,6 @@
 import { Box, useTheme } from '@mui/material';
 import ScheduleDataGrid from '../../Components/Recrutement/Schedule/List/ScheduleDataGrid';
+import DateRangeFilter from '../../Components/DateRangeFilter';
 const List = () => {
 
   const theme = useTheme();
@@ -12,6 +13,7 @@ const List = () => {
       margin: 2,
       padding: 2,
     }}>
+        <DateRangeFilter/>
         <ScheduleDataGrid/>
     </Box>
   )
