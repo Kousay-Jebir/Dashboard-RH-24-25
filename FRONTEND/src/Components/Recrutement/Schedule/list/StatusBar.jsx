@@ -21,7 +21,7 @@ const Status = ({ title, icon: Icon, count, id, styles, setActive ,closeMenu=nul
     );
 };
 
-export default function StatusBar({activeStatus,setActiveStatus}) {
+export default function StatusBar({activeStatus,setActiveStatus,countsArray}) {
     
     const [menuOpen, setMenuOpen] = useState(false);
     const theme = useTheme();
@@ -45,13 +45,13 @@ export default function StatusBar({activeStatus,setActiveStatus}) {
                 zIndex: 1200 // Ensure it's above other content
             }}
         >
-            {Object.values(statuses).map((status) => (
+            {Object.values(statuses).map((status,index) => (
                 <Status
                     key={status.id}
                     id={status.id}
                     icon={status.icon}
                     title={status.title}
-                    count='9'
+                    count={countsArray[index]}
                     setActive={setActiveStatus}
                     closeMenu = {handleMenuToggle}
                     styles={
@@ -88,13 +88,13 @@ export default function StatusBar({activeStatus,setActiveStatus}) {
                         color: 'text.secondary'
                     }}
                 >
-                    {Object.values(statuses).map((status) => (
+                    {Object.values(statuses).map((status,index) => (
                         <Status
                             key={status.id}
                             id={status.id}
                             icon={status.icon}
                             title={status.title}
-                            count='9'
+                            count={countsArray[index]}
                             setActive={setActiveStatus}
                             styles={
                                 status.id !== activeStatus

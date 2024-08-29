@@ -8,7 +8,32 @@ import { statuses } from "../../../Components/Recrutement/interview-states"
 export default function InterviewsList(){
     const [interviews,setInterviews] = useState(data);
     const [activeStatus, setActiveStatus] = useState('ALL');
-    console.log(activeStatus)
+     
+    // Create a counts object with initial counts set to 0
+    const statusCounts = {
+        CONFIRMED: 0,
+        DELAYED: 0,
+        CANCELLED: 0
+    };
+
+    // Count the occurrences of each status
+    interviews.forEach(interview => {
+        const status = interview.Status.toUpperCase();
+        if (statusCounts.hasOwnProperty(status)) {
+            statusCounts[status]++;
+        }
+    });
+
+    // Create the array of counts in the order: CONFIRMED, DELAYED, CANCELLED
+    const countsArray = [
+        interviews.length,
+        statusCounts.CONFIRMED,
+        statusCounts.DELAYED,
+        statusCounts.CANCELLED
+    ];
+
+
+
     const filteredInterviews = activeStatus === statuses.ALL.id ? interviews : interviews.filter((interview)=>{
         return interview.Status.toUpperCase() === activeStatus
     })
@@ -16,7 +41,7 @@ export default function InterviewsList(){
         <Box >
             <Box mb={2}><ScheduleHeader/></Box>
             <Box mb={2}>
-                <StatusBar activeStatus={activeStatus} setActiveStatus={setActiveStatus}></StatusBar>
+                <StatusBar  countsArray={countsArray} activeStatus={activeStatus} setActiveStatus={setActiveStatus}></StatusBar>
             </Box>
             <List data={filteredInterviews}/>
         </Box>
