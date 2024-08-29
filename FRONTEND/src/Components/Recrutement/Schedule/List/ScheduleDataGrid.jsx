@@ -2,6 +2,7 @@ import React from "react";
 import DataTable from "../../../DataTable";
 import data from "./ScheduleDataGrid.json";
 import { Typography } from "@mui/material";
+import dayjs from "dayjs";
 
 const columns = [
   { id: "Name", label: "Name" },
@@ -12,13 +13,20 @@ const columns = [
   { id: "Status", label: "Status" },
 ];
 
-// const rowData = data.map(item => ({
-//   ...item,
-//   status: item.grade >= 60 ? 'Passed' : 'Failed'
-// }));
+const filterDataByDateRange = (data, dateRange) => {
+  const [startDate, endDate] = dateRange;
+  if (!startDate || !endDate) return data;
 
-const ScheduleDataGrid = () => {
-  return <DataTable columns={columns} rowData={data} />;
+  return data.filter(item => {
+    const itemDate = dayjs(item.Date, "DD/MM/YYYY");
+    return itemDate.isBetween(dayjs(startDate), dayjs(endDate), null, '[]');
+  });
+};
+
+const ScheduleDataGrid = ({ dateRange }) => {
+  const filteredData = filterDataByDateRange(data, dateRange);
+
+  return <DataTable columns={columns} rowData={filteredData} />;
 };
 
 export default ScheduleDataGrid;

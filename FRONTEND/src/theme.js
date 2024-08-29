@@ -63,6 +63,7 @@ const theme = createTheme({
     extraMeduim: 570,
     bold: 700,
   },
+
 });
 
 export default theme;

@@ -1,8 +1,15 @@
 import { Box, useTheme } from '@mui/material';
 import ScheduleDataGrid from '../../Components/Recrutement/Schedule/List/ScheduleDataGrid';
-const List = () => {
+import DateRangeFilter from '../../Components/DateRangeFilter';
+import React, { useState } from 'react';
 
+const List = () => {
   const theme = useTheme();
+  const [dateRange, setDateRange] = useState([null, null]);
+
+  const handleDateRangeChange = (newDateRange) => {
+    setDateRange(newDateRange);
+  };
 
   return (
     <Box sx={{
@@ -12,9 +19,10 @@ const List = () => {
       margin: 2,
       padding: 2,
     }}>
-        <ScheduleDataGrid/>
+      <DateRangeFilter onDateRangeChange={handleDateRangeChange} />
+      <ScheduleDataGrid dateRange={dateRange} />
     </Box>
-  )
+  );
 }
 
-export default List
+export default List;
