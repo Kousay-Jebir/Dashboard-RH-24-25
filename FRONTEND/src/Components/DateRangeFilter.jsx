@@ -5,32 +5,48 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateRangePicker } from "@mui/x-date-pickers-pro/DateRangePicker";
 import { SingleInputDateRangeField } from "@mui/x-date-pickers-pro/SingleInputDateRangeField";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-import { useTheme } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import dayjs from "dayjs";
 
-export default function DateRangeFilter() {
+export default function DateRangeFilter({ onDateRangeChange }) {
+  const [dateRange, setDateRange] = React.useState([null, null]);
   const theme = useTheme();
+
+  const handleDateRangeChange = (newDateRange) => {
+    setDateRange(newDateRange);
+    if (onDateRangeChange) {
+      onDateRangeChange(newDateRange);
+    }
+  };
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DemoContainer components={["SingleInputDateRangeField"]}>
         <DateRangePicker
+          value={dateRange}
+          onChange={handleDateRangeChange}
           slots={{ field: SingleInputDateRangeField }}
           slotProps={{
             textField: {
               size: "small",
               InputProps: {
                 endAdornment: <Calendar />,
+                style: { fontSize: '12px' } // Adjust font size directly
               },
             },
           }}
           sx={{
-            width: "190px",
-            "& .MuiInputBase-input": {
-              fontSize: "12px", // Reduced font size
-              color: theme.palette.text.light,
+            width: "250px", // Ensure component width
+            "& .MuiTextField-root": {
+              minWidth: "250px", // Adjusted minWidth
             },
-            "& .MuiInputAdornment-root .MuiSvgIcon-root": {
-              fontSize: "12px", 
+            "& .MuiInputBase-input": {
+              fontSize: "12px", // Font size adjustment
+              color: theme.palette.text.primary, // Use primary text color
+            },
+            "& .MuiSvgIcon-root": {
+              fontSize: "16px", // Icon size adjustment
+              color: theme.palette.text.light, // Use primary text color
             },
           }}
         />
