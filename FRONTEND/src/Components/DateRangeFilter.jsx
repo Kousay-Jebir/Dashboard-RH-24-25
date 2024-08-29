@@ -8,10 +8,8 @@ import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { useTheme } from "@mui/material/styles";
 import dayjs from "dayjs";
 import customParseFormat from 'dayjs/plugin/customParseFormat';
-import customFormat from 'dayjs/plugin/customFormat';
 
 dayjs.extend(customParseFormat);
-dayjs.extend(customFormat);
 
 export default function DateRangeFilter({ onDateRangeChange }) {
   const [dateRange, setDateRange] = React.useState([null, null]);
@@ -36,25 +34,25 @@ export default function DateRangeFilter({ onDateRangeChange }) {
               size: "small",
               InputProps: {
                 endAdornment: <Calendar />,
-                style: { fontSize: '12px' } // Adjust font size directly
+                style: { fontSize: '12px' }
               },
             },
           }}
           sx={{
-            width: "250px", // Ensure component width
+            width: "250px",
             "& .MuiTextField-root": {
-              minWidth: "250px", // Adjusted minWidth
+              minWidth: "250px",
             },
             "& .MuiInputBase-input": {
-              fontSize: "12px", // Font size adjustment
-              color: theme.palette.text.primary, // Use primary text color
+              fontSize: "12px",
+              color: theme.palette.text.primary,
             },
             "& .MuiSvgIcon-root": {
-              fontSize: "16px", // Icon size adjustment
-              color: theme.palette.text.light, // Use primary text color
+              fontSize: "16px",
+              color: theme.palette.text.light,
             },
           }}
-          format="DD-MM-YYYY" // Set date format
+          format="DD-MM-YYYY" // Ensure correct format
         />
       </DemoContainer>
     </LocalizationProvider>

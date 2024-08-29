@@ -36,7 +36,7 @@ const theme = createTheme({
     },
     warning:{
       main:"#FFE3D5",
-      text:"#E97135"
+      text:"#ffa726"
     },
     error:{
       main:"#FFD5D8",

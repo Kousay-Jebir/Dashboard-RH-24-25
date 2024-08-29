@@ -1,7 +1,6 @@
 import React from "react";
 import DataTable from "../../../DataTable";
 import data from "./ScheduleDataGrid.json";
-import { Typography } from "@mui/material";
 import dayjs from "dayjs";
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 
@@ -28,7 +27,7 @@ const filterDataByDateRange = (data, dateRange) => {
   });
 };
 
-const ScheduleDataGrid = ({ dateRange = [] }) => {
+const ScheduleDataGrid = ({ dateRange }) => {
   const filteredData = filterDataByDateRange(data, dateRange);
 
   return <DataTable columns={columns} rowData={filteredData} />;
