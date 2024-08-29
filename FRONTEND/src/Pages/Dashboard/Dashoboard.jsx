@@ -1,12 +1,13 @@
 import React from "react";
-import { Box, Grid, useTheme } from "@mui/material";
+import { Box, Grid, Typography, useTheme } from "@mui/material";
 
 import MembersByCategory from "../../Components/Dashboard/MembersByCategory";
 import MembersByGender from "../../Components/Dashboard/MembersByGender";
 import Schedule from "../../Components/Dashboard/Schedule";
 import AllTicketsKPI from "../../Components/AllTicketsKPI";
+import ScheduleButton from "../../Components/ScheduleButton";
 
-const Dashoboard = () => {
+const Dashboard = () => {
   const handleDateChange = (newDate) => {
     console.log("Selected Date:", newDate);
   };
@@ -17,17 +18,37 @@ const Dashoboard = () => {
     <Box
       sx={{
         minWidth: 1100,
-        border: 2,
-        borderRadius: 2,
-        borderColor: theme.palette.neutral.light,
         margin: 2,
         padding: 2,
       }}
     >
       <Grid container spacing={2}>
+        <Grid item xs={8}>
+          <Typography fontSize={26} fontWeight={theme.typography.extraMeduim}>
+            Dashboard
+          </Typography>
+        </Grid>
 
-        <Grid item xs={12} >
-          <AllTicketsKPI  />
+        <Grid item xs={2}>
+          <ScheduleButton  
+            variant="text"
+            schedule="Schedule interview" 
+            sx={{
+              color:theme.palette.primary.main
+            }}
+          />
+        </Grid>
+
+        <Grid item xs={2}>
+          <ScheduleButton
+            variant="contained"  
+            schedule="Schedule meeting" 
+            
+          />
+        </Grid>
+
+        <Grid item xs={12}>
+          <AllTicketsKPI />
         </Grid>
 
         <Grid item xs={4}>
@@ -46,4 +67,4 @@ const Dashoboard = () => {
   );
 };
 
-export default Dashoboard;
+export default Dashboard;

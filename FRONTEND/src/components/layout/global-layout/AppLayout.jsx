@@ -36,23 +36,22 @@ function AppLayout() {
   const basePath = currentPath.split('/').slice(0, 2).join('/');
 
   function getSubPaths(basePath) {
-    // Find the key that matches the base path
+    // Iterate through each key in routesConfig
     for (const key in routesConfig) {
-      const value = routesConfig[key];
-  
-      // Check if value is an object and has the 'root' path matching the basePath
-      if (typeof value === 'object' && value.root === basePath) {
-        // Return all sub-paths from the 'tabs' object, prefixed with '/'
-        const tabs = value.tabs;
-        if (tabs) {
-          return Object.keys(tabs).map(subKey => `/${subKey}`);
+        const value = routesConfig[key];
+
+        // Check if the current value is an object and has the 'root' path matching the basePath
+        if (typeof value === 'object' && value.root === basePath) {
+            // Return the 'tabs' array if it exists
+            const tabs = value.tabs;
+            if (tabs) {
+                return tabs
+            }
         }
-      }
     }
-  
-    // If no matching base path is found, return an empty array
+    // Return an empty array if no matching root path is found
     return [];
-  }
+}
 
   let tabs = getSubPaths(basePath);
 
@@ -66,7 +65,7 @@ function AppLayout() {
         handleDrawerClose={handleDrawerClose}
         handleDrawerTransitionEnd={handleDrawerTransitionEnd}
       />
-      <Box component="main" sx={{ flexGrow: 1, width: { sm: `calc(100% - ${drawerWidth}px)` } }}>
+      <Box component="main" sx={{ overflow:'auto',flexGrow: 1, }}>
         <Toolbar />
         <Box mt={3} p={2}>
           <AppBreadCrumbs />
@@ -74,11 +73,12 @@ function AppLayout() {
         <Divider sx={{ border: 1, borderColor: 'neutral.light' }} />
         {tabs.length > 0 && (
           <Box>
-            <NavigationTabs basePath={basePath} tabs={tabs} />
+            <NavigationTabs  tabs={tabs} />
+            
+          <Divider sx={{ border: 1, borderColor: 'neutral.light', position: 'relative', top: '-0.4%', zIndex: '-100' }} />
           </Box>
         )}
-        {tabs.length > 0 && (
-          <Divider sx={{ border: 1, borderColor: 'neutral.light', position: 'relative', top: '-0.4%', zIndex: '-100' }} />)}
+        
         <Outlet />
       </Box>
     </Box>
