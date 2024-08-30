@@ -1,5 +1,5 @@
 import DataTable from "../../../DataTable"
-import Data from "./GeneralAssemblyData.json"
+
 
 const columns = [
     { id: "Title", label: "Meeting title" },
@@ -9,7 +9,7 @@ const columns = [
     { id: "Place", label: "place" },
   ];
 
-const GeneralAssemblyDataGrid = () => {
+const GeneralAssemblyDataGrid = ({Data}) => {
   return (
     <DataTable columns={columns} rowData={Data}></DataTable>
   )

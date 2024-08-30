@@ -1,9 +1,42 @@
 import React from 'react'
+import TeamBuildingDataGrid from '../../Components/Meetings/Schedule/Team Building/TeamBuildingDataGrid'
+import meetings from "../../Components/Meetings/Schedule/Event/EventData.json";
+import{ useState, useMemo } from "react";
+import { Box } from "@mui/material";
+import SearchBar from '../../components/SearchBar';
+import BorderBox from '../../components/BorderBox';
 import EventDataGrid from '../../Components/Meetings/Schedule/Event/EventDataGrid'
 
 const Event = () => {
+  const [searchQuery, setSearchQuery] = useState('');
+
+  // Handle search input change
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  // Filter meetings based on search query
+  const filteredMeetings = useMemo(() => {
+    if (!searchQuery) return meetings;
+
+    const lowercasedQuery = searchQuery.toLowerCase();
+    return meetings.filter(meeting =>
+      meeting.Title.toLowerCase().includes(lowercasedQuery)
+    );
+  }, [searchQuery]);
+
   return (
-    <EventDataGrid />
+    <Box>
+      <Box mb={2}>
+        <SearchBar
+          placeHolder={'Search for meeting'}
+          onChange={handleSearchChange} // Attach the change handler
+        />
+      </Box>
+      <BorderBox radius={2}>
+        <EventDataGrid Data={filteredMeetings} />
+      </BorderBox>
+    </Box>
   )
 }
 

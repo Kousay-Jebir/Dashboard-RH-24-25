@@ -4,7 +4,7 @@ import './App.css'
 import AppLayout from './components/layout/global-layout/AppLayout';
 import { Route, Routes } from 'react-router-dom'
 import { RoutesProvider } from './router/context/RoutesContext'
-
+import Event from './Pages/Meetings/Event';
 import MainContentLayout from './components/layout/main-content-layout/MainContentLayout';
 import Dashoboard from './Pages/Dashboard/Dashoboard'
 import Interviews from './Pages/Recrutement/Interviews'
@@ -16,6 +16,7 @@ import EventDataGrid from './Components/Meetings/Schedule/Event/EventDataGrid';
 import KanbanBoard from './Pages/Recrutement/schedule/KanbanBoard';
 import InterviewsList from './Pages/Recrutement/schedule/InterviewsList';
 import Login from './Pages/Login/Login';
+import DepartmentMeetings from './Pages/Meetings/DepartmentMeetings';
 
 function App() { 
   return (
@@ -45,10 +46,10 @@ function App() {
               <Route path="meetings">
                 <Route path="recent" element={<RecentMeetings/>} />
                 <Route path="schedule">
-                  <Route path="department" element={<DepartmentDataGrid/>}/>
+                  <Route path="department" element={<DepartmentMeetings/>}/>
                   <Route path="general-assembly" element={<GeneralAssembly />} />
                   <Route path="team-building" element={<TeamBuilding />} />
-                  <Route path="event" element={<EventDataGrid />}/>
+                  <Route path="event" element={<Event />}/>
                 </Route>
               </Route>
               <Route path="settings" />

@@ -1,6 +1,6 @@
 import React from "react";
 import DataTable from "../../../DataTable";
-import Data from "./DepartmentData.json"
+import BorderBox from "../../../../components/BorderBox";
 
 const columns = [
   { id: "Title", label: "Meeting title" },
@@ -10,8 +10,10 @@ const columns = [
   { id: "Status", label: "Status" },
 ];
 
-const DepartmentDataGrid = () => {
-  return <DataTable columns={columns} rowData={Data} />;
+const DepartmentDataGrid = ({Data}) => {
+  return <BorderBox radius={2}>
+    <DataTable columns={columns} rowData={Data} />
+  </BorderBox>;
 };
 
 export default DepartmentDataGrid;

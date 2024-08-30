@@ -1,6 +1,6 @@
 import React from 'react'
 import DataTable from '../../../DataTable'
-import Data from "./TeamBuildingData.json"
+
 
 const columns = [
     { id: "Title", label: "Meeting title" },
@@ -9,7 +9,7 @@ const columns = [
     { id: "Time", label: "Time" },
   ];
 
-const TeamBuildingDataGrid = () => {
+const TeamBuildingDataGrid = ({Data}) => {
   return (
     <DataTable columns={columns} rowData={Data}></DataTable>
   );
