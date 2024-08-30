@@ -13,9 +13,9 @@ import {
   Box,
 } from "@mui/material";
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
-import data from "./InterviewsData.json"; 
 
-const DataTable = () => {
+
+const DataTable = ({data}) => {
   const [expandedRow, setExpandedRow] = useState(null); // Track expanded row
   const theme = useTheme();
 
