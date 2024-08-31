@@ -1,26 +1,27 @@
-import { CssBaseline } from '@mui/material'
-import './App.css'
+import { CssBaseline } from '@mui/material';
+import './App.css';
 
+import { Route, Routes } from 'react-router-dom';
 import AppLayout from './components/layout/global-layout/AppLayout';
-import { Route, Routes } from 'react-router-dom'
-import { RoutesProvider } from './router/context/RoutesContext'
+import { RoutesProvider } from './router/context/RoutesContext';
 
 import MainContentLayout from './components/layout/main-content-layout/MainContentLayout';
-import Dashoboard from './Pages/Dashboard/Dashoboard'
-import Interviews from './Pages/Recrutement/Interviews'
-import RecentMeetings from './Pages/Meetings/RecentMeetings';
+import MeetingDetails from './Components/Meetings/MeetingDetails/MeetingDetails';
 import DepartmentDataGrid from './Components/Meetings/Schedule/Department/DepartmentDataGrid';
-import GeneralAssembly from './Pages/Meetings/GeneralAssembly';
-import TeamBuilding from './Pages/Meetings/TeamBuilding';
 import EventDataGrid from './Components/Meetings/Schedule/Event/EventDataGrid';
-import KanbanBoard from './Pages/Recrutement/schedule/KanbanBoard';
+import Dashoboard from './Pages/Dashboard/Dashoboard';
+import GeneralAssembly from './Pages/Meetings/GeneralAssembly';
+import RecentMeetings from './Pages/Meetings/RecentMeetings';
+import TeamBuilding from './Pages/Meetings/TeamBuilding';
+import Interviews from './Pages/Recrutement/Interviews';
 import InterviewsList from './Pages/Recrutement/schedule/InterviewsList';
-
+import KanbanBoard from './Pages/Recrutement/schedule/KanbanBoard';
 function App() { 
   return (
     <RoutesProvider>
       <CssBaseline />
       <Routes>
+        <Route path='/' element={<MeetingDetails></MeetingDetails>}></Route>
         <Route path="/" element={<AppLayout />}>
           <Route path="dashboard" element={<Dashoboard />} />
 

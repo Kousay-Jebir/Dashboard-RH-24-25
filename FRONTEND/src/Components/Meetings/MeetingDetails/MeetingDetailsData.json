@@ -1,0 +1,15 @@
+
+{
+  "Title": "Assemblée générale ordinaire",
+  "AG": "Ordinaire",
+  "Date": "20/04/2025",
+  "Time": "09:00 AM",
+  "Place": "Salle Conf-2B",
+  "Code":"1123-234",
+  "Status":{"StatusText":"Confirmed","StatusColor":"#1DAF61"},
+  "Members" :"All members included",
+  "AddedBy" : "Bureau exécutif"
+
+
+
+}
