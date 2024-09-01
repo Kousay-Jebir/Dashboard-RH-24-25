@@ -1,9 +1,9 @@
-import { Box, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import ScheduleHeader from "./ScheduleHeader";
 import SearchBar from "../../../components/SearchBar";
 import StatusBar from "../../../Components/Recrutement/Schedule/list/StatusBar";
 import List from "../List";
-import DateRangeFilter from "../../../Components/DateRangeFilter"; 
+import DateRangeFilter from "../../../Components/DateRangeFilter"; // Import DateRangeFilter
 import data from "../../../Components/Recrutement/Schedule/List/ScheduleDataGrid.json";
 import { useState } from "react";
 import { statuses } from "../../../Components/Recrutement/interview-states";
@@ -62,18 +62,22 @@ export default function InterviewsList() {
     };
 
     return (
-        <Grid container>
-            <Box mb={2}>
+        <Grid container spacing={2}>
+            <Grid item xs={12} md={8} alignItems={"center"}>
                 <SearchBar 
                     placeHolder={'Search for interview'}
                     onChange={handleSearchChange} 
                 />
-                <DateRangeFilter onDateRangeChange={handleDateRangeChange} /> {/* Add DateRangeFilter */}
-            </Box>
-            <Box mb={2}>
+            </Grid>
+            <Grid item xs={12} md={4} >
+                <DateRangeFilter onDateRangeChange={handleDateRangeChange} />
+            </Grid>
+            <Grid item xs={12}>
                 <StatusBar countsArray={countsArray} activeStatus={activeStatus} setActiveStatus={setActiveStatus} />
-            </Box>
-            <List data={filteredInterviews} />
+            </Grid>
+            <Grid item xs={12}>
+                <List data={filteredInterviews} />
+            </Grid>
         </Grid>
     );
 }
