@@ -1,18 +1,20 @@
-import React from 'react'
-import DataTable from '../../../DataTable'
-
+import React from "react";
+import DataTable from "../../../DataTable";
+import BorderBox from "../../../BorderBox";
 
 const columns = [
-    { id: "Title", label: "Meeting title" },
-    { id: "Location", label: "Location" },
-    { id: "Date", label: "Date" },
-    { id: "Time", label: "Time" },
-  ];
+  { id: "Title", label: "Meeting title" },
+  { id: "Location", label: "Location" },
+  { id: "Date", label: "Date" },
+  { id: "Time", label: "Time" },
+];
 
-const TeamBuildingDataGrid = ({Data}) => {
+const TeamBuildingDataGrid = ({ Data }) => {
   return (
-    <DataTable columns={columns} rowData={Data}></DataTable>
+    <BorderBox radius={2}>
+      <DataTable columns={columns} rowData={Data}></DataTable>
+    </BorderBox>
   );
-}
+};
 
-export default TeamBuildingDataGrid
+export default TeamBuildingDataGrid;

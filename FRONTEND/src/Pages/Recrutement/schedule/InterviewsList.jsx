@@ -3,7 +3,7 @@ import ScheduleHeader from "./ScheduleHeader";
 import SearchBar from "../../../components/SearchBar";
 import StatusBar from "../../../Components/Recrutement/Schedule/list/StatusBar";
 import List from "../List";
-import DateRangeFilter from "../../../Components/DateRangeFilter"; // Import DateRangeFilter
+import DateRangeFilter from "../../../Components/DateRangeFilter";
 import data from "../../../Components/Recrutement/Schedule/List/ScheduleDataGrid.json";
 import { useState } from "react";
 import { statuses } from "../../../Components/Recrutement/interview-states";
@@ -12,8 +12,8 @@ import dayjs from "dayjs";
 export default function InterviewsList() {
     const [interviews, setInterviews] = useState(data);
     const [activeStatus, setActiveStatus] = useState('ALL');
-    const [searchQuery, setSearchQuery] = useState(''); // New state for search query
-    const [dateRange, setDateRange] = useState([null, null]); // New state for date range
+    const [searchQuery, setSearchQuery] = useState(''); 
+    const [dateRange, setDateRange] = useState([null, null]); 
 
     // Create a counts object with initial counts set to 0
     const statusCounts = {
