@@ -58,12 +58,8 @@ export default function DateRangeFilter({ onDateRangeChange }) {
               fontSize: "16px",
               color: theme.palette.text.light,
             },
-            "& .css-1d3z3hw-MuiOutlinedInput-notchedOutline": {
-              borderRadius: "6px", // Border radius for the input field
-              borderWidth: "2px", // Border width for the input field
-              borderColor: theme.palette.neutral.light, // Border color
-              borderStyle: "solid", // Border style
-            },
+           
+            
           }}
           format="DD-MM-YYYY"
         />
