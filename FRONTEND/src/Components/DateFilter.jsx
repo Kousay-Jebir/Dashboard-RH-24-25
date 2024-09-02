@@ -6,7 +6,6 @@ import dayjs from "dayjs";
 import { useTheme } from "@mui/material";
 
 const DateFilter = ({ onDateChange }) => {
-
   const theme = useTheme();
 
   return (
@@ -17,16 +16,27 @@ const DateFilter = ({ onDateChange }) => {
           onDateChange(formattedDate);
         }}
         format="DD-MM-YYYY"
-        slotProps={{ textField: { size: 'small' } }}
-        sx={{ width: "200px",
+        sx={{
+          width: "100%",
+          height: "43px", 
+
+          "& .MuiInputBase-root": {
+            height: "100%", // Ensures input fills the height
+          },
           "& .MuiInputBase-input": {
-                fontSize: "13px",
-                color: theme.palette.text.light
-              },
-              "& .MuiInputAdornment-root .MuiSvgIcon-root": {
-                fontSize: "16px", 
-              },
-         }}
+            fontSize: "13px",
+            color: theme.palette.text.light,
+          },
+          "& .MuiInputAdornment-root .MuiSvgIcon-root": {
+            fontSize: "16px",
+          },
+          "& .css-1d3z3hw-MuiOutlinedInput-notchedOutline": {
+            borderRadius: "6px",
+            borderWidth: "2px", 
+            borderColor: theme.palette.neutral.light, 
+            borderStyle: "solid",
+          },
+        }}
       />
     </LocalizationProvider>
   );

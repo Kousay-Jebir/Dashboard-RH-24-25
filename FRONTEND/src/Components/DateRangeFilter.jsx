@@ -52,17 +52,17 @@ export default function DateRangeFilter({ onDateRangeChange }) {
             "& .MuiInputBase-input": {
               fontSize: "14px",
               color: theme.palette.text.primary,
-              padding: "8px 12px", // Adjust padding to control the internal height
+              padding: "8px 12px", 
             },
             "& .MuiSvgIcon-root": {
               fontSize: "16px",
               color: theme.palette.text.light,
             },
             "& .css-1d3z3hw-MuiOutlinedInput-notchedOutline": {
-              borderRadius: "6px", // Border radius for the input field
-              borderWidth: "2px", // Border width for the input field
-              borderColor: theme.palette.neutral.light, // Border color
-              borderStyle: "solid", // Border style
+              borderRadius: "6px", 
+              borderWidth: "2px", 
+              borderColor: theme.palette.neutral.light, 
+              borderStyle: "solid", 
             },
           }}
           format="DD-MM-YYYY"
