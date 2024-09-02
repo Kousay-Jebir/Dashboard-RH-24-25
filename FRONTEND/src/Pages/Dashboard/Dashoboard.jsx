@@ -46,9 +46,9 @@ const Dashboard = () => {
           />
         </Grid>
 
-        {/* <Grid item xs={12} md={12}>
+        <Grid item xs={12} md={12}>
           <AllTicketsKPI />
-        </Grid> */}
+        </Grid>
 
         <Grid item xs={12} md={4}>
           <MembersByCategory />
