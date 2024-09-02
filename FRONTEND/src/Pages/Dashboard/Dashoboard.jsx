@@ -17,19 +17,18 @@ const Dashboard = () => {
   return (
     <Box
       sx={{
-        minWidth: 1100,
         margin: 2,
         padding: 2,
       }}
     >
       <Grid container spacing={2}>
-        <Grid item xs={8}>
+        <Grid item xs={6} md={8} >
           <Typography fontSize={26} fontWeight={theme.typography.extraMeduim}>
             Dashboard
           </Typography>
         </Grid>
 
-        <Grid item xs={2}>
+        <Grid item xs={6} md={2}>
           <ScheduleButton  
             variant="text"
             schedule="Schedule interview" 
@@ -39,7 +38,7 @@ const Dashboard = () => {
           />
         </Grid>
 
-        <Grid item xs={2}>
+        <Grid item xs={12} md={2}>
           <ScheduleButton
             variant="contained"  
             schedule="Schedule meeting" 
@@ -47,19 +46,19 @@ const Dashboard = () => {
           />
         </Grid>
 
-        <Grid item xs={12}>
+        {/* <Grid item xs={12} md={12}>
           <AllTicketsKPI />
-        </Grid>
+        </Grid> */}
 
-        <Grid item xs={4}>
+        <Grid item xs={12} md={4}>
           <MembersByCategory />
         </Grid>
 
-        <Grid item xs={4}>
+        <Grid item xs={12} md={4}>
           <MembersByGender />
         </Grid>
 
-        <Grid item xs={4}>
+        <Grid item xs={12} md={4}>
           <Schedule />
         </Grid>
       </Grid>
