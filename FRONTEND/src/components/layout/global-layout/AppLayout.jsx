@@ -75,7 +75,7 @@ function AppLayout() {
           <Box>
             <NavigationTabs  tabs={tabs} />
             
-          <Divider sx={{ border: 1, borderColor: 'neutral.light', position: 'relative', top: '-0.4%', zIndex: '-100' }} />
+          <Divider  sx={{ border: 1, borderColor: 'neutral.light', position: 'relative', top: '-0.4%', zIndex: '-100' }} />
           </Box>
         )}
         
