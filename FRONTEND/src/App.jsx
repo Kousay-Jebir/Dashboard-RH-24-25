@@ -17,7 +17,6 @@ import KanbanBoard from './Pages/Recrutement/schedule/KanbanBoard';
 import InterviewsList from './Pages/Recrutement/schedule/InterviewsList';
 import Login from './Pages/Login/Login';
 import DepartmentMeetings from './Pages/Meetings/DepartmentMeetings';
-import TeamMembers from './Pages/team-members/TeamMembers';
 
 function App() { 
   return (
