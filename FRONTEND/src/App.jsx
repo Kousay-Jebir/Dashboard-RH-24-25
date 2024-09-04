@@ -17,6 +17,7 @@ import KanbanBoard from './Pages/Recrutement/schedule/KanbanBoard';
 import InterviewsList from './Pages/Recrutement/schedule/InterviewsList';
 import Login from './Pages/Login/Login';
 import DepartmentMeetings from './Pages/Meetings/DepartmentMeetings';
+import TeamMembers from './Pages/team-members/TeamMembers';
 
 function App() { 
   return (
@@ -40,7 +41,13 @@ function App() {
               <Route path="settings" />
             </Route>
 
-            <Route path="team-members" />
+            <Route path="team-members">
+              <Route path='all'/>
+              <Route path='dev-co'/>
+              <Route path='marketing'/>
+              <Route path='projet'/>
+              <Route path='cellule-qualite'/>
+            </Route>
 
             <Route path="meetings">
               <Route path="meetings">
