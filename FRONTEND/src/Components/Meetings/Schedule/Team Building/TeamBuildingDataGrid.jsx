@@ -1,6 +1,6 @@
 import React from "react";
 import DataTable from "../../../DataTable";
-import BorderBox from "../../../BorderBox";
+import BorderBox from "../../../../components/BorderBox";
 
 const columns = [
   { id: "Title", label: "Meeting title" },
