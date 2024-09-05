@@ -1,18 +1,19 @@
-import React, { useState } from "react";
+import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
 import {
+  Box,
+  IconButton,
+  Paper,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  Paper,
   Typography,
-  IconButton,
   useTheme,
-  Box,
 } from "@mui/material";
-import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
+import React, { useState } from "react";
+import RecentInterviewKPI from "./RecentInterviewKPI";
 
 const InterviewsDataGrid = ({ data }) => {
   const [expandedRow, setExpandedRow] = useState(null); // Track expanded row
@@ -119,10 +120,14 @@ const InterviewsDataGrid = ({ data }) => {
                 <TableRow>
                   <TableCell colSpan={7} sx={{ paddingBottom: 2, borderBottom: "none" }}>
                     <Box p={2}>
-                      <Typography variant="body2">
-                        Additional details for {row.name}...
-                      </Typography>
-                      {/* Replace this Box with the component you want to render */}
+                      <RecentInterviewKPI
+                        poleGrade={row.poleGrade}
+                        knowledgeGrade={row.knowledgeGrade}
+                        availabilityGrade={row.availabilityGrade}
+                        RHGrade={row.RHGrade}
+                        situationsGrade={row.situationsGrade}
+                        associativeGrade={row.associativeGrade}
+                      />
                     </Box>
                   </TableCell>
                 </TableRow>
