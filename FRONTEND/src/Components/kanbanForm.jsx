@@ -94,9 +94,9 @@ const KanbanForm = ({ getFormData }) => {
                     '& .MuiInputBase-root': { height: '100%' },
                     '& .MuiInputBase-input': { fontFamily: theme.typography.fontFamily, fontSize: '10px' },
                     '& .MuiFormHelperText-root': {
-                        fontSize: '8px',  // Adjust font size of the helper text
-                        color: theme.palette.error.main,  // Ensure error color matches
-                        margin: 0,  // Remove any default margin
+                        fontSize: '8px',  
+                        color: theme.palette.error.main, 
+                        margin: 0,  
                     },
                 }}
                 
@@ -144,7 +144,7 @@ const KanbanForm = ({ getFormData }) => {
                 </Typography>
 
                 {showDateTime && (
-                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1px', mb: 1 }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, mb: 1 }}>
                         {renderTextField('Date', 'date', '', 'date')}
                         {renderTextField('Time', 'time', '', 'time')}
                     </Box>
