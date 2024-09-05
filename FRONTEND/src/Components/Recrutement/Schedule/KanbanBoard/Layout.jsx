@@ -125,6 +125,7 @@ export default function Layout({ boardColumns, setBoardColumns }) {
                                         color: 'text.primary',
                                         borderColor: 'neutral.light',
                                         fontFamily:"inter",
+                                        fontWeight:500
                                     }}
                                     onClick={() => handleAddInterviewClick(id)}
                                 />
