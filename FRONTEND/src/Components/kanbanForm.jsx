@@ -7,7 +7,7 @@ import { departments } from './Recrutement/jei-departments';
 const KanbanForm = ({ getFormData }) => {
     const theme = useTheme();
 
-    // State to manage form data
+    
     const [formData, setFormData] = useState({
         interviewWith: '',
         interviewedBy: '',
@@ -16,10 +16,10 @@ const KanbanForm = ({ getFormData }) => {
         time: ''
     });
 
-    // State to manage visibility of date and time input
+    
     const [showDateTime, setShowDateTime] = useState(false);
 
-    // Handler for input changes
+    
     const handleChange = (event) => {
         const { name, value } = event.target;
         setFormData((prevState) => ({
@@ -28,33 +28,17 @@ const KanbanForm = ({ getFormData }) => {
         }));
     };
 
-    // Handler for date change
-    const handleDateChange = (date) => {
-        setFormData((prevState) => ({
-            ...prevState,
-            date: date ? date.toISOString().split('T')[0] : ''
-        }));
-    };
-
-    // Handler for time change
-    const handleTimeChange = (time) => {
-        setFormData((prevState) => ({
-            ...prevState,
-            time: time ? time.toISOString().split('T')[1].slice(0, 5) : ''
-        }));
-    };
-
-    // Handler for showing and hiding date/time inputs
-    const toggleDateTime = () => {
-        setShowDateTime(prev => !prev);
-    };
-
-    // Handler for form submission
+    
     const handleSubmit = () => {
         getFormData(formData);
     };
 
-    const renderTextField = (label, name, placeholder) => (
+    
+    const toggleDateTimeFields = () => {
+        setShowDateTime(prev => !prev);
+    };
+
+    const renderTextField = (label, name, placeholder, type = 'text') => (
         <Box sx={{ height: '20px', display: 'flex', flexDirection: 'row', gap: '6px' }}>
             <Typography
                 variant="body2"
@@ -72,6 +56,7 @@ const KanbanForm = ({ getFormData }) => {
                 value={formData[name]}
                 onChange={handleChange}
                 placeholder={placeholder}
+                type={type}
                 sx={{
                     height: '20px',
                     width: "auto",
@@ -115,12 +100,18 @@ const KanbanForm = ({ getFormData }) => {
                         marginBottom: 1,
                         cursor: 'pointer'
                     }}
-                    onClick={toggleDateTime}
+                    onClick={toggleDateTimeFields}
                 >
                     + Add date & time
                 </Typography>
-                
-               
+
+                {showDateTime && (
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1px', mb: 1 }}>
+                        {renderTextField('Date', 'date', '', 'date')}
+                        {renderTextField('Time', 'time', '', 'time')}
+                    </Box>
+                )}
+
 
                 <Box width={243} mb={1}>
                     {renderTextField('Will be interviewed by', 'interviewedBy', "Enter name")}
