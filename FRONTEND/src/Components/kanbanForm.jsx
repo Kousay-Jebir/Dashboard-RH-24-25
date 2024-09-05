@@ -7,7 +7,6 @@ import { departments } from './Recrutement/jei-departments';
 const KanbanForm = ({ getFormData }) => {
     const theme = useTheme();
 
-    
     const [formData, setFormData] = useState({
         interviewWith: '',
         interviewedBy: '',
@@ -16,10 +15,9 @@ const KanbanForm = ({ getFormData }) => {
         time: ''
     });
 
-    
+    const [errors, setErrors] = useState({});
     const [showDateTime, setShowDateTime] = useState(false);
 
-    
     const handleChange = (event) => {
         const { name, value } = event.target;
         setFormData((prevState) => ({
@@ -28,14 +26,46 @@ const KanbanForm = ({ getFormData }) => {
         }));
     };
 
-    
     const handleSubmit = () => {
-        getFormData(formData);
+        if (validateForm()) {
+            getFormData(formData);
+        }
     };
 
-    
     const toggleDateTimeFields = () => {
         setShowDateTime(prev => !prev);
+    };
+
+    const validateForm = () => {
+        const newErrors = {};
+
+        // Utility function to check for invalid characters
+        const hasInvalidCharacters = (value) => /[^a-zA-Z\s\-\'èéàâôîû]/.test(value);
+
+        // Validate 'Interview with'
+        if (!formData.interviewWith.trim()) {
+            newErrors.interviewWith = "The interviewee's name is required.";
+        } else if (hasInvalidCharacters(formData.interviewWith)) {
+            newErrors.interviewWith = "The interviewee's name contains invalid characters.";
+        } else if (formData.interviewWith.length < 3) {
+            newErrors.interviewWith = "The interviewee's name is too short";
+        } else if (formData.interviewWith.length > 20) {
+            newErrors.interviewWith = "The interviewee's name is too long.";
+        }
+
+        // Validate 'Interviewed by'
+        if (!formData.interviewedBy.trim()) {
+            newErrors.interviewedBy = "The interviewer's name is required.";
+        } else if (hasInvalidCharacters(formData.interviewedBy)) {
+            newErrors.interviewedBy = "The interviewer's name contains invalid characters.";
+        } else if (formData.interviewedBy.length < 3) {
+            newErrors.interviewedBy = "The interviewer's name is too short.";
+        } else if (formData.interviewedBy.length > 20) {
+            newErrors.interviewedBy = "The interviewer's name is too long.";
+        }
+
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
     };
 
     const renderTextField = (label, name, placeholder, type = 'text') => (
@@ -57,13 +87,21 @@ const KanbanForm = ({ getFormData }) => {
                 onChange={handleChange}
                 placeholder={placeholder}
                 type={type}
+                error={!!errors[name]}
+                helperText={errors[name]}
                 sx={{
-                    height: '20px',
-                    width: "auto",
+                    width: '100%',
                     '& .MuiInputBase-root': { height: '100%' },
                     '& .MuiInputBase-input': { fontFamily: theme.typography.fontFamily, fontSize: '10px' },
+                    '& .MuiFormHelperText-root': {
+                        fontSize: '8px',  // Adjust font size of the helper text
+                        color: theme.palette.error.main,  // Ensure error color matches
+                        margin: 0,  // Remove any default margin
+                    },
                 }}
+                
             />
+            
         </Box>
     );
 
@@ -112,7 +150,6 @@ const KanbanForm = ({ getFormData }) => {
                     </Box>
                 )}
 
-
                 <Box width={243} mb={1}>
                     {renderTextField('Will be interviewed by', 'interviewedBy', "Enter name")}
                 </Box>
@@ -124,6 +161,7 @@ const KanbanForm = ({ getFormData }) => {
                     height: '102px',
                     gap: '8px',
                     paddingTop: '10px',
+                    marginTop:2
                 }}
             >
                 <FormControl component="fieldset">
