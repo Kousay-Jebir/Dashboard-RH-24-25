@@ -95,7 +95,7 @@ const KanbanForm = ({ getFormData }) => {
                     '& .MuiInputBase-input': { fontFamily: theme.typography.fontFamily, fontSize: '10px' },
                     '& .MuiFormHelperText-root': {
                         fontSize: '8px',  
-                        color: theme.palette.error.main, 
+                        color: theme.palette.warning.text,
                         margin: 0,  
                     },
                 }}
