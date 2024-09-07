@@ -3,21 +3,22 @@ import BorderBox from "../../../../components/BorderBox";
 import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlineRounded';
 import RestoreOutlinedIcon from '@mui/icons-material/RestoreOutlined';
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
+import { statuses } from "../../interview-states";
 export default function InterviewStatus({columnId,columnLength}){
     let bgColor,textColor,title,icon;
-    if(columnId === 'confirmed'){
+    if(columnId === statuses.CONFIRMED.id){
          bgColor = 'success.main';
          textColor = 'success.text';
          title = 'Confirmed'
          icon = <CheckCircleOutlineRoundedIcon sx={{color:textColor}} fontSize='small'/>
     }
-    else if(columnId === 'delayed'){
+    else if(columnId === statuses.DELAYED.id){
          bgColor = 'warning.main';
          textColor = 'warning.text';
          title = 'Delayed';
          icon = <RestoreOutlinedIcon sx={{color:textColor}} fontSize='small'/>
     }
-    else if(columnId === 'cancelled') {
+    else if(columnId === statuses.CANCELLED.id) {
          bgColor = 'error.main';
          textColor = 'error.text';
          title = 'Cancelled';

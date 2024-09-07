@@ -1,16 +1,16 @@
 import React from "react";
 import { Box, Grid, Typography, useTheme } from "@mui/material";
 import ForumRoundedIcon from "@mui/icons-material/ForumRounded";
+import { getColorById } from "../../jei-departments";
 
 const RecruitementInterviewCard = ({ interview }) => {
   const theme = useTheme();
 
-  const departmentColors = {
+  /* const departmentColors = {
     'Dév. Commercial': theme.palette.lightBlue.main,
     'Projet': theme.palette.blue.main,
     'Marketing': theme.palette.green.main,
-  };
-
+  }; */
   return (
     <Box
       border={1}
@@ -60,7 +60,7 @@ const RecruitementInterviewCard = ({ interview }) => {
           border={1}
           borderRadius={2}
           color={theme.palette.white.main}
-          bgcolor={departmentColors[interview.Department] || theme.palette.grey[300]}
+          bgcolor={getColorById(interview.DepartmentId) || theme.palette.grey[300]}
           p={0.6} 
         >
           <Typography fontSize={10}>{interview.Department}</Typography>
