@@ -39,7 +39,7 @@ const NavigationTabs = ({tabs}) => {
       flexWrap='wrap'
       gap={1}
       sx={{
-        overflow: 'visible', // Ensure overflow is not hidden
+        
       }}
     >
       <Tabs
@@ -49,10 +49,10 @@ const NavigationTabs = ({tabs}) => {
         textColor='text.primary'
         indicatorColor='secondary'
         sx={{
-          overflow: 'visible', // Ensure overflow is not hidden
+          overflow: { xs: 'auto', sm:'scroll', md: 'visible' }, // Ensure overflow is not hidden
           '.MuiTabs-indicator': {
             bottom: -10, // Adjust this value to push down the indicator
-            display: { xs: 'none', sm: 'block' }, // Hide indicator on extra-small screens
+            display: { xs: 'none', md: 'block' }, // Hide indicator on extra-small screens
           },
           '.MuiTabs-root': {
             overflow: 'visible !important',
@@ -69,7 +69,7 @@ const NavigationTabs = ({tabs}) => {
           <Tab
             key={tab.path} // Use tab.path as key for better uniqueness
             label={tab.title} // Use tab.title for the tab label
-            sx={{ textTransform: 'capitalize' }}
+            sx={{ textTransform: 'none' }}
           />
         ))}
       </Tabs>

@@ -40,7 +40,13 @@ function App() {
               <Route path="settings" />
             </Route>
 
-            <Route path="team-members" />
+            <Route path="team-members">
+              <Route path='all'/>
+              <Route path='dev-co'/>
+              <Route path='marketing'/>
+              <Route path='projet'/>
+              <Route path='cellule-qualite'/>
+            </Route>
 
             <Route path="meetings">
               <Route path="meetings">
