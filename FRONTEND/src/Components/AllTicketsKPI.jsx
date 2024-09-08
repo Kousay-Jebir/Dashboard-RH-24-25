@@ -38,7 +38,7 @@ const AllTicketsKPI = () => {
   return (
     <Grid container spacing={2} marginBottom={1}>
       {isXs ? (
-        <Grid item xs={4}>
+        <Grid item xs={12}>
           <Slider {...settings}>
             {kpiData.map((data, index) => (
               <div key={index}>

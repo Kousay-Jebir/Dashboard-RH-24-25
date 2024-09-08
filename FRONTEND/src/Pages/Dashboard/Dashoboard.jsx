@@ -22,7 +22,7 @@ const Dashboard = () => {
       }}
     >
       <Grid container spacing={2}>
-        <Grid item xs={6} md={8} >
+        <Grid item xs={12} md={8} >
           <Typography fontSize={26} fontWeight={theme.typography.extraMeduim}>
             Dashboard
           </Typography>
@@ -38,7 +38,7 @@ const Dashboard = () => {
           />
         </Grid>
 
-        <Grid item xs={12} md={2}>
+        <Grid item xs={6} md={2}>
           <ScheduleButton
             variant="contained"  
             schedule="Schedule meeting" 
