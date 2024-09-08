@@ -1,6 +1,6 @@
 import React from 'react'
 import DataTable from '../../../DataTable'
-import Data from "./EventData.json"
+
 
 const columns = [
     { id: "Title", label: "Meeting title" },
@@ -9,7 +9,7 @@ const columns = [
     { id: "Time", label: "Time" },
   ];
 
-const EventDataGrid = () => {
+const EventDataGrid = ({Data}) => {
   return (
     <DataTable columns={columns} rowData={Data}></DataTable>
   )

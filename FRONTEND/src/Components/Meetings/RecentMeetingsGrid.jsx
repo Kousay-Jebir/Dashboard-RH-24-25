@@ -1,6 +1,6 @@
 import React from 'react'
 import DataTable from "../DataTable"
-import Data from "./RecentMetingsData.json"
+
 
 const RecentMeetingsColumns = [
   {id:"Title" , label:"Meeting title"},
@@ -10,7 +10,7 @@ const RecentMeetingsColumns = [
   { id: "Duration", label: "Duration"}
 ]
 
-const RecentMeetingsGrid = () => {
+const RecentMeetingsGrid = ({Data}) => {
   return (
     <React.Fragment>
       <DataTable columns={RecentMeetingsColumns} rowData={Data}></DataTable>
