@@ -1,10 +1,10 @@
-import React from "react";
 import { Box, Grid, Typography, useTheme } from "@mui/material";
+import React from "react";
 
+import AllTicketsKPI from "../../Components/AllTicketsKPI";
 import MembersByCategory from "../../Components/Dashboard/MembersByCategory";
 import MembersByGender from "../../Components/Dashboard/MembersByGender";
 import Schedule from "../../Components/Dashboard/Schedule";
-import AllTicketsKPI from "../../Components/AllTicketsKPI";
 import ScheduleButton from "../../Components/ScheduleButton";
 
 const Dashboard = () => {
