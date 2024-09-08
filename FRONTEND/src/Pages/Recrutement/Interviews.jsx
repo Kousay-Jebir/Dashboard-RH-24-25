@@ -19,7 +19,7 @@ export default function Interviews() {
 
     // Handle date filter change
     const handleDateChange = (date) => {
-        setSelectedDate(date);
+        setSelectedDate(date ? dayjs(date, "DD-MM-YYYY") : null); // Parse the selected date correctly
     };
 
     // Filter interviews based on search query and date
@@ -30,8 +30,8 @@ export default function Interviews() {
                 return interview.name.toLowerCase().includes(lowercasedQuery);
             })
             .filter((interview) => {
-                if (!selectedDate) return true;
-                const interviewDate = dayjs(interview.date, "DD-MM-YYYY");
+                if (!selectedDate) return true; // If no date is selected, don't filter by date
+                const interviewDate = dayjs(interview.date, "DD-MM-YYYY"); // Parse the interview date correctly
                 return interviewDate.isSame(selectedDate, "day");
             });
     }, [searchQuery, selectedDate]);
