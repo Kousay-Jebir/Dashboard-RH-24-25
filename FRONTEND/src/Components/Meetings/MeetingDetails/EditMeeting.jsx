@@ -1,21 +1,74 @@
-import {
-    Box,
-    Button,
-    FormControlLabel,
-    Radio,
-    RadioGroup,
-    TextField,
-    Typography,
-} from '@mui/material';
+import { Box, Button, FormControlLabel, Radio, RadioGroup, TextField, Typography, useTheme } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import meetingData from './MeetingDetailsData.json';
 
 const EditMeeting = () => {
     const [fetchedData, setFetchedData] = useState(null);
+    const [showDateTime, setShowDateTime] = useState(false);
+    const [formData, setFormData] = useState({});
+    const [errors, setErrors] = useState({}); 
+
+    const theme = useTheme();
 
     useEffect(() => {
         setFetchedData(meetingData);
+        setFormData({
+            title: meetingData.Title,
+            place: meetingData.Place,
+            addedBy: meetingData.AddedBy,
+            status: meetingData.Status?.StatusText || 'Confirmed',
+            department: meetingData.Department,
+        });
     }, []);
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prevData) => ({ ...prevData, [name]: value }));
+    };
+
+    const toggleDateTimeFields = () => {
+        setShowDateTime((prev) => !prev);
+    };
+
+    const renderTextField = (label, name, placeholder, type = 'text',multiline = false) => (
+        <Box sx={{ height: '30px', display: 'flex', flexDirection: 'row', gap: '10px' }}>
+            <Typography
+                variant="body2"
+                sx={{
+                    fontFamily: theme.typography.fontFamily,
+                    fontSize: '13px',
+                    fontWeight: theme.typography.regular,
+                    color: theme.palette.neutral.normal,
+                }}
+            >
+                {label}
+            </Typography>
+            <TextField
+                name={name}
+                value={formData[name]}
+                onChange={handleChange}
+                placeholder={placeholder}
+                type={type}
+                error={!!errors[name]}
+                helperText={errors[name]}
+                sx={{
+                    width: '100%',
+                    '& .MuiInputBase-root': { height: '100%' },
+                    '& .MuiInputBase-input': { fontFamily: theme.typography.fontFamily, fontSize: '14px' },
+                    '& .MuiFormHelperText-root': {
+                        fontSize: '12px',
+                        color: theme.palette.warning.text,
+                        margin: 0,
+                    },
+                    '& .MuiOutlinedInput-root': {
+                    '& fieldset': {
+                        borderColor: theme.palette.neutral.light, 
+                    },},
+                }}
+                
+            />
+        </Box>
+    );
 
     if (!fetchedData) {
         return <p>Loading meeting details...</p>;
@@ -27,7 +80,6 @@ const EditMeeting = () => {
                 display: 'flex',
                 justifyContent: 'flex-end',
                 width: '100%',
-                //padding: '16px'
             }}
         >
             <Box sx={{ width: 521 }}>
@@ -35,9 +87,12 @@ const EditMeeting = () => {
                     <Typography
                         variant="h5"
                         sx={{
-                            fontFamily: 'Inter',
+                            fontFamily: theme.typography.fontFamily,
                             fontWeight: 700,
                             fontSize: 18,
+                            marginBottom:2,
+                            marginTop:3
+                            
                         }}
                     >
                         Edit Meeting
@@ -50,122 +105,86 @@ const EditMeeting = () => {
                         display: 'flex',
                         flexDirection: 'column',
                         gap: '4px',
-                        padding: '16px',
+                        //padding: '16px',
                         marginBottom: 2,
+                        marginTop:4
                     }}
                 >
-                    <TextField
-                        label="Title"
-                        defaultValue={fetchedData.Title}
-                        fullWidth
+                    {renderTextField('Title', 'title', 'Enter title')}
+                   
+                    <Typography
                         sx={{
-                            marginBottom: '4px',
-                            '& .MuiInputLabel-root': {
-                                fontSize: '12px',
-                            },
-                            '& .MuiInputBase-root': {
-                                fontSize: '12px',
-                            },
+                            fontFamily: theme.typography.fontFamily,
+                            fontSize: 14,
+                            color: theme.palette.neutral.normal,
+                            marginBottom: 1,
+                            cursor: 'pointer',
                         }}
-                    />
-                    <TextField
-                        label="Date"
-                        type="date"
-                        defaultValue={fetchedData.Date}
-                        fullWidth
-                        sx={{
-                            marginBottom: '4px',
-                            '& .MuiInputLabel-root': {
-                                fontSize: '12px',
-                            },
-                            '& .MuiInputBase-root': {
-                                fontSize: '12px',
-                            },
-                        }}
-                    />
-                    <TextField
-                        label="Time"
-                        type="time"
-                        defaultValue={fetchedData.Time}
-                        fullWidth
-                        sx={{
-                            marginBottom: '4px',
-                            '& .MuiInputLabel-root': {
-                                fontSize: '12px',
-                            },
-                            '& .MuiInputBase-root': {
-                                fontSize: '12px',
-                            },
-                        }}
-                    />
-                    <TextField
-                        label="Place"
-                        defaultValue={fetchedData.Place}
-                        fullWidth
-                        sx={{
-                            marginBottom: '4px',
-                            '& .MuiInputLabel-root': {
-                                fontSize: '12px',
-                            },
-                            '& .MuiInputBase-root': {
-                                fontSize: '12px',
-                            },
-                        }}
-                    />
-                    <TextField
-                        label="Added by"
-                        defaultValue={fetchedData.AddedBy}
-                        fullWidth
-                        sx={{
-                            '& .MuiInputLabel-root': {
-                                fontSize: '12px',
-                            },
-                            '& .MuiInputBase-root': {
-                                fontSize: '12px',
-                            },
-                        }}
-                    />
+                        onClick={toggleDateTimeFields}
+                    >
+                        + Add date & time
+                    </Typography>
+
+                    {showDateTime && (
+                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, mb: 1 }}>
+                            {renderTextField('Date', 'date', '', 'date')}
+                            {renderTextField('Time', 'time', '', 'time')}
+                        </Box>
+                    )}
+
+                    {renderTextField('Place', 'place', 'Enter place')}
+                    {renderTextField('Added by', 'addedBy', 'Enter name')}
                 </Box>
 
                 <Box
                     sx={{
                         width: 521,
-                        height:54,
+                        height: 54,
                         display: 'flex',
                         flexDirection: 'column',
                         gap: '4px',
-                        padding: '16px',
+                        //padding: '16px',
                         marginBottom: 2,
+                        marginTop:6,
                     }}
                 >
-                    <Typography variant="body2" sx={{ fontSize: '12px' }}>Change Status</Typography>
+                    <Typography variant="body2" sx={{ fontSize: '13px' }}>Change Status</Typography>
                     <RadioGroup
-                        defaultValue={fetchedData.Status?.StatusText || 'Confirmed'}
+                        name="status"
+                        value={formData.status}
+                        onChange={handleChange}
                         sx={{
                             display: 'flex',
                             flexDirection: 'row',
                             gap: '4px',
-                            
                         }}
                     >
-                        <FormControlLabel
-                            value="Confirmed"
-                            control={<Radio />}
-                            label="Confirmed"
-                            sx={{ fontSize: '12px' }}
-                        />
-                        <FormControlLabel
-                            value="Delayed"
-                            control={<Radio />}
-                            label="Delayed"
-                            sx={{ fontSize: '12px' }}
-                        />
-                        <FormControlLabel
-                            value="Canceled"
-                            control={<Radio />}
-                            label="Canceled"
-                            sx={{ fontSize: '12px' }}
-                        />
+                        {['Confirmed', 'Delayed', 'Canceled'].map((status) => (
+                            <FormControlLabel
+                                key={status}
+                                value={status}
+                                sx={{
+                                    border: 1,
+                                    borderColor: theme.palette.neutral.light,
+                                    borderRadius: 2,
+                                    padding: '2px 6px',
+                                    fontSize: '12px',
+                                }}
+                                control={
+                                    <Radio
+                                        sx={{
+                                            height: 20,
+                                            width: 20,
+                                            borderColor: theme.palette.neutral,
+                                            '& .MuiSvgIcon-root': { fontSize: '12px' },
+                                            color: theme.palette.neutral,
+                                            '&.Mui-checked': { color: '#6A7177' },
+                                        }}
+                                    />
+                                }
+                                label={status}
+                            />
+                        ))}
                     </RadioGroup>
                 </Box>
 
@@ -175,61 +194,47 @@ const EditMeeting = () => {
                         display: 'flex',
                         flexDirection: 'column',
                         gap: '4px',
-                        padding: '16px',
+                        //padding: '16px',
                         marginBottom: 2,
                     }}
                 >
-                    <Typography variant="body2" sx={{ fontSize: '14px' }}>Change Privacy</Typography>
+                    <Typography variant="body2" sx={{ fontSize: '13px' }}>Change Privacy</Typography>
                     <RadioGroup
-                        defaultValue={fetchedData.Department}
+                        name="department"
+                        value={formData.department}
+                        onChange={handleChange}
                         sx={{
                             display: 'flex',
                             flexDirection: 'row',
                             gap: '4px',
                         }}
                     >
-                        <FormControlLabel
-                            value="All members included"
-                            control={<Radio />}
-                            label="All members included"
-                            sx={{ fontSize: '12px' }}
-                        />
-                        <FormControlLabel
-                            value="Executive Board Members"
-                            control={<Radio />}
-                            label="Executive Board Members"
-                            sx={{ fontSize: '12px' }}
-                        />
-                        <FormControlLabel
-                            value="Quartet"
-                            control={<Radio />}
-                            label="Quartet"
-                            sx={{ fontSize: '12px' }}
-                        />
-                        <FormControlLabel
-                            value="Projet"
-                            control={<Radio />}
-                            label="Projet"
-                            sx={{ fontSize: '12px' }}
-                        />
-                        <FormControlLabel
-                            value="Marketing"
-                            control={<Radio />}
-                            label="Marketing"
-                            sx={{ fontSize: '12px' }}
-                        />
-                        <FormControlLabel
-                            value="Dev.Commercial"
-                            control={<Radio />}
-                            label="Dev.Commercial"
-                            sx={{ fontSize: '12px' }}
-                        />
-                        <FormControlLabel
-                            value="Qualité"
-                            control={<Radio />}
-                            label="Qualité"
-                            sx={{ fontSize: '12px' }}
-                        />
+                        {['All members included', 'Executive Board Members', 'Quartet', 'Projet', 'Marketing', 'Dev.Commercial', 'Qualité'].map((privacy) => (
+                            <FormControlLabel
+                                key={privacy}
+                                value={privacy}
+                                sx={{
+                                    border: 1,
+                                    borderColor: theme.palette.neutral.light,
+                                    borderRadius: 2,
+                                    padding: '2px 6px',
+                                    fontSize: '12px',
+                                }}
+                                control={
+                                    <Radio
+                                        sx={{
+                                            height: 20,
+                                            width: 20,
+                                            borderColor: theme.palette.neutral,
+                                            '& .MuiSvgIcon-root': { fontSize: '12px' },
+                                            color: theme.palette.neutral,
+                                            '&.Mui-checked': { color: '#6A7177' },
+                                        }}
+                                    />
+                                }
+                                label={privacy}
+                            />
+                        ))}
                     </RadioGroup>
                 </Box>
 
@@ -237,19 +242,15 @@ const EditMeeting = () => {
                     <Button
                         variant="outlined"
                         sx={{
-                            width: 195,
+                            width: '40%',
                             height: 46,
                             fontSize: 10,
                             color: '#404951',
                             border: '1px solid lightGrey',
                             borderRadius: 2,
-                            marginRight: 1,
+                            marginRight: 0,
                             fontFamily: 'Inter',
                             '&:hover': {
-                                backgroundColor: 'transparent',
-                                borderColor: 'lightGrey',
-                            },
-                            '&:active': {
                                 backgroundColor: 'transparent',
                                 borderColor: 'lightGrey',
                             },
@@ -260,21 +261,15 @@ const EditMeeting = () => {
 
                     <Button
                         sx={{
-                            width: 280,
+                            width: '60%',
                             height: 46,
                             fontSize: 10,
                             backgroundColor: '#404951',
                             color: '#FFFFFF',
-                            border: '1px solid lightGrey',
                             borderRadius: 2,
                             fontFamily: 'Inter',
                             '&:hover': {
                                 backgroundColor: '#404951',
-                                borderColor: 'lightGrey',
-                            },
-                            '&:active': {
-                                backgroundColor: '#404951',
-                                borderColor: 'lightGrey',
                             },
                         }}
                     >

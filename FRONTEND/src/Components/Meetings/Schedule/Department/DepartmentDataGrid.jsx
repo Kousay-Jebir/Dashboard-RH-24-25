@@ -1,6 +1,6 @@
 import React from "react";
 import DataTable from "../../../DataTable";
-import Data from "./DepartmentData.json"
+import Data from "./DepartmentData.json";
 
 const columns = [
   { id: "Title", label: "Meeting title" },
