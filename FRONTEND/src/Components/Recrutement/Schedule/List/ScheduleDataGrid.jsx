@@ -11,10 +11,6 @@ const columns = [
   { id: "Status", label: "Status" },
 ];
 
-// const rowData = data.map(item => ({
-//   ...item,
-//   status: item.grade >= 60 ? 'Passed' : 'Failed'
-// }));
 
 const ScheduleDataGrid = ({data}) => {
   return <DataTable columns={columns} rowData={data} />;
