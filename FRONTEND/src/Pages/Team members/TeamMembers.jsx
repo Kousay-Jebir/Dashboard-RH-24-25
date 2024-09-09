@@ -1,10 +1,8 @@
-import React from 'react'
-import MembersTable from '../../Components/Members/MembersTable'
+import React from "react";
+import AllMembersTable from "../../Components/Members/AllMembersTable";
 
 const TeamMembers = () => {
-  return (
-    <MembersTable/>
-  )
-}
+  return <AllMembersTable />;
+};
 
-export default TeamMembers
+export default TeamMembers;

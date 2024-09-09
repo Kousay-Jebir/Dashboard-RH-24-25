@@ -14,10 +14,10 @@ const columns = [
     { id: "Score", label: "Score" }
   ];
 
-const MembersTable = () => {
+const AllMembersTable = () => {
   return (
     <DataTable2 columns={columns} rowData={Data} />
   )
 }
 
-export default MembersTable
+export default AllMembersTable
