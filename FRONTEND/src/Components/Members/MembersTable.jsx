@@ -17,7 +17,7 @@ const columns = [
 const MembersTable = ({Data}) => {
 
   return (
-    <DataTable2 columns={columns} rowData={data} />
+    <DataTable2 columns={columns} rowData={Data} />
   )
 }
 
