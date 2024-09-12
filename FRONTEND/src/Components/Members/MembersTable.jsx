@@ -13,7 +13,9 @@ const columns = [
     { id: "Score", label: "Score" }
   ];
 
-const MembersTable = ({data}) => {
+
+const MembersTable = ({Data}) => {
+
   return (
     <DataTable2 columns={columns} rowData={data} />
   )

@@ -6,6 +6,7 @@ import TopBar from './TopBar';
 import SideBar from './SideBar';
 import AppBreadCrumbs from './AppBreadCrumbs';
 import NavigationTabs from '../../NavigationTabs';
+import ScheduleButton from '../../../Components/ScheduleButton';
 
 const drawerWidth = 305;
 
@@ -55,6 +56,19 @@ function AppLayout() {
 
   let tabs = getSubPaths(basePath);
 
+
+  function renderScheduleButton() {
+    if (location.pathname.startsWith('/recruitement')) {
+      return <ScheduleButton schedule={'Schedule interview'} />;
+    } else if (location.pathname.startsWith('/meetings')) {
+      return <ScheduleButton schedule={'Schedule meeting'} />;
+    }
+      else if (location.pathname.startsWith('/team-members')) {
+        return <ScheduleButton schedule={'Add member'}/>
+      }
+    return null; // Ensure there's a return value for all cases
+  }
+
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -73,7 +87,7 @@ function AppLayout() {
         <Divider sx={{ border: 1, borderColor: 'neutral.light' }} />
         {tabs.length > 0 && (
           <Box>
-            <NavigationTabs  tabs={tabs} />
+            <NavigationTabs  tabs={tabs} button={renderScheduleButton()}/>
             
           <Divider  sx={{ border: 1, borderColor: 'neutral.light', position: 'relative', top: '-0.4%', zIndex: '-100' }} />
           </Box>

@@ -3,7 +3,7 @@ import { Box, Tab, Tabs } from '@mui/material';
 import { useNavigate, useLocation } from 'react-router-dom';
 import ScheduleButton from '../Components/ScheduleButton';
 
-const NavigationTabs = ({tabs}) => {
+const NavigationTabs = ({tabs,button}) => {
   const navigate = useNavigate();
   const location = useLocation();
   console.log('info')
@@ -20,14 +20,14 @@ const NavigationTabs = ({tabs}) => {
     navigate(`${tabs[newValue].path}${tabs[newValue].default}`);
   };
 
-  function renderScheduleButton() {
+  /* function renderScheduleButton() {
     if (location.pathname.startsWith('/recruitement')) {
       return <ScheduleButton schedule={'Schedule interview'} />;
     } else if (location.pathname.startsWith('/meetings')) {
       return <ScheduleButton schedule={'Schedule meeting'} />;
     }
     return null; // Ensure there's a return value for all cases
-  }
+  } */
 
   return (
     <Box
@@ -73,7 +73,7 @@ const NavigationTabs = ({tabs}) => {
           />
         ))}
       </Tabs>
-      {renderScheduleButton()}
+      {button}
     </Box>
   );
 };
