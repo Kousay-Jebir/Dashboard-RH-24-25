@@ -1,6 +1,5 @@
 import React from 'react'
 import DataTable2 from '../DataTable2'
-import Data from "./members.json"
 
 const columns = [
     { id: "Name", label: "Name" },
@@ -14,9 +13,9 @@ const columns = [
     { id: "Score", label: "Score" }
   ];
 
-const MembersTable = () => {
+const MembersTable = ({data}) => {
   return (
-    <DataTable2 columns={columns} rowData={Data} />
+    <DataTable2 columns={columns} rowData={data} />
   )
 }
 

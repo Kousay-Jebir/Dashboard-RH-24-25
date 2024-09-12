@@ -1,10 +1,12 @@
-import React from 'react'
-import MembersTable from '../../Components/Members/MembersTable'
+import React from "react";
+import MembersTable from "../../Components/Members/MembersTable";
+import Data from "../../Components/Members/members.json"
 
-const TeamMembers = () => {
-  return (
-    <MembersTable/>
-  )
-}
+const TeamMembers = ({department}) => {
 
-export default TeamMembers
+  const filteredData = department === "all" ? Data : Data.filter(member => member.Department === department);
+  
+  return <MembersTable data={filteredData} />;
+};
+
+export default TeamMembers;

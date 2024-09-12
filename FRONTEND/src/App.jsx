@@ -35,18 +35,18 @@ function App() {
                 <Route path="questions" />
               </Route>
               <Route path="schedule">
-                <Route path="list" element={<InterviewsList/>}/>
-                <Route path="board" element={<KanbanBoard/>} />
+                <Route path="list" element={<InterviewsList />}/>
+                <Route path="board" element={<KanbanBoard />} />
               </Route>
               <Route path="settings" />
             </Route>
 
             <Route path="team-members">
-              <Route path='all' element={<TeamMembers/>} />
-              <Route path='dev-co'/>
-              <Route path='marketing'/>
-              <Route path='projet'/>
-              <Route path='cellule-qualite'/>
+              <Route path='all' element={<TeamMembers department="all" />} />
+              <Route path='dev-co' element={<TeamMembers department="Dév. Commercial" />} />
+              <Route path='marketing' element={<TeamMembers department="Marketing" />} />
+              <Route path='projet' element={<TeamMembers department="Projet" />} />
+              <Route path='cellule-qualite' element={<TeamMembers department="Cellule qualité" />} />
             </Route>
 
             <Route path="meetings">
