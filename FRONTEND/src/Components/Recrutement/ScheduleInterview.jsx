@@ -1,7 +1,8 @@
 import {
     Close as CloseIcon,
+    School as SchoolIcon,
 } from '@mui/icons-material';
-import { Box, Button, FormControlLabel, IconButton, Radio, RadioGroup, TextField, Tooltip, Typography, useTheme } from '@mui/material';
+import { Box, Button, FormControlLabel, IconButton, InputAdornment, MenuItem, Radio, RadioGroup, Select, TextField, Tooltip, Typography, useTheme } from '@mui/material';
 import React, { useState } from 'react';
     const ScheduleInterview = () => {
     const [showDateTime, setShowDateTime] = useState(false);
@@ -25,15 +26,16 @@ import React, { useState } from 'react';
         setShowDateTime((prev) => !prev);
     };
 
-    const renderTextField = (label, name, placeholder, type = 'text',multiline = false,width) => (
+    const renderTextField = (label, name, placeholder, type = 'text',multiline = false) => (
         <Box sx={{ height: '30px', display: 'flex', flexDirection: 'row', gap: '10px' }}>
             <Typography
                 variant="body2"
                 sx={{
                     fontFamily: theme.typography.fontFamily,
                     fontSize: '13px',
+                    width:"20%",
                     fontWeight: theme.typography.regular,
-                    color: theme.palette.neutral.normal,
+                    //color: theme.palette.neutral.normal,
                 }}
             >
                 {label}
@@ -46,7 +48,7 @@ import React, { useState } from 'react';
                 error={!!errors[name]}
                 helperText={errors[name]}
                 sx={{
-                    width: {width},
+                    width: "75%",
                     '& .MuiInputBase-root': { height: '100%' },
                     '& .MuiInputBase-input': { fontFamily: theme.typography.fontFamily, fontSize: '14px' },
                     '& .MuiFormHelperText-root': {
@@ -63,7 +65,47 @@ import React, { useState } from 'react';
             />
         </Box>
     );
+    const CustomSelect = ({ label, placeholder, options, icon }) => (
+        <Box sx={{display: 'flex', flexDirection: 'column', gap: '3px' ,width:'30%'}}>
+          <Typography
+            variant="body2"
+            sx={{
+              fontFamily: theme.typography.fontFamily,
+              fontSize: '12px',
+              fontWeight: theme.typography.regular,
+              textAlign: 'left',
+              color: theme.palette.neutral.normal,
 
+            }}
+          >
+            {label}
+          </Typography>
+          <Select
+            displayEmpty
+            sx={{
+              height: '30px',
+              borderRadius: 2,
+              borderColor: theme.palette.neutral.light, 
+              '& .MuiInputBase-root': { height: '100%' },
+              '& .MuiInputBase-input': { fontFamily: theme.typography.fontFamily, fontSize: '12px' },
+            }}
+            startAdornment={
+              <InputAdornment position="start">
+                {icon}
+              </InputAdornment>
+            }
+          >
+            <MenuItem value="" disabled>
+              {placeholder}
+            </MenuItem>
+            {options.map((option, index) => (
+              <MenuItem key={index} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </Select>
+        </Box>
+      );
    
 
     return (
@@ -114,13 +156,49 @@ import React, { useState } from 'react';
                         gap: '4px',
                         //padding: '16px',
                         marginBottom: 2,
-                        marginTop:4
+                        marginTop:4,
                     }}
                 >
+                    <Box sx={{display:'flex' , flexDirection:"row",gap:1}}>
                     {renderTextField('Candidate', 'Candidate', 'Enter name')}
                     {renderTextField('Phone', 'Phone', '+ 216')}
+                    </Box>
+                    <Box sx={{display:'flex' , flexDirection:"row",gap:1}}>
+
                     {renderTextField('City', 'City', 'Enter city')}
                     {renderTextField('Adress', 'Adress', ' Enter adress')}
+                    </Box>
+                        <Box sx={{display:'flex', flexDirection:"row" , width:'100%',gap:2
+ }}>
+                    <CustomSelect
+      label="Field"
+      placeholder="Select the candidate's field"
+      options={[
+        { value: 'MPI', label: 'MPI' },
+        { value: 'CBA', label: 'CBA' },
+        { value: 'RT', label: 'RT' },
+        { value: 'IIA', label: 'IIA' },
+        { value: 'GL', label: 'GL' },
+        { value: 'IMI', label: 'IMI' },
+        { value: 'CH', label: 'CH' },
+        { value: 'BIO', label: 'BIO' },
+
+        
+      ]}
+      icon={<SchoolIcon />}
+    />
+    <CustomSelect
+      label="Academic year"
+      placeholder="Select the candidate's academic year"
+      options={[
+        { value: 1, label: '1st year' },
+        { value: 2, label: '2nd year' },
+        { value: 3, label: '3rd year' },
+        { value: 4, label: '4th year' },
+      ]}
+      icon={<SchoolIcon />}
+    />
+    </Box>
 
 
                     <Typography
@@ -137,14 +215,16 @@ import React, { useState } from 'react';
                     </Typography>
 
                     {showDateTime && (
-                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, mb: 1 }}>
+                        <Box sx={{ display: 'flex', flexDirection: 'row', gap: 1, mb: 1 }}>
                             {renderTextField('Date', 'date', '', 'date')}
                             {renderTextField('Time', 'time', '', 'time')}
                         </Box>
                     )}
+                    <Box sx={{display:'flex' , flexDirection:"column",gap:1}}>
 
                     {renderTextField('Recruiter', 'Recruiter', 'Enter name')}
                     {renderTextField('E-mail adress', 'e-mail', 'Enter e-mail adress')}
+                    </Box>
                 </Box>
 
                 <Box
@@ -181,6 +261,7 @@ import React, { useState } from 'react';
                                     borderRadius: 2,
                                     padding: '2px 6px',
                                     fontSize: '12px',
+                                    color: theme.palette.neutral.normal
                                 }}
                                 control={
                                     <Radio
@@ -232,6 +313,7 @@ import React, { useState } from 'react';
                                     borderRadius: 2,
                                     padding: '2px 6px',
                                     fontSize: '12px',
+                                    color: theme.palette.neutral.normal
                                 }}
                                 control={
                                     <Radio
