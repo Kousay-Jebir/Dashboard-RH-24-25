@@ -1,19 +1,24 @@
 import {
-  AccessTime as AccessTimeIcon,
-  CalendarToday as CalendarTodayIcon,
-  Close as CloseIcon,
-  LocationOn as LocationOnIcon,
-  Person as PersonIcon
+    AccessTime as AccessTimeIcon,
+    CalendarToday as CalendarTodayIcon,
+    Close as CloseIcon,
+    LocationOn as LocationOnIcon,
+    Person as PersonIcon
 } from '@mui/icons-material';
-import { Box, Button, Card, CardContent, IconButton, Typography } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import { Box, Button, Card, CardContent, IconButton, Tooltip, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import React, { useEffect, useState } from 'react';
+import AddQuestion from './AddQuestion';
 import meetingData from './MeetingDetailsData.json';
 
 const MeetingDetails = () => {
     const theme = useTheme();
     const [fetchedData, setFetchedData] = useState(null);
     const [isVisible, setIsVisible] = useState(true);
+    const [questions, setQuestions] = useState([]);
+    const [isAddQuestionVisible, setIsAddQuestionVisible] = useState(false);
+    const [isButtonVisible, setIsButtonVisible] = useState(true);
 
     useEffect(() => {
         setFetchedData(meetingData);
@@ -27,19 +32,17 @@ const MeetingDetails = () => {
         setIsVisible(!isVisible);
     };
 
-    // Default styles
-    const defaultBoxStyles = {
-        display: 'flex',
-        alignItems: 'center',
-        gap: 1,
-        fontFamily: theme.typography.fontFamily,
-        fontSize: 14,
+    if (!isVisible) return null;
+
+    const handleAddQuestionToggle = () => {
+        setIsAddQuestionVisible(true);
+        setIsButtonVisible(false);
     };
 
-    const defaultTextStyles = {
-        fontFamily: theme.typography.fontFamily,
-        fontWeight: theme.typography.fontWeightRegular,
-        fontSize: 14,
+    const handleQuestionSubmit = (newQuestion) => {
+        setQuestions((prevQuestions) => [...prevQuestions, newQuestion]);
+        setIsAddQuestionVisible(false);
+        setIsButtonVisible(true); 
     };
 
     const StatusColor = fetchedData.Status?.StatusColor || 'defaultColor';
@@ -49,23 +52,28 @@ const MeetingDetails = () => {
             sx={{
                 gap: 34,
                 display: 'flex',
+                height: '100vh',
+                overflow:'auto',
                 justifyContent: 'flex-end',
                 fontFamily: theme.typography.fontFamily,
             }}
         >
             <Card>
-                <CardContent sx={{ position: 'relative' }}>
-                    <IconButton
-                        onClick={handleToggle}
-                        sx={{
-                            position: 'absolute',
-                            top: 10,
-                            right: 10,
-                            zIndex: 1,
-                        }}
-                    >
-                        <CloseIcon />
-                    </IconButton>
+                <CardContent >
+                    <Tooltip title="Close">
+                        <IconButton
+                            onClick={handleToggle}
+                            sx={{
+                                position: 'absolute',
+                                top: 10,
+                                right: 10,
+                                zIndex: 1,
+                                color: theme.palette.grey[600],
+                            }}
+                        >
+                            <CloseIcon />
+                        </IconButton>
+                    </Tooltip>
 
                     <Box sx={{ width: 521, height: 21, gap: 12 }}>
                         <Typography
@@ -92,100 +100,132 @@ const MeetingDetails = () => {
                             {fetchedData.Title} {fetchedData.Ag || ''}
                         </Typography>
 
-                        <Box sx={defaultBoxStyles}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                             <AccessTimeIcon fontSize="small" />
-                            <Typography variant="body2" sx={defaultTextStyles}>
-                                {fetchedData.Time}
-                            </Typography>
+                            <Typography variant="body2">{fetchedData.Time}</Typography>
                         </Box>
 
-                        <Box sx={defaultBoxStyles}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                             <CalendarTodayIcon fontSize="small" />
-                            <Typography variant="body2" sx={defaultTextStyles}>
-                                {fetchedData.Date}
-                            </Typography>
+                            <Typography variant="body2">{fetchedData.Date}</Typography>
                         </Box>
 
                         {fetchedData.Place && (
-                            <Box sx={defaultBoxStyles}>
+                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                                 <LocationOnIcon fontSize="small" />
-                                <Typography variant="body2" sx={defaultTextStyles}>
-                                    {fetchedData.Place}
-                                </Typography>
+                                <Typography variant="body2">{fetchedData.Place}</Typography>
                             </Box>
                         )}
 
-                        <Box sx={defaultBoxStyles}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                             <PersonIcon fontSize="small" />
-                            <Typography variant="body2" sx={defaultTextStyles}>
+                            <Typography variant="body2">
                                 added by {fetchedData.AddedBy}
                             </Typography>
                         </Box>
                     </Box>
 
                     {fetchedData.Code && (
-                        <Box sx={{ width: 521, gap: 6 }}>
+                        <Box sx={{ width: 521, gap: 5, display: "flex", flexDirection: "row", alignItems: "center" }}>
                             <Typography
                                 variant="body2"
                                 color="text.secondary"
-                                sx={{ fontFamily: theme.typography.fontFamily }}
+                                sx={{ fontFamily: theme.typography.fontFamily, width: '70%' }}
                             >
                                 Join Google Meet via this code: {fetchedData.Code}
                             </Typography>
+                            <Button
+                                variant="outlined"
+                                sx={{
+                                    marginLeft: 2,
+                                    border: '1px solid lightGrey',
+                                    borderRadius: 2,
+                                    textTransform: "none",
+                                    fontFamily: theme.typography.fontFamily,
+                                    fontSize: 12,
+                                    padding: "1px 5px",
+                                    color: "text.secondary",
+                                    '&:hover': {
+                                        backgroundColor: 'transparent',
+                                        borderColor: 'lightGrey',
+                                    },
+                                    '&:active': {
+                                        backgroundColor: 'transparent',
+                                        borderColor: 'lightGrey',
+                                    },
+                                }}
+                            >
+                                Show QR code
+                            </Button>
                         </Box>
                     )}
 
-                    <Box sx={{ width: 280, height: 23, marginTop: 2, gap: 8, display: 'flex', alignItems: 'center' }}>
-                        <Box
-                            sx={{
-                                height: 23,
-                                width: 'auto',
-                                padding: '0 8px',
-                                fontFamily: theme.typography.fontFamily,
-                                border: '1px solid lightGrey',
-                                borderRadius: 1,
-                                backgroundColor: StatusColor,
-                                color: theme.palette.white.main,
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                            }}
-                        >
-                            {fetchedData.Status?.StatusText || 'Confirmed'}
+                    <Box sx={{ width: 521 }}>
+                        <Box>
+                            {questions.map((q, index) => (
+                                <Box key={index} sx={{ marginTop: 2 }}>
+                                    <Typography variant="h6">{q.question}</Typography>
+                                    {q.options.map((option, i) => (
+                                        <Typography key={i} variant="body2" sx={{
+                                            border: '1px solid lightGrey',
+                                            borderRadius: 2,
+                                            padding:'4px 8px',
+                                            marginTop:'4px',
+                                            marginBottom:'4px'
+                                        }}>
+                                            {option}
+                                        </Typography>
+                                    ))}
+                                </Box>
+                            ))}
                         </Box>
-                        <Box
-                            sx={{
-                                height: 23,
-                                maxWidth: 180,
-                                padding: '0 3px',
-                                fontFamily: theme.typography.fontFamily,
-                                border: '1px solid lightGrey',
-                                borderRadius: 1,
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                marginLeft: -7,
-                            }}
-                        >
-                            {fetchedData.Department || 'All members included'}
-                        </Box>
+
+                        {isButtonVisible && (
+                            <Button
+                                variant="outlined"
+                                startIcon={<AddIcon sx={{ fontSize: 9, height: 15, width: 15 }} />}
+                                onClick={handleAddQuestionToggle}
+                                sx={{
+                                    marginTop: 2,
+                                    marginBottom: 2,
+                                    border: '1px solid lightGrey',
+                                    borderRadius: 2,
+                                    textTransform: "none",
+                                    fontFamily: theme.typography.fontFamily,
+                                    fontSize: 12,
+                                    padding: "2px 6px",
+                                    color: "text.secondary",
+                                    '&:hover': {
+                                        backgroundColor: 'transparent',
+                                        borderColor: 'lightGrey',
+                                    },
+                                    '&:active': {
+                                        backgroundColor: 'transparent',
+                                        borderColor: 'lightGrey',
+                                    },
+                                }}
+                            >
+                                Add question
+                            </Button>
+                        )}
+                        {isAddQuestionVisible && (
+                            <AddQuestion onAddQuestion={handleQuestionSubmit} />
+                        )}
                     </Box>
 
-                    <Box sx={{ width: 521, height: 288, gap: 8 }}>
-                        {/* Additional content if needed */}
-                    </Box>
-
-                    <Box sx={{ width: 521, height: 100, gap: 8 }}>
+                    <Box sx={{ width: 521, display: "flex", flexDirection: "row", marginTop: 5 }}>
                         <Button
                             variant="outlined"
                             sx={{
-                                width: 195,
+                                width: '30%',
                                 height: 46,
-                                fontSize: 10,
-                                color: theme.palette.warning.text,
+                                fontSize: 12,
+                                color: "red",
                                 border: '1px solid lightGrey',
                                 borderRadius: 2,
                                 marginRight: 1,
                                 fontFamily: theme.typography.fontFamily,
+                                textTransform: "none",
                                 '&:hover': {
                                     backgroundColor: 'transparent',
                                     borderColor: 'lightGrey',
@@ -202,13 +242,14 @@ const MeetingDetails = () => {
 
                         <Button
                             sx={{
-                                width: 280,
+                                width: '70%',
                                 height: 46,
-                                fontSize: 10,
+                                fontSize: 12,
                                 backgroundColor: '#404951',
                                 color: theme.palette.white.main,
                                 borderRadius: 2,
                                 fontFamily: theme.typography.fontFamily,
+                                textTransform: "none",
                                 '&:hover': {
                                     backgroundColor: '#404951',
                                     borderColor: 'lightGrey',

@@ -6,6 +6,7 @@ import AppLayout from './components/layout/global-layout/AppLayout';
 import { RoutesProvider } from './router/context/RoutesContext';
 
 import MainContentLayout from './components/layout/main-content-layout/MainContentLayout';
+import MeetingDetails from './Components/Meetings/MeetingDetails/MeetingDetails';
 import DepartmentDataGrid from './Components/Meetings/Schedule/Department/DepartmentDataGrid';
 import EventDataGrid from './Components/Meetings/Schedule/Event/EventDataGrid';
 import Dashoboard from './Pages/Dashboard/Dashoboard';
@@ -20,6 +21,7 @@ function App() {
     <RoutesProvider>
       <CssBaseline />
       <Routes>
+        <Route path='/' element={<MeetingDetails></MeetingDetails>}></Route>
         <Route path="/" element={<AppLayout />}>
           <Route path="dashboard" element={<Dashoboard />} />
 
