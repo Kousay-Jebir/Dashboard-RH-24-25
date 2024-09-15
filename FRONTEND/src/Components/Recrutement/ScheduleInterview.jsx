@@ -1,13 +1,20 @@
-import { Box, Button, FormControlLabel, Radio, RadioGroup, TextField, Typography, useTheme } from '@mui/material';
+import {
+    Close as CloseIcon,
+} from '@mui/icons-material';
+import { Box, Button, FormControlLabel, IconButton, Radio, RadioGroup, TextField, Tooltip, Typography, useTheme } from '@mui/material';
 import React, { useState } from 'react';
-
-const ScheduleInterview = () => {
+    const ScheduleInterview = () => {
     const [showDateTime, setShowDateTime] = useState(false);
     const [errors, setErrors] = useState({}); 
+    const [isVisible, setIsVisible] = useState(true);
 
     const theme = useTheme();
 
-    
+    const handleToggle = () => {
+        setIsVisible(!isVisible);
+    };
+
+    if (!isVisible) return null;
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -18,7 +25,7 @@ const ScheduleInterview = () => {
         setShowDateTime((prev) => !prev);
     };
 
-    const renderTextField = (label, name, placeholder, type = 'text',multiline = false) => (
+    const renderTextField = (label, name, placeholder, type = 'text',multiline = false,width) => (
         <Box sx={{ height: '30px', display: 'flex', flexDirection: 'row', gap: '10px' }}>
             <Typography
                 variant="body2"
@@ -33,14 +40,13 @@ const ScheduleInterview = () => {
             </Typography>
             <TextField
                 name={name}
-                value={formData[name]}
                 onChange={handleChange}
                 placeholder={placeholder}
                 type={type}
                 error={!!errors[name]}
                 helperText={errors[name]}
                 sx={{
-                    width: '100%',
+                    width: {width},
                     '& .MuiInputBase-root': { height: '100%' },
                     '& .MuiInputBase-input': { fontFamily: theme.typography.fontFamily, fontSize: '14px' },
                     '& .MuiFormHelperText-root': {
@@ -83,6 +89,20 @@ const ScheduleInterview = () => {
                     >
                         Schedule an interview for later
                     </Typography>
+                    <Tooltip title="Close">
+                        <IconButton
+                            onClick={handleToggle}
+                            sx={{
+                                position: 'absolute',
+                                top: 10,
+                                right: 10,
+                                zIndex: 1,
+                                color: theme.palette.grey[600],
+                            }}
+                        >
+                            <CloseIcon />
+                        </IconButton>
+                    </Tooltip>
                 </Box>
 
                 <Box
@@ -90,6 +110,7 @@ const ScheduleInterview = () => {
                         width: '100%',
                         display: 'flex',
                         flexDirection: 'column',
+                        flexWrap:'wrap',
                         gap: '4px',
                         //padding: '16px',
                         marginBottom: 2,
@@ -97,7 +118,11 @@ const ScheduleInterview = () => {
                     }}
                 >
                     {renderTextField('Candidate', 'Candidate', 'Enter name')}
-                   
+                    {renderTextField('Phone', 'Phone', '+ 216')}
+                    {renderTextField('City', 'City', 'Enter city')}
+                    {renderTextField('Adress', 'Adress', ' Enter adress')}
+
+
                     <Typography
                         sx={{
                             fontFamily: theme.typography.fontFamily,
@@ -137,12 +162,13 @@ const ScheduleInterview = () => {
                     <Typography variant="body2" sx={{ fontSize: '13px' }}>Change Status</Typography>
                     <RadioGroup
                         name="status"
-                        value={formData.status}
                         onChange={handleChange}
                         sx={{
                             display: 'flex',
                             flexDirection: 'row',
                             gap: '4px',
+                            marginLeft:"10px"
+
                         }}
                     >
                         {['Confirmed', 'Delayed', 'Canceled'].map((status) => (
@@ -187,15 +213,16 @@ const ScheduleInterview = () => {
                     <Typography variant="body2" sx={{ fontSize: '13px' }}>Change Privacy</Typography>
                     <RadioGroup
                         name="department"
-                        value={formData.department}
                         onChange={handleChange}
                         sx={{
                             display: 'flex',
                             flexDirection: 'row',
                             gap: '4px',
+                            marginLeft:"10px"
+
                         }}
                     >
-                        {['All members included', 'Executive Board Members', 'Quartet', 'Projet', 'Marketing', 'Dev.Commercial', 'Qualité'].map((privacy) => (
+                        {['Projet', 'Marketing', 'Dev.Commercial', 'Qualité'].map((privacy) => (
                             <FormControlLabel
                                 key={privacy}
                                 value={privacy}
@@ -230,11 +257,13 @@ const ScheduleInterview = () => {
                         sx={{
                             width: '40%',
                             height: 46,
-                            fontSize: 10,
+                            fontSize: 12,
                             color: '#404951',
                             border: '1px solid lightGrey',
                             borderRadius: 2,
                             marginRight: 0,
+                            textTransform: "none",
+
                             fontFamily: 'Inter',
                             '&:hover': {
                                 backgroundColor: 'transparent',
@@ -249,9 +278,11 @@ const ScheduleInterview = () => {
                         sx={{
                             width: '60%',
                             height: 46,
-                            fontSize: 10,
+                            fontSize: 12,
                             backgroundColor: '#404951',
                             color: '#FFFFFF',
+                            textTransform: "none",
+
                             borderRadius: 2,
                             fontFamily: 'Inter',
                             '&:hover': {
@@ -267,4 +298,4 @@ const ScheduleInterview = () => {
     );
 };
 
-export default EditMeeting;
+export default ScheduleInterview;
