@@ -1,19 +1,32 @@
-import {
-    Close as CloseIcon,
-    School as SchoolIcon,
-} from '@mui/icons-material';
-import { Box, Button, FormControlLabel, IconButton, InputAdornment, MenuItem, Radio, RadioGroup, Select, TextField, Tooltip, Typography, useTheme } from '@mui/material';
 import React, { useState } from 'react';
-    const ScheduleInterview = ({close}) => {
+import {
+    Box,
+    Button,
+    FormControlLabel,
+    IconButton,
+    InputAdornment,
+    MenuItem,
+    Radio,
+    RadioGroup,
+    Select,
+    TextField,
+    Tooltip,
+    Typography,
+    useTheme
+} from '@mui/material';
+import { Close as CloseIcon, School as SchoolIcon } from '@mui/icons-material';
+
+const ScheduleInterview = ({ close }) => {
     const [showDateTime, setShowDateTime] = useState(false);
-    const [errors, setErrors] = useState({}); 
+    const [errors, setErrors] = useState({});
     const [isVisible, setIsVisible] = useState(true);
+    const [formData, setFormData] = useState({}); // State for form data
 
     const theme = useTheme();
 
     const handleToggle = () => {
         setIsVisible(!isVisible);
-        close()
+        close();
     };
 
     if (!isVisible) return null;
@@ -23,20 +36,23 @@ import React, { useState } from 'react';
         setFormData((prevData) => ({ ...prevData, [name]: value }));
     };
 
+    const handleScheduleClick = () => {
+        console.log(formData); // Log the form data on button click
+    };
+
     const toggleDateTimeFields = () => {
         setShowDateTime((prev) => !prev);
     };
 
-    const renderTextField = (label, name, placeholder, type = 'text',multiline = false) => (
+    const renderTextField = (label, name, placeholder, type = 'text', multiline = false) => (
         <Box sx={{ height: '30px', display: 'flex', flexDirection: 'row', gap: '10px' }}>
             <Typography
                 variant="body2"
                 sx={{
                     fontFamily: theme.typography.fontFamily,
                     fontSize: '13px',
-                    width:"20%",
+                    width: "20%",
                     fontWeight: theme.typography.regular,
-                    //color: theme.palette.neutral.normal,
                 }}
             >
                 {label}
@@ -58,65 +74,60 @@ import React, { useState } from 'react';
                         margin: 0,
                     },
                     '& .MuiOutlinedInput-root': {
-                    '& fieldset': {
-                        borderColor: theme.palette.neutral.light, 
-                    },},
+                        '& fieldset': {
+                            borderColor: theme.palette.neutral.light,
+                        },
+                    },
                 }}
-                
             />
         </Box>
     );
-    const CustomSelect = ({ label, placeholder, options, icon }) => (
-        <Box sx={{display: 'flex', flexDirection: 'column', gap: '3px' ,width:'30%'}}>
-          <Typography
-            variant="body2"
-            sx={{
-              fontFamily: theme.typography.fontFamily,
-              fontSize: '12px',
-              fontWeight: theme.typography.regular,
-              textAlign: 'left',
-              color: theme.palette.neutral.normal,
 
-            }}
-          >
-            {label}
-          </Typography>
-          <Select
-            displayEmpty
-            sx={{
-              height: '30px',
-              borderRadius: 2,
-              borderColor: theme.palette.neutral.light, 
-              '& .MuiInputBase-root': { height: '100%' },
-              '& .MuiInputBase-input': { fontFamily: theme.typography.fontFamily, fontSize: '12px' },
-            }}
-            startAdornment={
-              <InputAdornment position="start">
-                {icon}
-              </InputAdornment>
-            }
-          >
-            <MenuItem value="" disabled>
-              {placeholder}
-            </MenuItem>
-            {options.map((option, index) => (
-              <MenuItem key={index} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </Select>
+    const CustomSelect = ({ label, placeholder, options, icon }) => (
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '3px', width: '30%' }}>
+            <Typography
+                variant="body2"
+                sx={{
+                    fontFamily: theme.typography.fontFamily,
+                    fontSize: '12px',
+                    fontWeight: theme.typography.regular,
+                    textAlign: 'left',
+                    color: theme.palette.neutral.normal,
+                }}
+            >
+                {label}
+            </Typography>
+            <Select
+                name={label.toLowerCase().replace(' ', '_')}
+                displayEmpty
+                onChange={handleChange}
+                sx={{
+                    height: '30px',
+                    borderRadius: 2,
+                    borderColor: theme.palette.neutral.light,
+                    '& .MuiInputBase-root': { height: '100%' },
+                    '& .MuiInputBase-input': { fontFamily: theme.typography.fontFamily, fontSize: '12px' },
+                }}
+                startAdornment={
+                    <InputAdornment position="start">
+                        {icon}
+                    </InputAdornment>
+                }
+            >
+                <MenuItem value="" disabled>
+                    {placeholder}
+                </MenuItem>
+                {options.map((option, index) => (
+                    <MenuItem key={index} value={option.value}>
+                        {option.label}
+                    </MenuItem>
+                ))}
+            </Select>
         </Box>
-      );
-   
+    );
 
     return (
-        <Box
-            sx={{
-                display: 'flex',
-                justifyContent: 'flex-end',
-                width: '100%',
-            }}
-        >
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end', width: '100%' }}>
             <Box sx={{ width: 521 }}>
                 <Box sx={{ height: 21, gap: 12 }}>
                     <Typography
@@ -125,9 +136,8 @@ import React, { useState } from 'react';
                             fontFamily: theme.typography.fontFamily,
                             fontWeight: 700,
                             fontSize: 18,
-                            marginBottom:2,
-                            marginTop:3
-                            
+                            marginBottom: 2,
+                            marginTop: 3
                         }}
                     >
                         Schedule an interview for later
@@ -153,54 +163,48 @@ import React, { useState } from 'react';
                         width: '100%',
                         display: 'flex',
                         flexDirection: 'column',
-                        flexWrap:'wrap',
+                        flexWrap: 'wrap',
                         gap: '4px',
-                        //padding: '16px',
                         marginBottom: 2,
-                        marginTop:4,
+                        marginTop: 4,
                     }}
                 >
-                    <Box sx={{display:'flex' , flexDirection:"row",gap:1}}>
-                    {renderTextField('Candidate', 'Candidate', 'Enter name')}
-                    {renderTextField('Phone', 'Phone', '+ 216')}
+                    <Box sx={{ display: 'flex', flexDirection: "row", gap: 1 }}>
+                        {renderTextField('Candidate', 'Candidate', 'Enter name')}
+                        {renderTextField('Phone', 'Phone', '+ 216')}
                     </Box>
-                    <Box sx={{display:'flex' , flexDirection:"row",gap:1}}>
-
-                    {renderTextField('City', 'City', 'Enter city')}
-                    {renderTextField('Adress', 'Adress', ' Enter adress')}
+                    <Box sx={{ display: 'flex', flexDirection: "row", gap: 1 }}>
+                        {renderTextField('City', 'City', 'Enter city')}
+                        {renderTextField('Adress', 'Adress', ' Enter address')}
                     </Box>
-                        <Box sx={{display:'flex', flexDirection:"row" , width:'100%',gap:2
- }}>
-                    <CustomSelect
-      label="Field"
-      placeholder="Select the candidate's field"
-      options={[
-        { value: 'MPI', label: 'MPI' },
-        { value: 'CBA', label: 'CBA' },
-        { value: 'RT', label: 'RT' },
-        { value: 'IIA', label: 'IIA' },
-        { value: 'GL', label: 'GL' },
-        { value: 'IMI', label: 'IMI' },
-        { value: 'CH', label: 'CH' },
-        { value: 'BIO', label: 'BIO' },
-
-        
-      ]}
-      icon={<SchoolIcon />}
-    />
-    <CustomSelect
-      label="Academic year"
-      placeholder="Select the candidate's academic year"
-      options={[
-        { value: 1, label: '1st year' },
-        { value: 2, label: '2nd year' },
-        { value: 3, label: '3rd year' },
-        { value: 4, label: '4th year' },
-      ]}
-      icon={<SchoolIcon />}
-    />
-    </Box>
-
+                    <Box sx={{ display: 'flex', flexDirection: "row", width: '100%', gap: 2 }}>
+                        <CustomSelect
+                            label="Field"
+                            placeholder="Select the candidate's field"
+                            options={[
+                                { value: 'MPI', label: 'MPI' },
+                                { value: 'CBA', label: 'CBA' },
+                                { value: 'RT', label: 'RT' },
+                                { value: 'IIA', label: 'IIA' },
+                                { value: 'GL', label: 'GL' },
+                                { value: 'IMI', label: 'IMI' },
+                                { value: 'CH', label: 'CH' },
+                                { value: 'BIO', label: 'BIO' },
+                            ]}
+                            icon={<SchoolIcon />}
+                        />
+                        <CustomSelect
+                            label="Academic year"
+                            placeholder="Select the candidate's academic year"
+                            options={[
+                                { value: 1, label: '1st year' },
+                                { value: 2, label: '2nd year' },
+                                { value: 3, label: '3rd year' },
+                                { value: 4, label: '4th year' },
+                            ]}
+                            icon={<SchoolIcon />}
+                        />
+                    </Box>
 
                     <Typography
                         sx={{
@@ -221,10 +225,10 @@ import React, { useState } from 'react';
                             {renderTextField('Time', 'time', '', 'time')}
                         </Box>
                     )}
-                    <Box sx={{display:'flex' , flexDirection:"column",gap:1}}>
 
-                    {renderTextField('Recruiter', 'Recruiter', 'Enter name')}
-                    {renderTextField('E-mail adress', 'e-mail', 'Enter e-mail adress')}
+                    <Box sx={{ display: 'flex', flexDirection: "column", gap: 1 }}>
+                        {renderTextField('Recruiter', 'Recruiter', 'Enter name')}
+                        {renderTextField('E-mail address', 'e-mail', 'Enter e-mail address')}
                     </Box>
                 </Box>
 
@@ -235,9 +239,8 @@ import React, { useState } from 'react';
                         display: 'flex',
                         flexDirection: 'column',
                         gap: '4px',
-                        //padding: '16px',
                         marginBottom: 2,
-                        marginTop:6,
+                        marginTop: 6,
                     }}
                 >
                     <Typography variant="body2" sx={{ fontSize: '13px' }}>Change Status</Typography>
@@ -248,8 +251,7 @@ import React, { useState } from 'react';
                             display: 'flex',
                             flexDirection: 'row',
                             gap: '4px',
-                            marginLeft:"10px"
-
+                            marginLeft: "10px"
                         }}
                     >
                         {['Confirmed', 'Delayed', 'Canceled'].map((status) => (
@@ -288,7 +290,6 @@ import React, { useState } from 'react';
                         display: 'flex',
                         flexDirection: 'column',
                         gap: '4px',
-                        //padding: '16px',
                         marginBottom: 2,
                     }}
                 >
@@ -300,8 +301,7 @@ import React, { useState } from 'react';
                             display: 'flex',
                             flexDirection: 'row',
                             gap: '4px',
-                            marginLeft:"10px"
-
+                            marginLeft: "10px"
                         }}
                     >
                         {['Projet', 'Marketing', 'Dev.Commercial', 'Qualité'].map((privacy) => (
@@ -337,6 +337,7 @@ import React, { useState } from 'react';
                 <Box sx={{ display: 'flex', gap: 1, marginTop: 2 }}>
                     <Button
                         variant="outlined"
+                        onClick={handleScheduleClick} // Log form data when clicked
                         sx={{
                             width: '40%',
                             height: 46,
@@ -346,7 +347,6 @@ import React, { useState } from 'react';
                             borderRadius: 2,
                             marginRight: 0,
                             textTransform: "none",
-
                             fontFamily: 'Inter',
                             '&:hover': {
                                 backgroundColor: 'transparent',
@@ -365,7 +365,6 @@ import React, { useState } from 'react';
                             backgroundColor: '#404951',
                             color: '#FFFFFF',
                             textTransform: "none",
-
                             borderRadius: 2,
                             fontFamily: 'Inter',
                             '&:hover': {
