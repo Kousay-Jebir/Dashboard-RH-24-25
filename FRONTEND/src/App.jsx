@@ -46,7 +46,7 @@ function App() {
               <Route path='dev-co' element={<TeamMembers department="Dév. Commercial" />} />
               <Route path='marketing' element={<TeamMembers department="Marketing" />} />
               <Route path='projet' element={<TeamMembers department="Projet" />} />
-              <Route path='cellule-qualite' element={<TeamMembers department="Cellule qualité" />} />
+              <Route path='cellule-qualite' element={<TeamMembers department="Cellule Qualité" />} />
             </Route>
 
             <Route path="meetings">
