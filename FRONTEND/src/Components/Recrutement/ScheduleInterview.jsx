@@ -20,7 +20,20 @@ const ScheduleInterview = ({ close }) => {
   const [showDateTime, setShowDateTime] = useState(false);
   const [errors, setErrors] = useState({});
   const [isVisible, setIsVisible] = useState(true);
-  const [formData, setFormData] = useState({}); // State for form data
+  const [formData, setFormData] = useState({
+    Candidate: '',
+    Phone: '',
+    City: '',
+    Adress: '',
+    Field: '',
+    Academic_year: '',
+    date: '',
+    time: '',
+    Recruiter: '',
+    email: '',
+    status: '',
+    department: ''
+    });
 
   const theme = useTheme();
 
@@ -262,7 +275,7 @@ const ScheduleInterview = ({ close }) => {
             {renderTextField("Recruiter", "Recruiter", "Enter name")}
             {renderTextField(
               "E-mail address",
-              "e-mail",
+              "email",
               "Enter e-mail address"
             )}
           </Box>
