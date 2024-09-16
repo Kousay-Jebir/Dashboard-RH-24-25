@@ -4,7 +4,7 @@ import {
 } from '@mui/icons-material';
 import { Box, Button, FormControlLabel, IconButton, InputAdornment, MenuItem, Radio, RadioGroup, Select, TextField, Tooltip, Typography, useTheme } from '@mui/material';
 import React, { useState } from 'react';
-    const ScheduleInterview = () => {
+    const ScheduleInterview = ({close}) => {
     const [showDateTime, setShowDateTime] = useState(false);
     const [errors, setErrors] = useState({}); 
     const [isVisible, setIsVisible] = useState(true);
@@ -13,6 +13,7 @@ import React, { useState } from 'react';
 
     const handleToggle = () => {
         setIsVisible(!isVisible);
+        close()
     };
 
     if (!isVisible) return null;

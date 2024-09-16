@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Box, CssBaseline, Divider, Toolbar } from '@mui/material';
+import { Box, CssBaseline, Divider, Toolbar,Drawer } from '@mui/material';
 import { useLocation, Outlet } from 'react-router-dom';
 import { useRoutes } from '../../../router/context/RoutesContext';
 import TopBar from './TopBar';
@@ -7,6 +7,7 @@ import SideBar from './SideBar';
 import AppBreadCrumbs from './AppBreadCrumbs';
 import NavigationTabs from '../../NavigationTabs';
 import ScheduleButton from '../../../Components/ScheduleButton';
+import ScheduleInterview from '../../../Components/Recrutement/ScheduleInterview';
 
 const drawerWidth = 305;
 
@@ -56,10 +57,17 @@ function AppLayout() {
 
   let tabs = getSubPaths(basePath);
 
+  const [open, setOpen] = React.useState(false);
+  const toggleDrawer = (newOpen) => () => {
+    setOpen(newOpen);
+  };
+  const DrawerContent = (
+    <ScheduleInterview close={toggleDrawer(false)}/>
+  );
 
   function renderScheduleButton() {
     if (location.pathname.startsWith('/recruitement')) {
-      return <ScheduleButton schedule={'Schedule interview'} />;
+      return <ScheduleButton schedule={'Schedule interview'} onClick={toggleDrawer(true)} />;
     } else if (location.pathname.startsWith('/meetings')) {
       return <ScheduleButton schedule={'Schedule meeting'} />;
     }
@@ -69,9 +77,23 @@ function AppLayout() {
     return null; // Ensure there's a return value for all cases
   }
 
+
+  
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
+      <Drawer open={open} onClose={toggleDrawer(false)} anchor='right' 
+      sx={{
+        '& .MuiBackdrop-root': {
+          backdropFilter:'blur(5px)'
+        },
+        '& .MuiDrawer-paper': {
+            padding: 2, 
+          },
+      }}
+      >
+        {DrawerContent}
+      </Drawer>
       <TopBar handleDrawerToggle={handleDrawerToggle} drawerWidth={drawerWidth} />
       <SideBar
         drawerWidth={drawerWidth}
