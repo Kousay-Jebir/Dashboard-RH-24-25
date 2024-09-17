@@ -112,7 +112,7 @@ const ScheduleInterview = ({ close }) => {
     </Box>
   );
 
-  const CustomSelect = ({ label, placeholder, options, icon }) => (
+  const CustomSelect = ({ label, name, placeholder, options, icon }) => (
     <Box
       sx={{
         display: "flex",
@@ -134,10 +134,10 @@ const ScheduleInterview = ({ close }) => {
         {label}
       </Typography>
       <Select
-        name={label.toLowerCase().replace(" ", "_")}
+        name={name}  
         displayEmpty
         onChange={handleChange}
-        value={formData[label.toLowerCase().replace(' ', '_')] || ''} 
+        value={formData[name] || ''}  
         sx={{
           height: "30px",
           borderRadius: 2,
@@ -225,6 +225,7 @@ const ScheduleInterview = ({ close }) => {
           >
             <CustomSelect
               label="Field"
+              name="Field"
               placeholder="Select the candidate's field"
               options={[
                 { value: "MPI", label: "MPI" },
@@ -240,6 +241,7 @@ const ScheduleInterview = ({ close }) => {
             />
             <CustomSelect
               label="Academic year"
+              name="Academic_year"
               placeholder="Select the candidate's academic year"
               options={[
                 { value: 1, label: "1st year" },
