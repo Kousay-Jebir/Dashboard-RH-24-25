@@ -22,7 +22,7 @@ function App() {
     <RoutesProvider>
       <CssBaseline />
       <Routes>
-        <Route path='/' element={<ScheduleInterview/>}></Route>
+        <Route path='/'></Route>
         <Route path='/login' element={<Login/>}/>
         <Route path="/" element={<AppLayout />}>
           <Route path="dashboard" element={<Dashoboard />} />
