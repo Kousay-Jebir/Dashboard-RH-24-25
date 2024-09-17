@@ -1,60 +1,64 @@
 import { Box, TextField, Typography, useTheme } from '@mui/material';
-import React from 'react';
-
-// Function to render a customized TextField
-const renderTextField = ({ label, placeholder, height, fontSize, inputProps }) => {
-  const theme = useTheme();
-
-  return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '8px',
-        width: '791px',
-      }}
-    >
-      <Typography
-        variant="body2"
-        sx={{
-          fontFamily: theme.typography.fontFamily,
-          fontSize: '14px',
-          fontWeight: theme.typography.fontWeightRegular,
-          textAlign: 'left',
-        }}
-      >
-        {label}
-      </Typography>
-      <TextField
-        placeholder={placeholder}
-        sx={{
-          height: height || '50px',
-          '& .MuiInputBase-root': { height: '100%' },
-          '& .MuiInputBase-input': {
-            fontFamily: theme.typography.fontFamily,
-            fontSize: fontSize || '12px',
-          },
-          '& .MuiFormLabel-root': {
-            fontFamily: theme.typography.fontFamily,
-            fontSize: '14px',
-            fontWeight: theme.typography.fontWeightRegular,
-            textAlign: 'left',
-          },
-        }}
-        inputProps={inputProps}
-      />
-    </Box>
-  );
-};
+import React, { useState } from 'react';
+import ActionIcons from './ActionIcons'; // Import ActionIcons component
 
 const Experience = () => {
   const theme = useTheme();
+  const [questions, setQuestions] = useState([
+    {
+      label: '* Tell us about your social experience (clubs, associations, etc.)',
+      placeholder: "Enter candidate's responses here",
+      value: '',
+      isEditing: false,
+    },
+    {
+      label: '* Have you worked on any collaborative projects, and how did you contribute to the team?',
+      placeholder: "Enter candidate's responses here",
+      value: '',
+      isEditing: false,
+    },
+  ]);
+
+  // Handle input change
+  const handleInputChange = (index, event) => {
+    const updatedQuestions = [...questions];
+    updatedQuestions[index].value = event.target.value;
+    setQuestions(updatedQuestions);
+  };
+
+  // Handle adding a new question
+  const handleAddQuestion = () => {
+    setQuestions([
+      ...questions,
+      { label: '* New Question', placeholder: 'Enter candidate\'s response', value: '', isEditing: true },
+    ]);
+  };
+
+  // Handle editing a question
+  const handleEditQuestion = (index) => {
+    const updatedQuestions = [...questions];
+    updatedQuestions[index].isEditing = true;
+    setQuestions(updatedQuestions);
+  };
+
+  // Handle saving an edited question
+  const handleSaveQuestion = (index) => {
+    const updatedQuestions = [...questions];
+    updatedQuestions[index].isEditing = false;
+    setQuestions(updatedQuestions);
+  };
+
+  // Handle deleting a question
+  const handleDeleteQuestion = (index) => {
+    const updatedQuestions = questions.filter((_, i) => i !== index);
+    setQuestions(updatedQuestions);
+  };
 
   return (
     <Box
       sx={{
         width: '827px',
-        height: '252px',
+        height: 'auto',
         padding: '10px',
         gap: '14px',
         display: 'flex',
@@ -76,26 +80,34 @@ const Experience = () => {
         Experience
       </Typography>
 
-      <Box
-        sx={{
-          width: '807px',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '14px',
-        }}
-      >
-        {renderTextField({
-          label: '* Tell us about your social experience (clubs, associations, etc.)',
-          placeholder: "Enter candidate's responses here",
-          height: '50px',
-        })}
+      {/* Map through the questions */}
+      {questions.map((question, index) => (
+        <Box key={index} sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <TextField
+            label={question.label}
+            placeholder={question.placeholder}
+            value={question.value}
+            onChange={(e) => handleInputChange(index, e)}
+            disabled={!question.isEditing} // Disable when not editing
+            sx={{
+              width: '100%',
+              '& .MuiInputBase-input': {
+                fontFamily: theme.typography.fontFamily,
+                fontSize: '12px',
+              },
+            }}
+          />
 
-        {renderTextField({
-          label: '* Have you worked on any collaborative projects, and how did you contribute to the team?',
-          placeholder: "Enter candidate's responses here",
-          height: '50px',
-        })}
-      </Box>
+          {/* ActionIcons component for Add/Edit/Delete */}
+          <ActionIcons
+            isEditing={question.isEditing}
+            onAdd={handleAddQuestion}
+            onEdit={() => handleEditQuestion(index)}
+            onDelete={() => handleDeleteQuestion(index)}
+            onSave={() => handleSaveQuestion(index)}
+          />
+        </Box>
+      ))}
     </Box>
   );
 };
