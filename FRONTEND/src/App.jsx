@@ -17,6 +17,7 @@ import InterviewsList from './Pages/Recrutement/schedule/InterviewsList';
 import KanbanBoard from './Pages/Recrutement/schedule/KanbanBoard';
 import TeamMembers from './Pages/Team members/TeamMembers';
 import { RoutesProvider } from './router/context/RoutesContext';
+import AllQuestions from './Components/Recrutement/Interviews/Questions/AllQuestions';
 function App() { 
   return (
     <RoutesProvider>
@@ -31,7 +32,7 @@ function App() {
             <Route path="recruitement" >
               <Route path="interviews">
                 <Route path="recent"  element={<Interviews/>}/>
-                <Route path="questions" />
+                <Route path="questions" element={<AllQuestions/>}/>
               </Route>
               <Route path="schedule">
                 <Route path="list" element={<InterviewsList />}/>

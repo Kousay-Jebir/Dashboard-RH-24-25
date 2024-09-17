@@ -1,6 +1,6 @@
-import { Box, Typography } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import { Box, Typography, TextField } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import React from "react";
 
 const RecentInterviewKPI = ({
   poleGrade = "N/A",
@@ -9,103 +9,96 @@ const RecentInterviewKPI = ({
   RHGrade = "N/A",
   situationsGrade = "N/A",
   associativeGrade = "N/A",
+  isEditing = false,
+  onSave,
+  onCancel,
+  onChange,
 }) => {
   const theme = useTheme();
+  const [editedGrades, setEditedGrades] = useState({
+    poleGrade,
+    knowledgeGrade,
+    availabilityGrade,
+    RHGrade,
+    situationsGrade,
+    associativeGrade,
+  });
 
-  const formatGrade = (grade) => {
-    // Check if the grade is a string that contains "/"
-    if (typeof grade === "string" && grade.includes("/")) {
-      return grade; // Return as is if it's already in "x/y" format
-    }
-    // If it's a number, format it as "x/100"
-    return `${grade}/100`;
-  };
+  useEffect(() => {
+    // Update state when props change
+    setEditedGrades({
+      poleGrade,
+      knowledgeGrade,
+      availabilityGrade,
+      RHGrade,
+      situationsGrade,
+      associativeGrade,
+    });
+  }, [poleGrade, knowledgeGrade, availabilityGrade, RHGrade, situationsGrade, associativeGrade]);
 
-  const CustomKPI = ({
-    title = "KPI default Title",
-    value = "KPI default Value",
-    width = "auto",
-    height = "49px",
-    borderRadius = "5px",
-    border = "0.1px solid Lightgrey",
-    titleStyle = {},
-    valueStyle = {},
-    boxStyle = {},
-  }) => {
-    return (
-      <Box
-        sx={{
-          width: width,
-          height: height,
-          borderRadius: borderRadius,
-          border: border,
-          display: "flex",
-          padding:"8px 8px",
-          flexDirection: "column",
-          ...boxStyle,
-        }}
-      >
-        <Typography
-          sx={{
-            fontFamily: "Inter",
-            fontSize: "12px",
-            fontWeight: 400,
-            lineHeight: "14.52px",
-
-            textAlign: "left",
-            color: (theme) => theme.palette.secondary.main,
-            ...titleStyle,
-          }}
-        >
-          {title}
-        </Typography>
-        <Typography
-          sx={{
-            fontFamily: "Inter",
-            fontSize: "14px",
-            textAlign: "left",
-            fontWeight:theme.typography.fontWeightMedium,
-            ...valueStyle,
-          }}
-        >
-          {value}
-        </Typography>
-      </Box>
-    );
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setEditedGrades((prev) => ({ ...prev, [name]: value }));
+    onChange({ [name]: value });
   };
 
   return (
     <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
-      <CustomKPI
-        title="Pole presentation grade"
-        value={formatGrade(poleGrade)}
-        width="190px"
-      />
-      <CustomKPI
-        title="Knowledge of JEI grade"
-        value={formatGrade(knowledgeGrade)}
-        width="180px"
-      />
-      <CustomKPI
-        title="Availability grade"
-        value={formatGrade(availabilityGrade)}
-        width="170px"
-      />
-      <CustomKPI
-        title="RH questions grade"
-        value={formatGrade(RHGrade)}
-        width="170px"
-      />
-      <CustomKPI
-        title="Situations grade"
-        value={formatGrade(situationsGrade)}
-        width="180px"
-      />
-      <CustomKPI
-        title="Associative experience grade"
-        value={formatGrade(associativeGrade)}
-        width="190px"
-      />
+      {[
+        { title: "Pole presentation grade", value: editedGrades.poleGrade, name: 'poleGrade' },
+        { title: "Knowledge of JEI grade", value: editedGrades.knowledgeGrade, name: 'knowledgeGrade' },
+        { title: "Availability grade", value: editedGrades.availabilityGrade, name: 'availabilityGrade' },
+        { title: "RH questions grade", value: editedGrades.RHGrade, name: 'RHGrade' },
+        { title: "Situations grade", value: editedGrades.situationsGrade, name: 'situationsGrade' },
+        { title: "Associative experience grade", value: editedGrades.associativeGrade, name: 'associativeGrade' },
+      ].map(({ title, value, name }) => (
+        <Box
+          key={title}
+          sx={{
+            width: "190px",
+            height: "49px",
+            borderRadius: "5px",
+            border: "0.1px solid Lightgrey",
+            display: "flex",
+            padding: "8px 8px",
+            flexDirection: "column",
+          }}
+        >
+          <Typography
+            sx={{
+              fontFamily: "Inter",
+              fontSize: "12px",
+              fontWeight: 400,
+              lineHeight: "14.52px",
+              textAlign: "left",
+              color: (theme) => theme.palette.secondary.main,
+            }}
+          >
+            {title}
+          </Typography>
+          {isEditing ? (
+            <TextField
+              name={name}
+              value={value}
+              variant="standard"
+              onChange={handleInputChange}
+              size="small"
+              sx={{ fontSize: "small" }}
+            />
+          ) : (
+            <Typography
+              sx={{
+                fontFamily: "Inter",
+                fontSize: "14px",
+                textAlign: "left",
+                fontWeight: theme.typography.fontWeightMedium,
+              }}
+            >
+              {`${value}/100`}
+            </Typography>
+          )}
+        </Box>
+      ))}
     </Box>
   );
 };
