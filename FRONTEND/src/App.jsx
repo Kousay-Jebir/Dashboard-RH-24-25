@@ -4,7 +4,7 @@ import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import AppLayout from './components/layout/global-layout/AppLayout';
 import MainContentLayout from './components/layout/main-content-layout/MainContentLayout';
-import ScheduleInterview from './Components/Recrutement/ScheduleInterview';
+import AllQuestions from './Components/Recrutement/Interviews/Questions/AllQuestions';
 import Dashoboard from './Pages/Dashboard/Dashoboard';
 import Login from './Pages/Login/Login';
 import DepartmentMeetings from './Pages/Meetings/DepartmentMeetings';
@@ -22,7 +22,7 @@ function App() {
     <RoutesProvider>
       <CssBaseline />
       <Routes>
-        <Route path='/'></Route>
+        <Route path='/' element={<AllQuestions></AllQuestions>}></Route>
         <Route path='/login' element={<Login/>}/>
         <Route path="/" element={<AppLayout />}>
           <Route path="dashboard" element={<Dashoboard />} />
