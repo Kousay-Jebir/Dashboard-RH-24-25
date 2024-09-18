@@ -18,7 +18,7 @@ import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRound
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 const DataTable2 = ({ columns, rowData }) => {
-  const [expandedRow, setExpandedRow] = useState(null);
+  // const [expandedRow, setExpandedRow] = useState(null);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
@@ -155,7 +155,7 @@ const DataTable2 = ({ columns, rowData }) => {
                     </TableCell>
                   </TableRow>
                 )} */}
-                
+
               </React.Fragment>
             ))}
           </TableBody>
