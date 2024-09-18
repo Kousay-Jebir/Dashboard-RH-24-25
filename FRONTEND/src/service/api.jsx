@@ -1,10 +1,27 @@
 import axios from 'axios';
 import { BASE_URL, BACKEND_API_ROUTES } from './apiRoutes';
+import Cookies from 'js-cookie';
+import { useAuth } from '../context/AuthContext';
 
+// Create an Axios instance
 const base = axios.create({
   baseURL: BASE_URL,
   withCredentials: true,
 });
+
+// Interceptor to add access token to headers
+base.interceptors.request.use(
+  (config) => {
+    const accessToken = Cookies.get("accessToken");
+    if (accessToken) {
+      config.headers['Authorization'] = `Bearer ${accessToken}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
 export const api = {
   getSuperAdmin: () => base.get(BACKEND_API_ROUTES.GET_SUPERADMIN),

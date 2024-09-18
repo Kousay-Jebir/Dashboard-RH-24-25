@@ -56,7 +56,7 @@ const ScheduleInterview = ({ close }) => {
       candidatAddress: formData.Adress ,
       candidatLastName: "last name", 
       candidatField: formData.Field ,
-      candidatYear: formData.Academic_year
+      candidatYear: String(formData.Academic_year)
     };
   };
 
