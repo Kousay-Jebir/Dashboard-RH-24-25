@@ -1,6 +1,11 @@
+import React, { useReducer, useState } from "react";
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
+import ChatRoundedIcon from '@mui/icons-material/ChatRounded';
+import BorderColorIcon from '@mui/icons-material/BorderColor';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import {
   Box,
+  Button,
   IconButton,
   Paper,
   Table,
@@ -12,20 +17,100 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import React, { useState } from "react";
 import RecentInterviewKPI from "./RecentInterviewKPI";
 
+// Define initial state and reducer function
+const initialState = {
+  editingRow: null,
+  isEditing: false,
+  kpiData: [],
+  tempData: null, // Temporary data for editing
+};
 
-const DataTable = ({data}) => {
-  const [expandedRow, setExpandedRow] = useState(null); // Track expanded row
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'TOGGLE_EDIT':
+      return {
+        ...state,
+        isEditing: true,
+        editingRow: action.payload,
+        tempData: { ...state.kpiData[action.payload] },
+      };
+    case 'START_ADD_MEMBER':
+      return {
+        ...state,
+        isEditing: false,
+        editingRow: null,
+        tempData: null,
+      };
+    case 'SAVE_CHANGES':
+      return {
+        ...state,
+        kpiData: state.kpiData.map((row, index) =>
+          index === state.editingRow ? { ...state.tempData } : row
+        ),
+        isEditing: false,
+        editingRow: null,
+        tempData: null,
+      };
+    case 'CANCEL_EDIT':
+      return {
+        ...state,
+        isEditing: false,
+        editingRow: null,
+        tempData: null,
+      };
+    case 'UPDATE_TEMP_DATA':
+      return {
+        ...state,
+        tempData: {
+          ...state.tempData,
+          ...action.payload,
+        },
+      };
+    case 'SET_KPI_DATA':
+      return {
+        ...state,
+        kpiData: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+const DataTable = ({ data }) => {
+  const [state, dispatch] = useReducer(reducer, { ...initialState, kpiData: data });
+  const [expandedRow, setExpandedRow] = useState(null);
   const theme = useTheme();
 
   const handleExpandClick = (index) => {
-    setExpandedRow(expandedRow === index ? null : index); // Toggle row expansion
+    setExpandedRow(expandedRow === index ? null : index);
+  };
+
+  const handleEditClick = (index) => {
+    dispatch({ type: 'TOGGLE_EDIT', payload: index });
+  };
+
+  const handleAddMember = () => {
+    dispatch({ type: 'START_ADD_MEMBER' });
+  };
+
+  const handleSaveChanges = () => {
+    if (state.editingRow !== null) {
+      dispatch({ type: 'SAVE_CHANGES' });
+    }
+  };
+
+  const handleCancelEdit = () => {
+    dispatch({ type: 'CANCEL_EDIT' });
+  };
+
+  const handleUpdateTempData = (updatedGrades) => {
+    dispatch({ type: 'UPDATE_TEMP_DATA', payload: updatedGrades });
   };
 
   return (
-    <TableContainer component={Paper} sx={{maxWidth: '100%', overflowX: 'auto' }} elevation={0}>
+    <TableContainer component={Paper} sx={{ maxWidth: '100%', overflowX: 'auto' }} elevation={0}>
       <Table size="small">
         <TableHead>
           <TableRow>
@@ -39,7 +124,7 @@ const DataTable = ({data}) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((row, index) => (
+          {state.kpiData.map((row, index) => (
             <React.Fragment key={index}>
               <TableRow sx={{ "&:last-child td, &:last-child th": { border: "none" } }}>
                 <TableCell sx={{ borderBottom: "none" }}>{row.name}</TableCell>
@@ -83,13 +168,43 @@ const DataTable = ({data}) => {
                   <TableCell colSpan={7} sx={{ paddingBottom: 2, borderBottom: "none" }}>
                     <Box p={2}>
                       <RecentInterviewKPI
-                        poleGrade={row.poleGrade}
-                        knowledgeGrade={row.knowledgeGrade}
-                        availabilityGrade={row.availabilityGrade}
-                        RHGrade={row.RHGrade}
-                        situationsGrade={row.situationsGrade}
-                        associativeGrade={row.associativeGrade}
+                        poleGrade={state.isEditing && state.editingRow === index ? state.tempData?.poleGrade : row.poleGrade}
+                        knowledgeGrade={state.isEditing && state.editingRow === index ? state.tempData?.knowledgeGrade : row.knowledgeGrade}
+                        availabilityGrade={state.isEditing && state.editingRow === index ? state.tempData?.availabilityGrade : row.availabilityGrade}
+                        RHGrade={state.isEditing && state.editingRow === index ? state.tempData?.RHGrade : row.RHGrade}
+                        situationsGrade={state.isEditing && state.editingRow === index ? state.tempData?.situationsGrade : row.situationsGrade}
+                        associativeGrade={state.isEditing && state.editingRow === index ? state.tempData?.associativeGrade : row.associativeGrade}
+                        isEditing={state.isEditing && state.editingRow === index}
+                        onSave={() => handleSaveChanges()}
+                        onCancel={() => handleCancelEdit()}
+                        onChange={(updatedGrades) => handleUpdateTempData(updatedGrades)}
                       />
+                      <Box display={'flex'} gap={1} justifyContent={'end'}>
+                        <Button
+                          startIcon={<ChatRoundedIcon />}
+                          variant="outlined"
+                          sx={{ borderColor: 'neutral.light', color: 'text.light', textTransform: 'none', fontWeight: 'regular' }}
+                        >
+                          Review responses
+                        </Button>
+                        <Button
+                          startIcon={state.isEditing && state.editingRow === index ? null : <BorderColorIcon />}
+                          variant="outlined"
+                          sx={{ borderColor: 'neutral.light', color: 'text.light', textTransform: 'none', fontWeight: 'regular' }}
+                          onClick={state.isEditing ? handleCancelEdit : () => handleEditClick(index)}
+                        >
+                          {state.isEditing && state.editingRow === index ? 'Discard' : 'Modify'}
+                        </Button>
+                        <Button
+                          startIcon={state.isEditing ? null : <PersonAddIcon />}
+                          variant="contained"
+                          disableElevation
+                          sx={{ textTransform: 'none', fontWeight: 'regular' }}
+                          onClick={state.isEditing ? handleSaveChanges : handleAddMember}
+                        >
+                          {state.isEditing ? 'Save changes' : 'Add member'}
+                        </Button>
+                      </Box>
                     </Box>
                   </TableCell>
                 </TableRow>
