@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from "react";
+import React, { useReducer, useState,useEffect } from "react";
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
 import ChatRoundedIcon from '@mui/icons-material/ChatRounded';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
@@ -83,6 +83,9 @@ const DataTable = ({ data }) => {
   const [expandedRow, setExpandedRow] = useState(null);
   const theme = useTheme();
 
+  useEffect(() => {
+    dispatch({ type: 'SET_KPI_DATA', payload: data });
+  }, [data]);
   const handleExpandClick = (index) => {
     setExpandedRow(expandedRow === index ? null : index);
   };

@@ -12,30 +12,30 @@ export default function Interviews() {
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedDate, setSelectedDate] = useState(null);
 
-    // Handle search input change
     const handleSearchChange = (event) => {
         setSearchQuery(event.target.value);
+        console.log("Search Query:", event.target.value); // Debugging line
     };
 
-    // Handle date filter change
     const handleDateChange = (date) => {
-        setSelectedDate(date ? dayjs(date, "DD-MM-YYYY") : null); // Parse the selected date correctly
+        setSelectedDate(date ? dayjs(date, "DD-MM-YYYY") : null);
     };
 
-    // Filter interviews based on search query and date
     const filteredInterviews = useMemo(() => {
+        console.log("Filtering Interviews"); // Debugging line
         return interviews
             .filter((interview) => {
                 const lowercasedQuery = searchQuery.toLowerCase();
+                console.log("Interview Name:", interview.name); // Debugging line
                 return interview.name.toLowerCase().includes(lowercasedQuery);
             })
             .filter((interview) => {
-                if (!selectedDate) return true; // If no date is selected, don't filter by date
-                const interviewDate = dayjs(interview.date, "DD-MM-YYYY"); // Parse the interview date correctly
+                if (!selectedDate) return true; 
+                const interviewDate = dayjs(interview.date, "DD-MM-YYYY");
                 return interviewDate.isSame(selectedDate, "day");
             });
     }, [searchQuery, selectedDate]);
-
+    console.log(filteredInterviews)
     return (
         <Box>
             <Grid container spacing={2} mb={2}>
