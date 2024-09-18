@@ -35,7 +35,7 @@ export default function Interviews() {
                 return interviewDate.isSame(selectedDate, "day");
             });
     }, [searchQuery, selectedDate]);
-
+    console.log(filteredInterviews)
     return (
         <Box>
             <Grid container spacing={2} mb={2}>
