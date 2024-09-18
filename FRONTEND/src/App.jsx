@@ -1,24 +1,24 @@
 import { CssBaseline } from "@mui/material";
 import "./App.css";
 
-import { Route, Routes } from "react-router-dom";
-import AppLayout from "./components/layout/global-layout/AppLayout";
-import MainContentLayout from "./components/layout/main-content-layout/MainContentLayout";
-import ScheduleInterview from "./Components/Recrutement/ScheduleInterview";
-import Dashoboard from "./Pages/Dashboard/Dashoboard";
-import Login from "./Pages/Login/Login";
-import DepartmentMeetings from "./Pages/Meetings/DepartmentMeetings";
-import Event from "./Pages/Meetings/Event";
-import GeneralAssembly from "./Pages/Meetings/GeneralAssembly";
-import RecentMeetings from "./Pages/Meetings/RecentMeetings";
-import TeamBuilding from "./Pages/Meetings/TeamBuilding";
-import Interviews from "./Pages/Recrutement/Interviews";
-import InterviewsList from "./Pages/Recrutement/schedule/InterviewsList";
-import KanbanBoard from "./Pages/Recrutement/schedule/KanbanBoard";
-import TeamMembers from "./Pages/Team members/TeamMembers";
-import { RoutesProvider } from "./router/context/RoutesContext";
-import AllQuestions from "./Components/Recrutement/Interviews/Questions/AllQuestions";
-function App() {
+import { Route, Routes } from 'react-router-dom';
+import AppLayout from './components/layout/global-layout/AppLayout';
+import MainContentLayout from './components/layout/main-content-layout/MainContentLayout';
+import ScheduleInterview from './Components/Recrutement/ScheduleInterview';
+import Dashoboard from './Pages/Dashboard/Dashoboard';
+import Login from './Pages/Login/Login';
+import DepartmentMeetings from './Pages/Meetings/DepartmentMeetings';
+import Event from './Pages/Meetings/Event';
+import GeneralAssembly from './Pages/Meetings/GeneralAssembly';
+import RecentMeetings from './Pages/Meetings/RecentMeetings';
+import TeamBuilding from './Pages/Meetings/TeamBuilding';
+import Interviews from './Pages/Recrutement/Interviews';
+import InterviewsList from './Pages/Recrutement/schedule/InterviewsList';
+import KanbanBoard from './Pages/Recrutement/schedule/KanbanBoard';
+import TeamMembers from './Pages/Team members/TeamMembers';
+import { RoutesProvider } from './router/context/RoutesContext';
+import AllQuestions from './Components/Recrutement/Interviews/Questions/AllQuestions';
+function App() { 
   return (
     <RoutesProvider>
       <CssBaseline />
@@ -31,8 +31,8 @@ function App() {
           <Route element={<MainContentLayout />}>
             <Route path="recruitement">
               <Route path="interviews">
-                <Route path="recent" element={<Interviews />} />
-                <Route path="questions" element={<AllQuestions />} />
+                <Route path="recent"  element={<Interviews/>}/>
+                <Route path="questions" element={<AllQuestions/>}/>
               </Route>
               <Route path="schedule">
                 <Route path="list" element={<InterviewsList />} />
