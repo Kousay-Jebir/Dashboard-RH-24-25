@@ -14,11 +14,10 @@ import {
   Box,
   useTheme,
 } from "@mui/material";
-import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 const DataTable2 = ({ columns, rowData }) => {
-  const [expandedRow, setExpandedRow] = useState(null);
+  // const [expandedRow, setExpandedRow] = useState(null);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
@@ -85,12 +84,22 @@ const DataTable2 = ({ columns, rowData }) => {
 
   return (
     <>
-      <TableContainer component={Paper} sx={{ maxWidth: "100%", overflowX: "auto" }} elevation={0}>
+      <TableContainer
+        component={Paper}
+        sx={{ maxWidth: "100%", overflowX: "auto" }}
+        elevation={0}
+      >
         <Table size="small">
           <TableHead>
             <TableRow>
               {columns.map((column) => (
-                <TableCell key={column.id} sx={{ borderBottom: "none", color: theme.palette.neutral.normal }}>
+                <TableCell
+                  key={column.id}
+                  sx={{
+                    borderBottom: "none",
+                    color: theme.palette.neutral.normal,
+                  }}
+                >
                   <TableSortLabel
                     active={sortConfig.key === column.id}
                     direction={sortConfig.direction}
@@ -100,53 +109,70 @@ const DataTable2 = ({ columns, rowData }) => {
                   </TableSortLabel>
                 </TableCell>
               ))}
-              <TableCell sx={{ borderBottom: "none", color: theme.palette.neutral.normal }}></TableCell>
+              <TableCell
+                sx={{
+                  borderBottom: "none",
+                  color: theme.palette.neutral.normal,
+                }}
+              ></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {sortedRows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => (
-              <React.Fragment key={index}>
-                <TableRow sx={{ "&:last-child td, &:last-child th": { border: "none" } }}>
-                  {columns.map((column) => (
-                    <TableCell
-                      key={column.id}
-                      sx={{
-                        borderBottom: "none",
-                        ...(column.id === "Status" && statusStyles(row.Status)),
-                      }}
-                    >
-                      {column.id === "Department" ? (
-                        <Typography
-                          sx={{
-                            backgroundColor: departmentStyles(row.Department),
-                            color: theme.palette.common.white,
-                            display: "inline-block",
-                            borderRadius: "12px",
-                            padding: "2px 8px",
-                            fontSize: "0.875rem",
-                          }}
-                        >
-                          {row.Department}
-                        </Typography>
-                      ) : (
-                        column.render ? column.render(row) : row[column.id]
-                      )}
-                    </TableCell>
-                  ))}
-                  <TableCell sx={{ borderBottom: "none" }}>
-                    <IconButton size="small" onClick={() => handleExpandClick(index)}>
-                      <MoreVertIcon
+            {sortedRows
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((row, index) => (
+                <React.Fragment key={index}>
+                  <TableRow
+                    sx={{
+                      "&:last-child td, &:last-child th": { border: "none" },
+                    }}
+                  >
+                    {columns.map((column) => (
+                      <TableCell
+                        key={column.id}
                         sx={{
-                          fontSize: "1.2rem",
-                          // transform: expandedRow === index ? "rotate(90deg)" : "rotate(0deg)",
-                          // transition: "transform 0.2s ease",
+                          borderBottom: "none",
+                          ...(column.id === "Status" &&
+                            statusStyles(row.Status)),
                         }}
-                      />
-                    </IconButton>
-                  </TableCell>
-                </TableRow>
+                      >
+                        {column.id === "Department" ? (
+                          <Typography
+                            sx={{
+                              backgroundColor: departmentStyles(row.Department),
+                              color: theme.palette.common.white,
+                              display: "inline-block",
+                              borderRadius: "12px",
+                              padding: "2px 8px",
+                              fontSize: "0.875rem",
+                            }}
+                          >
+                            {row.Department}
+                          </Typography>
+                        ) : column.render ? (
+                          column.render(row)
+                        ) : (
+                          row[column.id]
+                        )}
+                      </TableCell>
+                    ))}
+                    <TableCell sx={{ borderBottom: "none" }}>
+                      <IconButton
+                        size="small"
+                        onClick={() => handleExpandClick(index)}
+                      >
+                        <MoreVertIcon
+                          sx={{
+                            fontSize: "1.2rem",
+                            // transform: expandedRow === index ? "rotate(90deg)" : "rotate(0deg)",
+                            // transition: "transform 0.2s ease",
+                          }}
+                        />
+                      </IconButton>
+                    </TableCell>
+                  </TableRow>
 
-                {/* {expandedRow === index && (
+                  {/* {expandedRow === index && (
                   <TableRow>
                     <TableCell colSpan={columns.length + 1} sx={{ paddingBottom: 2, borderBottom: "none" }}>
                       <Box p={2}>
@@ -155,9 +181,8 @@ const DataTable2 = ({ columns, rowData }) => {
                     </TableCell>
                   </TableRow>
                 )} */}
-                
-              </React.Fragment>
-            ))}
+                </React.Fragment>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>
