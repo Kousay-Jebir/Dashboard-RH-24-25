@@ -1,4 +1,4 @@
-const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:5000/api";
+const BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:5000";
 const BACKEND_API_ROUTES = {
     GET_SUPERADMIN: '/superadmin',
     GET_SUPERADMIN_BY_ID: '/superadmin/:id',
@@ -14,7 +14,7 @@ const BACKEND_API_ROUTES = {
     CREATE_MEETINGQUESTION:'/meetingquestion/create',
     ANSWER_MEETINGQUESTION:'/meetingquestion/answer',
     GET_INTERVIEW:'/interview',
-    CREATE_INTERVIEW:'/interview/create',
+    CREATE_INTERVIEW:'/interview/createInterview',
     GET_INTERVIEWQUESTION:'/interviewquestion',
     CREATE_INTERVIEWQUESTION:'/interviewquestion/create',
     GET_CANDIDAT:'/candidat',

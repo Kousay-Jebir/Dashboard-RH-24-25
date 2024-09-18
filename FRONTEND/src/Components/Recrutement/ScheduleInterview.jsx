@@ -15,25 +15,50 @@ import {
   useTheme,
 } from "@mui/material";
 import { Close as CloseIcon, School as SchoolIcon } from "@mui/icons-material";
+import { api } from "../../service/api";
 
 const ScheduleInterview = ({ close }) => {
   const [showDateTime, setShowDateTime] = useState(false);
   const [errors, setErrors] = useState({});
   const [isVisible, setIsVisible] = useState(true);
   const [formData, setFormData] = useState({
-    Candidate: '',
-    Phone: '',
-    City: '',
-    Adress: '',
-    Field: '',
-    Academic_year: '',
-    date: '',
-    time: '',
-    Recruiter: '',
-    email: '',
-    status: '',
-    department: ''
-    });
+    Candidate: "",
+    Phone: "",
+    City: "",
+    Adress: "",
+    Field: "",
+    Academic_year: "",
+    date: "",
+    time: "",
+    Recruiter: "",
+    email: "",
+    status: "",
+    department: "",
+  });
+
+  const transformFormDataToPostData = (formData) => {
+    return {
+      status: formData.status ,
+      recruiter: formData.Recruiter ,
+      department: formData.department ,
+      date: new Date(formData.date).toISOString(), 
+      time: formData.time,
+      duration: "1 hour",
+      polePresentationGrade: 0,
+      jeiKnowledgeGrade: 0,
+      availabilityGrade: 0,
+      rhQuestionsGrade: 0,
+      situationGrade: 0,
+      associativeExperienceGrade: 0,
+      candidatName: formData.Candidate,
+      candidatEmail: formData.email ,
+      candidatPhone: formData.Phone ,
+      candidatAddress: formData.Adress ,
+      candidatLastName: "last name", 
+      candidatField: formData.Field ,
+      candidatYear: formData.Academic_year
+    };
+  };
 
   const theme = useTheme();
 
@@ -49,8 +74,18 @@ const ScheduleInterview = ({ close }) => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const handleScheduleClick = () => {
-    console.log(formData); // Log the form data on button click
+  const handleScheduleClick = async (e) => {
+    // console.log(formData);
+    const postData = transformFormDataToPostData(formData);
+
+
+    try {
+      console.log(postData);
+      await api.createInterview(postData);
+    } catch (error) {
+      console.error("Erreur lors de l'envoi du message:", error);
+      alert("Échec de l'envoi du message.");
+    }
   };
 
   const toggleDateTimeFields = () => {
@@ -134,10 +169,10 @@ const ScheduleInterview = ({ close }) => {
         {label}
       </Typography>
       <Select
-        name={name}  
+        name={name}
         displayEmpty
         onChange={handleChange}
-        value={formData[name] || ''}  
+        value={formData[name] || ""}
         sx={{
           height: "30px",
           borderRadius: 2,
@@ -275,11 +310,7 @@ const ScheduleInterview = ({ close }) => {
 
           <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
             {renderTextField("Recruiter", "Recruiter", "Enter name")}
-            {renderTextField(
-              "E-mail address",
-              "email",
-              "Enter e-mail address"
-            )}
+            {renderTextField("E-mail address", "email", "Enter e-mail address")}
           </Box>
         </Box>
 
