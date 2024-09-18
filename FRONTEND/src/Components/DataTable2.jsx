@@ -15,6 +15,7 @@ import {
   useTheme,
 } from "@mui/material";
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 const DataTable2 = ({ columns, rowData }) => {
   const [expandedRow, setExpandedRow] = useState(null);
@@ -134,17 +135,18 @@ const DataTable2 = ({ columns, rowData }) => {
                   ))}
                   <TableCell sx={{ borderBottom: "none" }}>
                     <IconButton size="small" onClick={() => handleExpandClick(index)}>
-                      <ArrowForwardIosRoundedIcon
+                      <MoreVertIcon
                         sx={{
-                          fontSize: "1rem",
-                          transform: expandedRow === index ? "rotate(90deg)" : "rotate(0deg)",
-                          transition: "transform 0.2s ease",
+                          fontSize: "1.2rem",
+                          // transform: expandedRow === index ? "rotate(90deg)" : "rotate(0deg)",
+                          // transition: "transform 0.2s ease",
                         }}
                       />
                     </IconButton>
                   </TableCell>
                 </TableRow>
-                {expandedRow === index && (
+
+                {/* {expandedRow === index && (
                   <TableRow>
                     <TableCell colSpan={columns.length + 1} sx={{ paddingBottom: 2, borderBottom: "none" }}>
                       <Box p={2}>
@@ -152,7 +154,8 @@ const DataTable2 = ({ columns, rowData }) => {
                       </Box>
                     </TableCell>
                   </TableRow>
-                )}
+                )} */}
+                
               </React.Fragment>
             ))}
           </TableBody>
