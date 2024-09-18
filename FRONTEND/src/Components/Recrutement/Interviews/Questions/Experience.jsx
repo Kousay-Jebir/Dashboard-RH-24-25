@@ -1,19 +1,27 @@
+import AddIcon from '@mui/icons-material/Add';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import SaveIcon from '@mui/icons-material/Save';
 import { Box, Button, TextField, Typography, useTheme } from '@mui/material';
+import IconButton from '@mui/material/IconButton';
 import React, { useState } from 'react';
-import ActionIcons from './ActionIcons'; // Import ActionIcons component
+
+const EditDeleteIcons = ({ onEdit, onDelete, isEditing }) => (
+  <Box sx={{ display: 'flex',gap:1 }}>
+    <IconButton onClick={onEdit} color="secondary" aria-label="edit" sx={{height:3,width:3,fontSize:5}}>
+      {isEditing ? <SaveIcon /> : <EditIcon />}
+    </IconButton>
+    <IconButton onClick={onDelete} color="error" aria-label="delete"sx={{height:3,width:3,fontSize:5}}>
+      <DeleteIcon />
+    </IconButton>
+  </Box>
+);
 
 const renderTextField = ({ label, placeholder, height, fontSize, value, onChange, disabled }) => {
   const theme = useTheme();
-  
+
   return (
-    <Box
-      sx={{
-        width: '791px',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '8px',
-      }}
-    >
+    <Box sx={{ width: '791px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
       <Typography
         variant="body2"
         sx={{
@@ -160,20 +168,15 @@ const Experience = () => {
           Experience
         </Typography>
 
-        {/* ActionIcons component for Add/Edit/Delete */}
-        <ActionIcons
-          isEditing={editingIndex !== null || isAdding}
-          onAdd={handleAddQuestion}
-          onEdit={() => editingIndex !== null && handleEditQuestion(editingIndex)}
-          onDelete={() => editingIndex !== null && handleDeleteQuestion(editingIndex)}
-          onSave={handleSaveQuestion}
-          onCancel={handleCancel}
-        />
+        {/* Add icon button for adding new questions */}
+        <IconButton onClick={handleAddQuestion} color="seconday" aria-label="add">
+          <AddIcon />
+        </IconButton>
       </Box>
 
-      {/* Display existing questions */}
+      {/* Display existing questions with Edit/Delete icons */}
       {questions.map((question, index) => (
-        <Box key={index} sx={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '10px' }}>
+        <Box key={index} sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginBottom: '7px' }}>
           {renderTextField({
             label: question.label,
             placeholder: question.placeholder,
@@ -181,38 +184,34 @@ const Experience = () => {
             onChange: (e) => handleInputChange(index, e, 'value'),
             disabled: !(index === editingIndex || isAdding),
           })}
-          {/* Render ActionIcons for the currently edited question */}
-          {(index === editingIndex || isAdding) && (
-            <ActionIcons
-              isEditing={index === editingIndex}
-              onAdd={handleAddQuestion}
-              onEdit={() => handleEditQuestion(index)}
-              onDelete={() => handleDeleteQuestion(index)}
-              onSave={handleSaveQuestion}
-              onCancel={handleCancel}
-            />
-          )}
+
+          {/* Render Edit/Delete icons next to each question */}
+          <EditDeleteIcons
+            isEditing={index === editingIndex}
+            onEdit={() => handleEditQuestion(index)}
+            onDelete={() => handleDeleteQuestion(index)}
+          />
         </Box>
       ))}
 
       {/* Show add form below the list of existing questions */}
       {(isAdding || editingIndex !== null) && (
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '7px' }}>
           {renderTextField({
-            label: 'New Question',
-            placeholder: 'Enter new question here',
+            label: 'Question',
+            placeholder: 'Enter the question here',
             value: newQuestion,
             onChange: (e) => setNewQuestion(e.target.value),
           })}
           {renderTextField({
-            label: 'Response',
+            label: 'Candidate\'s response',
             placeholder: 'Enter candidate\'s response here',
             value: newResponse,
             onChange: (e) => setNewResponse(e.target.value),
           })}
           <Box sx={{ display: 'flex', gap: '10px' }}>
-            <Button onClick={handleSaveQuestion} variant="contained">Save</Button>
-            <Button onClick={handleCancel} variant="outlined">Cancel</Button>
+            <Button onClick={handleSaveQuestion} variant="outlined" sx={{fontFamily:theme.typography.fontFamily,fontSize:12,textTransform:"none"}}>Save</Button>
+            <Button onClick={handleCancel} variant="outlined" sx={{fontFamily:theme.typography.fontFamily,fontSize:12,textTransform:"none"}}>Cancel</Button>
           </Box>
         </Box>
       )}
