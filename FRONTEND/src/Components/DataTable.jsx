@@ -70,9 +70,9 @@ const DataTable = ({ columns, rowData }) => {
                 {columns.map((column) => (
                   <TableCell key={column.id} sx={{
                     borderBottom: "none",
-                    ...(column.id === "Status" && statusStyles(row.Status)),
+                    ...(column.id === "status" && statusStyles(row.status)),
                   }}>
-                    {column.id === "Department" ? (
+                    {column.id === "department" ? (
                       <Typography
                         sx={{
                           backgroundColor: departmentStyles(row.Department),
@@ -83,7 +83,7 @@ const DataTable = ({ columns, rowData }) => {
                           fontSize: "0.875rem",
                         }}
                       >
-                        {row.Department}
+                        {row.department}
                       </Typography>
                     ) : (
                       column.render ? column.render(row) : row[column.id]

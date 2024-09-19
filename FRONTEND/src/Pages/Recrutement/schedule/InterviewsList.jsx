@@ -4,16 +4,36 @@ import SearchBar from "../../../components/SearchBar";
 import StatusBar from "../../../Components/Recrutement/Schedule/list/StatusBar";
 import List from "../List";
 import DateRangeFilter from "../../../Components/DateRangeFilter";
-import data from "../../../Components/Recrutement/Schedule/List/ScheduleDataGrid.json";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { api } from "../../../service/api";
 import { statuses } from "../../../Components/Recrutement/interview-states";
 import dayjs from "dayjs";
 
 export default function InterviewsList() {
-    const [interviews, setInterviews] = useState(data);
+    const [interviews, setInterviews] = useState([]);
     const [activeStatus, setActiveStatus] = useState('ALL');
     const [searchQuery, setSearchQuery] = useState(''); 
     const [dateRange, setDateRange] = useState([null, null]); 
+    const [loading, setLoading] = useState(true); // Loading state
+    const [error, setError] = useState(null); // Error state
+
+    useEffect(() => {
+        const fetchInterviews = async () => {
+            try {
+                const responseData = await api.getInterview(); 
+                setInterviews(responseData.data);
+            } catch (err) {
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchInterviews();
+    }, []); // Empty dependency array means it runs once on mount
+
+    if (loading) return <div>Loading...</div>; // Loading indicator
+    if (error) return <div>Error: {error}</div>; // Error handling
 
     // Create a counts object with initial counts set to 0
     const statusCounts = {
@@ -24,7 +44,7 @@ export default function InterviewsList() {
 
     // Count the occurrences of each status
     interviews.forEach(interview => {
-        const status = interview.Status.toUpperCase();
+        const status = interview.status.toUpperCase();
         if (statusCounts.hasOwnProperty(status)) {
             statusCounts[status]++;
         }
@@ -41,10 +61,10 @@ export default function InterviewsList() {
     // Filter interviews based on status, search query, and date range
     const filteredInterviews = interviews
         .filter(interview => 
-            activeStatus === statuses.ALL.id || interview.Status.toUpperCase() === activeStatus
+            activeStatus === statuses.ALL.id || interview.status.toUpperCase() === activeStatus
         )
         .filter(interview => 
-            interview.Name.toLowerCase().includes(searchQuery.toLowerCase())
+            interview.recruiter.toLowerCase().includes(searchQuery.toLowerCase())
         )
         .filter(interview => {
             const [startDate, endDate] = dateRange;
