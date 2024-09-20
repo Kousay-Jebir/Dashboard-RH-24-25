@@ -17,11 +17,22 @@ import KanbanBoard from './Pages/Recrutement/schedule/KanbanBoard';
 import TeamMembers from './Pages/Team members/TeamMembers';
 import { RoutesProvider } from './router/context/RoutesContext';
 import AllQuestions from './Components/Recrutement/Interviews/Questions/AllQuestions';
+import {jwtDecode} from 'jwt-decode';
 
 // Higher-order component to protect routes
+const isTokenValid = (token) => {
+  if (!token) return false;
+
+  const decodedToken = jwtDecode(token);
+  const currentTime = Date.now() / 1000; // Current time in seconds
+  return decodedToken.exp > currentTime;
+};
+
 const ProtectedRoute = ({ element }) => {
-  const { isAuthenticated } = useAuth();
-  return isAuthenticated ? element : <Navigate to="/login" />;
+  const { isAuthenticated, authData} = useAuth();
+  const accessToken = authData.accessToken;
+  const isValid = isTokenValid(accessToken);
+  return isAuthenticated && isValid ? element : <Navigate to="/login" />;
 };
 
 function App() {

@@ -1,5 +1,6 @@
 const BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:5000";
 const BACKEND_API_ROUTES = {
+    GET_TOKEN_VALIDITY: '/member/token',
     GET_SUPERADMIN: '/superadmin',
     GET_SUPERADMIN_BY_ID: '/superadmin/:id',
     CREATE_SUPERADMIN: '/superadmin/create',
