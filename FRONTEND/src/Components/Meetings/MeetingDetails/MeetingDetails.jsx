@@ -190,7 +190,7 @@ const MeetingDetails = () => {
                 width: 195,
                 height: 46,
                 fontSize: 10,
-                color: theme.palette.error.text,
+                color: theme.palette.error.main,
                 border: '1px solid lightGrey',
                 borderRadius: 2,
                 marginRight: 1,

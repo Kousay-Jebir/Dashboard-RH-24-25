@@ -39,8 +39,8 @@ const theme = createTheme({
       text:"#ffa726"
     },
     error:{
-      main:"#FFD5D8",
-      text:"#E93544"
+      text:"#FFD5D8",
+      main:"#E93544"
     },
 
     customColors: {

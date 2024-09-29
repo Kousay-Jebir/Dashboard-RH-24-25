@@ -17,6 +17,9 @@ import KanbanBoard from './Pages/Recrutement/schedule/KanbanBoard';
 import TeamMembers from './Pages/Team members/TeamMembers';
 import { RoutesProvider } from './router/context/RoutesContext';
 import AllQuestions from './Components/Recrutement/Interviews/Questions/AllQuestions';
+import CandidateForm from "./Components/Recrutement/Interviews/Questions/InterviewForm";
+import GlobalForm from "./Components/Recrutement/Interviews/Questions/GlobalForm";
+import Global from "./Components/Recrutement/Interviews/Questions/Global";
 
 // Higher-order component to protect routes
 const ProtectedRoute = ({ element }) => {
@@ -33,7 +36,9 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<AppLayout />}>
-            <Route path="dashboard" element={<ProtectedRoute element={<Dashoboard />} />} />
+            {/* <Route path="dashboard" element={<ProtectedRoute element={<Dashoboard />} />} /> */}
+            {/* <Route path="dashboard" element={<ProtectedRoute element={<GlobalForm/> } />} /> */}
+            <Route path="dashboard" element={<ProtectedRoute element={<Global/> } />} />
             <Route element={<MainContentLayout />}>
               <Route path="recruitement" element={<ProtectedRoute element={<Interviews />} />}>
                 <Route path="interviews/recent" element={<ProtectedRoute element={<Interviews />} />} />
