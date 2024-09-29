@@ -3,12 +3,12 @@ import DataTable from "../../../DataTable";
 import { Typography } from "@mui/material";
 
 const columns = [
-  { id: "Name", label: "Name" },
-  { id: "Department", label: "Department" },
-  { id: "Date", label: "Date" },
-  { id: "Time", label: "Time" },
-  { id: "Recruiter", label: "Recruiter" },
-  { id: "Status", label: "Status" },
+  { id: "name", label: "Name" },
+  { id: "department", label: "Department" },
+  { id: "date", label: "Date" },
+  { id: "time", label: "Time" },
+  { id: "recruiter", label: "Recruiter" },
+  { id: "status", label: "Status" },
 ];
 
 

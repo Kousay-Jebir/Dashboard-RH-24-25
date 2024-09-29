@@ -24,6 +24,7 @@ base.interceptors.request.use(
 );
 
 export const api = {
+  getTokenValidity: (data) => base.post(BACKEND_API_ROUTES.GET_TOKEN_VALIDITY,data),
   getSuperAdmin: () => base.get(BACKEND_API_ROUTES.GET_SUPERADMIN),
   getSuperAdminById: (id) => base.get(BACKEND_API_ROUTES.GET_SUPERADMIN_BY_ID.replace(':id', id)),
   createSuperAdmin: (data) => base.post(BACKEND_API_ROUTES.CREATE_SUPERADMIN, data),
