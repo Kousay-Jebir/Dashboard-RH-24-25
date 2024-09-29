@@ -8,7 +8,6 @@ const AddQuestion = ({ onAddQuestion }) => {
     const [options, setOptions] = useState(['']);
     const theme = useTheme();
 
-    // Render a TextField with custom styling and properties
     const renderTextField = (label, value, onChange, placeholder, type = 'text', multiline = false) => (
         <Box sx={{ display: 'flex', flexDirection: 'column', marginBottom: '16px' }}>
             <Typography
@@ -93,7 +92,6 @@ const AddQuestion = ({ onAddQuestion }) => {
                 >
                     Answer options
                 </Typography>
-                {/* Render each option TextField */}
                 {options.map((option, index) => (
                     renderTextField(
                         '',
@@ -104,7 +102,6 @@ const AddQuestion = ({ onAddQuestion }) => {
                 ))}
             </Box>
 
-            {/* Button to add a new option */}
             <Button
                 variant="outlined"
                 startIcon={<AddIcon sx={{ fontSize: 9, height: 15, width: 15 }} />}

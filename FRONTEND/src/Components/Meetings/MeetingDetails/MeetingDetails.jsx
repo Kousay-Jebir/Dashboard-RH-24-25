@@ -50,9 +50,8 @@ const MeetingDetails = () => {
     return (
         <Box
             sx={{
-                gap: 34,
+                //gap: 34,
                 display: 'flex',
-                height: '100vh',
                 overflow:'auto',
                 justifyContent: 'flex-end',
                 fontFamily: theme.typography.fontFamily,
@@ -126,7 +125,7 @@ const MeetingDetails = () => {
                     </Box>
 
                     {fetchedData.Code && (
-                        <Box sx={{ width: 521, gap: 5, display: "flex", flexDirection: "row", alignItems: "center" }}>
+                        <Box sx={{ width: 521, gap: 4, display: "flex", flexDirection: "row", alignItems: "center" }}>
                             <Typography
                                 variant="body2"
                                 color="text.secondary"
@@ -163,15 +162,15 @@ const MeetingDetails = () => {
                     <Box sx={{ width: 521 }}>
                         <Box>
                             {questions.map((q, index) => (
-                                <Box key={index} sx={{ marginTop: 2 }}>
+                                <Box key={index} sx={{marginTop:1}}>
                                     <Typography variant="h6">{q.question}</Typography>
                                     {q.options.map((option, i) => (
                                         <Typography key={i} variant="body2" sx={{
                                             border: '1px solid lightGrey',
                                             borderRadius: 2,
                                             padding:'4px 8px',
-                                            marginTop:'4px',
-                                            marginBottom:'4px'
+                                            //marginTop:'2px',
+                                            //marginBottom:'2px'
                                         }}>
                                             {option}
                                         </Typography>
