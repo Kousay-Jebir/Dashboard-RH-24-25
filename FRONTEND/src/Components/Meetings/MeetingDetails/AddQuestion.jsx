@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 
 const AddQuestion = ({ onAddQuestion }) => {
     const [question, setQuestion] = useState('');
-    const [options, setOptions] = useState(['']);
+    const [options, setOptions] = useState(['','']);
     const theme = useTheme();
 
     const renderTextField = (label, value, onChange, placeholder, type = 'text', multiline = false) => (
