@@ -191,9 +191,9 @@ export default function GlobalForm() {
   };
 
   return (
-    <Box sx={{ padding: 2 }}>
+    <Box sx={{ padding: 0 }}>
       {submitError && <Typography color="error">{submitError}</Typography>}
-      <Button type="submit" variant="contained" color="primary" sx={{ m: 2 , display: "flex" , marginLeft: "auto",  }} onClick={handleSubmit}>
+      <Button type="submit" variant="contained" color="primary" sx={{ mb: 2 , display: "flex" , marginLeft: "auto",  }} onClick={handleSubmit}>
         Submit
       </Button>
       <GeneralInformationForm
