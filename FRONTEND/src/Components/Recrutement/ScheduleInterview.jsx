@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { Close as CloseIcon, School as SchoolIcon } from "@mui/icons-material";
 import {
   Box,
   Button,
@@ -14,7 +14,7 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import { Close as CloseIcon, School as SchoolIcon } from "@mui/icons-material";
+import React, { useState } from "react";
 import { api } from "../../service/api";
 
 const ScheduleInterview = ({ close }) => {
@@ -125,6 +125,8 @@ const ScheduleInterview = ({ close }) => {
         type={type}
         error={!!errors[name]}
         helperText={errors[name]}
+        autoComplete="new-password" // Forcing browser to stop autofill
+
         sx={{
           width: "75%",
           "& .MuiInputBase-root": { height: "100%" },

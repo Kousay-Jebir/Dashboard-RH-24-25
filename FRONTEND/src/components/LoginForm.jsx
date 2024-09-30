@@ -94,6 +94,12 @@ const LoginForm = () => {
       fontSize: theme.typography.fontSize,
     },
     '& .MuiFormLabel-root': typographyStyle,
+    '& input:-webkit-autofill': {
+      WebkitBoxShadow: '0 0 0 1000px white inset',
+      WebkitTextFillColor: 'black',
+      fontFamily: theme.typography.fontFamily,
+      transition: 'background-color 5000s ease-in-out 0s',
+    },
   };
 
   return (
