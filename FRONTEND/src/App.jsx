@@ -22,7 +22,6 @@ import TeamMembers from './Pages/Team members/TeamMembers';
 import AllQuestions from './Components/Recrutement/Interviews/Questions/AllQuestions';
 import GlobalForm from "./Components/Recrutement/Interviews/Questions/Global";
 import ScoresForm from "./Components/Recrutement/Interviews/Questions/ScoresForm";
-import AddMemberPopup from "./Components/Recrutement/Interviews/AddMemberPopup";
 
 
 // Higher-order component to protect routes
@@ -55,7 +54,7 @@ function App() {
             <Route path="recruitement">
               <Route path="interviews">
               <Route path="recent" element={<ProtectedRoute element={<Interviews />} />} />
-              <Route path="questions" element={<ProtectedRoute element={<AddMemberPopup />} />} />
+              <Route path="questions" element={<ProtectedRoute element={<GlobalForm />} />} />
               </Route>
               <Route path="schedule">
               <Route path="list" element={<ProtectedRoute element={<InterviewsList />} />} />
