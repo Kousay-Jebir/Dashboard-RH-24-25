@@ -32,8 +32,8 @@ const ScheduleInterview = ({ close }) => {
     time: "",
     Recruiter: "",
     email: "",
-    status: "",
-    department: "",
+    status: "Confirmed",
+    department: "Projet",
   });
 
 
@@ -208,7 +208,7 @@ const ScheduleInterview = ({ close }) => {
         type={type}
         error={!!errors[name]}
         helperText={errors[name]}
-        autoComplete="new-password" // Forcing browser to stop autofill
+        //autoComplete="new-password" // Forcing browser to stop autofill
 
         sx={{
           width: "75%",
@@ -228,8 +228,12 @@ const ScheduleInterview = ({ close }) => {
             },
           },
           '& input:-webkit-autofill': {
-            //WebkitBoxShadow: '0 0 0 500px white inset',
-    },
+            WebkitBoxShadow: '0 0 0 1000px white inset',
+            WebkitTextFillColor: 'black',
+            fontFamily: theme.typography.fontFamily,
+            transition: 'background-color 5000s ease-in-out 0s',
+},
+
         }}
       />
     </Box>
