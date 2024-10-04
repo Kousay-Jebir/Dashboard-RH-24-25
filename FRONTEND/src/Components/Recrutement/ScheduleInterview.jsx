@@ -103,11 +103,10 @@ const ScheduleInterview = ({ close }) => {
   const validateForm=()=>{
     const newErrors={};
 
-    if((!formData.Candidate.match(/^[A-Za-zÀ-ÿ' -]+$/)||((!formData.Candidate.length<3)||(!formData.Candidate.length>20) )))
+    if((!formData.Candidate.match(/^[A-Za-zÀ-ÿ' -]+$/)||((formData.Candidate.length<3)||(formData.Candidate.length>20) )))
     {
       newErrors.Candidate="Enter a valid candidate name";
       }
-    if(!formData.Candidate.length)
     
 
 
@@ -136,10 +135,21 @@ const ScheduleInterview = ({ close }) => {
     if(!formData.time.trim()){
       newErrors.time="Time is required.";
     }
+    
+    if((!formData.Recruiter.match(/^[A-Za-zÀ-ÿ' -]+$/)||((formData.Recruiter.length<3)||(formData.Recruiter.length>20) )))
+      {
+        newErrors.Recruiter="Enter a valid Recruiter name";
+        }
 
     if(!formData.Recruiter.trim()){
       newErrors.Recruiter="recruiter name is required.";
     }
+    
+    if((formData.City.length<3)||(formData.City.length>20) )
+      {
+        newErrors.City="Enter a valid city name";
+        }
+
     if(!formData.City.trim()){
       newErrors.City="City is required.";
     }
