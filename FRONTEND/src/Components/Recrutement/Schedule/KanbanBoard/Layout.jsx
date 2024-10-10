@@ -1,12 +1,11 @@
 import { Grid } from "@mui/material";
-import InterviewStatus from "./InterviewStatus";
-import RecruitementInterviewCard from "./RecruitementInterviewCard";
+import { useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import KanbanForm from "../../../kanbanForm";
 import ScheduleButton from "../../../ScheduleButton";
-import { statuses } from "../../interview-states";
 import { getDepartmentIdByDepartmentTitle } from "../../jei-departments";
-import { useState } from "react";
+import InterviewStatus from "./InterviewStatus";
+import RecruitementInterviewCard from "./RecruitementInterviewCard";
 
 export default function Layout({ boardColumns, setBoardColumns }) {
     const [showFormInColumn, setShowFormInColumn] = useState(null); // Track which column shows the form
@@ -125,6 +124,8 @@ export default function Layout({ boardColumns, setBoardColumns }) {
                                         paddingBlock: 1,
                                         color: 'text.primary',
                                         borderColor: 'neutral.light',
+                                        fontFamily:"inter",
+                                        fontWeight:500
                                     }}
                                     onClick={() => handleAddInterviewClick(id)}
                                 />
