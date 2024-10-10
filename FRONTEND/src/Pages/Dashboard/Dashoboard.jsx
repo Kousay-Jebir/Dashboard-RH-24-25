@@ -1,10 +1,11 @@
+import { Box, Grid, Typography, useTheme,Drawer } from "@mui/material";
+import ScheduleInterview from "../../Components/Recrutement/ScheduleInterview";
 import React from "react";
-import { Box, Grid, Typography, useTheme } from "@mui/material";
 
+import AllTicketsKPI from "../../Components/AllTicketsKPI";
 import MembersByCategory from "../../Components/Dashboard/MembersByCategory";
 import MembersByGender from "../../Components/Dashboard/MembersByGender";
 import Schedule from "../../Components/Dashboard/Schedule";
-import AllTicketsKPI from "../../Components/AllTicketsKPI";
 import ScheduleButton from "../../Components/ScheduleButton";
 
 const Dashboard = () => {
@@ -13,6 +14,13 @@ const Dashboard = () => {
   };
 
   const theme = useTheme();
+  const [open, setOpen] = React.useState(false);
+  const toggleDrawer = (newOpen) => () => {
+    setOpen(newOpen);
+  };
+  const DrawerContent = (
+    <ScheduleInterview close={toggleDrawer(false)}/>
+  );
 
   return (
     <Box
@@ -21,15 +29,27 @@ const Dashboard = () => {
         padding: 2,
       }}
     >
+       <Drawer open={open} onClose={toggleDrawer(false)} anchor='right'
+       sx={{
+        '& .MuiBackdrop-root': {
+          backdropFilter:'blur(5px)'
+        },
+        '& .MuiDrawer-paper': {
+            padding: 2, 
+          },
+      }}>
+        {DrawerContent}
+      </Drawer>
       <Grid container spacing={2}>
-        <Grid item xs={6} md={8} >
+        <Grid item xs={12} md={8} >
           <Typography fontSize={26} fontWeight={theme.typography.extraMeduim}>
             Dashboard
           </Typography>
         </Grid>
 
         <Grid item xs={6} md={2}>
-          <ScheduleButton  
+          <ScheduleButton
+            onClick={toggleDrawer(true)}
             variant="text"
             schedule="Schedule interview" 
             sx={{
@@ -38,7 +58,7 @@ const Dashboard = () => {
           />
         </Grid>
 
-        <Grid item xs={12} md={2}>
+        <Grid item xs={6} md={2}>
           <ScheduleButton
             variant="contained"  
             schedule="Schedule meeting" 

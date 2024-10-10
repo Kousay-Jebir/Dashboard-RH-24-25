@@ -19,8 +19,8 @@ export default function InterviewStatus({columnId,columnLength}){
          icon = <RestoreOutlinedIcon sx={{color:textColor}} fontSize='small'/>
     }
     else if(columnId === statuses.CANCELLED.id) {
-         bgColor = 'error.main';
-         textColor = 'error.text';
+         bgColor = 'error.text';
+         textColor = 'error.main';
          title = 'Cancelled';
          icon = <CancelOutlinedIcon sx={{color:textColor}} fontSize='small'/>
     }

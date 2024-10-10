@@ -1,35 +1,58 @@
 [
-    {
-      "name": "Boukhchina Rayen Ayadi",
-      "department": "Dév. Commercial",
-      "date": "20/10/2024",
-      "duration": "13 mins",
-      "recruiter": "Amine Hamdi",
-      "grade": 75
-    },
-    {
-      "name": "Ben Marzouk Wahib",
-      "department": "Marketing",
-      "date": "08/10/2024",
-      "duration": "20 mins",
-      "recruiter": "Youssef Dhieb",
-      "grade": 99
-    },
-    {
-      "name": "Abid Aymen",
-      "department": "Dév. Commercial",
-      "date": "03/10/2024",
-      "duration": "19 mins",
-      "recruiter": "Amine Hamdi",
-      "grade": 60
-    },
-    {
-      "name": "Khemiri Sahar",
-      "department": "Projet",
-      "date": "18/10/2024",
-      "duration": "5 mins",
-      "recruiter": "Amine Hamdi",
-      "grade": 86
-    }
-  ]
-  
+  {
+    "name": "Boukhchina Rayen Ayadi",
+    "department": "Dév. Commercial",
+    "date": "20/10/2024",
+    "duration": "13 mins",
+    "recruiter": "Amine Hamdi",
+    "grade": 75,
+    "poleGrade": 80,
+    "knowledgeGrade": 70,
+    "availabilityGrade": 85,
+    "RHGrade": 90,
+    "situationsGrade": 65,
+    "associativeGrade": 75
+  },
+  {
+    "name": "Ben Marzouk Wahib",
+    "department": "Marketing",
+    "date": "08/10/2024",
+    "duration": "20 mins",
+    "recruiter": "Youssef Dhieb",
+    "grade": 99,
+    "poleGrade": 95,
+    "knowledgeGrade": 98,
+    "availabilityGrade": 100,
+    "RHGrade": 97,
+    "situationsGrade": 92,
+    "associativeGrade": 99
+  },
+  {
+    "name": "Abid Aymen",
+    "department": "Dév. Commercial",
+    "date": "03/10/2024",
+    "duration": "19 mins",
+    "recruiter": "Amine Hamdi",
+    "grade": 60,
+    "poleGrade": 65,
+    "knowledgeGrade": 55,
+    "availabilityGrade": 70,
+    "RHGrade": 60,
+    "situationsGrade": 50,
+    "associativeGrade": 55
+  },
+  {
+    "name": "Khemiri Sahar",
+    "department": "Projet",
+    "date": "18/10/2024",
+    "duration": "5 mins",
+    "recruiter": "Amine Hamdi",
+    "grade": "86/100",
+    "poleGrade": "88/100",
+    "knowledgeGrade": "85/100",
+    "availabilityGrade": "90/100",
+    "RHGrade": "87/100",
+    "situationsGrade": "82/100",
+    "associativeGrade": "86/100"
+  }
+]

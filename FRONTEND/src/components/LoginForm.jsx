@@ -2,12 +2,15 @@ import EmailIcon from '@mui/icons-material/Email';
 import LockIcon from '@mui/icons-material/Lock';
 import { Box, Button, InputAdornment, TextField, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
+import axios from 'axios';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const LoginForm = () => {
   const theme = useTheme();
-
-  
+  const { login } = useAuth();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -46,11 +49,29 @@ const LoginForm = () => {
   };
 
   
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (validateForm()) {
       console.log("form data", formData);
-      // Form validation and API call logic here
+      const loginData = {
+        email:formData.email,
+        password:formData.password
+      };
+  
+      try {
+        const response = await axios.post(
+          "http://localhost:5000/superadmin/login",
+          loginData
+        );
+        console.log(response)
+        if (response.data.access_token) {
+          console.log("we have")
+          login(response.data.access_token);
+          navigate("/dashboard");
+        }
+      } catch (error) {
+        console.error("Login failed:", error.response || error.message);
+      }
     }
   };
 

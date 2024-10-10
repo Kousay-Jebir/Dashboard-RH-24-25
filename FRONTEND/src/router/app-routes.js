@@ -45,7 +45,16 @@ const routesConfig = {
         ]
       }
     },
-    teamMembers: '/team-members',
+    teamMembers: {
+      root:'/team-members',
+      tabs : [
+        {title:'All members',path:'/team-members/all',default:''},
+        {title:'Développement Commercial',path:'/team-members/dev-co',default:''},
+        {title:'Marketing',path:'/team-members/marketing',default:''},
+        {title:'Projet',path:'/team-members/projet',default:''},
+        {title:'Cellule Qualité',path:'/team-members/cellule-qualite',default:''}
+      ]
+    },
     meetings: {
       root: '/meetings',
       tabs : [
@@ -63,7 +72,7 @@ const routesConfig = {
           {
               title: 'Schedule',
               icon: CalendarMonthRoundedIcon,
-              path: '/meetings/meetings/schedule',
+              path: '/meetings/meetings/schedule/department',
               secondaryMenu: [
                   {
                       title: 'Department',
