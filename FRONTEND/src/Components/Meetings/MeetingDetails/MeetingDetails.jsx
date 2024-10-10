@@ -20,6 +20,8 @@ const MeetingDetails = () => {
     const [isAddQuestionVisible, setIsAddQuestionVisible] = useState(false);
     const [isButtonVisible, setIsButtonVisible] = useState(true);
 
+    
+
     useEffect(() => {
         setFetchedData(meetingData);
     }, []);
@@ -169,8 +171,8 @@ const MeetingDetails = () => {
                                             border: '1px solid lightGrey',
                                             borderRadius: 2,
                                             padding:'4px 8px',
-                                            //marginTop:'2px',
-                                            //marginBottom:'2px'
+                                            marginTop:1,
+                                            marginBottom:1,
                                         }}>
                                             {option}
                                         </Typography>

@@ -5,7 +5,15 @@ import meetingData from './MeetingDetailsData.json';
 const EditMeeting = () => {
     const [fetchedData, setFetchedData] = useState(null);
     const [showDateTime, setShowDateTime] = useState(false);
-    const [formData, setFormData] = useState({});
+    const [formData, setFormData] = useState({
+        title:"",
+        date:"",
+        time:"",
+        place:"",
+        addedBy:"",
+        status:"",
+        department:""
+    });
     const [errors, setErrors] = useState({}); 
 
     const theme = useTheme();
@@ -30,8 +38,80 @@ const EditMeeting = () => {
         setShowDateTime((prev) => !prev);
     };
 
+    const validateForm=()=>{
+
+        const newErrors={}
+        if((formData.title.length<2) || (formData.title.length>20)){
+            newErrors.title="Enter a valid title";
+        }
+        if(!formData.title.trim()){
+            newErrors.title="Title is required.";
+
+        }
+        if (!formData.date){
+            newErrors.date="Date is required.";
+
+        }
+        if (!formData.time){
+            newErrors.time="Time is required.";
+            
+        }
+        if((!formData.addedBy.match(/^[A-Za-zÀ-ÿ' -]+$/)) || (formData.addedBy.length<3) || (formData.addedBy.length>20))
+        {
+            newErrors.addedBy="Enter a valid name ";
+        }
+        if (!formData.addedBy){
+            newErrors.addedBy="Name is required";
+            
+        }
+        if (!formData.place){
+            newErrors.place="Location is required";
+            
+        }
+        setErrors(newErrors);
+        return Object.keys(newErrors).length===0;
+        
+
+
+
+
+    };
+
+    const transformFormDataToPostData = (formData) => {
+        return {
+          Title : formData.title,
+          Data: formData.date , 
+          Time:formData.time,
+          Added_By:formData.addedBy,
+          Place : formData.place ,
+          Status: formData.status , 
+          Department:formData.department
+        };
+      };
+
+      const handleSaveChangeClick = async (e) => {
+
+        e.preventDefault();//Prevent default form submission
+        const isValid=validateForm();
+    
+        if(!isValid){
+          return ; 
+        }
+        console.log(formData);
+        const postData = transformFormDataToPostData(formData);
+        try{
+            console.log("posted data",postData);
+        }
+        catch{
+            console.log("error posting the data");
+        }
+
+    }
+
+    
+    
     const renderTextField = (label, name, placeholder, type = 'text',multiline = false) => (
-        <Box sx={{ height: '30px', display: 'flex', flexDirection: 'row', gap: '10px' }}>
+        <Box sx={{ height: '40px', display: 'flex', flexDirection: 'row', gap: '10px' }}>
             <Typography
                 variant="body2"
                 sx={{
@@ -57,13 +137,14 @@ const EditMeeting = () => {
                     '& .MuiInputBase-input': { fontFamily: theme.typography.fontFamily, fontSize: '14px' },
                     '& .MuiFormHelperText-root': {
                         fontSize: '12px',
-                        color: theme.palette.warning.text,
-                        margin: 0,
+                        color: 'red',
+                        marginTop:0.5,
                     },
                     '& .MuiOutlinedInput-root': {
                     '& fieldset': {
                         borderColor: theme.palette.neutral.light, 
                     },},
+                    marginBottom:0.5,
                 }}
                 
             />
@@ -119,6 +200,7 @@ const EditMeeting = () => {
                             color: theme.palette.neutral.normal,
                             marginBottom: 1,
                             cursor: 'pointer',
+                            marginTop:2,
                         }}
                         onClick={toggleDateTimeFields}
                     >
@@ -126,7 +208,7 @@ const EditMeeting = () => {
                     </Typography>
 
                     {showDateTime && (
-                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, mb: 1 }}>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, mb: 2 }}>
                             {renderTextField('Date', 'date', '', 'date')}
                             {renderTextField('Time', 'time', '', 'time')}
                         </Box>
@@ -163,6 +245,7 @@ const EditMeeting = () => {
                             <FormControlLabel
                                 key={status}
                                 value={status}
+                                defaultValue="Confirmed"
                                 sx={{
                                     border: 1,
                                     borderColor: theme.palette.neutral.light,
@@ -209,10 +292,11 @@ const EditMeeting = () => {
                             gap: '4px',
                         }}
                     >
-                        {['All members included', 'Executive Board Members', 'Quartet', 'Projet', 'Marketing', 'Dev.Commercial', 'Qualité'].map((privacy) => (
+                        {[ 'Executive Board Members','All members included', 'Quartet', 'Projet', 'Marketing', 'Dev.Commercial', 'Qualité'].map((privacy) => (
                             <FormControlLabel
                                 key={privacy}
                                 value={privacy}
+                                defaultValue="Executive Board Members"
                                 sx={{
                                     border: 1,
                                     borderColor: theme.palette.neutral.light,
@@ -260,6 +344,7 @@ const EditMeeting = () => {
                     </Button>
 
                     <Button
+                        onClick={handleSaveChangeClick}
                         sx={{
                             width: '60%',
                             height: 46,

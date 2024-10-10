@@ -25,6 +25,8 @@ function App() {
         <Route path='/' element={<MeetingDetails></MeetingDetails>}></Route>
         <Route path='/' element={<EditMeeting></EditMeeting>}></Route>
 
+
+
         <Route path="/" element={<AppLayout />}>
           <Route path="dashboard" element={<Dashoboard />} />
 
