@@ -1,5 +1,6 @@
 import React, { useReducer, useState } from "react";
 import { Box, Button, useTheme, Typography } from "@mui/material";
+import { api } from "../../../../service/api";
 import GeneralInformationForm from "./GeneralInformationForm";
 import DynamicSectionsForm from "./DynamicSectionsForm";
 import ScoresForm from "./ScoresForm";
@@ -19,7 +20,6 @@ const initialState = {
   },
   errors: {},
 };
-
 
 // Reducer function to handle form state and errors
 const formReducer = (state, action) => {
@@ -61,7 +61,7 @@ export default function GlobalForm() {
       associativeExperienceGrade: 0,
     },
   });
-  
+
   const [errors, setErrors] = useState({
     polePresentationGrade: "",
     jeiKnowledgeGrade: "",
@@ -71,24 +71,31 @@ export default function GlobalForm() {
     associativeExperienceGrade: "",
   });
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     let isValid = true;
 
-  if (!validateScores()) {
-    isValid = false;
-  }
-  if (!validateSections()) {
-    isValid = false;
-  }
-  if (!validateForm()) {
-    isValid = false;
-  }
+    if (!validateScores()) {
+      isValid = false;
+    }
+    if (!validateSections()) {
+      isValid = false;
+    }
+    if (!validateForm()) {
+      isValid = false;
+    }
 
-  if (isValid) {
+    if (isValid) {
       console.log("Sections submitted", sections);
       console.log("Form submitted", state.formData);
       console.log("Form submitted:", formData);
+      try {
+        console.log(sections);
+        await api.createInterview(sections);
+      } catch (error) {
+        console.error("Erreur lors de l'envoi du message:", error);
+        alert("Échec de l'envoi du message.");
+      }
       dispatch({ type: "RESET_FORM" });
       setSections([]);
       setFormData({
@@ -257,11 +264,9 @@ export default function GlobalForm() {
   const validateScores = () => {
     let scoresValid = true;
     const { scores } = formData;
-  
+
     // Check if any score is invalid
-    if (
-      Object.values(scores).some((score) => score === "" || score <= 0)
-    ) {
+    if (Object.values(scores).some((score) => score === "" || score <= 0)) {
       // Set errors for each invalid score
       setErrors((prevErrors) =>
         Object.keys(scores).reduce((acc, key) => {
@@ -276,22 +281,50 @@ export default function GlobalForm() {
       // Clear the errors if scores are valid
       setErrors({});
     }
-  
+
     return scoresValid;
   };
 
   return (
     <Box sx={{ padding: 0 }}>
       {submitError && <Typography color="error">{submitError}</Typography>}
-      <Button
-        type="submit"
-        variant="contained"
-        color="primary"
-        sx={{ mb: 2, display: "flex", marginLeft: "auto" }}
-        onClick={handleSubmit}
-      >
-        Submit
-      </Button>
+      <Box sx={{
+            gap: 2,
+            display: "flex",
+            marginLeft: "auto",
+            justifyContent: "end",
+            }}>
+        <Button 
+          variant="outlined"
+          sx={{
+            mb: 2,
+            color: theme.palette.neutral.normal,
+            borderColor: theme.palette.neutral.normal,
+            "&:hover": {
+              backgroundColor: theme.palette.neutral.light,
+              borderColor: theme.palette.neutral.light,
+            },
+          }}
+        >Get back</Button>
+        <Button
+          type="submit"
+          variant="contained"
+          sx={{
+            mb: 2,
+            // display: "flex",
+            // marginLeft: "auto",
+            backgroundColor: theme.palette.neutral.normal,
+            borderColor: theme.palette.neutral.normal,
+            "&:hover": {
+              backgroundColor: theme.palette.neutral.main,
+              borderColor: theme.palette.neutral.main,
+            },
+          }}
+          onClick={handleSubmit}
+        >
+          Save interview
+        </Button>
+      </Box>
       <GeneralInformationForm state={state} dispatch={dispatch} />
       <DynamicSectionsForm
         sections={sections}
