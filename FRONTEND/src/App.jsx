@@ -18,6 +18,8 @@ import TeamMembers from './Pages/Team members/TeamMembers';
 import { RoutesProvider } from './router/context/RoutesContext';
 import AllQuestions from './Components/Recrutement/Interviews/Questions/AllQuestions';
 import {jwtDecode} from 'jwt-decode';
+import LoginForm from "./components/LoginForm";
+import LoginV2 from "./Pages/Login/LoginV2";
 
 // Higher-order component to protect routes
 const isTokenValid = (token) => {
@@ -41,7 +43,7 @@ function App() {
       <RoutesProvider>
         <CssBaseline />
         <Routes>
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<LoginV2 />} />
         <Route path="/" element={<AppLayout />}>
         <Route path="dashboard" element={<ProtectedRoute element={<Dashoboard />} />} />
 
