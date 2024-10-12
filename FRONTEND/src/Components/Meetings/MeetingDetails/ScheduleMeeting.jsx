@@ -1,6 +1,7 @@
 import { Close as CloseIcon } from "@mui/icons-material";
 import { Box, Button, FormControlLabel, IconButton, Radio, RadioGroup, TextField, Tooltip, Typography, useTheme } from "@mui/material";
 import React, { useState } from 'react';
+import { api } from "../../../service/api";
 const ScheduleMeeting = ({close}) => {
     const [showDateTime, setShowDateTime] = useState(false);
     const [isVisible, setIsVisible] = useState(true);
@@ -81,10 +82,10 @@ const ScheduleMeeting = ({close}) => {
             place: formData.place,
             duration:"1h",
             description:formData.title,
-            Added_By: formData.addedBy,
             status: formData.status,
             type:"event",
-            department: formData.department
+            department: formData.department,
+            assemblyType:"AG",
         };
     };
 
@@ -99,7 +100,7 @@ const ScheduleMeeting = ({close}) => {
         const postData = transformFormDataToPostData(formData);
         try {
             console.log("posted data", postData);
-            //await api.createMeeting(postData);
+            await api.createMeeting(postData);
 
         } catch (error) {
             console.error("Error posting the data:", error);
