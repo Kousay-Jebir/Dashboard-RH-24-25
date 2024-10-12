@@ -42,7 +42,7 @@ const KanbanForm = ({ getFormData }) => {
         // Utility function to check for invalid characters
         const hasInvalidCharacters = (value) => /[^a-zA-Z\s\-\'èéàâôîû]/.test(value);
 
-        //interview with validation
+
         if (!formData.interviewWith.trim()) {
             newErrors.interviewWith = "The interviewee's name is required.";
         } else if (hasInvalidCharacters(formData.interviewWith)) {
@@ -53,7 +53,7 @@ const KanbanForm = ({ getFormData }) => {
             newErrors.interviewWith = "The interviewee's name is too long.";
         }
 
-        //interviewed by validation 
+
         if (!formData.interviewedBy.trim()) {
             newErrors.interviewedBy = "The interviewer's name is required.";
         } else if (hasInvalidCharacters(formData.interviewedBy)) {
@@ -79,6 +79,7 @@ const KanbanForm = ({ getFormData }) => {
 
     const renderTextField = (label, name, placeholder, type = 'text') => (
         <Box sx={{ height: '28px', display: 'flex', flexDirection: 'row', gap: '6px' }}>
+
             <Typography
                 variant="body2"
                 sx={{
@@ -113,8 +114,9 @@ const KanbanForm = ({ getFormData }) => {
                         WebkitTextFillColor: 'black',
                         fontFamily: theme.typography.fontFamily,
                         transition: 'background-color 5000s ease-in-out 0s',
-    },
-
+                        color: theme.palette.warning.text,
+                        margin: 0,  
+                    },
                 }}
                 
             />
@@ -161,7 +163,7 @@ const KanbanForm = ({ getFormData }) => {
                 </Typography>
 
                 {showDateTime && (
-                    <Box sx={{ display: 'flex', flexDirection: 'column', gap:1, mb: 1 }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, mb: 1 }}>
                         {renderTextField('Date', 'date', '', 'date')}
                         {renderTextField('Time', 'time', '', 'time')}
                     </Box>
