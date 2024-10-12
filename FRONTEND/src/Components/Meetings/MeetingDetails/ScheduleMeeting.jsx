@@ -12,8 +12,10 @@ const ScheduleMeeting = ({close}) => {
         time: "",
         place: "",
         addedBy: "",
-        status: "Confirmed",
-        department: "Executive Board Members"
+        status: "",
+        type:"",
+        assemblyType:"",
+        department: ""
     });
     const [errors, setErrors] = useState({});
 
@@ -70,6 +72,21 @@ const ScheduleMeeting = ({close}) => {
         if (!formData.place) {
             newErrors.place = "Location is required";
         }
+        
+        if (!formData.status) {
+          newErrors.status = "Status is required.";
+        }
+        if (!formData.department) {
+          newErrors.department = "Privacy is required";
+        }
+        
+        if (!formData.type) {
+          newErrors.type = "Meeting Type is required.";
+      }
+  
+      if (formData.type === 'General Assembly' && !formData.assemblyType) {
+          newErrors.assemblyType = "General Assembly Type is required.";
+      }
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
@@ -83,9 +100,9 @@ const ScheduleMeeting = ({close}) => {
             duration:"1h",
             description:formData.title,
             status: formData.status,
-            type:"event",
+            type:"",
             department: formData.department,
-            assemblyType:"AG",
+            assemblyType:"",
         };
     };
 
@@ -101,12 +118,20 @@ const ScheduleMeeting = ({close}) => {
         try {
             console.log("posted data", postData);
             await api.createMeeting(postData);
+            alert("data posted succesfully");
 
         } catch (error) {
             console.error("Error posting the data:", error);
         }
         handleDiscard();
     }
+
+    const handleAssemblyChange = (event) => {
+      setFormData({
+          ...formData,
+          assemblyType: event.target.value,
+      });
+  };
 
     const renderTextField = (label, name, placeholder, type = 'text', multiline = false) => (
         <Box sx={{ height: '40px', display: 'flex', flexDirection: 'row', gap: '10px' }}>
@@ -183,6 +208,100 @@ const ScheduleMeeting = ({close}) => {
               </Tooltip>
                 </Box>
 
+                <Box mt={3}>
+                <Typography variant="body2" sx={{ fontSize: '13px' }}>Meeting Type</Typography>
+                    <RadioGroup
+                        name="type"
+                        value={formData.type}
+                        onChange={handleChange}
+                        sx={{
+                            marginTop:1,
+                            display: 'flex',
+                            flexDirection: 'row',
+                            gap: '4px',
+                        }}
+                    >
+                        {['Department', 'General Assembly', 'Team Building','Event'].map((type) => (
+                            <FormControlLabel
+                                key={type}
+                                value={type}
+                                //defaultValue="Confirmed"
+                                sx={{
+                                    border: 1,
+                                    borderColor: theme.palette.neutral.light,
+                                    borderRadius: 2,
+                                    padding: '2px 6px',
+                                    fontSize: '12px',
+                                }}
+                                control={
+                                    <Radio
+                                        sx={{
+                                            height: 20,
+                                            width: 20,
+                                            borderColor: theme.palette.neutral,
+                                            '& .MuiSvgIcon-root': { fontSize: '12px' },
+                                            color: theme.palette.neutral,
+                                            '&.Mui-checked': { color: '#6A7177' },
+                                        }}
+                                    />
+                                }
+                                label={type}
+                            />
+                        ))}
+                    </RadioGroup>
+                    {errors.type && (
+                <Typography variant="body2" sx={{ color: 'red', fontSize: '12px' }}>
+                    {errors.type}
+                </Typography>)}
+                    {formData.type === 'General Assembly' && (
+                <div style={{ marginTop: '10px' }}>
+                    <Typography variant="body2" sx={{ fontSize: '13px' }}>General Assembly Type</Typography>
+                    <RadioGroup
+                        name="assemblyType"
+                        value={formData.assemblyType}
+                        onChange={handleAssemblyChange}
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            gap: '4px',
+                        }}
+                    >
+                        {['Elective', 'Extraordinary', 'Ordinary'].map((type) => (
+                            <FormControlLabel
+                                key={type}
+                                value={type}
+                                sx={{
+                                    border: 1,
+                                    borderColor: theme.palette.neutral.light,
+                                    borderRadius: 2,
+                                    padding: '2px 6px',
+                                    fontSize: '12px',
+                                }}
+                                control={
+                                    <Radio
+                                        sx={{
+                                            height: 20,
+                                            width: 20,
+                                            borderColor: theme.palette.neutral,
+                                            '& .MuiSvgIcon-root': { fontSize: '12px' },
+                                            color: theme.palette.neutral,
+                                            '&.Mui-checked': { color: '#6A7177' },
+                                        }}
+                                    />
+                                }
+                                label={type}
+                            />
+                        ))}
+                    </RadioGroup>
+                        {errors.assemblyType && (
+                    <Typography variant="body2" sx={{ color: 'red', fontSize: '12px' }}>
+                        {errors.assemblyType}
+                    </Typography>
+            )}
+                </div>
+            )}
+                </Box>
+
                 <Box
                     sx={{
                         width: '100%',
@@ -198,7 +317,7 @@ const ScheduleMeeting = ({close}) => {
                         sx={{
                             fontFamily: theme.typography.fontFamily,
                             fontSize: 14,
-                            color: theme.palette.neutral.normal,
+                            color: errors.date || errors.time ? 'red' : theme.palette.neutral.normal,
                             marginBottom: 1,
                             cursor: 'pointer',
                             marginTop: 2,
@@ -248,7 +367,6 @@ const ScheduleMeeting = ({close}) => {
                             <FormControlLabel
                                 key={status}
                                 value={status}
-                                defaultValue="Confirmed"
                                 sx={{
                                     border: 1,
                                     borderColor: theme.palette.neutral.light,
@@ -272,6 +390,12 @@ const ScheduleMeeting = ({close}) => {
                             />
                         ))}
                     </RadioGroup>
+                    {errors.status && (
+                <Typography variant="body2" sx={{ color: "red", fontSize: "12px" }}>
+                  {errors.status}
+                </Typography>
+                )}
+                    
                 </Box>
 
                 <Box
@@ -298,7 +422,7 @@ const ScheduleMeeting = ({close}) => {
                             <FormControlLabel
                                 key={privacy}
                                 value={privacy}
-                                defaultValue="Executive Board Members"
+                                //defaultValue="Executive Board Members"
                                 sx={{
                                     border: 1,
                                     borderColor: theme.palette.neutral.light,
@@ -322,6 +446,11 @@ const ScheduleMeeting = ({close}) => {
                             />
                         ))}
                     </RadioGroup>
+                    {errors.department && (
+              <Typography variant="body2" sx={{ color: "red", fontSize: "12px" }}>
+                {errors.department}
+              </Typography>
+            )}
                 </Box>
 
                 <Box sx={{ display: 'flex', gap: 1, marginTop: 2 }}>

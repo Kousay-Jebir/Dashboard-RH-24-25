@@ -32,8 +32,8 @@ const ScheduleInterview = ({ close }) => {
     time: "",
     Recruiter: "",
     email: "",
-    status: "Confirmed",
-    department: "Projet",
+    status: "",
+    department: "",
   });
 
   const transformFormDataToPostData = (formData) => {
@@ -233,7 +233,7 @@ const ScheduleInterview = ({ close }) => {
           },
           "& .MuiFormHelperText-root": {
             fontSize: "12px",
-            color: theme.palette.warning.text,
+            color: 'red',
             margin: 0,
           },
           "& .MuiOutlinedInput-root": {
@@ -400,7 +400,7 @@ const ScheduleInterview = ({ close }) => {
             sx={{
               fontFamily: theme.typography.fontFamily,
               fontSize: 14,
-              color: theme.palette.neutral.normal,
+              color: errors.date || errors.time ? 'red' : theme.palette.neutral.normal,
               marginBottom: 1,
               cursor: "pointer",
             }}
@@ -433,12 +433,13 @@ const ScheduleInterview = ({ close }) => {
             marginTop: 6,
           }}
         >
-          <Typography variant="body2" sx={{ fontSize: "13px" }}>
+          <Typography variant="body2" sx={{ fontSize: "13px"
+
+           }}>
             Change Status
           </Typography>
           <RadioGroup
             name="status"
-            defaultValue="Confirmed"
             onChange={handleChange}
             sx={{
               display: "flex",
@@ -475,6 +476,10 @@ const ScheduleInterview = ({ close }) => {
               />
             ))}
           </RadioGroup>
+          {errors.department && (
+              <Typography variant="body2" sx={{ color: "red", fontSize: "12px" }}>
+                {errors.department}
+              </Typography>)}
         </Box>
 
         <Box
@@ -486,13 +491,14 @@ const ScheduleInterview = ({ close }) => {
             marginBottom: 2,
           }}
         >
-          <Typography variant="body2" sx={{ fontSize: "13px" }}>
+          <Typography variant="body2" sx={{ fontSize: "13px"
+
+}}>
             Change Privacy
           </Typography>
           <RadioGroup
             name="department"
             onChange={handleChange}
-            defaultValue="Projet"
             sx={{
               display: "flex",
               flexDirection: "row",
@@ -530,6 +536,10 @@ const ScheduleInterview = ({ close }) => {
               )
             )}
           </RadioGroup>
+          {errors.department && (
+              <Typography variant="body2" sx={{ color: "red", fontSize: "12px" }}>
+                {errors.department}
+              </Typography>)}
         </Box>
 
         <Box sx={{ display: "flex", gap: 1, marginTop: 2 }}>
