@@ -9,7 +9,6 @@ export default function MembersByGender() {
   return (
     <Box
       sx={{
-        // maxWidth: 320,
         border: 2,
         borderRadius: 2,
         borderColor: theme.palette.neutral.light,

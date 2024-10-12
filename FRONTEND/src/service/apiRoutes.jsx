@@ -21,7 +21,8 @@ const BACKEND_API_ROUTES = {
     CREATE_INTERVIEWQUESTION:'/interviewquestion/create',
     GET_CANDIDAT:'/candidat',
     CREATE_CANDIDAT:'/candidat/create',
-    UPGRADE_CANDIDAT:'/candidat/upgrade'
+    UPGRADE_CANDIDAT:'/candidat/upgrade',
+    CREATE_SECTION:'/section/create',
 };
 
 export { BASE_URL, BACKEND_API_ROUTES };

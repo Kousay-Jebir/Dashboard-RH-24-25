@@ -32,8 +32,8 @@ const ScheduleInterview = ({ close }) => {
     time: "",
     Recruiter: "",
     email: "",
-    status: "",
-    department: "",
+    status: "Confirmed",
+    department: "Projet",
   });
 
   const transformFormDataToPostData = (formData) => {
@@ -199,8 +199,8 @@ const ScheduleInterview = ({ close }) => {
         display: "flex",
         flexDirection: "row",
         gap: "16px",
-        margin:1,
-        marginBottom:1,
+        marginTop: 1,
+        marginBottom: 1,
       }}
     >
       <Typography
@@ -440,6 +440,7 @@ const ScheduleInterview = ({ close }) => {
           </Typography>
           <RadioGroup
             name="status"
+            defaultValue="Confirmed"
             onChange={handleChange}
             sx={{
               display: "flex",
@@ -499,6 +500,7 @@ const ScheduleInterview = ({ close }) => {
           <RadioGroup
             name="department"
             onChange={handleChange}
+            defaultValue="Projet"
             sx={{
               display: "flex",
               flexDirection: "row",

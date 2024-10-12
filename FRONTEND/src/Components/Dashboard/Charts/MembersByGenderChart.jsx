@@ -12,7 +12,6 @@ export default function MembersByGenderChart() {
 
   const getArcLabel = (params) => {
     const percent = params.value / totalValue;
-    console.log(percent);
     return `${(percent * 100).toFixed(1)}%`;
   };
 
