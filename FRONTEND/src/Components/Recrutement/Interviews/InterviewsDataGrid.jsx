@@ -1,6 +1,7 @@
 import React, { useReducer, useState,useEffect } from "react";
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
 import ChatRoundedIcon from '@mui/icons-material/ChatRounded';
+import AddMemberPopup from "./AddMemberPopup";
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import {
@@ -40,7 +41,6 @@ const reducer = (state, action) => {
       return {
         ...state,
         isEditing: false,
-        editingRow: null,
         tempData: null,
       };
     case 'SAVE_CHANGES':
@@ -81,6 +81,7 @@ const reducer = (state, action) => {
 const DataTable = ({ data }) => {
   const [state, dispatch] = useReducer(reducer, { ...initialState, kpiData: data });
   const [expandedRow, setExpandedRow] = useState(null);
+  const [isPopupOpen, setPopupOpen] = useState(false);
   const theme = useTheme();
 
   useEffect(() => {
@@ -96,6 +97,14 @@ const DataTable = ({ data }) => {
 
   const handleAddMember = () => {
     dispatch({ type: 'START_ADD_MEMBER' });
+    setPopupOpen(true)
+    console.log("hello")
+  };
+
+  const handleConfirmAddMember = () => {
+    
+    console.log(state.kpiData[expandedRow])
+    setPopupOpen(false); 
   };
 
   const handleSaveChanges = () => {
@@ -113,6 +122,7 @@ const DataTable = ({ data }) => {
   };
 
   return (
+    <>
     <TableContainer component={Paper} sx={{ maxWidth: '100%', overflowX: 'auto' }} elevation={0}>
       <Table size="small">
         <TableHead>
@@ -217,6 +227,12 @@ const DataTable = ({ data }) => {
         </TableBody>
       </Table>
     </TableContainer>
+    <AddMemberPopup 
+    open={isPopupOpen} 
+    onClose={() => setPopupOpen(false)} 
+    onConfirm={handleConfirmAddMember} // Pass the confirm handler
+  />
+  </>
   );
 };
 
