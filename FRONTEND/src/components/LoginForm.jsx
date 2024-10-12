@@ -6,6 +6,9 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import BorderBox from './BorderBox';
+import MailOutlineRoundedIcon from '@mui/icons-material/MailOutlineRounded';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
 const LoginForm = () => {
   const theme = useTheme();
@@ -94,238 +97,82 @@ const LoginForm = () => {
       fontSize: theme.typography.fontSize,
     },
     '& .MuiFormLabel-root': typographyStyle,
+    '& input:-webkit-autofill': {
+      WebkitBoxShadow: '0 0 0 1000px white inset',
+      WebkitTextFillColor: 'black',
+      fontFamily: theme.typography.fontFamily,
+      transition: 'background-color 5000s ease-in-out 0s',
+    },
   };
 
+const InputField = ({ icon, placeholder, type, label, value, setValue, error }) => {
   return (
-    <Box
-      sx={{
-        width: 388,
-        height: 710,
-        top: 107,
-        left: 153,
-        backgroundColor: theme.palette.background.paper,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-      }}
-    >
-      <Box
-        sx={{
-          width: '155px',
-          height: '50px',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: '8px',
-        }}
-      >
-        <Typography
-          variant="h5"
-          component="h1"
-          sx={{
-            fontFamily: theme.typography.fontFamily,
-            fontSize: '19.83px',
-            fontWeight: 600,
-            lineHeight: '23.99px',
-            textAlign: 'center',
-          }}
-        >
-          HR Dashboard
-        </Typography>
-        <Typography
-          variant="body2"
-          component="h4"
-          sx={{
-            ...typographyStyle,
-            fontSize: '15px',
-            textAlign: 'center',
-            color: theme.palette.secondary.main,
-          }}
-        >
-          Junior Entreprise INSAT
-        </Typography>
-      </Box>
-
-      <Box
-        component="form"
-        onSubmit={handleSubmit}
-        sx={{
-          width: 388,
-          height: 327,
-          position: 'absolute',
-          top: 169,
-          padding: '18px',
-          gap: '42px',
-          borderRadius: '5px 0px 0px 0px',
-          border: '1px solid Lightgrey',
-          backgroundColor: theme.palette.background.default,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
-        <Box
-          sx={{
-            width: 352,
-            height: '48px',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '6px',
-          }}
-        >
-          <Typography
-            variant="h5"
-            component="h2"
-            sx={{
-              fontSize: '19.83px',
-              fontWeight: 600,
-              lineHeight: '23.99px',
-              textAlign: 'center',
-            }}
-          >
-            Login to your account
-          </Typography>
-          <Typography
-            variant="body2"
-            sx={{
-              ...typographyStyle,
-              textAlign: 'center',
-              color: theme.palette.secondary.main,
-            }}
-          >
-            Enter your login details to access the dashboard
-          </Typography>
-        </Box>
-
-        <Box
-          sx={{
-            width: '352px',
-            height: '124px',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '12px',
-          }}
-        >
-          <Box
-            sx={{
-              width: 352,
-              height: 56,
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '8px',
-            }}
-          >
-            <Typography variant="body2" sx={typographyStyle}>
-              Email Address
-            </Typography>
-            <TextField
-              margin="none"
-              required
-              fullWidth
-              id="email"
-              name="email"
-              autoComplete="email"
-              autoFocus
-              placeholder="Example@gmail.com"
-              sx={textFieldStyle}
-              value={formData.email}
-              onChange={handleChange}
-              error={!!errors.email}
-              helperText={errors.email}
-              FormHelperTextProps={{
-                sx: {
-                    fontFamily: theme.typography.fontFamily,
-                    fontSize: '10px',
-                    lineHeight: '12.1px',
-                    marginTop: '5px',
-                    textAlign: 'center'
-                    //marginBottom: '1px',
-                    
-
-                }
-            }}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <EmailIcon sx={{ fontSize: 12 }} />
-                  </InputAdornment>
-                ),
-              }}
-            />
-          </Box>
-
-          <Typography variant="body2" sx={typographyStyle}>
-            Password
-          </Typography>
+      <>
+          <Typography sx={{
+              '&::after': {
+                  content: '"*"',
+                  color: '#3559E9'
+              },
+              fontWeight: 'medium',
+              marginBottom: 1
+          }}>{label}</Typography>
           <TextField
-            margin="none"
-            required
-            fullWidth
-            name="password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            placeholder="*************"
-            sx={textFieldStyle}
-            value={formData.password}
-            onChange={handleChange}
-            error={!!errors.password}
-            helperText={errors.password}
-            FormHelperTextProps={{
-              sx: {
-                  fontFamily: theme.typography.fontFamily,
-                  fontSize: '10px',
-                  lineHeight: '12.1px',
-                  marginTop: '5px',
-                  textAlign: 'center'
-
-                  //marginBottom: '1px',
-                  
-
-              }
-          }}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <LockIcon sx={{ fontSize: 12 }} />
-                </InputAdornment>
-              ),
-            }}
+              type={type}
+              fullWidth
+              size='small'
+              placeholder={placeholder}
+              InputProps={{
+                  startAdornment: (
+                      <InputAdornment position="start">
+                          {icon}
+                      </InputAdornment>
+                  ),
+              }}
+              error={!!error}
+              value={value}
+              onChange={setValue}
+              sx={{
+                  '& .MuiOutlinedInput-root': {
+                      borderRadius: 2,
+                  },
+                  mb: 2
+              }}
+              required
           />
-        </Box>
+          {error && <Typography color="error">{error}</Typography>}
+      </>
+  );
+};
 
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          sx={{
-            width: 352,
-            height: 35,
-            padding: '10px 12px',
-            borderRadius: '5px',
-          }}
-        >
-          Login
-        </Button>
-      </Box>
-
-      <Typography
-        variant="body2"
-        textAlign="center"
-        sx={{
-          position: 'absolute',
-          bottom: '20px',
-          width: 302,
-          height: '15px',
-          ...typographyStyle,
-          fontSize: '12px',
-          lineHeight: '14.52px',
-          color: theme.palette.secondary.main,
-        }}
-      >
-        2024 © HR Management By Junior Entreprise INSAT
-      </Typography>
-    </Box>
+const LoginForm = ({ handleSubmit, formData, setFormData, error,setError }) => {
+  return (
+      <BorderBox radius={1.5} styles={{ padding: 2 }}>
+          <Box textAlign='center' mb={5}>
+              <Typography variant='h6'>Login to your account</Typography>
+              <Typography color='text.light'>Enter your login details to access the dashboard</Typography>
+          </Box>
+          <form onSubmit={handleSubmit}>
+              <InputField
+                  type='email'
+                  icon={<MailOutlineRoundedIcon fontSize='small' />}
+                  placeholder="example@gmail.com"
+                  label="Email Address"
+                  value={formData.email}
+                  setValue={(e) => setFormData({ ...formData, email: e.target.value })}
+                  error={error}
+              />
+              <InputField
+                  type='password'
+                  icon={<LockOutlinedIcon fontSize='small' />}
+                  placeholder="*******"
+                  label="Password"
+                  value={formData.password}
+                  setValue={(e) => setFormData({ ...formData, password: e.target.value })}
+                  error={error}
+              />
+              <Button type='submit' variant='contained' sx={{ textTransform: 'none', marginTop: 3 }} disableElevation fullWidth>Login</Button>
+          </form>
+      </BorderBox>
   );
 };
 

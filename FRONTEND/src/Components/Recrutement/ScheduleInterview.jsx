@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { Close as CloseIcon, School as SchoolIcon } from "@mui/icons-material";
 import {
   Box,
   Button,
@@ -14,7 +14,7 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import { Close as CloseIcon, School as SchoolIcon } from "@mui/icons-material";
+import React, { useState } from "react";
 import { api } from "../../service/api";
 
 const ScheduleInterview = ({ close }) => {
@@ -32,16 +32,16 @@ const ScheduleInterview = ({ close }) => {
     time: "",
     Recruiter: "",
     email: "",
-    status: "",
-    department: "",
+    status: "Confirmed",
+    department: "Projet",
   });
 
   const transformFormDataToPostData = (formData) => {
     return {
-      status: formData.status ,
-      recruiter: formData.Recruiter ,
-      department: formData.department ,
-      date: new Date(formData.date).toISOString(), 
+      status: formData.status,
+      recruiter: formData.Recruiter,
+      department: formData.department,
+      date: new Date(formData.date).toISOString(),
       time: formData.time,
       duration: "1 hour",
       polePresentationGrade: 0,
@@ -51,12 +51,14 @@ const ScheduleInterview = ({ close }) => {
       situationGrade: 0,
       associativeExperienceGrade: 0,
       candidatName: formData.Candidate,
-      candidatEmail: formData.email ,
-      candidatPhone: formData.Phone ,
-      candidatAddress: formData.Adress ,
-      candidatLastName: "last name", 
-      candidatField: formData.Field ,
-      candidatYear: String(formData.Academic_year)
+      candidatEmail: formData.email,
+      candidatPhone: formData.Phone,
+      candidatAddress: formData.Adress,
+      candidatAdress: formData.Adress,
+      candidatCity: formData.City,
+      candidatLastName: "last name",
+      candidatField: formData.Field,
+      candidatYear: String(formData.Academic_year),
     };
   };
 
@@ -75,9 +77,14 @@ const ScheduleInterview = ({ close }) => {
   };
 
   const handleScheduleClick = async (e) => {
-    // console.log(formData);
-    const postData = transformFormDataToPostData(formData);
+    e.preventDefault(); //Prevent default form submission
+    const isValid = validateForm();
 
+    if (!isValid) {
+      return;
+    }
+    console.log(formData);
+    const postData = transformFormDataToPostData(formData);
 
     try {
       console.log(postData);
@@ -86,10 +93,97 @@ const ScheduleInterview = ({ close }) => {
       console.error("Erreur lors de l'envoi du message:", error);
       alert("Échec de l'envoi du message.");
     }
+
+    // setFormData({
+    //   Candidate: "",
+    //   Phone: "",
+    //   City: "",
+    //   Adress: "",
+    //   Field: "",
+    //   Academic_year: "",
+    //   date: "",
+    //   time: "",
+    //   Recruiter: "",
+    //   email: "",
+    //   status: "Confirmed",
+    //   department: "Projet",
+    // });
   };
 
   const toggleDateTimeFields = () => {
     setShowDateTime((prev) => !prev);
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (
+      !formData.Candidate.match(/^[A-Za-zÀ-ÿ' -]+$/) ||
+      formData.Candidate.length < 3 ||
+      formData.Candidate.length > 20
+    ) {
+      newErrors.Candidate = "Enter a valid candidate name";
+    }
+
+    if (!formData.Phone.match(/^\d{8}$/)) {
+      newErrors.Phone = "Enter a valid phone number.";
+    }
+    if (!formData.Phone.trim()) {
+      newErrors.Phone = "Phone number is required";
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formData.email.match(emailRegex)) {
+      newErrors.email = "Enter a valid email.";
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required.";
+    }
+    if (!formData.date.trim()) {
+      newErrors.date = "Date is required.";
+    }
+    if (!formData.time.trim()) {
+      newErrors.time = "Time is required.";
+    }
+
+    if (
+      !formData.Recruiter.match(/^[A-Za-zÀ-ÿ' -]+$/) ||
+      formData.Recruiter.length < 3 ||
+      formData.Recruiter.length > 20
+    ) {
+      newErrors.Recruiter = "Enter a valid Recruiter name";
+    }
+
+    if (!formData.Recruiter.trim()) {
+      newErrors.Recruiter = "recruiter name is required.";
+    }
+
+    if (formData.City.length < 3 || formData.City.length > 20) {
+      newErrors.City = "Enter a valid city name";
+    }
+
+    if (!formData.City.trim()) {
+      newErrors.City = "City is required.";
+    }
+    if (!formData.Adress.trim()) {
+      newErrors.Adress = "Adress is required.";
+    }
+    if (!formData.Field.trim()) {
+      newErrors.Field = "Field is required.";
+    }
+    if (!formData.Academic_year) {
+      newErrors.Academic_year = "Academic year is required.";
+    }
+    if (!formData.status.trim()) {
+      newErrors.status = "Choose a status.";
+    }
+    if (!formData.department.trim()) {
+      newErrors.department = "Choose a department";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const renderTextField = (
@@ -105,6 +199,8 @@ const ScheduleInterview = ({ close }) => {
         display: "flex",
         flexDirection: "row",
         gap: "16px",
+        marginTop: 1,
+        marginBottom: 1,
       }}
     >
       <Typography
@@ -125,6 +221,8 @@ const ScheduleInterview = ({ close }) => {
         type={type}
         error={!!errors[name]}
         helperText={errors[name]}
+        //autoComplete="new-password" // Forcing browser to stop autofill
+
         sx={{
           width: "75%",
           "& .MuiInputBase-root": { height: "100%" },
@@ -141,6 +239,12 @@ const ScheduleInterview = ({ close }) => {
             "& fieldset": {
               borderColor: theme.palette.neutral.light,
             },
+          },
+          "& input:-webkit-autofill": {
+            WebkitBoxShadow: "0 0 0 1000px white inset",
+            WebkitTextFillColor: "black",
+            fontFamily: theme.typography.fontFamily,
+            transition: "background-color 5000s ease-in-out 0s",
           },
         }}
       />
@@ -173,6 +277,8 @@ const ScheduleInterview = ({ close }) => {
         displayEmpty
         onChange={handleChange}
         value={formData[name] || ""}
+        error={!!errors[name]}
+        helpertext={errors[name]}
         sx={{
           height: "30px",
           borderRadius: 2,
@@ -330,6 +436,7 @@ const ScheduleInterview = ({ close }) => {
           </Typography>
           <RadioGroup
             name="status"
+            defaultValue="Confirmed"
             onChange={handleChange}
             sx={{
               display: "flex",
@@ -383,6 +490,7 @@ const ScheduleInterview = ({ close }) => {
           <RadioGroup
             name="department"
             onChange={handleChange}
+            defaultValue="Projet"
             sx={{
               display: "flex",
               flexDirection: "row",
