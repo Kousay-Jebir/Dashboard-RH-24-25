@@ -22,7 +22,6 @@ import TeamMembers from './Pages/Team members/TeamMembers';
 import AllQuestions from './Components/Recrutement/Interviews/Questions/AllQuestions';
 import GlobalForm from "./Components/Recrutement/Interviews/Questions/Global";
 import ScoresForm from "./Components/Recrutement/Interviews/Questions/ScoresForm";
-import {jwtDecode} from 'jwt-decode';
 import LoginForm from "./components/LoginForm";
 import LoginV2 from "./Pages/Login/LoginV2";
 
