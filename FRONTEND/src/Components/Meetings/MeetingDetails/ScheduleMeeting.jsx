@@ -15,7 +15,7 @@ const ScheduleMeeting = ({close}) => {
         status: "",
         type:"",
         assemblyType:"",
-        department: ""
+        department: "",
     });
     const [errors, setErrors] = useState({});
 
@@ -100,9 +100,9 @@ const ScheduleMeeting = ({close}) => {
             duration:"1h",
             description:formData.title,
             status: formData.status,
-            type:"",
+            type:formData.type,
             department: formData.department,
-            assemblyType:"",
+            assemblyType:formData.assemblyType,
         };
     };
 
