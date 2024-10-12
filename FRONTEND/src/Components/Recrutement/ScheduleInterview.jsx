@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { Close as CloseIcon, School as SchoolIcon } from "@mui/icons-material";
 import {
   Box,
   Button,
@@ -14,7 +14,7 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
-import { Close as CloseIcon, School as SchoolIcon } from "@mui/icons-material";
+import React, { useState } from "react";
 import { api } from "../../service/api";
 
 const ScheduleInterview = ({ close }) => {
@@ -104,7 +104,9 @@ const ScheduleInterview = ({ close }) => {
         height: "30px",
         display: "flex",
         flexDirection: "row",
-        gap: "16px",
+        gap: "20px",
+        margin:1,
+        
       }}
     >
       <Typography
@@ -112,8 +114,9 @@ const ScheduleInterview = ({ close }) => {
         sx={{
           fontFamily: theme.typography.fontFamily,
           fontSize: "13px",
-          width: "20%",
+          width: "25%",
           fontWeight: theme.typography.regular,
+          marginTop:'5px',
         }}
       >
         {label}
