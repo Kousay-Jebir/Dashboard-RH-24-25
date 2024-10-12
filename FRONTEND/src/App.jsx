@@ -1,9 +1,13 @@
 import { CssBaseline } from "@mui/material";
-import "./App.css";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import { Route, Routes, Navigate } from 'react-router-dom';
+import {jwtDecode} from 'jwt-decode';
+import { RoutesProvider } from './router/context/RoutesContext';
+
+import "./App.css";
 import AppLayout from './components/layout/global-layout/AppLayout';
 import MainContentLayout from './components/layout/main-content-layout/MainContentLayout';
+
 import Dashoboard from './Pages/Dashboard/Dashoboard';
 import Login from './Pages/Login/Login';
 import DepartmentMeetings from './Pages/Meetings/DepartmentMeetings';
@@ -15,8 +19,9 @@ import Interviews from './Pages/Recrutement/Interviews';
 import InterviewsList from './Pages/Recrutement/schedule/InterviewsList';
 import KanbanBoard from './Pages/Recrutement/schedule/KanbanBoard';
 import TeamMembers from './Pages/Team members/TeamMembers';
-import { RoutesProvider } from './router/context/RoutesContext';
 import AllQuestions from './Components/Recrutement/Interviews/Questions/AllQuestions';
+import GlobalForm from "./Components/Recrutement/Interviews/Questions/Global";
+import ScoresForm from "./Components/Recrutement/Interviews/Questions/ScoresForm";
 import {jwtDecode} from 'jwt-decode';
 import LoginForm from "./components/LoginForm";
 import LoginV2 from "./Pages/Login/LoginV2";
