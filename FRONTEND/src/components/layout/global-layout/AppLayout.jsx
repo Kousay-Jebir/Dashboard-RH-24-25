@@ -8,11 +8,20 @@ import AppBreadCrumbs from './AppBreadCrumbs';
 import NavigationTabs from '../../NavigationTabs';
 import ScheduleButton from '../../../Components/ScheduleButton';
 import ScheduleInterview from '../../../Components/Recrutement/ScheduleInterview';
-
+import { useNavigate } from 'react-router-dom';
 const drawerWidth = 305;
 
 function AppLayout() {
+  const navigate=useNavigate()
   const location = useLocation();
+  
+
+  React.useEffect(() => {
+    if (location.pathname === '/' || location.pathname === '') {
+      navigate('/dashboard');
+    }
+  }, [location.pathname, navigate]);
+
   const routesConfig = useRoutes(); // Get the routing configuration from context
 
   const [mobileOpen, setMobileOpen] = React.useState(false);

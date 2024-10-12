@@ -1,6 +1,6 @@
 import { Box, Grid } from "@mui/material";
 
-export default function HorizontalBarGraph({stats}){
+export default function HorizontalBarGraph({stats,colors}){
 
     const mapStatsToPercentages = (stats)=>{
         const newStats = {}
@@ -16,9 +16,9 @@ export default function HorizontalBarGraph({stats}){
     const newStats = mapStatsToPercentages(stats);
     return (
         <Grid container spacing={0.5}>
-            <Grid item xs={12*newStats.present}><Box sx={{bgcolor:'#6A7177',height:25}}></Box></Grid>
-            <Grid item xs={12*newStats.justifiedAbsence}><Box sx={{bgcolor:'#BFC2C5',height:25}}></Box></Grid>
-            <Grid item xs={12*newStats.unjustifiedAbsence}><Box sx={{bgcolor:'#E9EAEB',height:25}}></Box></Grid>
+            <Grid item xs={12*newStats.present}><Box sx={{bgcolor:colors[0],height:25}}></Box></Grid>
+            <Grid item xs={12*newStats.justifiedAbsence}><Box sx={{bgcolor:colors[1],height:25}}></Box></Grid>
+            <Grid item xs={12*newStats.unjustifiedAbsence}><Box sx={{bgcolor:colors[2],height:25}}></Box></Grid>
         </Grid>
     );
 }
