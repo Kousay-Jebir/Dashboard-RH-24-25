@@ -42,7 +42,7 @@ const KanbanForm = ({ getFormData }) => {
         // Utility function to check for invalid characters
         const hasInvalidCharacters = (value) => /[^a-zA-Z\s\-\'èéàâôîû]/.test(value);
 
-        // Validate 'Interview with'
+
         if (!formData.interviewWith.trim()) {
             newErrors.interviewWith = "The interviewee's name is required.";
         } else if (hasInvalidCharacters(formData.interviewWith)) {
@@ -53,7 +53,7 @@ const KanbanForm = ({ getFormData }) => {
             newErrors.interviewWith = "The interviewee's name is too long.";
         }
 
-        // Validate 'Interviewed by'
+
         if (!formData.interviewedBy.trim()) {
             newErrors.interviewedBy = "The interviewer's name is required.";
         } else if (hasInvalidCharacters(formData.interviewedBy)) {
@@ -64,12 +64,22 @@ const KanbanForm = ({ getFormData }) => {
             newErrors.interviewedBy = "The interviewer's name is too long.";
         }
 
+        if (!formData.date)
+        {
+            newErrors.date="Date is required";
+        }
+        if(!formData.time)
+        {
+            newErrors.time="Time is required";
+        }
+
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
 
     const renderTextField = (label, name, placeholder, type = 'text') => (
-        <Box sx={{ height: '20px', display: 'flex', flexDirection: 'row', gap: '6px' }}>
+        <Box sx={{ height: '28px', display: 'flex', flexDirection: 'row', gap: '6px' }}>
+
             <Typography
                 variant="body2"
                 sx={{
@@ -95,6 +105,15 @@ const KanbanForm = ({ getFormData }) => {
                     '& .MuiInputBase-input': { fontFamily: theme.typography.fontFamily, fontSize: '10px' },
                     '& .MuiFormHelperText-root': {
                         fontSize: '8px',  
+                        color: 'red',
+                        margin: 0,  
+                    },
+                    marginBottom:1,
+                    '& input:-webkit-autofill': {
+                        WebkitBoxShadow: '0 0 0 1000px white inset',
+                        WebkitTextFillColor: 'black',
+                        fontFamily: theme.typography.fontFamily,
+                        transition: 'background-color 5000s ease-in-out 0s',
                         color: theme.palette.warning.text,
                         margin: 0,  
                     },
@@ -122,7 +141,7 @@ const KanbanForm = ({ getFormData }) => {
                             height: 12,
                         }}
                     />
-                    <Typography fontSize={11} color={theme.palette.neutral.normal} ml={0.5} mb={1}>
+                    <Typography fontSize={11} color={theme.palette.neutral.normal} ml={0.5} mb={1.5}>
                         Recruitment interview
                     </Typography>
                 </Box>
@@ -135,7 +154,7 @@ const KanbanForm = ({ getFormData }) => {
                         fontFamily: theme.typography.fontFamily,
                         fontSize: 11,
                         color: theme.palette.neutral.normal,
-                        marginBottom: 1,
+                        marginBottom: 1.5,
                         cursor: 'pointer'
                     }}
                     onClick={toggleDateTimeFields}

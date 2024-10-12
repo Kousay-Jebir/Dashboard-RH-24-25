@@ -1,5 +1,5 @@
-import { TextField, InputAdornment } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
+import { InputAdornment, TextField } from "@mui/material";
 
 export default function SearchBar({ placeHolder, onChange }) {
     return (
@@ -20,6 +20,10 @@ export default function SearchBar({ placeHolder, onChange }) {
                     color: 'purple', // Customize icon color
                     borderWidth: 2,
                 },
+                '& input:-webkit-autofill': {
+                    WebkitBoxShadow: '0 0 0 1000px white inset',
+    },
+                
             }}
             fullWidth
             size="small"
@@ -36,6 +40,7 @@ export default function SearchBar({ placeHolder, onChange }) {
                 }
             }}
             onChange={onChange} 
+            
         />
     );
 }
