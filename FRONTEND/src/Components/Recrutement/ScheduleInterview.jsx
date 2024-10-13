@@ -208,8 +208,9 @@ const ScheduleInterview = ({ close }) => {
         sx={{
           fontFamily: theme.typography.fontFamily,
           fontSize: "13px",
-          width: "20%",
+          width: "25%",
           fontWeight: theme.typography.regular,
+          marginTop:'5px'
         }}
       >
         {label}
@@ -232,7 +233,7 @@ const ScheduleInterview = ({ close }) => {
           },
           "& .MuiFormHelperText-root": {
             fontSize: "12px",
-            color: theme.palette.warning.text,
+            color: 'red',
             margin: 0,
           },
           "& .MuiOutlinedInput-root": {
@@ -256,7 +257,7 @@ const ScheduleInterview = ({ close }) => {
       sx={{
         display: "flex",
         flexDirection: "column",
-        gap: "16px",
+        gap: "10px",
         width: "40%",
       }}
     >
@@ -282,6 +283,7 @@ const ScheduleInterview = ({ close }) => {
         sx={{
           height: "30px",
           borderRadius: 2,
+          marginBottom:2,
           borderColor: theme.palette.neutral.light,
           "& .MuiInputBase-root": { height: "100%" },
           "& .MuiInputBase-input": {
@@ -398,7 +400,7 @@ const ScheduleInterview = ({ close }) => {
             sx={{
               fontFamily: theme.typography.fontFamily,
               fontSize: 14,
-              color: theme.palette.neutral.normal,
+              color: errors.date || errors.time ? 'red' : theme.palette.neutral.normal,
               marginBottom: 1,
               cursor: "pointer",
             }}
@@ -431,7 +433,9 @@ const ScheduleInterview = ({ close }) => {
             marginTop: 6,
           }}
         >
-          <Typography variant="body2" sx={{ fontSize: "13px" }}>
+          <Typography variant="body2" sx={{ fontSize: "13px"
+
+           }}>
             Change Status
           </Typography>
           <RadioGroup
@@ -473,6 +477,10 @@ const ScheduleInterview = ({ close }) => {
               />
             ))}
           </RadioGroup>
+          {errors.department && (
+              <Typography variant="body2" sx={{ color: "red", fontSize: "12px" }}>
+                {errors.department}
+              </Typography>)}
         </Box>
 
         <Box
@@ -484,7 +492,9 @@ const ScheduleInterview = ({ close }) => {
             marginBottom: 2,
           }}
         >
-          <Typography variant="body2" sx={{ fontSize: "13px" }}>
+          <Typography variant="body2" sx={{ fontSize: "13px"
+
+}}>
             Change Privacy
           </Typography>
           <RadioGroup
@@ -528,6 +538,10 @@ const ScheduleInterview = ({ close }) => {
               )
             )}
           </RadioGroup>
+          {errors.department && (
+              <Typography variant="body2" sx={{ color: "red", fontSize: "12px" }}>
+                {errors.department}
+              </Typography>)}
         </Box>
 
         <Box sx={{ display: "flex", gap: 1, marginTop: 2 }}>

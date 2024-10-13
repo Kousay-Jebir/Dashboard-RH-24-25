@@ -1,89 +1,111 @@
 import { Box, Drawer, Grid, Typography, useTheme } from "@mui/material";
-import React from "react";
-import ScheduleInterview from "../../Components/Recrutement/ScheduleInterview";
+import React, { useState } from "react";
+
 
 import AllTicketsKPI from "../../Components/AllTicketsKPI";
 import MembersByCategory from "../../Components/Dashboard/MembersByCategory";
 import MembersByGender from "../../Components/Dashboard/MembersByGender";
 import Schedule from "../../Components/Dashboard/Schedule";
+import ScheduleMeeting from "../../Components/Meetings/MeetingDetails/ScheduleMeeting";
+import ScheduleInterview from "../../Components/Recrutement/ScheduleInterview";
 import ScheduleButton from "../../Components/ScheduleButton";
 
-const Dashboard = () => {
-  const handleDateChange = (newDate) => {
-    console.log("Selected Date:", newDate);
-  };
+const Dashoboard = () => {
+    const [open, setOpen] = useState(false); // State to control the Drawer
+    const [selectedSchedule, setSelectedSchedule] = useState(null); // State to track selected schedule type
 
-  const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
-  const toggleDrawer = (newOpen) => () => {
-    setOpen(newOpen);
-  };
-  const DrawerContent = (
-    <ScheduleInterview close={toggleDrawer(false)}/>
-  );
+    const theme = useTheme();
 
-  return (
-    <Box
-      sx={{
-        margin: 2,
-        padding: 2,
-      }}
-    >
-       <Drawer open={open} onClose={toggleDrawer(false)} anchor='right'
-       sx={{
-        '& .MuiBackdrop-root': {
-          backdropFilter:'blur(5px)'
-        },
-        '& .MuiDrawer-paper': {
-            padding: 2, 
-          },
-      }}>
-        {DrawerContent}
-      </Drawer>
-      <Grid container spacing={2}>
-        <Grid item xs={12} md={8} >
-          <Typography fontSize={26} fontWeight={theme.typography.extraMeduim}>
-            Dashboard
-          </Typography>
-        </Grid>
+    // Function to open the Drawer and select the schedule type
+    const toggleDrawer = (scheduleType) => {
+        setSelectedSchedule(scheduleType);
+        setOpen(true);
+    };
 
-        <Grid item xs={6} md={2}>
-          <ScheduleButton
-            onClick={toggleDrawer(true)}
-            variant="text"
-            schedule="Schedule interview" 
+    // Function to close the Drawer
+    const closeDrawer = () => {
+        setOpen(false);
+        setSelectedSchedule(null); // Reset selected schedule type
+    };
+
+    return (
+        <Box
             sx={{
-              color:theme.palette.primary.main
+                margin: 2,
+                padding: 2,
             }}
-          />
-        </Grid>
+        >
+            {/* Drawer to display ScheduleInterview or ScheduleMeeting based on selectedSchedule */}
+            <Drawer
+                open={open}
+                onClose={closeDrawer}
+                anchor='right'
+                sx={{
+                    '& .MuiBackdrop-root': {
+                        backdropFilter: 'blur(5px)'
+                    },
+                    '& .MuiDrawer-paper': {
+                        padding: 2,
+                    },
+                }}
+            >
+                {/* Conditional rendering of ScheduleInterview or ScheduleMeeting */}
+                {selectedSchedule === 'interview' && (
+                    <ScheduleInterview close={closeDrawer} />
+                )}
+                {selectedSchedule === 'meeting' && (
+                    <ScheduleMeeting close={closeDrawer} />
+                )}
+            </Drawer>
 
-        <Grid item xs={6} md={2}>
-          <ScheduleButton
-            variant="contained"  
-            schedule="Schedule meeting" 
-            
-          />
-        </Grid>
+            {/* Main content of the Dashboard */}
+            <Grid container spacing={2}>
+                <Grid item xs={12} md={8}>
+                    <Typography fontSize={26} fontWeight={theme.typography.extraMedium}>
+                        Dashboard
+                    </Typography>
+                </Grid>
 
-        <Grid item xs={12} md={12}>
-          <AllTicketsKPI />
-        </Grid>
+                {/* Button to open ScheduleInterview */}
+                <Grid item xs={6} md={2}>
+                    <ScheduleButton
+                        onClick={() => toggleDrawer('interview')}
+                        variant="text"
+                        schedule="Schedule interview"
+                        sx={{
+                            color: theme.palette.primary.main
+                        }}
+                    />
+                </Grid>
 
-        <Grid item xs={12} md={4}>
-          <MembersByCategory />
-        </Grid>
+                {/* Button to open ScheduleMeeting */}
+                <Grid item xs={6} md={2}>
+                    <ScheduleButton
+                        onClick={() => toggleDrawer('meeting')}
+                        variant="contained"
+                        schedule="Schedule meeting"
+                    />
+                </Grid>
 
-        <Grid item xs={12} md={4}>
-          <MembersByGender />
-        </Grid>
+                {/* Other components in the Dashboard */}
+                <Grid item xs={12} md={12}>
+                    <AllTicketsKPI />
+                </Grid>
 
-        <Grid item xs={12} md={4}>
-          <Schedule />
-        </Grid>
-      </Grid>
-    </Box>
-  );
+                <Grid item xs={12} md={4}>
+                    <MembersByCategory />
+                </Grid>
+
+                <Grid item xs={12} md={4}>
+                    <MembersByGender />
+                </Grid>
+
+                <Grid item xs={12} md={4}>
+                    <Schedule />
+                </Grid>
+            </Grid>
+        </Box>
+    );
 };
 
-export default Dashboard;
+export default Dashoboard;
