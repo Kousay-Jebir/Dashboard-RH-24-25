@@ -9,6 +9,7 @@ import NavigationTabs from '../../NavigationTabs';
 import ScheduleButton from '../../../Components/ScheduleButton';
 import ScheduleInterview from '../../../Components/Recrutement/ScheduleInterview';
 import { useNavigate } from 'react-router-dom';
+import ScheduleMeeting from '../../../Components/Meetings/MeetingDetails/ScheduleMeeting';
 const drawerWidth = 305;
 
 function AppLayout() {
@@ -70,15 +71,20 @@ function AppLayout() {
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
   };
-  const DrawerContent = (
-    <ScheduleInterview close={toggleDrawer(false)}/>
-  );
+ 
+  let DrawerContent
+  if(location.pathname.startsWith('/recruitement')){
+     DrawerContent = <ScheduleInterview close={toggleDrawer(false)}/>
+  }
+  else if(location.pathname.startsWith('/meeting')){
+     DrawerContent = <ScheduleMeeting close={toggleDrawer(false)}/>
+  }
 
   function renderScheduleButton() {
     if (location.pathname.startsWith('/recruitement')) {
       return <ScheduleButton schedule={'Schedule interview'} onClick={toggleDrawer(true)} />;
     } else if (location.pathname.startsWith('/meetings')) {
-      return <ScheduleButton schedule={'Schedule meeting'} />;
+      return <ScheduleButton schedule={'Schedule meeting'}  onClick={toggleDrawer(true)}/>;
     }
       else if (location.pathname.startsWith('/team-members')) {
         return <ScheduleButton schedule={'Add member'}/>
