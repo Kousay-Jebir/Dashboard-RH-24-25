@@ -68,6 +68,7 @@ export default function GlobalForm() {
     rhQuestionsGrade: "",
     situationGrade: "",
     associativeExperienceGrade: "",
+    Duration: "",
   });
 
   const handleSubmit = async (event) => {
@@ -291,11 +292,12 @@ export default function GlobalForm() {
 
   //Duration:
 
-  const [duration, setDuration] = useState(""); // State to store the duration
+  const [duration, setDuration] = useState(""); 
 
   const handleDurationChange = (e) => {
   setDuration(e.target.value);
 };
+
 
   return (
     <Box sx={{ padding: 0 }}>
@@ -351,6 +353,11 @@ export default function GlobalForm() {
         scores={formData.scores}
         onScoresChange={handleScoresChange}
         errors={errors}
+      />
+      <Duration 
+        value={duration} 
+        onChange={handleDurationChange} 
+        error={errors.duration}
       />
     </Box>
   );
