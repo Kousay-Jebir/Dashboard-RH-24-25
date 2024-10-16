@@ -4,6 +4,7 @@ import { api } from "../../../../service/api";
 import GeneralInformationForm from "./GeneralInformationForm";
 import DynamicSectionsForm from "./DynamicSectionsForm";
 import ScoresForm from "./ScoresForm";
+import Duration from "./Duration";
 
 // Initial form state for general information
 const initialState = {
@@ -44,8 +45,6 @@ const formReducer = (state, action) => {
 
 export default function GlobalForm() {
   const [state, dispatch] = useReducer(formReducer, initialState);
-  const [editIndex, setEditIndex] = useState(null);
-  const [newSectionTitle, setNewSectionTitle] = useState("");
   const [sections, setSections] = useState([]);
   const [submitError, setSubmitError] = useState("");
   const theme = useTheme();
@@ -117,6 +116,7 @@ export default function GlobalForm() {
       "candidatName",
       "candidatLastName",
       "candidatYear",
+      "candidatField",
       "candidatPhone",
       "candidatEmail",
       "department",
@@ -159,18 +159,22 @@ export default function GlobalForm() {
 
   const validateSections = () => {
     let newSubmitError = "";
+    if (sections.length === 0){
+      newSubmitError = "Sections are required!";
+    }else{
+      newSubmitError = "";
     const updatedSections = sections.map((section) => {
       const updatedQuestions = section.questions.map((question) => {
         if (!question.response.trim()) {
-          newSubmitError = "All responses are required.";
+          newSubmitError = "All responses are required!";
           return { ...question, error: "Response is required" };
         }
         return { ...question, error: "" };
       });
       return { ...section, questions: updatedQuestions };
     });
-
     setSections(updatedSections);
+  }
 
     if (!!newSubmitError) {
       setSubmitError(newSubmitError);
@@ -284,6 +288,14 @@ export default function GlobalForm() {
 
     return scoresValid;
   };
+
+  //Duration:
+
+  const [duration, setDuration] = useState(""); // State to store the duration
+
+  const handleDurationChange = (e) => {
+  setDuration(e.target.value);
+};
 
   return (
     <Box sx={{ padding: 0 }}>

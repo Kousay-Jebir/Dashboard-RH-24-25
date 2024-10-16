@@ -22,6 +22,7 @@ export default function InterviewsList() {
             try {
                 const responseData = await api.getInterview(); 
                 setInterviews(responseData.data);
+                console.log(responseData.data)
             } catch (err) {
                 setError(err.message);
             } finally {

@@ -449,7 +449,7 @@ const ScheduleInterview = ({ close }) => {
               marginLeft: "10px",
             }}
           >
-            {["Confirmed", "Delayed", "Canceled"].map((status) => (
+            {["Confirmed", "Delayed", "Cancelled"].map((status) => (
               <FormControlLabel
                 key={status}
                 value={status}
@@ -508,7 +508,7 @@ const ScheduleInterview = ({ close }) => {
               marginLeft: "10px",
             }}
           >
-            {["Projet", "Marketing", "Dev.Commercial", "Qualité"].map(
+            {["Projet", "Marketing", "Dév. Commercial", "Cellule Qualité"].map(
               (privacy) => (
                 <FormControlLabel
                   key={privacy}

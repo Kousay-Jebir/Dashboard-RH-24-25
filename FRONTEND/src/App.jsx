@@ -18,7 +18,7 @@ import Interviews from './Pages/Recrutement/Interviews';
 import InterviewsList from './Pages/Recrutement/schedule/InterviewsList';
 import KanbanBoard from './Pages/Recrutement/schedule/KanbanBoard';
 import TeamMembers from './Pages/Team members/TeamMembers';
-import GlobalForm from "./Components/Recrutement/Interviews/Questions/GlobalForm";
+import GlobalForm from "./Components/Recrutement/Interviews/Questions/Global";
 import LoginV2 from "./Pages/Login/LoginV2";
 import { NotificationProvider } from "./context/SnackBarContext";
 import AddMemberPopup from "./Components/Recrutement/Interviews/AddMemberPopup";

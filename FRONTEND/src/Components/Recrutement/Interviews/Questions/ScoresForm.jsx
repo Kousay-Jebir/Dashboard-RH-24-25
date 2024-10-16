@@ -40,13 +40,28 @@ export default function ScoresForm({ scores, onScoresChange, errors }) {
   };
 
   return (
-    <Box sx={{ width: "100%" }}>
+    <Box
+      sx={{
+        width: "100%",
+        border: "2px solid",
+        borderColor: theme.palette.neutral.light,
+        borderRadius: 2,
+      }}
+    >
       <Typography
         sx={{ fontSize: "18px", fontWeight: theme.typography.medium, m: 2 }}
       >
         Scores{" "}
       </Typography>
-      <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "space-around", gap: 2, m: 2 }}>
+      <Box
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "space-around",
+          gap: 2,
+          m: 2,
+        }}
+      >
         {Object.keys(localScores).map((scoreKey) => (
           <Box key={scoreKey} sx={{ display: "flex", flexDirection: "column" }}>
             <Typography
@@ -85,11 +100,6 @@ export default function ScoresForm({ scores, onScoresChange, errors }) {
     </Box>
   );
 }
-
-
-
-
-
 
 // import React, { useState } from "react";
 // import {
@@ -138,7 +148,7 @@ export default function ScoresForm({ scores, onScoresChange, errors }) {
 //     e.preventDefault();
 //     if (
 //       Object.values(scores).some(
-//         (score) => score === "" || score <= 0 
+//         (score) => score === "" || score <= 0
 //       )
 //     ) {
 //       setErrors((prevErrors) =>
