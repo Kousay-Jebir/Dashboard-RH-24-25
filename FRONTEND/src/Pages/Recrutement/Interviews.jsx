@@ -3,18 +3,22 @@ import { Box, Grid, useTheme } from "@mui/material";
 import InterviewsDataGrid from "../../Components/Recrutement/Interviews/InterviewsDataGrid";
 import SearchBar from "../../components/SearchBar";
 import BorderBox from "../../components/BorderBox";
-import interviews from "../../Components/Recrutement/Interviews/InterviewsData.json";
+import useApi from "../../service/useApi";
 import dayjs from "dayjs";
 import DateFilter from "../../Components/DateFilter";
+import { api } from "../../service/api";
 
 export default function Interviews() {
     const theme = useTheme();
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedDate, setSelectedDate] = useState(null);
+    
+    const { data, loading, error, refetch } = useApi(api.getFinishedInterview, []);
+
+    const interviews = data.data;
 
     const handleSearchChange = (event) => {
         setSearchQuery(event.target.value);
-        console.log("Search Query:", event.target.value); // Debugging line
     };
 
     const handleDateChange = (date) => {
@@ -22,20 +26,23 @@ export default function Interviews() {
     };
 
     const filteredInterviews = useMemo(() => {
-        console.log("Filtering Interviews"); // Debugging line
+        if (!Array.isArray(interviews) || loading || error) return []; // Return empty if not an array or loading/error
+
         return interviews
             .filter((interview) => {
                 const lowercasedQuery = searchQuery.toLowerCase();
-                console.log("Interview Name:", interview.name); // Debugging line
-                return interview.name.toLowerCase().includes(lowercasedQuery);
+                return interview.candidat?.name.toLowerCase().includes(lowercasedQuery);
             })
             .filter((interview) => {
                 if (!selectedDate) return true; 
-                const interviewDate = dayjs(interview.date, "DD-MM-YYYY");
+                const interviewDate = dayjs(interview.date, "YYYY-MM-DD");
                 return interviewDate.isSame(selectedDate, "day");
             });
-    }, [searchQuery, selectedDate]);
-    console.log(filteredInterviews)
+    }, [interviews, searchQuery, selectedDate, loading, error]);
+
+    if (loading) return <p>Loading interviews...</p>;
+    if (error) return <p>Error: {error}</p>;
+
     return (
         <Box>
             <Grid container spacing={2} mb={2}>

@@ -8,7 +8,7 @@ export const departments = {
     },
     PROJET : {
         id: 2,
-        title : 'Project',
+        title : 'Projet',
         color : 'green.main'
     },
     DEV_CO : {

@@ -3,12 +3,12 @@ import { Box, Typography, TextField } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 
 const RecentInterviewKPI = ({
-  poleGrade = "N/A",
-  knowledgeGrade = "N/A",
-  availabilityGrade = "N/A",
-  RHGrade = "N/A",
-  situationsGrade = "N/A",
-  associativeGrade = "N/A",
+  poleGrade = 0,
+  knowledgeGrade = 0,
+  availabilityGrade = 0,
+  RHGrade = 0,
+  situationsGrade = 0,
+  associativeGrade = 0,
   isEditing = false,
   onSave,
   onCancel,
@@ -38,19 +38,20 @@ const RecentInterviewKPI = ({
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setEditedGrades((prev) => ({ ...prev, [name]: value }));
-    onChange({ [name]: value });
+    setEditedGrades((prev) => ({ ...prev, [name]: Number(value) })); // Convert to number
+    onChange({ [name]: Number(value) }); // Pass as number
   };
+  
 
   return (
     <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
       {[
-        { title: "Pole presentation grade", value: editedGrades.poleGrade, name: 'poleGrade' },
-        { title: "Knowledge of JEI grade", value: editedGrades.knowledgeGrade, name: 'knowledgeGrade' },
+        { title: "Pole presentation grade", value: editedGrades.poleGrade, name: 'polePresentationGrade' },
+        { title: "Knowledge of JEI grade", value: editedGrades.knowledgeGrade, name: 'jeiKnowledgeGrade' },
         { title: "Availability grade", value: editedGrades.availabilityGrade, name: 'availabilityGrade' },
-        { title: "RH questions grade", value: editedGrades.RHGrade, name: 'RHGrade' },
-        { title: "Situations grade", value: editedGrades.situationsGrade, name: 'situationsGrade' },
-        { title: "Associative experience grade", value: editedGrades.associativeGrade, name: 'associativeGrade' },
+        { title: "RH questions grade", value: editedGrades.RHGrade, name: 'rhQuestionsGrade' },
+        { title: "Situations grade", value: editedGrades.situationsGrade, name: 'situationGrade' },
+        { title: "Associative experience grade", value: editedGrades.associativeGrade, name: 'associativeExperienceGrade' },
       ].map(({ title, value, name }) => (
         <Box
           key={title}
@@ -79,6 +80,7 @@ const RecentInterviewKPI = ({
           {isEditing ? (
             <TextField
               name={name}
+              type="number"
               value={value}
               variant="standard"
               onChange={handleInputChange}

@@ -19,6 +19,7 @@ const BACKEND_API_ROUTES = {
     GET_RECENT_INTERVIEW: '/interview/recent',
     GET_FINISHED_INTERVIEW: '/interview/finished',
     CREATE_INTERVIEW:'/interview/createInterview',
+    UPDATE_INTERVIEW: '/interview/update/',
     GET_INTERVIEWQUESTION:'/interviewquestion',
     CREATE_INTERVIEWQUESTION:'/interviewquestion/create',
     GET_CANDIDAT:'/candidat',

@@ -43,6 +43,7 @@ export const api = {
   getRecentInterview: () => base.get(BACKEND_API_ROUTES.GET_RECENT_INTERVIEW),
   getFinishedInterview: ()=> base.get(BACKEND_API_ROUTES.GET_FINISHED_INTERVIEW),
   createInterview: (data) => base.post(BACKEND_API_ROUTES.CREATE_INTERVIEW, data),
+  updateInterview: (id,data) => base.post(BACKEND_API_ROUTES.UPDATE_INTERVIEW+id,data),
   getInterviewQuestion: () => base.get(BACKEND_API_ROUTES.GET_INTERVIEWQUESTION),
   createInterviewQuestion: (data) => base.post(BACKEND_API_ROUTES.CREATE_INTERVIEWQUESTION, data),
   getCandidat: () => base.get(BACKEND_API_ROUTES.GET_CANDIDAT),
