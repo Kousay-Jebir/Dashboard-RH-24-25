@@ -16,6 +16,8 @@ const BACKEND_API_ROUTES = {
     CREATE_MEETINGQUESTION:'/meetingquestion/create',
     ANSWER_MEETINGQUESTION:'/meetingquestion/answer',
     GET_INTERVIEW:'/interview',
+    GET_RECENT_INTERVIEW: '/interview/recent',
+    GET_FINISHED_INTERVIEW: '/interview/finished',
     CREATE_INTERVIEW:'/interview/createInterview',
     GET_INTERVIEWQUESTION:'/interviewquestion',
     CREATE_INTERVIEWQUESTION:'/interviewquestion/create',
