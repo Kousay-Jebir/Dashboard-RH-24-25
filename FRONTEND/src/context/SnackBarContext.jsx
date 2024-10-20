@@ -58,3 +58,10 @@ export const useNotificationWarning = () => {
   const { showNotification } = useNotification();
   return (message) => showNotification(message, 'warning');
 };
+
+export const useNotifications = {
+    success : useNotificationSuccess,
+    warning : useNotificationWarning,
+    info : useNotificationInfo,
+    error : useNotificationError
+}
