@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Grid, Typography, useTheme } from "@mui/material";
 import ForumRoundedIcon from "@mui/icons-material/ForumRounded";
-import { getColorById } from "../../jei-departments";
+import { getColorById, getDepartmentIdByDepartmentTitle } from "../../jei-departments";
 
 const RecruitementInterviewCard = ({ interview }) => {
   const theme = useTheme();
@@ -36,17 +36,17 @@ const RecruitementInterviewCard = ({ interview }) => {
         </Grid>
       </Grid>
       <Typography fontSize={13} fontWeight={500} mb={1}>
-        Interview with {interview.Interviewee}
+        Interview with {interview.candidat.name}
       </Typography>
       <Typography fontSize={11} mb={1}>
-        {interview.Date} - {interview.Time}
+        {interview.date} - {interview.time}
       </Typography>
       <Box mb={1}>
       <Typography fontSize={11}>
           <span style={{ color: theme.palette.neutral.normal }}>
             Will be interviewed by
           </span>{" "}
-          {interview.Interviewer}
+          {interview.recruiter}
         </Typography>
       </Box>
       <Box
@@ -60,10 +60,10 @@ const RecruitementInterviewCard = ({ interview }) => {
           border={1}
           borderRadius={2}
           color={theme.palette.white.main}
-          bgcolor={getColorById(interview.DepartmentId) || theme.palette.grey[300]}
+          bgcolor={getColorById(getDepartmentIdByDepartmentTitle(interview.department)) || theme.palette.grey[300]}
           p={0.6} 
         >
-          <Typography fontSize={10}>{interview.Department}</Typography>
+          <Typography fontSize={10}>{interview.department}</Typography>
         </Box>
       </Box>
     </Box>

@@ -22,7 +22,6 @@ export default function MainContentLayout() {
   };
 
   const menuData = getMenuData();
-  console.log("menu data is", menuData);
 
   // Conditional rendering based on whether menuData is empty
   if (menuData.length === 0) {

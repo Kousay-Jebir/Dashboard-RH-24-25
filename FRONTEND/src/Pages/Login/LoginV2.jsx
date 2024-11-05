@@ -8,9 +8,11 @@ import { useState } from "react";
 import axios from "axios";
 import { BACKEND_API_ROUTES } from "../../service/apiRoutes";
 import { api } from "../../service/api";
+import { useNotificationError } from "../../context/SnackBarContext";
 
 export default function LoginV2() {
     const { login } = useAuth();
+    const onFailue = useNotificationError();
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         email: '',
@@ -40,6 +42,7 @@ export default function LoginV2() {
             const errorMessage = error.response?.data?.message || error.message || "Login failed";
             console.log(error);
             setError(errorMessage); // Set user-friendly error message
+            onFailue(errorMessage)
         }
     };
 

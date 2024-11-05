@@ -27,9 +27,14 @@ import AddMemberPopup from "./Components/Recrutement/Interviews/AddMemberPopup";
 const isTokenValid = (token) => {
   if (!token) return false;
 
-  const decodedToken = jwtDecode(token);
-  const currentTime = Date.now() / 1000; // Current time in seconds
-  return decodedToken.exp > currentTime;
+  try {
+      const decodedToken = jwtDecode(token);
+      const currentTime = Date.now() / 1000; // Current time in seconds
+      return decodedToken.exp > currentTime;
+  } catch (error) {
+      console.error("Token decoding error:", error);
+      return false; // Invalid token
+  }
 };
 
 const ProtectedRoute = ({ element }) => {

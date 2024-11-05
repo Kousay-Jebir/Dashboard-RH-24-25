@@ -1,7 +1,11 @@
 import React, { useReducer, useState,useEffect } from "react";
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
 import ChatRoundedIcon from '@mui/icons-material/ChatRounded';
+import AddMemberPopup from "./AddMemberPopup";
 import BorderColorIcon from '@mui/icons-material/BorderColor';
+import { departments } from "../jei-departments";
+import { getDepartmentIdByDepartmentTitle } from "../jei-departments";
+import { getColorById } from "../jei-departments";
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import {
   Box,
@@ -18,6 +22,28 @@ import {
   useTheme,
 } from "@mui/material";
 import RecentInterviewKPI from "./RecentInterviewKPI";
+import { api } from "../../../service/api";
+import useApi from "../../../service/useApi";
+
+
+const calculateAverageScore = (row) => {
+  const scores = [
+    row.polePresentationGrade,
+    row.jeiKnowledgeGrade,
+    row.availabilityGrade,
+    row.rhQuestionsGrade,
+    row.situationGrade,
+    row.associativeExperienceGrade,
+  ].filter(score => score !== undefined); // Filter out any undefined grades
+  
+  if (scores.length === 0) return 0; // Avoid division by zero
+  const sum = scores.reduce((acc, score) => acc + score, 0);
+  return (sum / scores.length).toFixed(2); // Return average, formatted to 2 decimal places
+};
+
+
+
+
 
 // Define initial state and reducer function
 const initialState = {
@@ -40,7 +66,6 @@ const reducer = (state, action) => {
       return {
         ...state,
         isEditing: false,
-        editingRow: null,
         tempData: null,
       };
     case 'SAVE_CHANGES':
@@ -81,8 +106,9 @@ const reducer = (state, action) => {
 const DataTable = ({ data }) => {
   const [state, dispatch] = useReducer(reducer, { ...initialState, kpiData: data });
   const [expandedRow, setExpandedRow] = useState(null);
+  const [isPopupOpen, setPopupOpen] = useState(false);
+  console.log(state)
   const theme = useTheme();
-
   useEffect(() => {
     dispatch({ type: 'SET_KPI_DATA', payload: data });
   }, [data]);
@@ -96,12 +122,27 @@ const DataTable = ({ data }) => {
 
   const handleAddMember = () => {
     dispatch({ type: 'START_ADD_MEMBER' });
+    setPopupOpen(true)
+  };
+
+  const handleConfirmAddMember = () => {
+    setPopupOpen(false); 
   };
 
   const handleSaveChanges = () => {
     if (state.editingRow !== null) {
       dispatch({ type: 'SAVE_CHANGES' });
     }
+    console.log("saving");
+    console.log(state.tempData)
+    api.updateInterview(state.tempData.id,{
+      polePresentationGrade:state.tempData.polePresentationGrade,
+      jeiKnowledgeGrade:state.tempData.jeiKnowledgeGrade,
+      availabilityGrade:state.tempData.availabilityGrade,
+      rhQuestionsGrade:state.tempData.rhQuestionsGrade,
+      situationGrade:state.tempData.situationGrade,
+      associativeExperienceGrade:state.tempData.associativeExperienceGrade,
+    });
   };
 
   const handleCancelEdit = () => {
@@ -109,10 +150,13 @@ const DataTable = ({ data }) => {
   };
 
   const handleUpdateTempData = (updatedGrades) => {
+    console.log("updated grades")
+    console.log(updatedGrades)
     dispatch({ type: 'UPDATE_TEMP_DATA', payload: updatedGrades });
   };
 
   return (
+    <>
     <TableContainer component={Paper} sx={{ maxWidth: '100%', overflowX: 'auto' }} elevation={0}>
       <Table size="small">
         <TableHead>
@@ -130,16 +174,18 @@ const DataTable = ({ data }) => {
           {state.kpiData.map((row, index) => (
             <React.Fragment key={index}>
               <TableRow sx={{ "&:last-child td, &:last-child th": { border: "none" } }}>
-                <TableCell sx={{ borderBottom: "none" }}>{row.name}</TableCell>
+                <TableCell sx={{ borderBottom: "none" }}>{row.candidat.name}</TableCell>
                 <TableCell sx={{ borderBottom: "none" }}>
                   <Typography
                     sx={{
                       backgroundColor:
-                        row.department === "Dév. Commercial"
+                        /* row.department === departments.DEV_CO.title
                           ? theme.palette.lightBlue.main
                           : row.department === "Projet"
                           ? theme.palette.blue.main
-                          : theme.palette.green.main,
+                          : theme.palette.green.main, */
+                          getColorById(getDepartmentIdByDepartmentTitle(row.department))
+                          ,
                       color: theme.palette.common.white,
                       display: "inline-block",
                       borderRadius: "12px",
@@ -153,7 +199,7 @@ const DataTable = ({ data }) => {
                 <TableCell sx={{ borderBottom: "none" }}>{row.date}</TableCell>
                 <TableCell sx={{ borderBottom: "none" }}>{row.duration}</TableCell>
                 <TableCell sx={{ borderBottom: "none" }}>{row.recruiter}</TableCell>
-                <TableCell sx={{ borderBottom: "none" }}>{row.grade}/100</TableCell>
+                <TableCell sx={{ borderBottom: "none" }}>{Math.round(calculateAverageScore(row))}/100</TableCell>
                 <TableCell sx={{ borderBottom: "none" }}>
                   <IconButton size="small" onClick={() => handleExpandClick(index)}>
                     <ArrowForwardIosRoundedIcon
@@ -171,12 +217,12 @@ const DataTable = ({ data }) => {
                   <TableCell colSpan={7} sx={{ paddingBottom: 2, borderBottom: "none" }}>
                     <Box p={2}>
                       <RecentInterviewKPI
-                        poleGrade={state.isEditing && state.editingRow === index ? state.tempData?.poleGrade : row.poleGrade}
-                        knowledgeGrade={state.isEditing && state.editingRow === index ? state.tempData?.knowledgeGrade : row.knowledgeGrade}
+                        poleGrade={state.isEditing && state.editingRow === index ? state.tempData?.polePresentationGrade : row.polePresentationGrade}
+                        knowledgeGrade={state.isEditing && state.editingRow === index ? state.tempData?.jeiKnowledgeGrade : row.jeiKnowledgeGrade}
                         availabilityGrade={state.isEditing && state.editingRow === index ? state.tempData?.availabilityGrade : row.availabilityGrade}
-                        RHGrade={state.isEditing && state.editingRow === index ? state.tempData?.RHGrade : row.RHGrade}
-                        situationsGrade={state.isEditing && state.editingRow === index ? state.tempData?.situationsGrade : row.situationsGrade}
-                        associativeGrade={state.isEditing && state.editingRow === index ? state.tempData?.associativeGrade : row.associativeGrade}
+                        RHGrade={state.isEditing && state.editingRow === index ? state.tempData?.rhQuestionsGrade : row.rhQuestionsGrade}
+                        situationsGrade={state.isEditing && state.editingRow === index ? state.tempData?.situationGrade : row.situationGrade}
+                        associativeGrade={state.isEditing && state.editingRow === index ? state.tempData?.associativeExperienceGrade : row.associativeExperienceGrade}
                         isEditing={state.isEditing && state.editingRow === index}
                         onSave={() => handleSaveChanges()}
                         onCancel={() => handleCancelEdit()}
@@ -217,6 +263,12 @@ const DataTable = ({ data }) => {
         </TableBody>
       </Table>
     </TableContainer>
+    <AddMemberPopup 
+    open={isPopupOpen} 
+    onClose={() => setPopupOpen(false)} 
+    onConfirm={handleConfirmAddMember} // Pass the confirm handler
+  />
+  </>
   );
 };
 

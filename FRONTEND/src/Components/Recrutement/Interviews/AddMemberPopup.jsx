@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Button,
   Dialog,
@@ -11,40 +11,19 @@ import {
 } from "@mui/material";
 import { GoAlertFill } from "react-icons/go";
 
-const AddMemberPopup = () => {
+const AddMemberPopup = ({ open, onClose, onConfirm }) => {
   const theme = useTheme();
-
-  const [open, setOpen] = useState(false);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleConfirm = () => {
-    // Add member logic here
-    setOpen(false);
-  };
 
   return (
     <>
-      <Button variant="contained" color="primary" onClick={handleClickOpen}>
-        Add Member
-      </Button>
-
       <Dialog
         open={open}
-        onClose={handleClose}
+        onClose={onClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
-        sx={{padding:2}}
+        sx={{ padding: 2 }}
       >
-        <GoAlertFill
-          style={{ marginTop: 10, marginInline: "auto", fontSize: 50 }}
-        />
+        <GoAlertFill style={{ marginTop: 10, marginInline: "auto", fontSize: 50 }} />
         <DialogTitle
           id="alert-dialog-title"
           style={{
@@ -71,9 +50,9 @@ const AddMemberPopup = () => {
           </DialogContentText>
         </DialogContent>
 
-        <DialogActions sx={{padding:2}}>
+        <DialogActions sx={{ padding: 2 }}>
           <Button
-            onClick={handleClose}
+            onClick={onClose}
             variant="text"
             sx={{
               border: 2,
@@ -86,8 +65,11 @@ const AddMemberPopup = () => {
             Back
           </Button>
           <Button
-            onClick={handleConfirm}
-            variant="contained"  
+            onClick={() => {
+              onConfirm(); // Call the confirm handler
+              onClose(); // Close the dialog
+            }}
+            variant="contained"
             sx={{
               border: 2,
               borderRadius: 2,

@@ -8,30 +8,16 @@ import { useState, useEffect } from "react";
 import { api } from "../../../service/api";
 import { statuses } from "../../../Components/Recrutement/interview-states";
 import dayjs from "dayjs";
+import useApi from "../../../service/useApi";
 
 export default function InterviewsList() {
-    const [interviews, setInterviews] = useState([]);
+
     const [activeStatus, setActiveStatus] = useState('ALL');
     const [searchQuery, setSearchQuery] = useState(''); 
     const [dateRange, setDateRange] = useState([null, null]); 
-    const [loading, setLoading] = useState(true); // Loading state
-    const [error, setError] = useState(null); // Error state
-
-    useEffect(() => {
-        const fetchInterviews = async () => {
-            try {
-                const responseData = await api.getInterview(); 
-                setInterviews(responseData.data);
-                console.log(responseData.data)
-            } catch (err) {
-                setError(err.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchInterviews();
-    }, []); // Empty dependency array means it runs once on mount
+    
+    const {loading,error,data} = useApi(api.getRecentInterview,[])
+    const interviews = data.data;
 
     if (loading) return <div>Loading...</div>; // Loading indicator
     if (error) return <div>Error: {error}</div>; // Error handling
@@ -65,7 +51,7 @@ export default function InterviewsList() {
             activeStatus === statuses.ALL.id || interview.status.toUpperCase() === activeStatus
         )
         .filter(interview => 
-            interview.recruiter.toLowerCase().includes(searchQuery.toLowerCase())
+            interview.candidat.name.toLowerCase().includes(searchQuery.toLowerCase())
         )
         .filter(interview => {
             const [startDate, endDate] = dateRange;

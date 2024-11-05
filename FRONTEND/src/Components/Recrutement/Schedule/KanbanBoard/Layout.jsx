@@ -6,27 +6,60 @@ import ScheduleButton from "../../../ScheduleButton";
 import { getDepartmentIdByDepartmentTitle } from "../../jei-departments";
 import InterviewStatus from "./InterviewStatus";
 import RecruitementInterviewCard from "./RecruitementInterviewCard";
+import { api } from "../../../../service/api";
+
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+}
 
 export default function Layout({ boardColumns, setBoardColumns }) {
     const [showFormInColumn, setShowFormInColumn] = useState(null); // Track which column shows the form
-
-    const getFormData = (formData) => {
+    console.log(boardColumns)
+    const getFormData = async(formData) => {
         const updatedColumns = { ...boardColumns };
         
         const newInterview = {
-            id: Date.now().toString(), // Generate a unique ID
-            Interviewee: formData.interviewWith,
-            Date: formData.date,
-            Time: formData.time,
-            Interviewer: formData.interviewedBy,
-            Department: formData.department,
-            DepartmentId: getDepartmentIdByDepartmentTitle(formData.department),
-            Status: showFormInColumn
+            recruiter: formData.interviewedBy,
+            date: formData.date,
+            time: formData.time,
+            duration: "1 hour",
+            department: formData.department,
+            status: capitalizeFirstLetter(showFormInColumn),
+            "polePresentationGrade": 0,
+            "jeiKnowledgeGrade": 0,
+            "availabilityGrade": 0,
+            "rhQuestionsGrade": 0,
+            "situationGrade": 0,
+            "associativeExperienceGrade": 0,
+            "candidatName": formData.interviewWith,
+            "candidatEmail": "ab@a.a",
+            "candidatPhone": "123456789",
+            "candidatAddress": "address",
+            "candidatLastName": "last name",
+            "candidatField": "field",
+            "candidatYear": "year",
+            "candidatCity": "city"
+        };
+        const result = (await (api.createInterview(newInterview))).data.data;
+        
+
+        const newInterviewForUi = {
+            id:result.id.toString(),
+            recruiter: formData.interviewedBy,
+            date: formData.date,
+            time: formData.time,
+            duration: "1 hour",
+            department: formData.department,
+            status: showFormInColumn,
+            candidat: {
+                name:formData.interviewWith
+            }
         };
 
         updatedColumns[showFormInColumn] = {
             ...updatedColumns[showFormInColumn],
-            items: [...updatedColumns[showFormInColumn].items, newInterview]
+            items: [...updatedColumns[showFormInColumn].items, newInterviewForUi]
         };
 
         setBoardColumns(updatedColumns);
@@ -35,38 +68,38 @@ export default function Layout({ boardColumns, setBoardColumns }) {
 
     const onDragEnd = (result) => {
         const { source, destination } = result;
-
+    
         if (!destination) return;
-
+    
         // Get source and destination columns
         const sourceColumn = boardColumns[source.droppableId];
         const destColumn = boardColumns[destination.droppableId];
-
+    
+        let updatedBoardColumns;
+    
         // If moving within the same column
         if (source.droppableId === destination.droppableId) {
             const updatedItems = Array.from(sourceColumn.items);
             const [movedItem] = updatedItems.splice(source.index, 1);
             updatedItems.splice(destination.index, 0, movedItem);
-
-            // Update boardColumns state
-            setBoardColumns({
+    
+            updatedBoardColumns = {
                 ...boardColumns,
                 [source.droppableId]: {
                     ...sourceColumn,
                     items: updatedItems
                 }
-            });
+            };
         } else {
             // Moving between columns
             const sourceItems = Array.from(sourceColumn.items);
             const destItems = Array.from(destColumn.items);
             const [movedItem] = sourceItems.splice(source.index, 1);
-
+    
             movedItem.Status = destination.droppableId; // Update status to match destination column
             destItems.splice(destination.index, 0, movedItem);
-
-            // Update boardColumns state
-            setBoardColumns({
+    
+            updatedBoardColumns = {
                 ...boardColumns,
                 [source.droppableId]: {
                     ...sourceColumn,
@@ -76,9 +109,16 @@ export default function Layout({ boardColumns, setBoardColumns }) {
                     ...destColumn,
                     items: destItems
                 }
-            });
+            };
+            api.updateInterview(+(movedItem.id),{...movedItem,id:+(movedItem.id),status:capitalizeFirstLetter(movedItem.Status)})
         }
+    
+        // Update the state and send the new state to the API
+        setBoardColumns(updatedBoardColumns);
+    
     };
+    
+    
 
     const handleAddInterviewClick = (columnId) => {
         setShowFormInColumn(prev => (prev === columnId ? null : columnId));

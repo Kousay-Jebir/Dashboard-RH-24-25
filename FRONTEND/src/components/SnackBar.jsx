@@ -14,7 +14,7 @@ const SnackBar = ({ open, message, onClose, severity }) => {
       };
   return (
     <Snackbar open={open} autoHideDuration={6000} onClose={onClose}>
-      <Alert onClose={onClose} severity={severity} sx={{ backgroundColor: 'success.main', color: 'success.text' }} iconMapping={iconMapping}>
+      <Alert onClose={onClose} severity={severity} sx={{ backgroundColor: `${severity+'.main'}`, color: `${severity+'.text'}` }} iconMapping={iconMapping}>
         {message}
       </Alert>
     </Snackbar>

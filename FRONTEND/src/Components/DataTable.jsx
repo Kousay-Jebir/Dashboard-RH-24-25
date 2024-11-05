@@ -23,12 +23,12 @@ const DataTable = ({ columns, rowData }) => {
   };
 
   const departmentStyles = (Department) => {
-    switch (Department) {
-      case "Dév. Commercial":
+    switch (Department.toLowerCase()) {
+      case "dév. commercial":
         return theme.palette.lightBlue.main;
-      case "Projet":
+      case "projet":
         return theme.palette.green.main;
-      case "Cellule Qualité":
+      case "cellule qualité":
         return theme.palette.purple.main;
       default:
         return theme.palette.blue.main;
@@ -48,7 +48,7 @@ const DataTable = ({ columns, rowData }) => {
   };
 
   return (
-    <TableContainer component={Paper} sx={{maxWidth: "100%", overflowX: "auto" }} elevation={0}>
+    <TableContainer component={Paper} sx={{ maxWidth: "100%", overflowX: "auto" }} elevation={0}>
       <Table size="small">
         <TableHead>
           <TableRow>
@@ -75,7 +75,7 @@ const DataTable = ({ columns, rowData }) => {
                     {column.id === "department" ? (
                       <Typography
                         sx={{
-                          backgroundColor: departmentStyles(row.Department),
+                          backgroundColor: departmentStyles(row.department),
                           color: theme.palette.common.white,
                           display: "inline-block",
                           borderRadius: "12px",
@@ -85,6 +85,8 @@ const DataTable = ({ columns, rowData }) => {
                       >
                         {row.department}
                       </Typography>
+                    ) : column.id === "name" ? (
+                      row.candidat?.name || row.Title // Access the name from the candidate
                     ) : (
                       column.render ? column.render(row) : row[column.id]
                     )}
@@ -107,7 +109,7 @@ const DataTable = ({ columns, rowData }) => {
                   <TableCell colSpan={columns.length + 1} sx={{ paddingBottom: 2, borderBottom: "none" }}>
                     <Box p={2}>
                       <Typography variant="body2">
-                        Additional details for {row.name || row.Title}...
+                        Additional details for {row.candidat?.name || row.Title}...
                       </Typography>
                     </Box>
                   </TableCell>
