@@ -46,12 +46,13 @@ export default function ScoresForm({ scores, onScoresChange, errors }) {
         border: "2px solid",
         borderColor: theme.palette.neutral.light,
         borderRadius: 2,
+        marginBlock: 2,
       }}
     >
       <Typography
         sx={{ fontSize: "18px", fontWeight: theme.typography.medium, m: 2 }}
       >
-        Scores{" "}
+        Scores
       </Typography>
       <Box
         sx={{

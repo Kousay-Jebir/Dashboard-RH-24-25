@@ -18,6 +18,7 @@ const initialState = {
     candidatAddress: "",
     candidatCity: "",
     department: "",
+    duration: "",
   },
   errors: {},
 };
@@ -68,6 +69,7 @@ export default function GlobalForm() {
     rhQuestionsGrade: "",
     situationGrade: "",
     associativeExperienceGrade: "",
+    duration: "",
   });
 
   const handleSubmit = async (event) => {
@@ -291,10 +293,38 @@ export default function GlobalForm() {
 
   //Duration:
 
-  const [duration, setDuration] = useState(""); // State to store the duration
-
   const handleDurationChange = (e) => {
-  setDuration(e.target.value);
+    setFormData({ ...formData, duration: e.target.value });
+  };
+
+  const handleBlur = () => {
+    validateDuration(formData, setErrors);
+  };
+
+
+const validateDuration = () => {
+  let durationValid = true;
+  if (duration === "") {
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      duration: "Duration is required",
+    }));
+    durationValid = false;
+  }
+  else if (duration > 121) {
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      duration: "Duration cannot exceed 121 minutes (2 hours)",
+    }));
+    durationValid = false;
+  } else {
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      duration: null, 
+    }));
+  }
+
+  return durationValid;
 };
 
   return (
@@ -351,6 +381,12 @@ export default function GlobalForm() {
         scores={formData.scores}
         onScoresChange={handleScoresChange}
         errors={errors}
+      />
+      <Duration
+        value={formData.duration}
+        onChange={handleDurationChange}
+        error={errors.duration}
+        onBlur={handleBlur} 
       />
     </Box>
   );
