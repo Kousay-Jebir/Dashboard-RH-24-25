@@ -4,6 +4,7 @@ import { api } from "../../../../service/api";
 import GeneralInformationForm from "./GeneralInformationForm";
 import DynamicSectionsForm from "./DynamicSectionsForm";
 import ScoresForm from "./ScoresForm";
+import Duration from "./Duration";
 
 // Initial form state for general information
 const initialState = {
@@ -17,6 +18,7 @@ const initialState = {
     candidatAddress: "",
     candidatCity: "",
     department: "",
+    duration: "",
   },
   errors: {},
 };
@@ -44,8 +46,6 @@ const formReducer = (state, action) => {
 
 export default function GlobalForm() {
   const [state, dispatch] = useReducer(formReducer, initialState);
-  const [editIndex, setEditIndex] = useState(null);
-  const [newSectionTitle, setNewSectionTitle] = useState("");
   const [sections, setSections] = useState([]);
   const [submitError, setSubmitError] = useState("");
   const theme = useTheme();
@@ -69,6 +69,7 @@ export default function GlobalForm() {
     rhQuestionsGrade: "",
     situationGrade: "",
     associativeExperienceGrade: "",
+    duration: "",
   });
 
   const handleSubmit = async (event) => {
@@ -117,6 +118,7 @@ export default function GlobalForm() {
       "candidatName",
       "candidatLastName",
       "candidatYear",
+      "candidatField",
       "candidatPhone",
       "candidatEmail",
       "department",
@@ -159,18 +161,22 @@ export default function GlobalForm() {
 
   const validateSections = () => {
     let newSubmitError = "";
+    if (sections.length === 0){
+      newSubmitError = "Sections are required!";
+    }else{
+      newSubmitError = "";
     const updatedSections = sections.map((section) => {
       const updatedQuestions = section.questions.map((question) => {
         if (!question.response.trim()) {
-          newSubmitError = "All responses are required.";
+          newSubmitError = "All responses are required!";
           return { ...question, error: "Response is required" };
         }
         return { ...question, error: "" };
       });
       return { ...section, questions: updatedQuestions };
     });
-
     setSections(updatedSections);
+  }
 
     if (!!newSubmitError) {
       setSubmitError(newSubmitError);
@@ -285,6 +291,42 @@ export default function GlobalForm() {
     return scoresValid;
   };
 
+  //Duration:
+
+  const handleDurationChange = (e) => {
+    setFormData({ ...formData, duration: e.target.value });
+  };
+
+  const handleBlur = () => {
+    validateDuration(formData, setErrors);
+  };
+
+
+const validateDuration = () => {
+  let durationValid = true;
+  if (duration === "") {
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      duration: "Duration is required",
+    }));
+    durationValid = false;
+  }
+  else if (duration > 121) {
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      duration: "Duration cannot exceed 121 minutes (2 hours)",
+    }));
+    durationValid = false;
+  } else {
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      duration: null, 
+    }));
+  }
+
+  return durationValid;
+};
+
   return (
     <Box sx={{ padding: 0 }}>
       {submitError && <Typography color="error">{submitError}</Typography>}
@@ -339,6 +381,12 @@ export default function GlobalForm() {
         scores={formData.scores}
         onScoresChange={handleScoresChange}
         errors={errors}
+      />
+      <Duration
+        value={formData.duration}
+        onChange={handleDurationChange}
+        error={errors.duration}
+        onBlur={handleBlur} 
       />
     </Box>
   );
