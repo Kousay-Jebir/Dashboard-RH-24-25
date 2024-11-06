@@ -304,14 +304,14 @@ export default function GlobalForm() {
 
 const validateDuration = () => {
   let durationValid = true;
-  if (duration === "") {
+  if (formData.duration === "" || formData.duration == 0) {
     setErrors((prevErrors) => ({
       ...prevErrors,
       duration: "Duration is required",
     }));
     durationValid = false;
   }
-  else if (duration > 121) {
+  else if (formData.duration >= 121) {
     setErrors((prevErrors) => ({
       ...prevErrors,
       duration: "Duration cannot exceed 121 minutes (2 hours)",

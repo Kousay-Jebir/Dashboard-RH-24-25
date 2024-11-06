@@ -19,6 +19,7 @@ const Duration = ({ value, onChange, error, onBlur }) => {
         borderColor: theme.palette.neutral.light,
         borderRadius: 2,
         marginBlock: 2,
+        gap:2
       }}
     >
       <Typography
@@ -34,6 +35,13 @@ const Duration = ({ value, onChange, error, onBlur }) => {
         error={!!error}
         helperText={error ? "Please enter a valid duration." : ""}
         inputProps={{ min: "0" }} // Prevent negative values
+        size="small"
+        sx={{
+          marginInline: 4,
+          mb:2,
+          "& .MuiInputBase-input": { fontSize: "12px" },
+          "& .MuiInputBase-root": { height: "35px" },
+        }}
       />
     </Box>
   );
