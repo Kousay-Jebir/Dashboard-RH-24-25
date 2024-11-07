@@ -1,4 +1,5 @@
 import { Close as CloseIcon, School as SchoolIcon } from "@mui/icons-material";
+import useApi from "../../service/useApi";
 import {
   Box,
   Button,
@@ -16,8 +17,10 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { api } from "../../service/api";
+import { useNavigate } from "react-router-dom";
 
 const ScheduleInterview = ({ close }) => {
+  const navigate= useNavigate()
   const [showDateTime, setShowDateTime] = useState(false);
   const [errors, setErrors] = useState({});
   const [isVisible, setIsVisible] = useState(true);
@@ -76,8 +79,8 @@ const ScheduleInterview = ({ close }) => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const handleScheduleClick = async (e) => {
-    e.preventDefault(); //Prevent default form submission
+
+  const createNewInterview = async () => {
     const isValid = validateForm();
 
     if (!isValid) {
@@ -88,27 +91,27 @@ const ScheduleInterview = ({ close }) => {
 
     try {
       console.log(postData);
-      await api.createInterview(postData);
-    } catch (error) {
-      console.error("Erreur lors de l'envoi du message:", error);
-      alert("Échec de l'envoi du message.");
-    }
+      const result = await api.createInterview(postData);
+      return result;
 
-    // setFormData({
-    //   Candidate: "",
-    //   Phone: "",
-    //   City: "",
-    //   Adress: "",
-    //   Field: "",
-    //   Academic_year: "",
-    //   date: "",
-    //   time: "",
-    //   Recruiter: "",
-    //   email: "",
-    //   status: "Confirmed",
-    //   department: "Projet",
-    // });
+    } catch (error) {
+      return null;
+    }
+  }
+
+
+  const startInterviewHandler = async (e) => {
+    const interviewId = (await createNewInterview()).data.data.id;
+    close();
+    navigate(`/recruitement/interviews/${interviewId}`);
+
+  }
+
+  const handleScheduleClick = async (e) => {
+    await createNewInterview();
   };
+
+
 
   const toggleDateTimeFields = () => {
     setShowDateTime((prev) => !prev);
@@ -581,6 +584,7 @@ const ScheduleInterview = ({ close }) => {
                 backgroundColor: "#404951",
               },
             }}
+            onClick={startInterviewHandler}
           >
             Start interview
           </Button>

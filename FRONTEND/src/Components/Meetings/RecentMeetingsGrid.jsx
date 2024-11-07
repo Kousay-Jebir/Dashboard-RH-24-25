@@ -3,11 +3,11 @@ import DataTable from "../DataTable"
 
 
 const RecentMeetingsColumns = [
-  {id:"Title" , label:"Meeting title"},
-  { id: "Department", label: "Department" },
-  { id: "Date", label: "Date" },
-  { id: "Time", label: "Time" },
-  { id: "Duration", label: "Duration"}
+  {id:"title" , label:"Meeting title"},
+  { id: "department", label: "Department" },
+  { id: "date", label: "Date" },
+  { id: "time", label: "Time" },
+  { id: "duration", label: "Duration"}
 ]
 
 const RecentMeetingsGrid = ({Data}) => {

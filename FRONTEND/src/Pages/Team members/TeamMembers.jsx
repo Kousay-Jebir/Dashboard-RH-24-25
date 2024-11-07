@@ -1,32 +1,36 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import MembersTable from '../../Components/Members/MembersTable';
-import Data from '../../Components/Members/members.json';
 import { Box } from '@mui/material';
 import SearchBar from '../../components/SearchBar';
 import BorderBox from '../../components/BorderBox';
+import { api } from '../../service/api';
+import useApi from '../../service/useApi';
 
 const TeamMembers = ({ department }) => {
-  const [data, setData] = useState(Data);
   const [searchQuery, setSearchQuery] = useState('');
 
-  useEffect(() => {
-    // Filter data based on the department prop
-    const filteredByDepartment = department === 'all'
-      ? Data
-      : Data.filter(member => member.Department === department);
+  // Using the custom useApi hook to fetch the member data
+  const { data, loading, error, refetch } = useApi(api.getMember, []);
 
-    // Update the state with the filtered data
-    setData(filteredByDepartment);
-  }, [department]);
+  // Handling the case when data is not available yet
+  const members = data.data || [];
+  console.log(members)
 
-  // Compute the final filtered data based on the search query
-  const filteredData = useMemo(() => {
-    if (!searchQuery) return data;
-
-    return data.filter(member =>
-      member.Name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-  }, [data, searchQuery]);
+  const filteredData = members
+    .filter(member => {
+      // Filter by department if it's not 'all'
+      if (department && department !== 'all' && member.interview_department !== department) {
+        return false;
+      }
+      return true;
+    })
+    .filter(member => {
+      // Filter by search query
+      if (searchQuery && !(member.member_name + " " + member.candidat_lastName).toLowerCase().includes(searchQuery.toLowerCase())) {
+        return false;
+      }
+      return true;
+    });
 
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
@@ -41,11 +45,11 @@ const TeamMembers = ({ department }) => {
         />
       </Box>
       <BorderBox radius={2}>
-        <MembersTable Data={filteredData} />
+        {/* Render members table with filtered data */}
+        <MembersTable Data={filteredData} loading={loading} error={error} />
       </BorderBox>
     </Box>
   );
 };
 
 export default TeamMembers;
-
