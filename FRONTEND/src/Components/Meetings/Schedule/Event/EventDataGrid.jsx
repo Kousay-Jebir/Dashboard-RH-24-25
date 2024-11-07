@@ -3,13 +3,14 @@ import DataTable from '../../../DataTable'
 
 
 const columns = [
-    { id: "Title", label: "Meeting title" },
-    { id: "Location", label: "Location" },
-    { id: "Date", label: "Date" },
-    { id: "Time", label: "Time" },
+    { id: "title", label: "Meeting title" },
+    { id: "location", label: "Location" },
+    { id: "date", label: "Date" },
+    { id: "time", label: "Time" },
   ];
 
 const EventDataGrid = ({Data}) => {
+  console.log(Data);
   return (
     <DataTable columns={columns} rowData={Data}></DataTable>
   )

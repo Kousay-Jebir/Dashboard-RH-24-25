@@ -5,15 +5,24 @@ import StatusBar from "../../Components/Recrutement/Schedule/list/StatusBar";
 import { Box, Grid } from "@mui/material";
 import { statuses } from "../../Components/Recrutement/interview-states";
 import { useState } from "react";
-import data from "../../Components/Meetings/Schedule/Department/DepartmentData.json";
 import DateRangeFilter from "../../Components/DateRangeFilter";
 import dayjs from "dayjs";
+import useApi from "../../service/useApi";
+import { api } from "../../service/api";
 
 const DepartmentMeetings = () => {
-  const [interviews, setInterviews] = useState(data);
+
+
   const [activeStatus, setActiveStatus] = useState("ALL");
   const [searchQuery, setSearchQuery] = useState(""); // New state for search query
   const [dateRange, setDateRange] = useState([null, null]);
+
+  const {loading,error,data} = useApi(api.getMeeting,[])
+  const interviews = data.data;
+  console.log(interviews)
+
+  if (loading) return <div>Loading...</div>; // Loading indicator
+  if (error) return <div>Error: {error}</div>; // Error handling
 
   // Create a counts object with initial counts set to 0
   const statusCounts = {
@@ -24,7 +33,7 @@ const DepartmentMeetings = () => {
 
   // Count the occurrences of each status
   interviews.forEach((interview) => {
-    const status = interview.Status.toUpperCase();
+    const status = interview.status.toUpperCase();
     if (statusCounts.hasOwnProperty(status)) {
       statusCounts[status]++;
     }
@@ -43,17 +52,19 @@ const DepartmentMeetings = () => {
     .filter(
       (interview) =>
         activeStatus === statuses.ALL.id ||
-        interview.Status.toUpperCase() === activeStatus
+        interview.status.toUpperCase() === activeStatus
     )
     .filter(
       (interview) =>
-        interview.Title.toLowerCase().includes(searchQuery.toLowerCase()) // Assuming `Name` is a field in the interview data
+        interview.title.toLowerCase().includes(searchQuery.toLowerCase()) // Assuming `Name` is a field in the interview data
     )
     .filter((interview) => {
       const [startDate, endDate] = dateRange;
-      if (!startDate || !endDate) return true; // If no date range is set, don't filter by date
-      const interviewDate = dayjs(interview.Date, "DD-MM-YYYY");
-      return interviewDate.isBetween(startDate, endDate, null, "[]");
+            if (!startDate || !endDate) return true; // If no date range is set, don't filter by date
+            const interviewDate = dayjs(interview.date)
+            console.log(interview.date)
+            console.log(interviewDate)
+            return interviewDate.startOf('day').isBetween(startDate, endDate, null, '[]');
     });
 
   const handleSearchChange = (event) => {

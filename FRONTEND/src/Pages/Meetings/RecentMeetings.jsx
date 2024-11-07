@@ -5,16 +5,22 @@ import SearchBar from "../../components/SearchBar";
 import BorderBox from "../../components/BorderBox";
 import DateRangeFilter from "../../Components/DateRangeFilter";
 import dayjs from "dayjs";
-import data from "../../Components/Meetings/RecentMetingsData.json";
+import { api } from "../../service/api";
+import useApi from "../../service/useApi";
 
 const RecentMeetings = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [dateRange, setDateRange] = useState([null, null]);
 
-  const filteredMeetings = useMemo(() => {
-    return data
+  const {loading,error,data} = useApi(api.getMeeting,[])
+  const meetings = data.data;
+ 
+  if (loading) return <div>Loading...</div>; // Loading indicator
+  if (error) return <div>Error: {error}</div>; // Error handling
+
+  const filteredMeetings =  meetings
       .filter((meeting) =>
-        meeting.Title.toLowerCase().includes(searchQuery.toLowerCase())
+        meeting.title.toLowerCase().includes(searchQuery.toLowerCase())
       )
       .filter((meeting) => {
         const [startDate, endDate] = dateRange;
@@ -22,7 +28,7 @@ const RecentMeetings = () => {
         const meetingDate = dayjs(meeting.Date, "DD-MM-YYYY");
         return meetingDate.isBetween(startDate, endDate, null, "[]");
       });
-  }, [searchQuery, dateRange]);
+
 
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);

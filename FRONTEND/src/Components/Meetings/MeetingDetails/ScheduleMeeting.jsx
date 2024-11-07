@@ -84,7 +84,7 @@ const ScheduleMeeting = ({close}) => {
           newErrors.type = "Meeting Type is required.";
       }
   
-      if (formData.type === 'General Assembly' && !formData.assemblyType) {
+      if (formData.type === 'generalAssembly' && !formData.assemblyType) {
           newErrors.assemblyType = "General Assembly Type is required.";
       }
         setErrors(newErrors);
@@ -221,7 +221,7 @@ const ScheduleMeeting = ({close}) => {
                             gap: '4px',
                         }}
                     >
-                        {['Department', 'General Assembly', 'Team Building','Event'].map((type) => (
+                        {['Department', 'generalAssembly', 'Team Building','Event'].map((type) => (
                             <FormControlLabel
                                 key={type}
                                 value={type}
@@ -253,7 +253,7 @@ const ScheduleMeeting = ({close}) => {
                 <Typography variant="body2" sx={{ color: 'red', fontSize: '12px' }}>
                     {errors.type}
                 </Typography>)}
-                    {formData.type === 'General Assembly' && (
+                    {formData.type === 'generalAssembly' && (
                 <div style={{ marginTop: '10px' }}>
                     <Typography variant="body2" sx={{ fontSize: '13px' }}>General Assembly Type</Typography>
                     <RadioGroup

@@ -3,10 +3,10 @@ import DataTable from "../../../DataTable";
 import BorderBox from "../../../../components/BorderBox";
 
 const columns = [
-  { id: "Title", label: "Meeting title" },
-  { id: "Location", label: "Location" },
-  { id: "Date", label: "Date" },
-  { id: "Time", label: "Time" },
+  { id: "title", label: "Meeting title" },
+  { id: "location", label: "Location" },
+  { id: "date", label: "Date" },
+  { id: "time", label: "Time" },
 ];
 
 const TeamBuildingDataGrid = ({ Data }) => {

@@ -3,13 +3,12 @@ import DataTable from "../../../DataTable";
 import BorderBox from "../../../../components/BorderBox";
 
 const columns = [
-  { id: "Title", label: "Meeting title" },
-  { id: "Department", label: "Department" },
-  { id: "Date", label: "Date" },
-  { id: "Time", label: "Time" },
-  { id: "Status", label: "Status" },
+  { id: "name", label: "Meeting title" },
+  { id: "department", label: "Department" },
+  { id: "date", label: "Date" },
+  { id: "time", label: "Time" },
+  { id: "status", label: "Status" },
 ];
-
 const DepartmentDataGrid = ({Data}) => {
   return <BorderBox radius={2}>
     <DataTable columns={columns} rowData={Data} />

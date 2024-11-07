@@ -56,8 +56,11 @@ export default function InterviewsList() {
         .filter(interview => {
             const [startDate, endDate] = dateRange;
             if (!startDate || !endDate) return true; // If no date range is set, don't filter by date
-            const interviewDate = dayjs(interview.Date, "DD-MM-YYYY");
-            return interviewDate.isBetween(startDate, endDate, null, '[]');
+            const interviewDate = dayjs(interview.date)
+            console.log(interviewDate)
+            console.log(startDate.format("DD-MM-YYYY"));
+            console.log(endDate.format("DD-MM-YYYY"))
+            return dayjs(interviewDate).isBetween(startDate, endDate, null, '[]');
         });
 
     const handleSearchChange = (event) => {

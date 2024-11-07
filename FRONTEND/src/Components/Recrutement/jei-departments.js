@@ -37,7 +37,7 @@ export function getColorById(id) {
 export function getDepartmentIdByDepartmentTitle(title) {
 
     for (const department of Object.values(departments)) {
-        if (department.title === title) {
+        if (department.title.toLocaleLowerCase() === title.toLocaleLowerCase()) {
             return department.id;
         }
     }

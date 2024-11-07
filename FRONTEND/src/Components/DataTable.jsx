@@ -13,13 +13,18 @@ import {
   Box,
 } from "@mui/material";
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
+import { useNavigate } from "react-router-dom";
 
 const DataTable = ({ columns, rowData }) => {
+  const navigate = useNavigate()
   const [expandedRow, setExpandedRow] = useState(null);
   const theme = useTheme();
 
   const handleExpandClick = (index) => {
+    navigate(`/recruitement/interviews/${rowData[index].id}`)
     setExpandedRow(expandedRow === index ? null : index);
+    
+
   };
 
   const departmentStyles = (Department) => {
@@ -86,10 +91,36 @@ const DataTable = ({ columns, rowData }) => {
                         {row.department}
                       </Typography>
                     ) : column.id === "name" ? (
-                      row.candidat?.name || row.Title // Access the name from the candidate
+                      row.candidat?.name || row.title
                     ) : (
                       column.render ? column.render(row) : row[column.id]
                     )}
+
+                    {column.id === "location" ? (
+                      <Typography
+                        sx={{
+                          display: "inline-block",
+                          borderRadius: "12px",
+                          padding: "2px 8px",
+                          fontSize: "0.875rem",
+                        }}
+                      >
+                        {row.place}
+                      </Typography>
+                    ):null}
+                    {column.id === "ag" ? (
+                      <Typography
+                        sx={{
+                          display: "inline-block",
+                          borderRadius: "12px",
+                          padding: "2px 8px",
+                          fontSize: "0.875rem",
+                        }}
+                      >
+                        {row.assemblyType}
+                      </Typography>
+                    ):null}
+                    
                   </TableCell>
                 ))}
                 <TableCell sx={{ borderBottom: "none" }}>
@@ -109,7 +140,7 @@ const DataTable = ({ columns, rowData }) => {
                   <TableCell colSpan={columns.length + 1} sx={{ paddingBottom: 2, borderBottom: "none" }}>
                     <Box p={2}>
                       <Typography variant="body2">
-                        Additional details for {row.candidat?.name || row.Title}...
+                        Additional details for {row.candidat?.name || row.title}...
                       </Typography>
                     </Box>
                   </TableCell>
