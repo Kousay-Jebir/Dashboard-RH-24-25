@@ -3,9 +3,10 @@ import AddIcon from '@mui/icons-material/Add';
 import { Box, Button, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
 
-const AddQuestion = ({ onAddQuestion }) => {
+const AddQuestion = () => {
     const [question, setQuestion] = useState('');
-    const [options, setOptions] = useState(['','']);
+    const [options, setOptions] = useState(['', '']);
+    const [submitted, setSubmitted] = useState(false);
     const theme = useTheme();
 
     const renderTextField = (label, value, onChange, placeholder, type = 'text', multiline = false) => (
@@ -50,110 +51,134 @@ const AddQuestion = ({ onAddQuestion }) => {
         </Box>
     );
 
-    // Add a new option to the list
     const handleAddOption = () => {
         setOptions([...options, '']);
     };
 
-    // Update the value of a specific option
     const handleOptionChange = (index, value) => {
         const newOptions = [...options];
         newOptions[index] = value;
         setOptions(newOptions);
     };
 
-    // Submit the question and reset the form
     const handleSubmit = () => {
-        onAddQuestion({ question, options });
+        setSubmitted(true);
+    };
+
+    const handleAddNewQuestion = () => {
         setQuestion('');
-        setOptions(['']);
+        setOptions(['', '']);
+        setSubmitted(false);
     };
 
     return (
         <Box>
-            {/* Render the question TextField */}
-            {renderTextField(
-                'Question',
-                question,
-                (e) => setQuestion(e.target.value),
-                'Enter your question here'
+            {submitted ? (
+                // Display submitted question and options
+                <Box>
+                    <Typography variant="h6" sx={{ fontFamily: 'Inter', marginBottom: '8px' }}>
+                        {question}
+                    </Typography>
+                    <ul>
+                        {options.map((option, index) => (
+                            <li key={index}>
+                                <Typography sx={{ fontFamily: 'Inter', fontSize: '14px', color: theme.palette.text.secondary }}>
+                                    {option}
+                                </Typography>
+                            </li>
+                        ))}
+                    </ul>
+                    <Button
+                        variant="outlined"
+                        onClick={handleAddNewQuestion}
+                        sx={{
+                            borderRadius: 2,
+                            textTransform: 'none',
+                            fontFamily: theme.typography.fontFamily,
+                            fontSize: 12,
+                            color: 'text.secondary',
+                            '&:hover': {
+                                backgroundColor: 'transparent',
+                                borderColor: 'lightGrey',
+                            },
+                        }}
+                    >
+                        Add New Question
+                    </Button>
+                </Box>
+            ) : (
+                // Form to add a new question and options
+                <Box>
+                    {renderTextField(
+                        'Question',
+                        question,
+                        (e) => setQuestion(e.target.value),
+                        'Enter your question here'
+                    )}
+                    <Box sx={{ marginBottom: '16px' }}>
+                        <Typography
+                            variant="body2"
+                            sx={{
+                                fontFamily: 'Inter',
+                                fontSize: '14px',
+                                fontWeight: 400,
+                                color: theme.palette.text.primary,
+                                marginBottom: '4px',
+                            }}
+                        >
+                            Answer options
+                        </Typography>
+                        {options.map((option, index) => (
+                            renderTextField(
+                                '',
+                                option,
+                                (e) => handleOptionChange(index, e.target.value),
+                                'Enter an option'
+                            )
+                        ))}
+                    </Box>
+
+                    <Button
+                        variant="outlined"
+                        startIcon={<AddIcon sx={{ fontSize: 9, height: 15, width: 15 }} />}
+                        onClick={handleAddOption}
+                        sx={{
+                            borderRadius: 2,
+                            textTransform: 'none',
+                            fontFamily: theme.typography.fontFamily,
+                            fontSize: 12,
+                            color: 'text.secondary',
+                            marginBottom: 2,
+                            '&:hover': {
+                                backgroundColor: 'transparent',
+                                borderColor: 'lightGrey',
+                            },
+                        }}
+                    >
+                        Add Option
+                    </Button>
+
+                    <Button
+                        variant="outlined"
+                        onClick={handleSubmit}
+                        sx={{
+                            borderRadius: 2,
+                            textTransform: 'none',
+                            fontFamily: theme.typography.fontFamily,
+                            fontSize: 12,
+                            color: 'text.secondary',
+                            marginLeft: 2,
+                            marginBottom: 2,
+                            '&:hover': {
+                                backgroundColor: 'transparent',
+                                borderColor: 'lightGrey',
+                            },
+                        }}
+                    >
+                        Submit Question
+                    </Button>
+                </Box>
             )}
-            
-            <Box sx={{ marginBottom: '16px' }}>
-                <Typography
-                    variant="body2"
-                    sx={{
-                        fontFamily: 'Inter',
-                        fontSize: '14px',
-                        fontWeight: 400,
-                        color: theme.palette.text.primary,
-                        marginBottom: '4px',
-                    }}
-                >
-                    Answer options
-                </Typography>
-                {options.map((option, index) => (
-                    renderTextField(
-                        '',
-                        option,
-                        (e) => handleOptionChange(index, e.target.value),
-                        'Enter an option'
-                    )
-                ))}
-            </Box>
-
-            <Button
-                variant="outlined"
-                startIcon={<AddIcon sx={{ fontSize: 9, height: 15, width: 15 }} />}
-                onClick={handleAddOption}
-                sx={{
-                    border: 'none',
-                    borderRadius: 2,
-                    textTransform: 'none',
-                    fontFamily: theme.typography.fontFamily,
-                    fontSize: 12,
-                    padding: '2px 6px',
-                    color: 'text.secondary',
-                    marginBottom: 2,
-                    '&:hover': {
-                        backgroundColor: 'transparent',
-                        borderColor: 'lightGrey',
-                    },
-                    '&:active': {
-                        backgroundColor: 'transparent',
-                        borderColor: 'lightGrey',
-                    },
-                }}
-            >
-                Add Option
-            </Button>
-
-            {/* Button to submit the question */}
-            <Button
-                variant="outlined"
-                onClick={handleSubmit}
-                sx={{
-                    border: 'none',
-                    borderRadius: 2,
-                    textTransform: 'none',
-                    fontFamily: theme.typography.fontFamily,
-                    fontSize: 12,
-                    padding: '2px 6px',
-                    color: 'text.secondary',
-                    marginLeft: 5,
-                    marginBottom: 2,
-                    '&:hover': {
-                        backgroundColor: 'transparent',
-                        borderColor: 'lightGrey',
-                    },
-                    '&:active': {
-                        backgroundColor: 'transparent',
-                        borderColor: 'lightGrey',
-                    },
-                }}
-            >
-                Submit Question
-            </Button>
         </Box>
     );
 };

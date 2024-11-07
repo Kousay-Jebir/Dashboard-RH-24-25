@@ -51,7 +51,7 @@ const MeetingDetails = () => {
   if (!fetchedData) return <p>Loading meeting details...</p>;
 
   return (
-    <Box sx={{ gap: 34, display: 'flex', justifyContent: 'flex-end', fontFamily: theme.typography.fontFamily }}>
+    <Box sx={{gap: 34, display: 'flex', justifyContent: 'flex-end', fontFamily: theme.typography.fontFamily }}>
       <Card>
         <CardContent sx={{ position: 'relative' }}>
           <IconButton
@@ -148,23 +148,62 @@ const MeetingDetails = () => {
 
           <HorizontalBarGraph stats={stats} colors={colors} />
 
-          <Box sx={{ marginTop: 3 }}>
-            <Typography variant="h6" gutterBottom>
-              Add a Question for the Meeting
-            </Typography>
-            <AddQuestion onAddQuestion={handleAddQuestion} />
+          <Box sx={{ mt: 3 }}>
+            <AddQuestion onAddQuestion={(newQuestion) => setQuestions([...questions, newQuestion])} />
           </Box>
 
           
 
-          <Box sx={{ display: 'flex', gap: 1, marginTop: 2 }}>
-            <Button variant="outlined" onClick={handleToggle} sx={{ color: theme.palette.error.main }}>
-              Cancel
-            </Button>
-            <Button sx={{ backgroundColor: '#404951', color: theme.palette.white.main }}>
-              Edit details
-            </Button>
-          </Box>
+          <Box sx={{ width: '100%', display: "flex", flexDirection: "row", marginTop: 5 }}>
+                        <Button
+                            variant="outlined"
+                            sx={{
+                                width: '30%',
+                                height: 46,
+                                fontSize: 12,
+                                color: "red",
+                                border: '1px solid lightGrey',
+                                borderRadius: 2,
+                                marginRight: 1,
+                                fontFamily: theme.typography.fontFamily,
+                                textTransform: "none",
+                                '&:hover': {
+                                    backgroundColor: 'transparent',
+                                    borderColor: 'lightGrey',
+                                },
+                                '&:active': {
+                                    backgroundColor: 'transparent',
+                                    borderColor: 'lightGrey',
+                                },
+                            }}
+                            onClick={handleToggle}
+                        >
+                            Cancel
+                        </Button>
+
+                        <Button
+                            sx={{
+                                width: '70%',
+                                height: 46,
+                                fontSize: 12,
+                                backgroundColor: '#404951',
+                                color: theme.palette.white.main,
+                                borderRadius: 2,
+                                fontFamily: theme.typography.fontFamily,
+                                textTransform: "none",
+                                '&:hover': {
+                                    backgroundColor: '#404951',
+                                    borderColor: 'lightGrey',
+                                },
+                                '&:active': {
+                                    backgroundColor: '#404951',
+                                    borderColor: 'lightGrey',
+                                },
+                            }}
+                        >
+                            Edit Details
+                        </Button>
+                    </Box>
         </CardContent>
       </Card>
     </Box>
