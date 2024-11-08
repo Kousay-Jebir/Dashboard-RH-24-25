@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
 import { useNavigate } from "react-router-dom";
-
+import dayjs from "dayjs";
 const DataTable = ({ columns, rowData }) => {
   const navigate = useNavigate()
   const [expandedRow, setExpandedRow] = useState(null);
@@ -78,24 +78,36 @@ const DataTable = ({ columns, rowData }) => {
                     ...(column.id === "status" && statusStyles(row.status)),
                   }}>
                     {column.id === "department" ? (
-                      <Typography
-                        sx={{
-                          backgroundColor: departmentStyles(row.department),
-                          color: theme.palette.common.white,
-                          display: "inline-block",
-                          borderRadius: "12px",
-                          padding: "2px 8px",
-                          fontSize: "0.875rem",
-                        }}
-                      >
-                        {row.department}
-                      </Typography>
-                    ) : column.id === "name" ? (
-                      row.candidat?.name || row.title
-                    ) : (
-                      column.render ? column.render(row) : row[column.id]
-                    )}
-
+            <Typography
+              sx={{
+                backgroundColor: departmentStyles(row.department),
+                color: theme.palette.common.white,
+                display: "inline-block",
+                borderRadius: "12px",
+                padding: "2px 8px",
+                fontSize: "0.875rem",
+              }}
+            >
+              {row.department}
+            </Typography>
+          ) : column.id === "name" ? (
+            row.candidat?.name || row.title
+          ) : column.id === "date" ? (
+            <Typography
+              sx={{
+                display: "inline-block",
+                borderRadius: "12px",
+                padding: "2px 8px",
+                fontSize: "0.875rem",
+              }}
+            >
+              {/* Only render the date here, do not render it elsewhere */}
+              {dayjs(row.date).format("DD/MM/YYYY")}
+            </Typography>
+          ) : (
+            column.render ? column.render(row) : row[column.id]
+          )}
+                  
                     {column.id === "location" ? (
                       <Typography
                         sx={{
