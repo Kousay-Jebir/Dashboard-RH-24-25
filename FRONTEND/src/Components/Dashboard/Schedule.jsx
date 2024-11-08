@@ -1,31 +1,32 @@
 import { Box, Typography, useTheme } from "@mui/material";
-// import BorderBox from "../BorderBox";
-
 import WeekView from "./Schedule section/WeekView";
 import ScheduleCard from "./Schedule section/ScheduleCard";
-const Schedule = () => {
+import { useState } from "react";
 
-    const theme = useTheme();
+const Schedule = () => {
+  const theme = useTheme();
+
+  const [selectedDay, setSelectedDay] = useState(new Date()); // Track the selected day
 
   return (
     <Box sx={{
-        // maxWidth: 363,
-        // minHeight: 486,
-        border: 2,
-        borderRadius: 2,
-        borderColor: theme.palette.neutral.light,
-        padding: 2,
-      }}>
-        <Typography fontSize={16} fontWeight={theme.typography.extraMeduim} mb={0.5}>
-            Schedule
-        </Typography>
-        <Typography fontSize={14} fontWeight={theme.typography.regular} color={theme.palette.neutral.normal} mb={2}>
-            Find here scheduled events, meetings, interviews.
-        </Typography>
-        <WeekView />
-        <ScheduleCard />
+      border: 2,
+      borderRadius: 2,
+      borderColor: theme.palette.neutral.light,
+      padding: 2,
+    }}>
+      <Typography fontSize={16} fontWeight={theme.typography.extraMeduim} mb={0.5}>
+        Schedule
+      </Typography>
+      <Typography fontSize={14} fontWeight={theme.typography.regular} color={theme.palette.neutral.normal} mb={2}>
+        Find here scheduled events, meetings, interviews.
+      </Typography>
+
+      {/* Pass selectedDay to WeekView and ScheduleCard */}
+      <WeekView selectedDay={selectedDay} setSelectedDay={setSelectedDay} />
+      <ScheduleCard selectedDay={selectedDay} />
     </Box>
-  )
+  );
 }
 
-export default Schedule
+export default Schedule;
