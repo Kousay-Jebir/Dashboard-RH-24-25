@@ -13,7 +13,7 @@ const RecentMeetingsColumns = [
 const RecentMeetingsGrid = ({Data}) => {
   return (
     <React.Fragment>
-      <DataTable columns={RecentMeetingsColumns} rowData={Data}></DataTable>
+      <DataTable columns={RecentMeetingsColumns} expandArrowNavigation={()=>{}} rowData={Data}></DataTable>
     </React.Fragment>
   )
 }
