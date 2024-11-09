@@ -9,7 +9,7 @@ const BACKEND_API_ROUTES = {
     GET_MEMBER_BY_ID: '/member/:id',
     CREATE_MEMBER: '/member/create',
     GET_MEETING:'/meeting',
-    GET_MEETING_BY_ID:'/meeting/:id',
+    GET_MEETING_BY_ID:'/meeting/by-id/:id',
     CREATE_MEETING:'/meeting/create',
     JOIN_MEETING:'/meeting/join',
     GET_MEETINGQUESTION:'/meetingquestion',

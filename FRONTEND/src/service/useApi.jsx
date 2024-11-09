@@ -22,7 +22,7 @@ const useApi = (apiService, initialData = null) => {
 
   useEffect(() => {
     fetchData();
-  }, [apiService]);
+  }, []);
 
   return { data, loading, error, refetch: fetchData };
 };
