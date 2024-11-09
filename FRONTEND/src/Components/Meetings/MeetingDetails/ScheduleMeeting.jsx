@@ -1,11 +1,14 @@
 import { Close as CloseIcon } from "@mui/icons-material";
 import { Box, Button, FormControlLabel, IconButton, Radio, RadioGroup, TextField, Tooltip, Typography, useTheme } from "@mui/material";
 import React, { useState } from 'react';
+import { useNotificationSuccess } from "../../../context/SnackBarContext";
+import { useNotificationError } from "../../../context/SnackBarContext";
 import { api } from "../../../service/api";
 const ScheduleMeeting = ({close}) => {
     const [showDateTime, setShowDateTime] = useState(false);
     const [isVisible, setIsVisible] = useState(true);
-
+    const onSuccess = useNotificationSuccess();
+    const onError = useNotificationError();
     const [formData, setFormData] = useState({
         title: "",
         date: "",
@@ -118,10 +121,11 @@ const ScheduleMeeting = ({close}) => {
         try {
             console.log("posted data", postData);
             await api.createMeeting(postData);
-            alert("data posted succesfully");
+            onSuccess("Meeting scheduled successfully");
 
         } catch (error) {
             console.error("Error posting the data:", error);
+            onError(error.message);
         }
         handleDiscard();
     }
@@ -221,7 +225,7 @@ const ScheduleMeeting = ({close}) => {
                             gap: '4px',
                         }}
                     >
-                        {['Department', 'generalAssembly', 'Team Building','Event'].map((type) => (
+                        {['departmentMeeting', 'generalAssembly', 'teamBuilding','event'].map((type) => (
                             <FormControlLabel
                                 key={type}
                                 value={type}
@@ -418,7 +422,7 @@ const ScheduleMeeting = ({close}) => {
                             gap: '4px',
                         }}
                     >
-                        {['Executive Board Members', 'All members included', 'Quartet', 'Projet', 'Marketing', 'Dev.Commercial', 'Qualité'].map((privacy) => (
+                        {['Executive Board Members', 'All members included', 'Quartet', 'Projet', 'Marketing', 'Dév. Commercial', 'Cellule qualité'].map((privacy) => (
                             <FormControlLabel
                                 key={privacy}
                                 value={privacy}

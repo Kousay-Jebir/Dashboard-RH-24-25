@@ -17,7 +17,7 @@ const DepartmentMeetings = () => {
   const [searchQuery, setSearchQuery] = useState(""); // New state for search query
   const [dateRange, setDateRange] = useState([null, null]);
 
-  const {loading,error,data} = useApi(api.getMeeting,[])
+  const {loading,error,data} = useApi(api.getDepartmentMeeting,[])
   const interviews = data.data;
   console.log(interviews)
 

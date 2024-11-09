@@ -10,10 +10,16 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import TicketKPI from '../components/TicketKPI';
+import { api } from '../service/api';
+import useApi from '../service/useApi';
 
 const AllTicketsKPI = () => {
   const theme = useTheme();
   const isXs = useMediaQuery(theme.breakpoints.down('sm'));
+  const {data:totalMembers}=useApi(api.getTotalMember,NaN)
+  const {data:totalTeamBuildings}=useApi(api.getTotalTeamBuilding,NaN)
+  const {data:totalMeetings}=useApi(api.getTotalMeeting,NaN)
+
 
   const settings = {
     dots: true,
@@ -29,10 +35,10 @@ const AllTicketsKPI = () => {
 
 
   const kpiData = [
-    { title: "Total members", value: "118", icon: <PersonIcon /> },
+    { title: "Total members", value: `${totalMembers.data?.totalMembers}`, icon: <PersonIcon /> },
     { title: "Total Workshops", value: "15", icon: <WbSunnyIcon /> },
-    { title: "Team Buildings", value: "3", icon: <WhatshotIcon /> },
-    { title: "Meetings", value: "20", icon: <ChatIcon /> },
+    { title: "Team Buildings", value: `${totalTeamBuildings.data?.totalMeetings}`, icon: <WhatshotIcon /> },
+    { title: "Meetings", value: `${totalMeetings.data?.totalMeetings}`, icon: <ChatIcon /> },
   ];
 
   return (
