@@ -15,16 +15,18 @@ import {
 import ArrowForwardIosRoundedIcon from "@mui/icons-material/ArrowForwardIosRounded";
 import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
-const DataTable = ({ columns, rowData }) => {
+
+const DataTable = ({ columns, rowData,expandArrowNavigation = null,setMeetingId=null}) => {
   const navigate = useNavigate()
   const [expandedRow, setExpandedRow] = useState(null);
   const theme = useTheme();
 
   const handleExpandClick = (index) => {
-    navigate(`/recruitement/interviews/${rowData[index].id}`)
+    if(!expandArrowNavigation){navigate(`/recruitement/interviews/${rowData[index].id}`)}
+    if(setMeetingId){setMeetingId(rowData[index].id)};
+    expandArrowNavigation()
     setExpandedRow(expandedRow === index ? null : index);
     
-
   };
 
   const departmentStyles = (Department) => {

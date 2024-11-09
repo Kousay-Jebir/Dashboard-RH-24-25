@@ -11,7 +11,7 @@ import QRCodeDialog from './QrCodeDialog';
 import useApi from '../../../service/useApi';
 import { api } from '../../../service/api';
 
-const MeetingDetails = () => {
+const MeetingDetails = ({meetingId}) => {
   const theme = useTheme();
   const [isVisible, setIsVisible] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -21,7 +21,7 @@ const MeetingDetails = () => {
     title: '',
     options: ['', ''],
   });
-  const { data, error, loading } = useApi(() => api.getMeetingById(7), {});
+  const { data, error, loading } = useApi(() => api.getMeetingById(meetingId), {});
   const fetchedData = data?.data;
 
   const handleToggle = () => setIsVisible(!isVisible);
@@ -153,7 +153,7 @@ const MeetingDetails = () => {
           {fetchedData.uniqueCode && (
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, marginTop: 2 }}>
               <Typography variant="body2" color="text.secondary" sx={{ fontFamily: theme.typography.fontFamily }}>
-                Join Google Meet via this code: {fetchedData.uniqueCode}
+                Join Google Meet via this code: code
               </Typography>
               <Button
                 sx={{
