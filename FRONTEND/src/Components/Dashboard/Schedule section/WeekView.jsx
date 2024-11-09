@@ -1,63 +1,57 @@
 import React, { useState, useEffect } from "react";
-import {
-  Box,
-  Grid,
-  Typography,
-  IconButton,
-  Button,
-  useTheme,
-} from "@mui/material";
+import { Box, Grid, Typography, IconButton, useTheme } from "@mui/material";
+import dayjs from "dayjs"; // Import dayjs
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosRoundedIcon from "@mui/icons-material/ArrowBackIosRounded";
 
-import {
-  addDays,
-  eachDayOfInterval,
-  eachWeekOfInterval,
-  startOfYear,
-  endOfYear,
-  format,
-  isSameWeek,
-  isToday,
-  isSameDay,
-} from "date-fns";
+// Helper function to generate all weeks of the year using Day.js
+const generateWeeksOfYear = () => {
+  const startOfYear = dayjs().startOf("year"); // Start from the beginning of the year
+  const endOfYear = dayjs().endOf("year"); // End on December 31st of the year
 
-// Generate all weeks of the year
-const dates = eachWeekOfInterval(
-  {
-    start: startOfYear(new Date()), // Start from January 1st of the current year
-    end: endOfYear(new Date()), // End on December 31st of the current year
-  },
-  {
-    weekStartsOn: 1, // Start the week on Monday
+  let weeks = [];
+  let currentWeekStart = startOfYear;
+
+  while (currentWeekStart.isBefore(endOfYear)) {
+    const currentWeekEnd = currentWeekStart.add(6, "day"); // Add 6 days to form a week
+    const daysOfWeek = [];
+    
+    for (let i = 0; i < 7; i++) {
+      // Ensure each day is a dayjs object
+      daysOfWeek.push(currentWeekStart.add(i, "day"));
+    }
+    weeks.push(daysOfWeek);
+    
+    // Move to the next week
+    currentWeekStart = currentWeekStart.add(7, "days");
   }
-).reduce((acc, cur) => {
-  const allDays = eachDayOfInterval({
-    start: cur,
-    end: addDays(cur, 6),
-  });
 
-  acc.push(allDays);
-  return acc;
-}, []);
+  return weeks;
+};
 
-const WeekView = () => {
+const WeekView = ({ selectedDay, setSelectedDay }) => {
   const theme = useTheme();
-
   const [currentWeekIndex, setCurrentWeekIndex] = useState(0); // Track the current week
-  const [selectedDay, setSelectedDay] = useState(new Date()); // Track the selected day
+  const [dates, setDates] = useState([]); // Store all weeks of the year
 
-  // UseEffect to initialize to the current week containing today's date
+  // Initialize the dates array on mount
   useEffect(() => {
-    const today = new Date();
-    const todayWeekIndex = dates.findIndex((week) => {
-      return isSameWeek(today, week[0], { weekStartsOn: 1 }); // Find the week that contains today
-    });
-    setCurrentWeekIndex(todayWeekIndex !== -1 ? todayWeekIndex : 0); // If found, set to that week
-
-    // Set the default selected day to today
-    setSelectedDay(today);
+    setDates(generateWeeksOfYear());
   }, []);
+
+  // Set the default selected day to today
+  useEffect(() => {
+    if (dates.length === 0) return; // Ensure dates are populated before accessing them
+
+    const today = dayjs(); // Get today's date using Day.js
+    const todayWeekIndex = dates.findIndex((week) =>
+      week.some((day) => day.isSame(today, "day"))
+    );
+    if (todayWeekIndex !== -1) {
+      setCurrentWeekIndex(todayWeekIndex); // Set the current week index to the week that contains today
+    }
+    setSelectedDay(today); // Set today's date as the selected day by default
+  }, [dates, setSelectedDay]);
 
   const handleNextWeek = () => {
     if (currentWeekIndex < dates.length - 1) {
@@ -75,19 +69,14 @@ const WeekView = () => {
     setSelectedDay(day); // Update the selected day
   };
 
-  const currentWeek = dates[currentWeekIndex]; // Get the current week to display
-  const currentMonth = format(currentWeek[0], "MMMM"); // Get the month of the first day of the week
-  const currentYear = format(currentWeek[0], "yyyy"); // Get the year of the first day of the week
+  // Ensure currentWeek is set only after dates are populated
+  const currentWeek = dates[currentWeekIndex] || []; // Avoid undefined access
+  const currentMonth = currentWeek.length ? dayjs(currentWeek[0]).format("MMMM") : ""; // Get the month of the first day of the week
+  const currentYear = currentWeek.length ? dayjs(currentWeek[0]).format("YYYY") : ""; // Get the year of the first day of the week
 
   return (
     <Box maxWidth={335} maxHeight={62}>
-
-      <Grid
-        container
-        justifyContent="space-between"
-        alignItems="center"
-        spacing={2}
-      >
+      <Grid container justifyContent="space-between" alignItems="center" spacing={2}>
         <Grid item>
           <Typography fontSize={15} fontWeight={600}>
             {currentMonth} {currentYear}
@@ -114,22 +103,18 @@ const WeekView = () => {
               },
             }}
           >
-            <ArrowBackIosRoundedIcon
-              sx={{
-                width: 15,
-                height: 15,
-              }}
-            />
+            <ArrowBackIosRoundedIcon sx={{ width: 15, height: 15 }} />
           </IconButton>
-        
+
           <Typography variant="contained" marginInline={1} align="center" fontSize={12}>
             Week {currentWeekIndex + 1}
           </Typography>
-        
+
           <IconButton
             aria-label="Next week"
             size="small"
             onClick={handleNextWeek}
+            disabled={currentWeekIndex === dates.length - 1}
             color={theme.palette.neutral.main}
             sx={{
               backgroundColor: theme.palette.white.main,
@@ -145,20 +130,15 @@ const WeekView = () => {
               },
             }}
           >
-            <ArrowForwardIosIcon
-              sx={{
-                width: 15,
-                height: 15,
-              }}
-            />
+            <ArrowForwardIosIcon sx={{ width: 15, height: 15 }} />
           </IconButton>
         </Grid>
       </Grid>
 
       <Grid container spacing={2} mt={1}>
         {currentWeek.map((day, dayIndex) => {
-          const dayName = format(day, "EEE"); // Abbreviated day name (e.g., Mon, Tue, Wed)
-          const isSelectedDay = selectedDay && isSameDay(day, selectedDay); // Check if the day is selected
+          const dayName = dayjs(day).format("ddd"); // Abbreviated day name (e.g., Mon, Tue, Wed)
+          const isSelectedDay = selectedDay && dayjs(day).isSame(selectedDay, "day"); // Check if the day is selected
 
           return (
             <Grid item key={dayIndex} xs>
@@ -166,30 +146,16 @@ const WeekView = () => {
                 width={32}
                 height={36}
                 borderRadius={1}
-                bgcolor={
-                  isSelectedDay
-                    ? theme.palette.primary.main 
-                    : "transparent"
-                }
+                bgcolor={isSelectedDay ? theme.palette.primary.main : "transparent"}
                 color={isSelectedDay ? "white" : "inherit"}
-                onClick={() => handleDayClick(day)}
-                style={{ cursor: "pointer" }} 
+                onClick={() => handleDayClick(day)} // Set selected day
+                style={{ cursor: "pointer" }}
               >
-                <Typography
-                  fontSize={11}
-                  fontWeight={500}
-                  align="center"
-                  color={isSelectedDay ? theme.palette.white.main : theme.palette.neutral.normal}
-                >
+                <Typography fontSize={11} fontWeight={500} align="center" color={isSelectedDay ? theme.palette.white.main : theme.palette.neutral.normal}>
                   {dayName}
                 </Typography>
-                <Typography
-                  fontSize={11}
-                  fontWeight={500}
-                  align="center"
-                  color={isSelectedDay ? theme.palette.white.main : "inherit"}
-                >
-                  {day.getDate()}
+                <Typography fontSize={11} fontWeight={500} align="center" color={isSelectedDay ? theme.palette.white.main : "inherit"}>
+                  {day.date()}
                 </Typography>
               </Box>
             </Grid>
@@ -199,6 +165,5 @@ const WeekView = () => {
     </Box>
   );
 };
-
 
 export default WeekView;

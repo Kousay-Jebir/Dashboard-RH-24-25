@@ -133,13 +133,13 @@ const DataTable2 = ({ columns, rowData }) => {
                         sx={{
                           borderBottom: "none",
                           ...(column.id === "Status" &&
-                            statusStyles(row.Status)),
+                            statusStyles(row.status)),
                         }}
                       >
                         {column.id === "Department" ? (
                           <Typography
                             sx={{
-                              backgroundColor: departmentStyles(row.Department),
+                              backgroundColor: departmentStyles(row.interview_department),
                               color: theme.palette.common.white,
                               display: "inline-block",
                               borderRadius: "12px",
@@ -147,13 +147,61 @@ const DataTable2 = ({ columns, rowData }) => {
                               fontSize: "0.875rem",
                             }}
                           >
-                            {row.Department}
+                            {row.interview_department}
                           </Typography>
                         ) : column.render ? (
                           column.render(row)
                         ) : (
                           row[column.id]
                         )}
+                        {
+                          column.id === "Name" ? (
+                            <Typography
+                              sx={{
+                                display: "inline-block",
+                                borderRadius: "12px",
+                                padding: "2px 8px",
+                                fontSize: "0.875rem",
+                              }}
+                            >
+                              {row.member_name+" "+row.candidat_lastName}
+                            </Typography>):null
+                        }
+                        {
+                          column.id === "Score" ? (
+                            <Typography
+                              sx={{
+                                display: "inline-block",
+                                borderRadius: "12px",
+                                padding: "2px 8px",
+                                fontSize: "0.875rem",
+                              }}
+                            >
+                              {(
+                                  [
+                                    row.interview_situationGrade,
+                                    row.interview_polePresentationGrade,
+                                    row.interview_jeiKnowledgeGrade,
+                                    row.interview_availabilityGrade,
+                                    row.interview_rhQuestionsGrade,
+                                    row.interview_associativeExperienceGrade
+                                  ]
+                                  // Filter out null or undefined values
+                                  .filter(grade => grade !== null && grade !== undefined)
+                                  .reduce((acc, grade) => acc + grade, 0) /
+                                  // Calculate the average
+                                  [
+                                    row.interview_situationGrade,
+                                    row.interview_polePresentationGrade,
+                                    row.interview_jeiKnowledgeGrade,
+                                    row.interview_availabilityGrade,
+                                    row.interview_rhQuestionsGrade,
+                                    row.interview_associativeExperienceGrade
+                                  ]
+                                    .filter(grade => grade !== null && grade !== undefined).length
+                                ).toFixed(2)} 
+                            </Typography>):null
+                        }
                       </TableCell>
                     ))}
                     <TableCell sx={{ borderBottom: "none" }}>

@@ -24,6 +24,7 @@ import {
 import RecentInterviewKPI from "./RecentInterviewKPI";
 import { api } from "../../../service/api";
 import useApi from "../../../service/useApi";
+import { useNavigate } from "react-router-dom";
 
 
 const calculateAverageScore = (row) => {
@@ -104,6 +105,7 @@ const reducer = (state, action) => {
 };
 
 const DataTable = ({ data }) => {
+  const navigate = useNavigate()
   const [state, dispatch] = useReducer(reducer, { ...initialState, kpiData: data });
   const [expandedRow, setExpandedRow] = useState(null);
   const [isPopupOpen, setPopupOpen] = useState(false);
@@ -120,12 +122,19 @@ const DataTable = ({ data }) => {
     dispatch({ type: 'TOGGLE_EDIT', payload: index });
   };
 
+  const reviewResponsesHandler  = (index)=>{
+    console.log(state);
+    console.log(state.kpiData[index]);
+    navigate(`/recruitement/interviews/${state.kpiData[index].id}`)
+  }
+
   const handleAddMember = () => {
     dispatch({ type: 'START_ADD_MEMBER' });
     setPopupOpen(true)
   };
 
   const handleConfirmAddMember = () => {
+    api.upgradeCandidat({id:state.kpiData[expandedRow].candidat.id})
     setPopupOpen(false); 
   };
 
@@ -149,11 +158,26 @@ const DataTable = ({ data }) => {
     dispatch({ type: 'CANCEL_EDIT' });
   };
 
-  const handleUpdateTempData = (updatedGrades) => {
+ /*  const handleUpdateTempData = (updatedGrades) => {
     console.log("updated grades")
     console.log(updatedGrades)
     dispatch({ type: 'UPDATE_TEMP_DATA', payload: updatedGrades });
   };
+ */
+  const handleUpdateTempData = (updatedGrades) => {
+    console.log("updated grades", updatedGrades);
+    
+    // Validate the grades to ensure they don't exceed 100
+    const validatedGrades = Object.keys(updatedGrades).reduce((acc, key) => {
+      // Ensure the score doesn't exceed 100
+      acc[key] = Math.min(updatedGrades[key], 100);
+      return acc;
+    }, {});
+  
+    // Update the tempData with validated grades
+    dispatch({ type: 'UPDATE_TEMP_DATA', payload: validatedGrades });
+  };
+  
 
   return (
     <>
@@ -233,6 +257,7 @@ const DataTable = ({ data }) => {
                           startIcon={<ChatRoundedIcon />}
                           variant="outlined"
                           sx={{ borderColor: 'neutral.light', color: 'text.light', textTransform: 'none', fontWeight: 'regular' }}
+                          onClick={()=>{reviewResponsesHandler(index)}}
                         >
                           Review responses
                         </Button>
@@ -266,7 +291,7 @@ const DataTable = ({ data }) => {
     <AddMemberPopup 
     open={isPopupOpen} 
     onClose={() => setPopupOpen(false)} 
-    onConfirm={handleConfirmAddMember} // Pass the confirm handler
+    onConfirm={()=>handleConfirmAddMember()} // Pass the confirm handler
   />
   </>
   );

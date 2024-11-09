@@ -4,11 +4,11 @@ import React from "react";
 import { Drawer } from "@mui/material";
 
 const columns = [
-    { id: "Title", label: "Meeting title" },
-    { id: "AG", label: "AG" },
-    { id: "Date", label: "Date" },
-    { id: "Time", label: "Time" },
-    { id: "Place", label: "place" },
+    { id: "title", label: "Meeting title" },
+    { id: "ag", label: "AG" },
+    { id: "date", label: "Date" },
+    { id: "time", label: "Time" },
+    { id: "place", label: "place" },
   ];
 
 const GeneralAssemblyDataGrid = ({Data}) => {

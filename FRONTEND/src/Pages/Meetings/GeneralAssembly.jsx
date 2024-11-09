@@ -1,15 +1,23 @@
 import GeneralAssemblyDataGrid from "../../Components/Meetings/Schedule/General Assembly/GeneralAssemblyDataGrid";
-import meetings from "../../Components/Meetings/Schedule/General Assembly/GeneralAssemblyData.json";
 import { useState, useMemo } from "react";
 import { Box, Grid } from "@mui/material";
 import SearchBar from "../../components/SearchBar";
 import BorderBox from "../../components/BorderBox";
 import DateRangeFilter from "../../Components/DateRangeFilter";
 import dayjs from "dayjs";
+import { api } from '../../service/api';
+import useApi from '../../service/useApi';
 
 const GeneralAssembly = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [dateRange, setDateRange] = useState([null, null]);
+
+
+  const {loading,error,data} = useApi(api.getGeneralAssembly,[])
+  const meetings = data.data;
+ 
+  if (loading) return <div>Loading...</div>; // Loading indicator
+  if (error) return <div>Error: {error}</div>; // Error handling
 
   // Handle search input change
   const handleSearchChange = (event) => {
@@ -22,18 +30,20 @@ const GeneralAssembly = () => {
   };
 
   // Filter meetings based on search query and date range
-  const filteredMeetings = useMemo(() => {
-    return meetings
+  const filteredMeetings = 
+      meetings
       .filter((meeting) =>
-        meeting.Title.toLowerCase().includes(searchQuery.toLowerCase())
+        meeting.title.toLowerCase().includes(searchQuery.toLowerCase())
       )
       .filter((meeting) => {
         const [startDate, endDate] = dateRange;
-        if (!startDate || !endDate) return true;
-        const meetingDate = dayjs(meeting.Date, "DD-MM-YYYY");
-        return meetingDate.isBetween(startDate, endDate, null, "[]");
+        if (!startDate || !endDate) return true; // If no date range is set, don't filter by date
+        const interviewDate = dayjs(interview.date)
+        console.log(interview.date)
+        console.log(interviewDate)
+        return interviewDate.startOf('day').isBetween(startDate, endDate, null, '[]');
       });
-  }, [searchQuery, dateRange]);
+
 
   return (
     <Grid container spacing={2}>

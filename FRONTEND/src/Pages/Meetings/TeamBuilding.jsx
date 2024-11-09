@@ -1,16 +1,24 @@
 import React, { useState, useMemo } from 'react';
 import { Box, Grid } from '@mui/material';
 import TeamBuildingDataGrid from '../../Components/Meetings/Schedule/Team Building/TeamBuildingDataGrid';
-import meetings from "../../Components/Meetings/Schedule/Team Building/TeamBuildingData.json";
 import BorderBox from '../../components/BorderBox';
 import SearchBar from '../../components/SearchBar';
 import DateRangeFilter from '../../Components/DateRangeFilter';
 import dayjs from "dayjs";
+import { api } from '../../service/api';
+import useApi from '../../service/useApi';
 
 
 const TeamBuilding = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [dateRange, setDateRange] = useState([null, null]);
+
+
+  const {loading,error,data} = useApi(api.getTeamBuilding,[])
+  const meetings = data.data;
+ 
+  if (loading) return <div>Loading...</div>; // Loading indicator
+  if (error) return <div>Error: {error}</div>; // Error handling
 
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
@@ -20,16 +28,18 @@ const TeamBuilding = () => {
     setDateRange(newDateRange);
   };
 
-  const filteredMeetings = useMemo(() => {
-    return meetings
-      .filter(meeting => meeting.Title.toLowerCase().includes(searchQuery.toLowerCase()))
+  const filteredMeetings = 
+     meetings
+      .filter(meeting => meeting.title.toLowerCase().includes(searchQuery.toLowerCase()))
       .filter(meeting => {
         const [startDate, endDate] = dateRange;
-        if (!startDate || !endDate) return true;
-        const meetingDate = dayjs(meeting.Date, "DD-MM-YYYY");
-        return meetingDate.isBetween(startDate, endDate, null, '[]');
+        if (!startDate || !endDate) return true; // If no date range is set, don't filter by date
+        const interviewDate = dayjs(interview.date)
+        console.log(interview.date)
+        console.log(interviewDate)
+        return interviewDate.startOf('day').isBetween(startDate, endDate, null, '[]');
       });
-  }, [searchQuery, dateRange]);
+  
 
   return (
     <Box>

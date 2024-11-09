@@ -3,13 +3,13 @@ import DataTable2 from '../DataTable2'
 
 const columns = [
     { id: "Name", label: "Name" },
-    { id: "E-mail address", label: "E-mail" },
+    { id: "member_email", label: "E-mail" },
     { id: "Department", label: "Department" },
-    { id: "Address", label: "Address" },
-    { id: "City", label: "City" },
-    { id: "Field", label: "Field" },
-    { id: "Year", label: "Year" },
-    { id: "Phone number", label: "Phone Number" },
+    { id: "candidat_adress", label: "Address" },
+    { id: "candidat_city", label: "City" },
+    { id: "candidat_field", label: "Field" },
+    { id: "candidat_year", label: "Year" },
+    { id: "candidat_phone", label: "Phone Number" },
     { id: "Score", label: "Score" }
   ];
 
