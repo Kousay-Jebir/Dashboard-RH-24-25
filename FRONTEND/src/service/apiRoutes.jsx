@@ -19,7 +19,7 @@ const BACKEND_API_ROUTES = {
     GET_TEAM_BUILDING: '/meeting/teamBuilding',
     GET_DEPARTMENT_MEETING: '/meeting/departmentMeeting',
     GET_GENERAL_ASSEMBLY: '/meeting/generalAssembly',
-    GET_MEETING_BY_ID:'/meeting/:id',
+    GET_MEETING_BY_ID:'/meeting/by-id/:id',
     CREATE_MEETING:'/meeting/create',
     JOIN_MEETING:'/meeting/join',
     GET_MEETINGQUESTION:'/meetingquestion',

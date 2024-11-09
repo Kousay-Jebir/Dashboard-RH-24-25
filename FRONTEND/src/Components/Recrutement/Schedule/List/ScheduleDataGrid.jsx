@@ -1,6 +1,7 @@
 import React from "react";
 import DataTable from "../../../DataTable";
 import { Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const columns = [
   { id: "name", label: "Name" },
@@ -11,9 +12,9 @@ const columns = [
   { id: "status", label: "Status" },
 ];
 
-
 const ScheduleDataGrid = ({data}) => {
-  return <DataTable columns={columns} rowData={data} />;
+  const navigate=useNavigate()
+  return <DataTable columns={columns} rowData={data}/>;
 };
 
 export default ScheduleDataGrid;

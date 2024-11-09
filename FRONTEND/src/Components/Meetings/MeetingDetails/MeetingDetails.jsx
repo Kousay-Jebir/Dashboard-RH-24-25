@@ -3,29 +3,88 @@ import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import CloseIcon from '@mui/icons-material/Close';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import PersonIcon from '@mui/icons-material/Person';
-import { Box, Button, Card, CardContent, IconButton, Typography } from '@mui/material';
+import { Box, Button, Card, CardContent, IconButton, Typography, TextField } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import React, { useEffect, useState } from 'react';
-import meetingData from './MeetingDetailsData.json';
+import React, { useState } from 'react';
+import HorizontalBarGraph from './HorizontalBarGraph';
+import QRCodeDialog from './QrCodeDialog';
+import useApi from '../../../service/useApi';
+import { api } from '../../../service/api';
 
-const MeetingDetails = () => {
+const MeetingDetails = ({meetingId}) => {
   const theme = useTheme();
-  const [fetchedData, setFetchedData] = useState(null);
   const [isVisible, setIsVisible] = useState(true);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [questions, setQuestions] = useState([]);
+  const [isAddingQuestion, setIsAddingQuestion] = useState(false);
+  const [newQuestion, setNewQuestion] = useState({
+    title: '',
+    options: ['', ''],
+  });
+  const { data, error, loading } = useApi(() => api.getMeetingById(meetingId), {});
+  const fetchedData = data?.data;
 
-  useEffect(() => {
-    setFetchedData(meetingData);
-  }, []);
+  const handleToggle = () => setIsVisible(!isVisible);
+  const handleDialogOpen = () => setDialogOpen(true);
+  const handleDialogClose = () => setDialogOpen(false);
 
-  if (!fetchedData) {
-    return <p>Loading meeting details...</p>;
-  }
-
-  const handleToggle = () => {
-    setIsVisible(!isVisible);
+  const handleAddQuestion = () => {
+    setIsAddingQuestion(true); // Show form to add a new question
   };
 
-  // Default styles
+  const handleRemoveOption = (index) => {
+    const updatedOptions = newQuestion.options.filter((_, i) => i !== index);
+    setNewQuestion({ ...newQuestion, options: updatedOptions });
+  };
+
+  const handleAddOption = () => {
+    setNewQuestion({ ...newQuestion, options: [...newQuestion.options, ''] });
+  };
+
+  const handleQuestionTitleChange = (e) => {
+    setNewQuestion({ ...newQuestion, title: e.target.value });
+  };
+
+  const handleOptionChange = (index, e) => {
+    const updatedOptions = newQuestion.options.map((option, i) =>
+      i === index ? e.target.value : option
+    );
+    setNewQuestion({ ...newQuestion, options: updatedOptions });
+  };
+
+  const handleDiscardQuestion = () => {
+    setIsAddingQuestion(false);
+    setNewQuestion({ title: '', options: ['', ''] });
+  };
+
+  const handleCreateQuestion = async () => {
+    try {
+      // Send POST request to create the question
+      const response = await api.createMeetingQuestion({
+        question: newQuestion.title,
+        MeetingUniqueCode: fetchedData?.uniqueCode, // Assuming this is the unique code for the meeting
+      });
+      console.log('Question Created:', response.data);
+      setIsAddingQuestion(false); // Hide form after creating the question
+      setNewQuestion({ title: '', options: ['', ''] }); // Reset form
+    } catch (error) {
+      console.error('Error creating question:', error);
+    }
+  };
+
+  const handleAnswerQuestion = async (questionId, answer) => {
+    try {
+      // Send POST request to submit the answer
+      const response = await api.answerMeetingQuestion( {
+        questionId,
+        answer,
+      });
+      console.log('Answer Submitted:', response.data);
+    } catch (error) {
+      console.error('Error submitting answer:', error);
+    }
+  };
+
   const defaultBoxStyles = {
     display: 'flex',
     alignItems: 'center',
@@ -40,116 +99,83 @@ const MeetingDetails = () => {
     fontSize: 14,
   };
 
-  const StatusColor = fetchedData.Status?.StatusColor || '';
+  // Status colors mapping based on status text
+  const statusColors = {
+    Confirmed: theme.palette.success.text,
+    Delayed: theme.palette.warning.text,
+    Cancelled: theme.palette.error.text,
+  };
+
+  const StatusColor = statusColors[fetchedData?.status] || theme.palette.text.primary; // Default to primary text color if not found
+  const stats = { present: 50, justifiedAbsence: 10, unjustifiedAbsence: 5 };
+  const colors = ['#6A7177', '#BFC2C5', '#E9EAEB'];
+
+  if (!fetchedData) return <p>Loading meeting details...</p>;
 
   return (
-    <Box
-      sx={{
-        gap: 34,
-        display: 'flex',
-        justifyContent: 'flex-end',
-        fontFamily: theme.typography.fontFamily,
-      }}
-    >
-      <Card>
+    <Box sx={{ gap: 34, fontFamily: theme.typography.fontFamily, minWidth: 521, height: '100%' }}>
+      <Card elevation={0} sx={{ height: '100%', overflow: 'scroll' }}>
         <CardContent sx={{ position: 'relative' }}>
           <IconButton
             onClick={handleToggle}
-            sx={{
-              position: 'absolute',
-              top: 10,
-              right: 10,
-              zIndex: 1,
-            }}
+            sx={{ position: 'absolute', top: 10, right: 10, zIndex: 1 }}
+            aria-label="Close meeting details"
           >
             <CloseIcon />
           </IconButton>
 
-          <Box sx={{ width: 521, height: 21, gap: 12 }}>
-            <Typography
-              variant="h5"
-              sx={{
-                fontFamily: theme.typography.fontFamily,
-                fontWeight: theme.typography.fontWeightBold,
-                fontSize: 18,
-              }}
-            >
-              Meeting details
-            </Typography>
-          </Box>
+          <Typography variant="h5" sx={{ fontFamily: theme.typography.fontFamily, fontWeight: 'bold', fontSize: 18 }}>
+            Meeting Details
+          </Typography>
 
-          <Box sx={{ marginTop: 2, width: 521, height: 127, gap: 14 }}>
-            <Typography
-              variant="h5"
-              sx={{
-                fontFamily: theme.typography.fontFamily,
-                fontWeight: theme.typography.fontWeightBold,
-                fontSize: 18,
-              }}
-            >
-              {fetchedData.Title} {fetchedData.Ag || ''}
+          <Box sx={{ marginTop: 2 }}>
+            <Typography variant="h5" sx={{ fontFamily: theme.typography.fontFamily, fontWeight: 'bold', fontSize: 18 }}>
+              {fetchedData.title}
             </Typography>
 
             <Box sx={defaultBoxStyles}>
               <AccessTimeIcon fontSize="small" />
-              <Typography variant="body2" sx={defaultTextStyles}>
-                {fetchedData.Time}
-              </Typography>
+              <Typography variant="body2" sx={defaultTextStyles}>{fetchedData.time}</Typography>
             </Box>
 
             <Box sx={defaultBoxStyles}>
               <CalendarTodayIcon fontSize="small" />
-              <Typography variant="body2" sx={defaultTextStyles}>
-                {fetchedData.Date}
-              </Typography>
+              <Typography variant="body2" sx={defaultTextStyles}>{fetchedData.date}</Typography>
             </Box>
 
-            {fetchedData.Place && (
+            {fetchedData.place && (
               <Box sx={defaultBoxStyles}>
                 <LocationOnIcon fontSize="small" />
-                <Typography variant="body2" sx={defaultTextStyles}>
-                  {fetchedData.Place}
-                </Typography>
+                <Typography variant="body2" sx={defaultTextStyles}>{fetchedData.place}</Typography>
               </Box>
             )}
-
-            <Box sx={defaultBoxStyles}>
-              <PersonIcon fontSize="small" />
-              <Typography variant="body2" sx={defaultTextStyles}>
-                added by {fetchedData.AddedBy}
-              </Typography>
-            </Box>
           </Box>
-
-          {fetchedData.Code && (
-            <Box sx={{ width: 521, gap: 6 }}>
-              <Typography
-                variant="body2"
-                color="text.secondary"
-                sx={{ fontFamily: theme.typography.fontFamily }}
-              >
-                Join Google Meet via this code: {fetchedData.Code}
+          {fetchedData.uniqueCode && (
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, marginTop: 2 }}>
+              <Typography variant="body2" color="text.secondary" sx={{ fontFamily: theme.typography.fontFamily }}>
+                Join Google Meet via this code: code
               </Typography>
+              <Button
+                sx={{
+                  fontSize: 10,
+                  color: 'grey',
+                  border: '1px solid lightGrey',
+                  borderRadius: 2,
+                  fontFamily: theme.typography.fontFamily,
+                  '&:hover': { backgroundColor: 'white', borderColor: 'lightGrey' },
+                  '&:active': { backgroundColor: 'white', borderColor: 'lightGrey' },
+                }}
+                onClick={handleDialogOpen}
+              >
+                Show QR Code
+              </Button>
+              <QRCodeDialog open={dialogOpen} handleClose={handleDialogClose} />
             </Box>
           )}
-
-          <Box
-            sx={{
-              width: 280,
-              height: 23,
-              marginTop: 2,
-              gap: 8,
-              display: 'flex',
-              fontSize: 12,
-              alignItems: 'center',
-            }}
-          >
+          <Box sx={{ display: 'flex', gap: 8, marginTop: 2 }}>
             <Box
               sx={{
-                height: 23,
-                width: 'auto',
                 padding: '0 8px',
-                fontFamily: theme.typography.fontFamily,
                 border: '1px solid lightGrey',
                 borderRadius: 1,
                 backgroundColor: StatusColor,
@@ -159,14 +185,11 @@ const MeetingDetails = () => {
                 justifyContent: 'center',
               }}
             >
-              {fetchedData.Status?.StatusText || 'Confirmed'}
+              {fetchedData.status || 'Confirmed'}
             </Box>
             <Box
               sx={{
-                height: 23,
-                maxWidth: 180,
                 padding: '0 3px',
-                fontFamily: theme.typography.fontFamily,
                 border: '1px solid lightGrey',
                 borderRadius: 1,
                 alignItems: 'center',
@@ -174,64 +197,77 @@ const MeetingDetails = () => {
                 marginLeft: -7,
               }}
             >
-              {fetchedData.Department|| 'All members included'}
+              {fetchedData.department || 'All members included'}
             </Box>
           </Box>
 
-          <Box sx={{ width: 521, height: 288, gap: 8 }}>
-            
-            
+          <Box sx={{ marginTop: 5 }}>
+            <Typography>{`Presence: ${stats.present} / ${stats.present + stats.unjustifiedAbsence + stats.justifiedAbsence}`}</Typography>
+            <HorizontalBarGraph stats={stats} colors={colors} />
           </Box>
 
-          <Box sx={{ width: 521, height: 100, gap: 8 }}>
+          {/* Add Question Button */}
+          {!isAddingQuestion ? (
             <Button
-              variant="outlined"
-              sx={{
-                width: 195,
-                height: 46,
-                fontSize: 10,
-                color: theme.palette.error.main,
-                border: '1px solid lightGrey',
-                borderRadius: 2,
-                marginRight: 1,
-                fontFamily: theme.typography.fontFamily,
-                '&:hover': {
-                  backgroundColor: 'transparent',
-                  borderColor: 'lightGrey',
-                },
-                '&:active': {
-                  backgroundColor: 'transparent',
-                  borderColor: 'lightGrey',
-                },
-              }}
-              onClick={handleToggle}
+              sx={{ marginTop: 3 }}
+              variant="contained"
+              onClick={handleAddQuestion}
             >
-              Cancel
+              Add Question
             </Button>
+          ) : (
+            <Box sx={{ marginTop: 3 }}>
+              <TextField
+                label="Question Title"
+                value={newQuestion.title}
+                onChange={handleQuestionTitleChange}
+                fullWidth
+                sx={{ marginBottom: 2 }}
+              />
 
-            <Button
-              sx={{
-                width: 280,
-                height: 46,
-                fontSize: 10,
-                backgroundColor: '#404951',
-                color: theme.palette.white.main,
-                border: '1px solid lightGrey',
-                borderRadius: 2,
-                fontFamily: theme.typography.fontFamily,
-                '&:hover': {
-                  backgroundColor: '#404951',
-                  borderColor: 'lightGrey',
-                },
-                '&:active': {
-                  backgroundColor: '#404951',
-                  borderColor: 'lightGrey',
-                },
-              }}
-            >
-              Edit details
-            </Button>
-          </Box>
+              {/* Render options */}
+              {newQuestion.options.map((option, index) => (
+                <Box sx={{ display: 'flex', gap: 2, marginBottom: 1 }} key={index}>
+                  <TextField
+                    label={`Option ${index + 1}`}
+                    value={option}
+                    onChange={(e) => handleOptionChange(index, e)}
+                    fullWidth
+                  />
+                  <IconButton onClick={() => handleRemoveOption(index)} sx={{ color: 'red' }}>
+                    <CloseIcon />
+                  </IconButton>
+                </Box>
+              ))}
+
+              <Button
+                variant="outlined"
+                onClick={handleAddOption}
+                sx={{ marginBottom: 2 }}
+              >
+                Add Option
+              </Button>
+
+              {/* Discard or Create buttons */}
+              <Box sx={{ display: 'flex', gap: 2 }}>
+                <Button
+                  variant="outlined"
+                  onClick={handleDiscardQuestion}
+                  sx={{ color: 'red', borderColor: 'red' }}
+                >
+                  Discard
+                </Button>
+
+                <Button
+                  variant="contained"
+                  onClick={handleCreateQuestion}
+                  sx={{ backgroundColor: '#404951' }}
+                >
+                  Create Question
+                </Button>
+              </Box>
+            </Box>
+          )}
         </CardContent>
       </Card>
     </Box>
