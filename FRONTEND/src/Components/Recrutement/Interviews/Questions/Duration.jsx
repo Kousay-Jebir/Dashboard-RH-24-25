@@ -37,7 +37,7 @@ const Duration = ({ value, onChange, error, onBlur }) => {
         inputProps={{ min: "0" }} // Prevent negative values
         size="small"
         sx={{
-          marginInline: 4,
+          marginInline: 2,
           mb:2,
           "& .MuiInputBase-input": { fontSize: "12px" },
           "& .MuiInputBase-root": { height: "35px" },

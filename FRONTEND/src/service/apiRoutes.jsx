@@ -16,6 +16,7 @@ const BACKEND_API_ROUTES = {
     CREATE_MEETINGQUESTION:'/meetingquestion/create',
     ANSWER_MEETINGQUESTION:'/meetingquestion/answer',
     GET_INTERVIEW:'/interview',
+    GET_INTERVIEW_BY_ID:'/interview/interview/:id',
     GET_RECENT_INTERVIEW: '/interview/recent',
     GET_FINISHED_INTERVIEW: '/interview/finished',
     CREATE_INTERVIEW:'/interview/createInterview',
@@ -25,7 +26,8 @@ const BACKEND_API_ROUTES = {
     GET_CANDIDAT:'/candidat',
     CREATE_CANDIDAT:'/candidat/create',
     UPGRADE_CANDIDAT:'/candidat/upgrade',
-    CREATE_SECTION:'/section/create',
+    UPDATE_CANDIDAT:'/candidat/update/',
+    CREATE_SECTION:'/sections',
 };
 
 export { BASE_URL, BACKEND_API_ROUTES };

@@ -40,6 +40,7 @@ export const api = {
   createMeetingQuestion: (data) => base.post(BACKEND_API_ROUTES.CREATE_MEETINGQUESTION, data),
   answerMeetingQuestion: (data) => base.post(BACKEND_API_ROUTES.ANSWER_MEETINGQUESTION, data),
   getInterview: () => base.get(BACKEND_API_ROUTES.GET_INTERVIEW),
+  getInterviewById: (id) => base.get(BACKEND_API_ROUTES.GET_INTERVIEW_BY_ID.replace(':id', id)),
   getRecentInterview: () => base.get(BACKEND_API_ROUTES.GET_RECENT_INTERVIEW),
   getFinishedInterview: ()=> base.get(BACKEND_API_ROUTES.GET_FINISHED_INTERVIEW),
   createInterview: (data) => base.post(BACKEND_API_ROUTES.CREATE_INTERVIEW, data),

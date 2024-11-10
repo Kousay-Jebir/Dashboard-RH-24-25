@@ -12,6 +12,7 @@ const useApi = (apiService, initialData = null) => {
 
     try {
       const response = await apiService();
+      console.log(response)
       setData(response);
     } catch (err) {
       setError(err.message || 'Something went wrong');
@@ -22,7 +23,7 @@ const useApi = (apiService, initialData = null) => {
 
   useEffect(() => {
     fetchData();
-  }, [apiService]);
+  }, []);
 
   return { data, loading, error, refetch: fetchData };
 };

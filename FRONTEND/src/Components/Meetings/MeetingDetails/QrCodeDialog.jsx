@@ -10,7 +10,7 @@ import {
 import { QRCodeSVG } from "qrcode.react";
 
 const QRCodeDialog = ({ open, handleClose }) => {
-  const qrValue = "https://example.com"; // Valeur du QR code
+  const qrValue = "https://meet.google.com/swv-qctx-kdr"; // Valeur du QR code
 
   const theme = useTheme();
 
