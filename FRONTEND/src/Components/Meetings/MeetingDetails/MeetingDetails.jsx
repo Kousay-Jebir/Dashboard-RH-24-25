@@ -110,7 +110,7 @@ const MeetingDetails = ({meetingId,handleDrawerToggle,updateMeetingService}) => 
   const statusColors = {
     Confirmed: theme.palette.success.text,
     Delayed: theme.palette.warning.text,
-    Cancelled: theme.palette.error.text,
+    Cancelled: theme.palette.error.main,
   };
 
   const StatusColor = statusColors[fetchedData?.status] || theme.palette.text.primary; // Default to primary text color if not found
