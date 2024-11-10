@@ -46,6 +46,7 @@ const DepartmentDataGrid = ({Data}) => {
           rowData={Data}
           expandArrowNavigation={handleDrawerToggle(true)} // Toggle the drawer open
           setMeetingId={setId}
+          changeStatus
         />
   </BorderBox>;
 };

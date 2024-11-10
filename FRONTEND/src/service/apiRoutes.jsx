@@ -21,6 +21,7 @@ const BACKEND_API_ROUTES = {
     GET_GENERAL_ASSEMBLY: '/meeting/generalAssembly',
     GET_MEETING_BY_ID:'/meeting/by-id/:id',
     CREATE_MEETING:'/meeting/create',
+    UPDATE_MEETING: '/meeting/',
     JOIN_MEETING:'/meeting/join',
     GET_MEETINGQUESTION:'/meetingquestion',
     CREATE_MEETINGQUESTION:'/meetingquestion/create',

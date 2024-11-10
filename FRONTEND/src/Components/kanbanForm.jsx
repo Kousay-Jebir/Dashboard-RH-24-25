@@ -12,7 +12,14 @@ const KanbanForm = ({ getFormData }) => {
         interviewedBy: '',
         department: departments.PROJET.title,
         date: '',
-        time: ''
+        time: '',
+        candidatEmail: '', 
+        candidatPhone: '',
+        candidatAddress: '',
+        candidatLastName: '',
+        candidatField: '',
+        candidatYear: '',
+        candidatCity: ''
     });
 
     const [errors, setErrors] = useState({});
@@ -39,10 +46,9 @@ const KanbanForm = ({ getFormData }) => {
     const validateForm = () => {
         const newErrors = {};
 
-        // Utility function to check for invalid characters
         const hasInvalidCharacters = (value) => /[^a-zA-Z\s\-\'èéàâôîû]/.test(value);
 
-
+        // Validate interviewee's name
         if (!formData.interviewWith.trim()) {
             newErrors.interviewWith = "The interviewee's name is required.";
         } else if (hasInvalidCharacters(formData.interviewWith)) {
@@ -53,7 +59,7 @@ const KanbanForm = ({ getFormData }) => {
             newErrors.interviewWith = "The interviewee's name is too long.";
         }
 
-
+        // Validate interviewer's name
         if (!formData.interviewedBy.trim()) {
             newErrors.interviewedBy = "The interviewer's name is required.";
         } else if (hasInvalidCharacters(formData.interviewedBy)) {
@@ -64,13 +70,17 @@ const KanbanForm = ({ getFormData }) => {
             newErrors.interviewedBy = "The interviewer's name is too long.";
         }
 
-        if (!formData.date)
-        {
-            newErrors.date="Date is required";
+        // Validate date and time
+        if (!formData.date) {
+            newErrors.date = "Date is required";
         }
-        if(!formData.time)
-        {
-            newErrors.time="Time is required";
+        if (!formData.time) {
+            newErrors.time = "Time is required";
+        }
+
+        // Validate only the candidate email
+        if (!formData.candidatEmail.trim()) {
+            newErrors.candidatEmail = "Candidate email is required.";
         }
 
         setErrors(newErrors);
@@ -79,7 +89,6 @@ const KanbanForm = ({ getFormData }) => {
 
     const renderTextField = (label, name, placeholder, type = 'text') => (
         <Box sx={{ height: '28px', display: 'flex', flexDirection: 'row', gap: '6px' }}>
-
             <Typography
                 variant="body2"
                 sx={{
@@ -104,23 +113,21 @@ const KanbanForm = ({ getFormData }) => {
                     '& .MuiInputBase-root': { height: '100%' },
                     '& .MuiInputBase-input': { fontFamily: theme.typography.fontFamily, fontSize: '10px' },
                     '& .MuiFormHelperText-root': {
-                        fontSize: '8px',  
+                        fontSize: '8px',
                         color: 'red',
-                        margin: 0,  
+                        margin: 0,
                     },
-                    marginBottom:1,
+                    marginBottom: 1,
                     '& input:-webkit-autofill': {
                         WebkitBoxShadow: '0 0 0 1000px white inset',
                         WebkitTextFillColor: 'black',
                         fontFamily: theme.typography.fontFamily,
                         transition: 'background-color 5000s ease-in-out 0s',
                         color: theme.palette.warning.text,
-                        margin: 0,  
+                        margin: 0,
                     },
                 }}
-                
             />
-            
         </Box>
     );
 
@@ -145,6 +152,7 @@ const KanbanForm = ({ getFormData }) => {
                         Recruitment interview
                     </Typography>
                 </Box>
+
                 <Box mb={1}>
                     {renderTextField('Interview with', 'interviewWith', "Enter name")}
                 </Box>
@@ -169,9 +177,13 @@ const KanbanForm = ({ getFormData }) => {
                     </Box>
                 )}
 
-                <Box width={243} mb={1}>
+                <Box mb={1}>
                     {renderTextField('Will be interviewed by', 'interviewedBy', "Enter name")}
                 </Box>
+
+                {/* Candidate email field */}
+                {renderTextField('Candidate Email', 'candidatEmail', "Enter email", 'email')}
+
             </Box>
 
             <Box
@@ -180,7 +192,7 @@ const KanbanForm = ({ getFormData }) => {
                     height: '102px',
                     gap: '8px',
                     paddingTop: '10px',
-                    marginTop:2
+                    marginTop: 2
                 }}
             >
                 <FormControl component="fieldset">

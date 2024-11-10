@@ -33,13 +33,14 @@ export default function Layout({ boardColumns, setBoardColumns }) {
             "situationGrade": 0,
             "associativeExperienceGrade": 0,
             "candidatName": formData.interviewWith,
-            "candidatEmail": "ab@a.a",
-            "candidatPhone": "123456789",
-            "candidatAddress": "address",
-            "candidatLastName": "last name",
-            "candidatField": "field",
-            "candidatYear": "year",
-            "candidatCity": "city"
+            "candidatEmail": formData.candidatEmail,
+            "candidatPhone": formData.candidatPhone,
+            "candidatAddress": formData.candidatAddress,
+            "candidatLastName": formData.candidatLastName,
+            "candidatField": formData.candidatYear,
+            "candidatYear": formData.candidatYear,
+            "candidatCity": formData.candidatCity
+
         };
         const result = (await (api.createInterview(newInterview))).data.data;
         
