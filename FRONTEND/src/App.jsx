@@ -23,6 +23,7 @@ import InterviewsList from './Pages/Recrutement/schedule/InterviewsList';
 import KanbanBoard from './Pages/Recrutement/schedule/KanbanBoard';
 import TeamMembers from './Pages/Team members/TeamMembers';
 import { NotificationProvider } from "./context/SnackBarContext";
+import EditMeeting from "./Components/Meetings/MeetingDetails/EditMeeting";
 
 // Higher-order component to protect routes
 const isTokenValid = (token) => {
@@ -52,7 +53,7 @@ function App() {
         <RoutesProvider>
           <CssBaseline />
           <Routes>
-            <Route path='/' element={<MeetingDetails></MeetingDetails>}></Route>
+            <Route path='/' element={<EditMeeting/>}></Route>
           <Route path="/login" element={<LoginV2 />} />
           <Route path="/" element={<AppLayout />}>
           <Route path="dashboard" element={<ProtectedRoute element={<Dashoboard />} />} />

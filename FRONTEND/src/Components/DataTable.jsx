@@ -24,6 +24,7 @@ import { api } from "../service/api";
 const DataTable = ({
   columns,
   rowData,
+  meetingUpdateService=null,
   expandArrowNavigation = null,
   setMeetingId = null,
   changeStatus = false,
@@ -59,7 +60,7 @@ const DataTable = ({
     const newStatus = e.target.value;
     console.log(`Row ID: ${rowId}, New Status: ${newStatus}`);
     try{
-      const result = await api.updateMeeting(rowId,{status:newStatus})
+      const result = await meetingUpdateService(rowId,{status:newStatus})
       setSelectedStatus((prevState) => ({
         ...prevState,
         [rowId]: newStatus, 

@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Drawer } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import MeetingDetails from "../../MeetingDetails/MeetingDetails";
+import { api } from "../../../../service/api";
 const columns = [
   { id: "title", label: "Meeting title" },
   { id: "location", label: "Location" },
@@ -24,7 +25,7 @@ const TeamBuildingDataGrid = ({ Data }) => {
       setOpen(newOpen);
     };
   
-    const DrawerContent = <MeetingDetails  meetingId={meetingId}/>;
+    const DrawerContent = <MeetingDetails  updateMeetingService={api.updateTeamBuilding} meetingId={meetingId}/>;
   return (
     <BorderBox radius={2}>
       <Drawer
@@ -45,6 +46,7 @@ const TeamBuildingDataGrid = ({ Data }) => {
         <DataTable
           columns={columns}
           rowData={Data}
+          meetingUpdateService={api.updateTeamBuilding}
           expandArrowNavigation={handleDrawerToggle(true)} // Toggle the drawer open
           setMeetingId={setId}
         />

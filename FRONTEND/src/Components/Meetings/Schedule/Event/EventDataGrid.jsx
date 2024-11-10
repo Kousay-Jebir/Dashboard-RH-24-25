@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Drawer } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import MeetingDetails from '../../MeetingDetails/MeetingDetails';
-
+import { api } from '../../../../service/api';
 const columns = [
     { id: "title", label: "Meeting title" },
     { id: "location", label: "Location" },
@@ -24,7 +24,7 @@ const EventDataGrid = ({Data}) => {
       setOpen(newOpen);
     };
   
-    const DrawerContent = <MeetingDetails  meetingId={meetingId}/>;
+    const DrawerContent = <MeetingDetails  updateMeetingService={api.updateEvent} meetingId={meetingId}/>;
   console.log(Data);
   return (
     <>
@@ -48,6 +48,7 @@ const EventDataGrid = ({Data}) => {
           rowData={Data}
           expandArrowNavigation={handleDrawerToggle(true)} // Toggle the drawer open
           setMeetingId={setId}
+          meetingUpdateService={api.updateEvent}
         />
     </>
   )

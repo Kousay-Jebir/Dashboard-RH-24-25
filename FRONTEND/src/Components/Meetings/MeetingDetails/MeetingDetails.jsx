@@ -10,12 +10,15 @@ import HorizontalBarGraph from './HorizontalBarGraph';
 import QRCodeDialog from './QrCodeDialog';
 import useApi from '../../../service/useApi';
 import { api } from '../../../service/api';
+import { set } from 'date-fns';
+import EditMeeting from './EditMeeting';
 
-const MeetingDetails = ({meetingId}) => {
+const MeetingDetails = ({meetingId,handleDrawerToggle,updateMeetingService}) => {
   const theme = useTheme();
   const [isVisible, setIsVisible] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [questions, setQuestions] = useState([]);
+  const [updating,setUpdating] = useState(-1);
   const [isAddingQuestion, setIsAddingQuestion] = useState(false);
   const [newQuestion, setNewQuestion] = useState({
     title: '',
@@ -23,11 +26,15 @@ const MeetingDetails = ({meetingId}) => {
   });
   const { data, error, loading } = useApi(() => api.getMeetingById(meetingId), {});
   const fetchedData = data?.data;
+  console.log("meetingdetails")
+  console.log(fetchedData)
 
-  const handleToggle = () => setIsVisible(!isVisible);
+  const handleToggle = () => {handleDrawerToggle(false)()};
   const handleDialogOpen = () => setDialogOpen(true);
   const handleDialogClose = () => setDialogOpen(false);
-
+  const handleEdit = (meetingId)=>{
+    setUpdating((prev)=>meetingId)
+  }
   const handleAddQuestion = () => {
     setIsAddingQuestion(true); // Show form to add a new question
   };
@@ -113,6 +120,7 @@ const MeetingDetails = ({meetingId}) => {
   if (!fetchedData) return <p>Loading meeting details...</p>;
 
   return (
+    updating !== -1 ? <EditMeeting meetingId={meetingId} updateMeetingService={updateMeetingService} /> : 
     <Box sx={{ gap: 34, fontFamily: theme.typography.fontFamily, minWidth: 521, height: '100%' }}>
       <Card elevation={0} sx={{ height: '100%', overflow: 'scroll' }}>
         <CardContent sx={{ position: 'relative' }}>
@@ -268,6 +276,56 @@ const MeetingDetails = ({meetingId}) => {
               </Box>
             </Box>
           )}
+                    <Box sx={{ width: '100%', display: "flex", flexDirection: "row",position:'relative',overflow:'scroll',top:300}}>
+                        <Button
+                            variant="outlined"
+                            sx={{
+                                width: '30%',
+                                height: 46,
+                                fontSize: 12,
+                                color: "red",
+                                border: '1px solid lightGrey',
+                                borderRadius: 2,
+                                marginRight: 1,
+                                fontFamily: theme.typography.fontFamily,
+                                textTransform: "none",
+                                '&:hover': {
+                                    backgroundColor: 'transparent',
+                                    borderColor: 'lightGrey',
+                                },
+                                '&:active': {
+                                    backgroundColor: 'transparent',
+                                    borderColor: 'lightGrey',
+                                },
+                            }}
+                            onClick={handleToggle}
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            onClick={handleEdit}
+                            sx={{
+                                width: '70%',
+                                height: 46,
+                                fontSize: 12,
+                                backgroundColor: '#404951',
+                                color: theme.palette.white.main,
+                                borderRadius: 2,
+                                fontFamily: theme.typography.fontFamily,
+                                textTransform: "none",
+                                '&:hover': {
+                                    backgroundColor: '#404951',
+                                    borderColor: 'lightGrey',
+                                },
+                                '&:active': {
+                                    backgroundColor: '#404951',
+                                    borderColor: 'lightGrey',
+                                },
+                            }}
+                        >
+                            Edit Details
+                        </Button>
+                    </Box>
         </CardContent>
       </Card>
     </Box>

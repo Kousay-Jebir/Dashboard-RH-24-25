@@ -3,6 +3,7 @@ import MeetingDetails from "../../MeetingDetails/MeetingDetails";
 import React, { useState } from "react";
 import { Drawer } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { api } from "../../../../service/api";
 
 const columns = [
     { id: "title", label: "Meeting title" },
@@ -25,7 +26,7 @@ const columns = [
       setOpen(newOpen);
     };
   
-    const DrawerContent = <MeetingDetails  meetingId={meetingId}/>;
+    const DrawerContent = <MeetingDetails updateMeetingService={api.updateGeneralAssembly} meetingId={meetingId}/>;
   
     return (
       <>
@@ -49,6 +50,7 @@ const columns = [
           rowData={Data}
           expandArrowNavigation={handleDrawerToggle(true)} // Toggle the drawer open
           setMeetingId={setId}
+          meetingUpdateService={api.updateGeneralAssembly}
         />
       </>
     );

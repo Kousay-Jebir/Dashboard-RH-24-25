@@ -270,7 +270,7 @@ const ScheduleMeeting = ({close}) => {
                             gap: '4px',
                         }}
                     >
-                        {['Elective', 'Extraordinary', 'Ordinary'].map((type) => (
+                        {['elective', 'extraordinary', 'ordinary'].map((type) => (
                             <FormControlLabel
                                 key={type}
                                 value={type}
