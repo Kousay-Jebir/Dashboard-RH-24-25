@@ -422,7 +422,7 @@ const ScheduleMeeting = ({close}) => {
                             gap: '4px',
                         }}
                     >
-                        {['Executive Board Members', 'All members included', 'Quartet', 'Projet', 'Marketing', 'Dév. Commercial', 'Cellule qualité'].map((privacy) => (
+                        {['Executive Board Members', 'All members included', 'Projet', 'Marketing', 'Dév. Commercial', 'Cellule qualité'].map((privacy) => (
                             <FormControlLabel
                                 key={privacy}
                                 value={privacy}

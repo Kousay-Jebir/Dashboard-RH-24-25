@@ -26,7 +26,7 @@ const columns = [
       setOpen(newOpen);
     };
   
-    const DrawerContent = <MeetingDetails updateMeetingService={api.updateGeneralAssembly} meetingId={meetingId}/>;
+    const DrawerContent = <MeetingDetails type="generalAssembly" updateMeetingService={api.updateGeneralAssembly} meetingId={meetingId}/>;
   
     return (
       <>

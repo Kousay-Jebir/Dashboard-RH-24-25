@@ -9,8 +9,8 @@ import {
 } from "@mui/material";
 import { QRCodeSVG } from "qrcode.react";
 
-const QRCodeDialog = ({ open, handleClose }) => {
-  const qrValue = "https://example.com"; // Valeur du QR code
+const QRCodeDialog = ({ open, handleClose,qrValue }) => {
+  /* const qrValue = "https://example.com";  */
 
   const theme = useTheme();
 

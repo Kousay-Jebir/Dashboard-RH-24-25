@@ -25,7 +25,7 @@ const DepartmentDataGrid = ({Data}) => {
       setOpen(newOpen);
     };
   
-    const DrawerContent = <MeetingDetails updateMeetingService={api.updateDepartmentMeeting} handleDrawerToggle={handleDrawerToggle} meetingId={meetingId}/>;
+    const DrawerContent = <MeetingDetails type="departmentMeeting" updateMeetingService={api.updateDepartmentMeeting} handleDrawerToggle={handleDrawerToggle} meetingId={meetingId}/>;
   return <BorderBox radius={2}>
     <Drawer
           open={open}

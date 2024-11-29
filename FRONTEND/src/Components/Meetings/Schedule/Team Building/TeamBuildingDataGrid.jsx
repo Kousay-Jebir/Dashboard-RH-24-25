@@ -25,7 +25,7 @@ const TeamBuildingDataGrid = ({ Data }) => {
       setOpen(newOpen);
     };
   
-    const DrawerContent = <MeetingDetails  updateMeetingService={api.updateTeamBuilding} meetingId={meetingId}/>;
+    const DrawerContent = <MeetingDetails type="teamBuilding" updateMeetingService={api.updateTeamBuilding} meetingId={meetingId}/>;
   return (
     <BorderBox radius={2}>
       <Drawer

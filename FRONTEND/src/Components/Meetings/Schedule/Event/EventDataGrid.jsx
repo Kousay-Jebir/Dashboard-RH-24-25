@@ -24,7 +24,7 @@ const EventDataGrid = ({Data}) => {
       setOpen(newOpen);
     };
   
-    const DrawerContent = <MeetingDetails  updateMeetingService={api.updateEvent} meetingId={meetingId}/>;
+    const DrawerContent = <MeetingDetails type="event" updateMeetingService={api.updateEvent} meetingId={meetingId}/>;
   console.log(Data);
   return (
     <>
