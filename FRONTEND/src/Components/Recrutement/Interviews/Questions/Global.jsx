@@ -274,9 +274,16 @@ export default function GlobalForm() {
     }
   };
 
-  const addSection = (title) => {
+  const addSection = async (title) => {
     if (title.trim()) {
       setSections([...sections, { title, questions: [] }]);
+       
+      try{
+        await api.createSection(title);
+      } catch (error) {
+        console.error("Erreur lors de l'envoi du message:", error);
+        alert("Échec de l'envoi du message.");
+      }
     }
   };
 
@@ -287,6 +294,7 @@ export default function GlobalForm() {
           i === index ? { ...section, title: newTitle } : section
         )
       );
+      
     }
   };
 
