@@ -21,13 +21,17 @@ const BACKEND_API_ROUTES = {
     GET_FINISHED_INTERVIEW: '/interview/finished',
     CREATE_INTERVIEW:'/interview/createInterview',
     UPDATE_INTERVIEW: '/interview/update/',
-    GET_INTERVIEWQUESTION:'/interviewquestion',
-    CREATE_INTERVIEWQUESTION:'/interviewquestion/create',
     GET_CANDIDAT:'/candidat',
     CREATE_CANDIDAT:'/candidat/create',
     UPGRADE_CANDIDAT:'/candidat/upgrade',
     UPDATE_CANDIDAT:'/candidat/update/',
     CREATE_SECTION:'/sections',
+    MODIFY_SECTION:'/sections/:id',
+    DELETE_SECTION:'/sections/:id',
+    GET_INTERVIEWQUESTION:'/interviewquestion',
+    CREATE_INTERVIEWQUESTION:'/interviewquestion/create',
+    MODIFY_INTERVIEWQUESTION:'/interviewquestion/update/:id',
+    DELETE_INTERVIEWQUESTION:'/interviewquestion/delete/:id',
 };
 
 export { BASE_URL, BACKEND_API_ROUTES };
