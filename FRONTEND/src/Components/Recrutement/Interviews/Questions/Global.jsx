@@ -131,7 +131,6 @@ export default function GlobalForm() {
       console.log("Form submitted", state.formData);
       console.log("Form submitted:", formData);
       try {
-        console.log(sections);
         for (const section of sections) {
           console.log(section);
           const formattedSection = {
@@ -144,9 +143,38 @@ export default function GlobalForm() {
               section: section.title, // Section name from the title
             })),
           };
-          console.log(formattedSection);
       
-          await api.createSection(formattedSection); // Assuming createSection takes the formattedSection
+          await api.createSection(formattedSection);
+         
+          const candidatData = {
+            name: state.candidatName,
+            lastName: state.candidatLastName,
+            phone: state.candidatPhone,
+            email: state.candidatEmail,
+            field: state.candidatField,
+            year: state.formData.candidatYear,
+            adress: state.formData.candidatAddress,
+            city: state.formData.candidatCity,
+            //department: state.formData.department
+          };
+          
+          // Call the API to update the candidate information
+          await api.updateCandidat(id,candidatData);
+
+          const submittedInterview = {
+            time: interview.date,
+            duration: formData.duration,
+            polePresentationGrade: formData.scores.polePresentationGrade,
+            jeiKnowledgeGrade: formData.scores.jeiKnowledgeGrade,
+            availabilityGrade: formData.scores.availabilityGrade,
+            rhQuestionsGrade: formData.scores.rhQuestionsGrade,
+            situationGrade: formData.scores.situationGrade,
+            associativeExperienceGrade: formData.scores.associativeExperienceGrade,
+            status: "finished",
+          };
+
+          await api.updateInterview(id,submittedInterview); 
+
         }
       
         // Optional: Handle success if all sections are posted

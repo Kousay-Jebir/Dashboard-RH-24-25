@@ -50,5 +50,6 @@ export const api = {
   getCandidat: () => base.get(BACKEND_API_ROUTES.GET_CANDIDAT),
   createCandidat: (data) => base.post(BACKEND_API_ROUTES.CREATE_CANDIDAT, data),
   upgradeCandidat: (data) => base.post(BACKEND_API_ROUTES.UPGRADE_CANDIDAT, data),
+  updateCandidat: (id,data) => base.post(BACKEND_API_ROUTES.UPDATE_CANDIDAT+id,data),
   createSection: (data) => base.post(BACKEND_API_ROUTES.CREATE_SECTION, data),
 };
