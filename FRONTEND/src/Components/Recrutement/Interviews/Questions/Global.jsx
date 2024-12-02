@@ -279,7 +279,11 @@ export default function GlobalForm() {
       setSections([...sections, { title, questions: [] }]);
        
       try{
-        await api.createSection({name: title});
+        const response = await api.createSection({ name: title });
+        console.log(response.data.id)
+        setSections([...sections, { title, id: response.data.id, questions: [] }]);
+        console.log(sections)
+
       } catch (error) {
         console.error("Erreur lors de l'envoi du message:", error);
         alert("Échec de l'envoi du message.");
