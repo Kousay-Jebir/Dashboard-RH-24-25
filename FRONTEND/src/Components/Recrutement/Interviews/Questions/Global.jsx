@@ -290,14 +290,24 @@ export default function GlobalForm() {
       }
     }
   };
-
-  const modifySectionTitle = (index, newTitle) => {
+  
+  const modifySectionTitle = async (index, newTitle) => {
+    let Sec_id = sections[index].id
+    console.log("SecID =",Sec_id )
     if (newTitle.trim()) {
       setSections(
         sections.map((section, i) =>
           i === index ? { ...section, title: newTitle } : section
         )
       );
+      
+      try{
+        const response = await api.updateSection(Sec_id ,{ name: newTitle });
+        console.log(response.data)
+      } catch (error) {
+        console.error("Erreur lors de l'envoi du message:", error);
+        alert("Échec de l'envoi du message.");
+      }
       
     }
   };
