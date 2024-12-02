@@ -14,7 +14,7 @@ const TeamBuilding = () => {
   const [dateRange, setDateRange] = useState([null, null]);
 
 
-  const {loading,error,data} = useApi(api.getMeeting,[])
+  const {loading,error,data} = useApi(api.getTeamBuilding,[])
   const meetings = data.data;
  
   if (loading) return <div>Loading...</div>; // Loading indicator

@@ -1,14 +1,18 @@
 import { CssBaseline } from "@mui/material";
+import { jwtDecode } from 'jwt-decode';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { AuthProvider, useAuth } from "./context/AuthContext";
-import { Route, Routes, Navigate } from 'react-router-dom';
-import {jwtDecode} from 'jwt-decode';
 import { RoutesProvider } from './router/context/RoutesContext';
 
 import "./App.css";
 import AppLayout from './components/layout/global-layout/AppLayout';
 import MainContentLayout from './components/layout/main-content-layout/MainContentLayout';
 
+import MeetingDetails from "./Components/Meetings/MeetingDetails/MeetingDetails";
+import AddMemberPopup from "./Components/Recrutement/Interviews/AddMemberPopup";
+import GlobalForm from "./Components/Recrutement/Interviews/Questions/Global";
 import Dashoboard from './Pages/Dashboard/Dashoboard';
+import LoginV2 from "./Pages/Login/LoginV2";
 import DepartmentMeetings from './Pages/Meetings/DepartmentMeetings';
 import Event from './Pages/Meetings/Event';
 import GeneralAssembly from './Pages/Meetings/GeneralAssembly';
@@ -18,10 +22,8 @@ import Interviews from './Pages/Recrutement/Interviews';
 import InterviewsList from './Pages/Recrutement/schedule/InterviewsList';
 import KanbanBoard from './Pages/Recrutement/schedule/KanbanBoard';
 import TeamMembers from './Pages/Team members/TeamMembers';
-import GlobalForm from "./Components/Recrutement/Interviews/Questions/Global";
-import LoginV2 from "./Pages/Login/LoginV2";
 import { NotificationProvider } from "./context/SnackBarContext";
-import AddMemberPopup from "./Components/Recrutement/Interviews/AddMemberPopup";
+import EditMeeting from "./Components/Meetings/MeetingDetails/EditMeeting";
 
 // Higher-order component to protect routes
 const isTokenValid = (token) => {
@@ -51,6 +53,7 @@ function App() {
         <RoutesProvider>
           <CssBaseline />
           <Routes>
+            <Route path='/' element={<EditMeeting/>}></Route>
           <Route path="/login" element={<LoginV2 />} />
           <Route path="/" element={<AppLayout />}>
           <Route path="dashboard" element={<ProtectedRoute element={<Dashoboard />} />} />

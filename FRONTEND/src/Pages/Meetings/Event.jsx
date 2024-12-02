@@ -13,7 +13,7 @@ const Event = () => {
   const [dateRange, setDateRange] = useState([null, null]);
 
 
-  const {loading,error,data} = useApi(api.getMeeting,[])
+  const {loading,error,data} = useApi(api.getEvent,[])
   const meetings = data.data;
  
   if (loading) return <div>Loading...</div>; // Loading indicator
