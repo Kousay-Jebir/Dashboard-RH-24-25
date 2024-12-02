@@ -311,9 +311,20 @@ export default function GlobalForm() {
       
     }
   };
-
-  const removeSection = (index) => {
+  
+  const removeSection = async (index) => {
     setSections(sections.filter((_, i) => i !== index));
+
+    let Sec_id = sections[index].id
+    console.log("SecID_for_delete =",Sec_id )
+
+    try{
+      const response = await api.deleteSection(Sec_id);
+      console.log(response)
+    } catch (error) {
+      console.error("Erreur lors de l'envoi du message:", error);
+      alert("Échec de l'envoi du message.");
+    }
   };
 
   const addQuestion = (sectionIndex, newQuestion) => {
