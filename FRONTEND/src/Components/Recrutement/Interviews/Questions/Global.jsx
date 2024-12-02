@@ -1,6 +1,9 @@
-import React, { useReducer, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { Box, Button, useTheme, Typography } from "@mui/material";
 import { api } from "../../../../service/api";
+import useApi from "../../../../service/useApi";
+import { useParams } from 'react-router-dom';
+
 import GeneralInformationForm from "./GeneralInformationForm";
 import DynamicSectionsForm from "./DynamicSectionsForm";
 import ScoresForm from "./ScoresForm";
@@ -50,6 +53,15 @@ export default function GlobalForm() {
   const [submitError, setSubmitError] = useState("");
   const theme = useTheme();
 
+  const { id } = useParams();
+  console.log(id);
+  
+  const {loading,error,data} = useApi(()=>{return api.getInterviewById(id)})
+
+  const interview = data ? data.data : null;
+
+
+
   const [formData, setFormData] = useState({
     // You can add other form fields here if needed
     scores: {
@@ -61,6 +73,34 @@ export default function GlobalForm() {
       associativeExperienceGrade: 0,
     },
   });
+
+  useEffect(() => {
+    if (interview) {
+      dispatch({ type: "SET_FIELD", field: "candidatName", value: interview.candidat.name });
+      dispatch({ type: "SET_FIELD", field: "candidatLastName", value: interview.candidat.lastName });
+      dispatch({ type: "SET_FIELD", field: "candidatField", value: interview.candidat.field });
+      dispatch({ type: "SET_FIELD", field: "candidatYear", value: interview.candidat.year });
+      dispatch({ type: "SET_FIELD", field: "candidatPhone", value: interview.candidat.phone });
+      dispatch({ type: "SET_FIELD", field: "candidatEmail", value: interview.candidat.email });
+      dispatch({ type: "SET_FIELD", field: "candidatAddress", value: interview.candidat.adress });
+      dispatch({ type: "SET_FIELD", field: "candidatCity", value: interview.candidat.city });
+      dispatch({ type: "SET_FIELD", field: "department", value: interview.department });
+      dispatch({ type: "SET_FIELD", field: "duration", value: interview.duration });
+
+      setFormData(prevState => ({
+        ...prevState,
+        scores: {
+          polePresentationGrade: interview.polePresentationGrade || 0,
+          jeiKnowledgeGrade: interview.jeiKnowledgeGrade || 0,
+          availabilityGrade: interview.availabilityGrade || 0,
+          rhQuestionsGrade: interview.rhQuestionsGrade || 0,
+          situationGrade: interview.situationGrade || 0,
+          associativeExperienceGrade: interview.associativeExperienceGrade || 0,
+        },
+        duration: interview.duration,
+      }));
+    }
+  }, [interview]);
 
   const [errors, setErrors] = useState({
     polePresentationGrade: "",
@@ -91,24 +131,70 @@ export default function GlobalForm() {
       console.log("Form submitted", state.formData);
       console.log("Form submitted:", formData);
       try {
-        console.log(sections);
-        await api.createInterview(sections);
+        for (const section of sections) {
+          console.log(section);
+          const formattedSection = {
+            name: section.title,
+            questions: section.questions.map((q) => ({
+              question: q.question,
+              answer: q.response,
+              interviewId: parseInt(id, 10),
+              type: section.title, // Replace with actual logic for type if needed
+              section: section.title, // Section name from the title
+            })),
+          };
+      
+          await api.createSection(formattedSection);
+         
+          const candidatData = {
+            name: state.candidatName,
+            lastName: state.candidatLastName,
+            phone: state.candidatPhone,
+            email: state.candidatEmail,
+            field: state.candidatField,
+            year: state.formData.candidatYear,
+            adress: state.formData.candidatAddress,
+            city: state.formData.candidatCity,
+            //department: state.formData.department
+          };
+          
+          // Call the API to update the candidate information
+          await api.updateCandidat(id,candidatData);
+
+          const submittedInterview = {
+            time: interview.date,
+            duration: formData.duration,
+            polePresentationGrade: formData.scores.polePresentationGrade,
+            jeiKnowledgeGrade: formData.scores.jeiKnowledgeGrade,
+            availabilityGrade: formData.scores.availabilityGrade,
+            rhQuestionsGrade: formData.scores.rhQuestionsGrade,
+            situationGrade: formData.scores.situationGrade,
+            associativeExperienceGrade: formData.scores.associativeExperienceGrade,
+            status: "finished",
+          };
+
+          await api.updateInterview(id,submittedInterview); 
+
+        }
+      
+        // Optional: Handle success if all sections are posted
+        console.log("All sections posted successfully");
       } catch (error) {
         console.error("Erreur lors de l'envoi du message:", error);
         alert("Échec de l'envoi du message.");
       }
-      dispatch({ type: "RESET_FORM" });
-      setSections([]);
-      setFormData({
-        scores: {
-          polePresentationGrade: 0,
-          jeiKnowledgeGrade: 0,
-          availabilityGrade: 0,
-          rhQuestionsGrade: 0,
-          situationGrade: 0,
-          associativeExperienceGrade: 0,
-        },
-      });
+      //dispatch({ type: "RESET_FORM" });
+      //setSections([]);
+      // setFormData({
+      //   scores: {
+      //     polePresentationGrade: 0,
+      //     jeiKnowledgeGrade: 0,
+      //     availabilityGrade: 0,
+      //     rhQuestionsGrade: 0,
+      //     situationGrade: 0,
+      //     associativeExperienceGrade: 0,
+      //   },
+      // });
     }
   };
 
@@ -188,9 +274,20 @@ export default function GlobalForm() {
     }
   };
 
-  const addSection = (title) => {
+  const addSection = async (title) => {
     if (title.trim()) {
       setSections([...sections, { title, questions: [] }]);
+       
+      try{
+        const response = await api.createSection({ name: title });
+        console.log(response.data.id)
+        setSections([...sections, { title, id: response.data.id, questions: [] }]);
+        console.log(sections)
+
+      } catch (error) {
+        console.error("Erreur lors de l'envoi du message:", error);
+        alert("Échec de l'envoi du message.");
+      }
     }
   };
 
@@ -201,6 +298,7 @@ export default function GlobalForm() {
           i === index ? { ...section, title: newTitle } : section
         )
       );
+      
     }
   };
 
