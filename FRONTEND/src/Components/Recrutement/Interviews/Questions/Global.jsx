@@ -405,18 +405,23 @@ export default function GlobalForm() {
   };
 
   const handleQuestionChange = async (sectionIndex, questionIndex, field, value ) => {
-    ques_id = sections[sectionIndex][questionIndex].id
+    const ques_id = sections[sectionIndex].questions[questionIndex].id
+
+    const { question, response } = sections[sectionIndex].questions[questionIndex];
+    const { title } = sections[sectionIndex];
+
+    let question_data = { question, answer: response, type: title };
+
     if (field === "response") {
-      const question_data = {
-        question: sections[sectionIndex].questions[questionIndex].question,
+      question_data = {
+        ...question_data,
         answer: value,
-        type: sections[sectionIndex].title,
       };
-    } else {
-      const question_data = {
+    }
+    else if (field === "question"){
+      question_data = {
+        ...question_data,
         question: value,
-        answer: sections[sectionIndex].questions[questionIndex].response,
-        type: sections[sectionIndex].title,
       };
     }
     console.log(question_data);
