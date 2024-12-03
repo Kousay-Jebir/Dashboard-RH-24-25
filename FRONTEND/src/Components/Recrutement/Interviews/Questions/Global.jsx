@@ -331,23 +331,24 @@ export default function GlobalForm() {
     
 
     const question_data = {
-      question: newQuestion,
+      question: newQuestion.question,
       answer: "Default Answer",
-      interviewId: id,
+      interviewId: parseInt(id,10),
       type: sections[sectionIndex].title,
-      section: sections[sectionIndex].id
+      section: String(sections[sectionIndex].id)
     };
+    console.log(question_data);
 
     try{
       const response = await api.createInterviewQuestion(question_data);
       console.log(response)
       const updatedSections = sections.map((section, i) =>
         i === sectionIndex
-          ? { ...section, questions: [...section.questions, {question: newQuestion, id:2}] }
+          ? { ...section, questions: [...section.questions, {question: newQuestion.question , response:"", id: response.data.id}] }
           : section
       );
       setSections(updatedSections);      
-      console.log(sections)
+      console.log(sections);
 
     } catch (error) {
       console.error("Erreur lors de l'envoi du message:", error);
