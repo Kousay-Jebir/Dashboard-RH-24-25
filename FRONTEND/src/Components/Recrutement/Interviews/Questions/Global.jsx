@@ -2,7 +2,7 @@ import React, { useEffect, useReducer, useState } from "react";
 import { Box, Button, useTheme, Typography } from "@mui/material";
 import { api } from "../../../../service/api";
 import useApi from "../../../../service/useApi";
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 
 import GeneralInformationForm from "./GeneralInformationForm";
 import DynamicSectionsForm from "./DynamicSectionsForm";
@@ -55,12 +55,12 @@ export default function GlobalForm() {
 
   const { id } = useParams();
   console.log(id);
-  
-  const {loading,error,data} = useApi(()=>{return api.getInterviewById(id)})
+
+  const { loading, error, data } = useApi(() => {
+    return api.getInterviewById(id);
+  });
 
   const interview = data ? data.data : null;
-
-
 
   const [formData, setFormData] = useState({
     // You can add other form fields here if needed
@@ -76,18 +76,58 @@ export default function GlobalForm() {
 
   useEffect(() => {
     if (interview) {
-      dispatch({ type: "SET_FIELD", field: "candidatName", value: interview.candidat.name });
-      dispatch({ type: "SET_FIELD", field: "candidatLastName", value: interview.candidat.lastName });
-      dispatch({ type: "SET_FIELD", field: "candidatField", value: interview.candidat.field });
-      dispatch({ type: "SET_FIELD", field: "candidatYear", value: interview.candidat.year });
-      dispatch({ type: "SET_FIELD", field: "candidatPhone", value: interview.candidat.phone });
-      dispatch({ type: "SET_FIELD", field: "candidatEmail", value: interview.candidat.email });
-      dispatch({ type: "SET_FIELD", field: "candidatAddress", value: interview.candidat.adress });
-      dispatch({ type: "SET_FIELD", field: "candidatCity", value: interview.candidat.city });
-      dispatch({ type: "SET_FIELD", field: "department", value: interview.department });
-      dispatch({ type: "SET_FIELD", field: "duration", value: interview.duration });
+      dispatch({
+        type: "SET_FIELD",
+        field: "candidatName",
+        value: interview.candidat.name,
+      });
+      dispatch({
+        type: "SET_FIELD",
+        field: "candidatLastName",
+        value: interview.candidat.lastName,
+      });
+      dispatch({
+        type: "SET_FIELD",
+        field: "candidatField",
+        value: interview.candidat.field,
+      });
+      dispatch({
+        type: "SET_FIELD",
+        field: "candidatYear",
+        value: interview.candidat.year,
+      });
+      dispatch({
+        type: "SET_FIELD",
+        field: "candidatPhone",
+        value: interview.candidat.phone,
+      });
+      dispatch({
+        type: "SET_FIELD",
+        field: "candidatEmail",
+        value: interview.candidat.email,
+      });
+      dispatch({
+        type: "SET_FIELD",
+        field: "candidatAddress",
+        value: interview.candidat.adress,
+      });
+      dispatch({
+        type: "SET_FIELD",
+        field: "candidatCity",
+        value: interview.candidat.city,
+      });
+      dispatch({
+        type: "SET_FIELD",
+        field: "department",
+        value: interview.department,
+      });
+      dispatch({
+        type: "SET_FIELD",
+        field: "duration",
+        value: interview.duration,
+      });
 
-      setFormData(prevState => ({
+      setFormData((prevState) => ({
         ...prevState,
         scores: {
           polePresentationGrade: interview.polePresentationGrade || 0,
@@ -143,9 +183,9 @@ export default function GlobalForm() {
               section: section.title, // Section name from the title
             })),
           };
-      
+
           await api.createSection(formattedSection);
-         
+
           const candidatData = {
             name: state.candidatName,
             lastName: state.candidatLastName,
@@ -157,9 +197,9 @@ export default function GlobalForm() {
             city: state.formData.candidatCity,
             //department: state.formData.department
           };
-          
+
           // Call the API to update the candidate information
-          await api.updateCandidat(id,candidatData);
+          await api.updateCandidat(id, candidatData);
 
           const submittedInterview = {
             time: interview.date,
@@ -169,14 +209,14 @@ export default function GlobalForm() {
             availabilityGrade: formData.scores.availabilityGrade,
             rhQuestionsGrade: formData.scores.rhQuestionsGrade,
             situationGrade: formData.scores.situationGrade,
-            associativeExperienceGrade: formData.scores.associativeExperienceGrade,
+            associativeExperienceGrade:
+              formData.scores.associativeExperienceGrade,
             status: "finished",
           };
 
-          await api.updateInterview(id,submittedInterview); 
-
+          await api.updateInterview(id, submittedInterview);
         }
-      
+
         // Optional: Handle success if all sections are posted
         console.log("All sections posted successfully");
       } catch (error) {
@@ -247,22 +287,22 @@ export default function GlobalForm() {
 
   const validateSections = () => {
     let newSubmitError = "";
-    if (sections.length === 0){
+    if (sections.length === 0) {
       newSubmitError = "Sections are required!";
-    }else{
+    } else {
       newSubmitError = "";
-    const updatedSections = sections.map((section) => {
-      const updatedQuestions = section.questions.map((question) => {
-        if (!question.response.trim()) {
-          newSubmitError = "All responses are required!";
-          return { ...question, error: "Response is required" };
-        }
-        return { ...question, error: "" };
+      const updatedSections = sections.map((section) => {
+        const updatedQuestions = section.questions.map((question) => {
+          if (!question.response.trim()) {
+            newSubmitError = "All responses are required!";
+            return { ...question, error: "Response is required" };
+          }
+          return { ...question, error: "" };
+        });
+        return { ...section, questions: updatedQuestions };
       });
-      return { ...section, questions: updatedQuestions };
-    });
-    setSections(updatedSections);
-  }
+      setSections(updatedSections);
+    }
 
     if (!!newSubmitError) {
       setSubmitError(newSubmitError);
@@ -277,110 +317,149 @@ export default function GlobalForm() {
   const addSection = async (title) => {
     if (title.trim()) {
       setSections([...sections, { title, questions: [] }]);
-       
-      try{
-        const response = await api.createSection({ name: title });
-        console.log(response.data.id)
-        setSections([...sections, { title, id: response.data.id, questions: [] }]);
-        console.log(sections)
 
+      try {
+        const response = await api.createSection({ name: title });
+        console.log(response.data.id);
+        setSections([
+          ...sections,
+          { title, id: response.data.id, questions: [] },
+        ]);
+        console.log(sections);
       } catch (error) {
         console.error("Erreur lors de l'envoi du message:", error);
         alert("Échec de l'envoi du message.");
       }
     }
   };
-  
+
   const modifySectionTitle = async (index, newTitle) => {
-    let Sec_id = sections[index].id
-    console.log("SecID =",Sec_id )
+    let Sec_id = sections[index].id;
+    console.log("SecID =", Sec_id);
     if (newTitle.trim()) {
       setSections(
         sections.map((section, i) =>
           i === index ? { ...section, title: newTitle } : section
         )
       );
-      
-      try{
-        const response = await api.updateSection(Sec_id ,{ name: newTitle });
-        console.log(response.data)
+
+      try {
+        const response = await api.updateSection(Sec_id, { name: newTitle });
+        console.log(response.data);
       } catch (error) {
         console.error("Erreur lors de l'envoi du message:", error);
         alert("Échec de l'envoi du message.");
       }
-      
     }
   };
-  
+
   const removeSection = async (index) => {
     setSections(sections.filter((_, i) => i !== index));
 
-    let Sec_id = sections[index].id
-    console.log("SecID_for_delete =",Sec_id )
+    let Sec_id = sections[index].id;
+    console.log("SecID_for_delete =", Sec_id);
 
-    try{
+    try {
       const response = await api.deleteSection(Sec_id);
-      console.log(response)
+      console.log(response);
     } catch (error) {
       console.error("Erreur lors de l'envoi du message:", error);
       alert("Échec de l'envoi du message.");
     }
   };
-  
-  const addQuestion = async (sectionIndex, newQuestion) => {
-    
 
+  const addQuestion = async (sectionIndex, newQuestion) => {
     const question_data = {
       question: newQuestion.question,
       answer: "Default Answer",
-      interviewId: parseInt(id,10),
+      interviewId: parseInt(id, 10),
       type: sections[sectionIndex].title,
-      section: String(sections[sectionIndex].id)
+      section: String(sections[sectionIndex].id),
     };
     console.log(question_data);
 
-    try{
+    try {
       const response = await api.createInterviewQuestion(question_data);
-      console.log(response)
+      console.log(response);
       const updatedSections = sections.map((section, i) =>
         i === sectionIndex
-          ? { ...section, questions: [...section.questions, {question: newQuestion.question , response:"", id: response.data.id}] }
+          ? {
+              ...section,
+              questions: [
+                ...section.questions,
+                {
+                  question: newQuestion.question,
+                  response: "",
+                  id: response.data.id,
+                },
+              ],
+            }
           : section
       );
-      setSections(updatedSections);      
+      setSections(updatedSections);
       console.log(sections);
-
     } catch (error) {
       console.error("Erreur lors de l'envoi du message:", error);
       alert("Échec de l'envoi du message.");
     }
   };
 
-  const handleQuestionChange = (sectionIndex, questionIndex, field, value) => {
-    const updatedSections = sections.map((section, i) =>
-      i === sectionIndex
-        ? {
-            ...section,
-            questions: section.questions.map((q, j) => {
-              if (j === questionIndex) {
-                const updatedQuestion = { ...q, [field]: value };
+  const handleQuestionChange = async (sectionIndex, questionIndex, field, value ) => {
+    const ques_id = sections[sectionIndex].questions[questionIndex].id
 
-                // Only reset error when response is non-empty
-                if (field === "response") {
-                  if (value.trim() !== "") {
-                    updatedQuestion.error = "";
+    const { question, response } = sections[sectionIndex].questions[questionIndex];
+    const { title } = sections[sectionIndex];
+
+    let question_data = { question, answer: response, type: title };
+
+    if (field === "response") {
+      question_data = {
+        ...question_data,
+        answer: value,
+      };
+    }
+    else if (field === "question"){
+      question_data = {
+        ...question_data,
+        question: value,
+      };
+    }
+    console.log(question_data);
+
+    try {
+      const response = await api.updateInterviewQuestion(ques_id, question_data);
+      console.log(response);
+
+      const updatedSections = sections.map((section, i) =>
+        i === sectionIndex
+          ? {
+              ...section,
+              questions: section.questions.map((q, j) => {
+                if (j === questionIndex) {
+                  const updatedQuestion = { ...q, [field]: value };
+
+                  // Only reset error when response is non-empty
+                  if (field === "response") {
+                    if (value.trim() !== "") {
+                      updatedQuestion.error = "";
+                    }
                   }
-                }
 
-                return updatedQuestion;
-              } else {
-                return q;
-              }
-            }),
-          }
-        : section
-    );
-    setSections(updatedSections);
+                  return updatedQuestion;
+                } else {
+                  return q;
+                }
+              }),
+            }
+          : section
+      );
+      setSections(updatedSections);
+
+      console.log(sections);
+    } catch (error) {
+      console.error("Erreur lors de l'envoi du message:", error);
+      alert("Échec de l'envoi du message.");
+    }
   };
 
   const removeQuestion = (sectionIndex, questionIndex) => {
@@ -440,42 +519,42 @@ export default function GlobalForm() {
     validateDuration(formData, setErrors);
   };
 
+  const validateDuration = () => {
+    let durationValid = true;
+    if (formData.duration === "" || formData.duration == 0) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        duration: "Duration is required",
+      }));
+      durationValid = false;
+    } else if (formData.duration >= 121) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        duration: "Duration cannot exceed 121 minutes (2 hours)",
+      }));
+      durationValid = false;
+    } else {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        duration: null,
+      }));
+    }
 
-const validateDuration = () => {
-  let durationValid = true;
-  if (formData.duration === "" || formData.duration == 0) {
-    setErrors((prevErrors) => ({
-      ...prevErrors,
-      duration: "Duration is required",
-    }));
-    durationValid = false;
-  }
-  else if (formData.duration >= 121) {
-    setErrors((prevErrors) => ({
-      ...prevErrors,
-      duration: "Duration cannot exceed 121 minutes (2 hours)",
-    }));
-    durationValid = false;
-  } else {
-    setErrors((prevErrors) => ({
-      ...prevErrors,
-      duration: null, 
-    }));
-  }
-
-  return durationValid;
-};
+    return durationValid;
+  };
 
   return (
     <Box sx={{ padding: 0 }}>
       {submitError && <Typography color="error">{submitError}</Typography>}
-      <Box sx={{
-            gap: 2,
-            display: "flex",
-            marginLeft: "auto",
-            justifyContent: "end",
-            }}>
-        <Button 
+      <Box
+        sx={{
+          gap: 2,
+          display: "flex",
+          marginLeft: "auto",
+          justifyContent: "end",
+        }}
+      >
+        <Button
           variant="outlined"
           sx={{
             mb: 2,
@@ -486,7 +565,9 @@ const validateDuration = () => {
               borderColor: theme.palette.neutral.light,
             },
           }}
-        >Get back</Button>
+        >
+          Get back
+        </Button>
         <Button
           type="submit"
           variant="contained"
@@ -525,7 +606,7 @@ const validateDuration = () => {
         value={formData.duration}
         onChange={handleDurationChange}
         error={errors.duration}
-        onBlur={handleBlur} 
+        onBlur={handleBlur}
       />
     </Box>
   );
