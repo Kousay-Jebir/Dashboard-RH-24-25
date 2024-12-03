@@ -326,14 +326,24 @@ export default function GlobalForm() {
       alert("Échec de l'envoi du message.");
     }
   };
-
-  const addQuestion = (sectionIndex, newQuestion) => {
+  
+  const addQuestion = async (sectionIndex, newQuestion) => {
     const updatedSections = sections.map((section, i) =>
       i === sectionIndex
         ? { ...section, questions: [...section.questions, newQuestion] }
         : section
     );
     setSections(updatedSections);
+    try{
+      const response = await api.createInterviewQuestion({ name: title });
+      console.log(response.data.id)
+      setSections([...sections, { title, id: response.data.id, questions: [] }]);
+      console.log(sections)
+
+    } catch (error) {
+      console.error("Erreur lors de l'envoi du message:", error);
+      alert("Échec de l'envoi du message.");
+    }
   };
 
   const handleQuestionChange = (sectionIndex, questionIndex, field, value) => {
