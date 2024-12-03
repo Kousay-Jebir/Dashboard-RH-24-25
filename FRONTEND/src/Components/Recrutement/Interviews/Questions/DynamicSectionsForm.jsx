@@ -79,6 +79,7 @@ export default function DynamicSectionsForm({
       addQuestion(questionSectionIndex, {
         question: newQuestion,
         response: "",
+        id: null,
       });
     }
     setNewQuestion("");
