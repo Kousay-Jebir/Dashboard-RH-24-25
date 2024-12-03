@@ -415,7 +415,7 @@ export default function GlobalForm() {
     } else {
       const question_data = {
         question: value,
-        answer: sections[sectionIndex][questionIndex].response,
+        answer: sections[sectionIndex].questions[questionIndex].response,
         type: sections[sectionIndex].title,
       };
     }
