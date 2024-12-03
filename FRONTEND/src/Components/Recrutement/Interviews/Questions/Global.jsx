@@ -328,16 +328,25 @@ export default function GlobalForm() {
   };
   
   const addQuestion = async (sectionIndex, newQuestion) => {
-    const updatedSections = sections.map((section, i) =>
-      i === sectionIndex
-        ? { ...section, questions: [...section.questions, newQuestion] }
-        : section
-    );
-    setSections(updatedSections);
+    
+
+    const question_data = {
+      question: newQuestion,
+      answer: "Default Answer",
+      interviewId: id,
+      type: sections[sectionIndex].title,
+      section: sections[sectionIndex].id
+    };
+
     try{
-      const response = await api.createInterviewQuestion({ name: title });
-      console.log(response.data.id)
-      setSections([...sections, { title, id: response.data.id, questions: [] }]);
+      const response = await api.createInterviewQuestion(question_data);
+      console.log(response)
+      const updatedSections = sections.map((section, i) =>
+        i === sectionIndex
+          ? { ...section, questions: [...section.questions, {question: newQuestion, id:2}] }
+          : section
+      );
+      setSections(updatedSections);      
       console.log(sections)
 
     } catch (error) {
