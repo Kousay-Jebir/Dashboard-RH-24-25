@@ -408,7 +408,7 @@ export default function GlobalForm() {
     ques_id = sections[sectionIndex][questionIndex].id
     if (field === "response") {
       const question_data = {
-        question: sections[sectionIndex][questionIndex].question,
+        question: sections[sectionIndex].questions[questionIndex].question,
         answer: value,
         type: sections[sectionIndex].title,
       };
