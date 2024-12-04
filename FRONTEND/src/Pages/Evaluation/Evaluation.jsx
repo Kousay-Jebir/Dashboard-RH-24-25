@@ -69,6 +69,7 @@ export default function Evaluation() {
     tableData.slice(1).forEach((row, rowIndex) => {
       // Format department name: lowercase the first letter and replace spaces with hyphens
       const department = row[0].toLowerCase().replace(' ', '-');
+      console.log(department);
       
       row.slice(1).forEach((value, colIndex) => {
         // Format meeting types into camelCase (departmentMeeting, generalAssembly, etc.)
