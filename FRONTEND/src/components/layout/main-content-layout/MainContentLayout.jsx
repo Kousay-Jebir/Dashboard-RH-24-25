@@ -21,7 +21,10 @@ export default function MainContentLayout() {
     }
   };
 
-  const menuData = getMenuData();
+  let menuData = getMenuData();
+  if(currentPath.includes("questions")){
+    menuData = []
+  }
 
   // Conditional rendering based on whether menuData is empty
   if (menuData.length === 0) {

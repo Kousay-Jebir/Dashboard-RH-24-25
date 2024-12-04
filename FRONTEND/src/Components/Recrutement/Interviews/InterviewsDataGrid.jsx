@@ -125,7 +125,7 @@ const DataTable = ({ data }) => {
   const reviewResponsesHandler  = (index)=>{
     console.log(state);
     console.log(state.kpiData[index]);
-    navigate(`/recruitement/interviews/${state.kpiData[index].id}`)
+    navigate(`/recruitement/interviews/questions/${state.kpiData[index].id}`)
   }
 
   const handleAddMember = () => {

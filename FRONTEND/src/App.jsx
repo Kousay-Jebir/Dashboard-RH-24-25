@@ -63,7 +63,7 @@ function App() {
                 <Route path="interviews">
                 <Route path="recent" element={<ProtectedRoute element={<Interviews />} />} />
                 {/* <Route path="questions" element={<ProtectedRoute element={<GlobalForm />} />} /> */}
-                <Route path=":id" element={<ProtectedRoute element={<GlobalForm />} />} />
+                <Route path="questions/:id" element={<ProtectedRoute element={<GlobalForm />} />} />
                 </Route>
                 <Route path="schedule">
                 <Route path="list" element={<ProtectedRoute element={<InterviewsList />} />} />
