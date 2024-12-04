@@ -181,8 +181,8 @@ const ScheduleMeeting = ({close}) => {
     );
 
     return (
-        <Box sx={{ display: 'flex', justifyContent: 'flex-end', width: '100%' }}>
-            <Box sx={{ width: 521 }}>
+        <Box>
+            <Box>
                 <Box sx={{ height: 21, gap: 12 }}>
                     <Typography
                         variant="h5"
