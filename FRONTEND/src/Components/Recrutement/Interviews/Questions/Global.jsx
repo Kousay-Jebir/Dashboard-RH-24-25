@@ -472,6 +472,16 @@ export default function GlobalForm() {
         : section
     );
     
+    let ques_id = sections[sectionIndex].questions[questionIndex].id;
+    console.log("QuesID_for_delete =", ques_id);
+
+    try {
+      const response = await api.deleteInterviewQuestion(ques_id);
+      console.log(response);
+    } catch (error) {
+      console.error("Erreur lors de l'envoi du message:", error);
+      alert("Échec de l'envoi du message.");
+    }
     
     setSections(updatedSections);
   };
