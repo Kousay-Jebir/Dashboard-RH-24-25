@@ -65,14 +65,14 @@ export const api = {
   getCandidat: () => base.get(BACKEND_API_ROUTES.GET_CANDIDAT),
   createCandidat: (data) => base.post(BACKEND_API_ROUTES.CREATE_CANDIDAT, data),
   upgradeCandidat: (data) => base.post(BACKEND_API_ROUTES.UPGRADE_CANDIDAT, data),
-  updateCandidat: (id,data) => base.post(BACKEND_API_ROUTES.UPDATE_CANDIDAT+id,data),
+  updateCandidat: (id,data) => base.put(BACKEND_API_ROUTES.UPDATE_CANDIDAT+id,data),
   createSection: (data) => base.post(BACKEND_API_ROUTES.CREATE_SECTION, data),
   updateSection: (id,data) => base.put(BACKEND_API_ROUTES.MODIFY_SECTION.replace(':id', id),data),
   deleteSection: (id) => base.delete(BACKEND_API_ROUTES.DELETE_SECTION.replace(':id', id)),
-  getInterviewQuestion: () => base.get(BACKEND_API_ROUTES.GET_INTERVIEWQUESTION),
   createInterviewQuestion: (data) => base.post(BACKEND_API_ROUTES.CREATE_INTERVIEWQUESTION, data),  
   updateInterviewQuestion: (id,data) => base.put(BACKEND_API_ROUTES.MODIFY_INTERVIEWQUESTION.replace(':id', id),data),
   deleteInterviewQuestion: (id) => base.delete(BACKEND_API_ROUTES.DELETE_INTERVIEWQUESTION.replace(':id', id)),
+  getInterviewSections: (id) => base.get(BACKEND_API_ROUTES.GET_INTERVIEW_Sections.replace(':id', id)),
   getEvaluationTable: ()=>base.get(BACKEND_API_ROUTES.GET_EVALUATION_TABLE),
   updateEvaluationTable: (data)=>base.post(BACKEND_API_ROUTES.UPDATE_EVALUATION_TABLE,data)
 };
