@@ -47,18 +47,40 @@ const formReducer = (state, action) => {
   }
 };
 
-function transformData(data) {
-  return data.map((section) => ({
-    title: section.name, // Use the "name" as the title
-    id: section.id, // Add 28 to the "id"
-    questions: section.interviewQuestions.map((question) => ({
-      question: question.question, // Copy the "question"
-      response: question.answer, // Rename "answer" to "response"
-      id: question.id, // Add 27 to the question "id"
-      error: "" // Add an empty "error" field
-    }))
-  }));
-}
+const getTransformData = async (id) => {
+  try {
+    const response = await api.getInterviewSections(id);
+
+    if (!response || !response.data) {
+      console.error("Invalid response format:", response);
+      alert("Erreur: La réponse du serveur est invalide.");
+      return [];
+    }
+
+    const data = response.data;
+
+    if (!Array.isArray(data)) {
+      console.error("Invalid input: data should be an array", data);
+      alert("Erreur: Les données reçues ne sont pas au format attendu.");
+      return [];
+    }
+
+    return data.map((section) => ({
+      title: section.name, // Use the "name" as the title
+      id: section.id, // Keep the "id" as is
+      questions: section.interviewQuestions.map((question) => ({
+        question: question.question, // Copy the "question"
+        response: question.answer, // Rename "answer" to "response"
+        id: question.id, // Keep the question "id" as is
+        error: "" // Add an empty "error" field
+      }))
+    }));
+  } catch (error) {
+    console.error("Erreur lors de la récupération des données:", error);
+    alert("Une erreur s'est produite lors de la récupération des données.");
+    return []; // Return an empty array in case of an error
+  }
+};
 
 export default function GlobalForm() {
   const [state, dispatch] = useReducer(formReducer, initialState);
@@ -88,13 +110,24 @@ export default function GlobalForm() {
   });
 
   //GET the sections data:
-  const { Sec_loading, Sec_error, Sec_data } = useApi(() => {
-    return api.getInterviewSections(id);
-  });
 
-  const Sec_result = transformData(Sec_data);
-  setSections(Sec_result);
-  console.log(sections);
+
+
+  //const Sections_data = Sec_data ? Sec_data.data : null;
+  useEffect(() => {
+    const fetchSections = async () => {
+      try {
+        const Sec_result = await getTransformData(id);
+        setSections(Sec_result);
+      } catch (error) {
+        console.error("Erreur lors de la récupération des sections:", error);
+      }
+    };
+
+    if (id) {
+      fetchSections();
+    }
+  }, []);
 
 
   useEffect(() => {
@@ -182,33 +215,17 @@ export default function GlobalForm() {
     if (!validateScores()) {
       isValid = false;
     }
-    if (!validateSections()) {
-      isValid = false;
-    }
+    // if (!validateSections()) {
+    //   isValid = false;
+    // }
     if (!validateForm()) {
       isValid = false;
     }
 
     if (isValid) {
-      console.log("Sections submitted", sections);
       console.log("Form submitted", state.formData);
       console.log("Form submitted:", formData);
       try {
-        for (const section of sections) {
-          console.log(section);
-          const formattedSection = {
-            name: section.title,
-            questions: section.questions.map((q) => ({
-              question: q.question,
-              answer: q.response,
-              interviewId: parseInt(id, 10),
-              type: section.title, // Replace with actual logic for type if needed
-              section: section.title, // Section name from the title
-            })),
-          };
-
-          await api.createSection(formattedSection);
-
           const candidatData = {
             name: state.candidatName,
             lastName: state.candidatLastName,
@@ -238,7 +255,7 @@ export default function GlobalForm() {
           };
 
           await api.updateInterview(id, submittedInterview);
-        }
+        
 
         // Optional: Handle success if all sections are posted
         console.log("All sections posted successfully");
