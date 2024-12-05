@@ -42,10 +42,10 @@ const BACKEND_API_ROUTES = {
     CREATE_SECTION:'/sections',
     MODIFY_SECTION:'/sections/:id',
     DELETE_SECTION:'/sections/:id',
-    GET_INTERVIEW_Sections:'/sections/interview/:id',
     CREATE_INTERVIEWQUESTION:'/interviewquestion/create',
     MODIFY_INTERVIEWQUESTION:'/interviewquestion/update/:id',
     DELETE_INTERVIEWQUESTION:'/interviewquestion/delete/:id',
+    GET_INTERVIEW_Sections:'/sections/interview/:id',
 
 };
 
