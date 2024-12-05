@@ -72,7 +72,7 @@ export const api = {
   getInterviewQuestion: () => base.get(BACKEND_API_ROUTES.GET_INTERVIEWQUESTION),
   createInterviewQuestion: (data) => base.post(BACKEND_API_ROUTES.CREATE_INTERVIEWQUESTION, data),  
   updateInterviewQuestion: (id,data) => base.put(BACKEND_API_ROUTES.MODIFY_INTERVIEWQUESTION.replace(':id', id),data),
-  deleteInterviewQuestion: (id) => base.post(BACKEND_API_ROUTES.DELETE_INTERVIEWQUESTION.replace(':id', id)),
+  deleteInterviewQuestion: (id) => base.delete(BACKEND_API_ROUTES.DELETE_INTERVIEWQUESTION.replace(':id', id)),
   getEvaluationTable: ()=>base.get(BACKEND_API_ROUTES.GET_EVALUATION_TABLE),
   updateEvaluationTable: (data)=>base.post(BACKEND_API_ROUTES.UPDATE_EVALUATION_TABLE,data)
 };
