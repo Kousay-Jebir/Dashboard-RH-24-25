@@ -464,11 +464,11 @@ export default function GlobalForm() {
         question: value,
       };
     }
-    console.log(question_data);
+    //console.log(question_data);
 
     try {
       const response = await api.updateInterviewQuestion(ques_id, question_data);
-      console.log(response);
+      //console.log(response);
 
       const updatedSections = sections.map((section, i) =>
         i === sectionIndex
@@ -495,7 +495,7 @@ export default function GlobalForm() {
       );
       setSections(updatedSections);
 
-      console.log(sections);
+      //console.log(sections);
     } catch (error) {
       console.error("Erreur lors de l'envoi du message:", error);
       alert("Échec de l'envoi du message.");
