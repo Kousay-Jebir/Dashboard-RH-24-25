@@ -104,6 +104,7 @@ function AppLayout() {
         },
         '& .MuiDrawer-paper': {
             padding: 2, 
+            width: { xs: '100%',md:500}, 
           },
       }}
       >
