@@ -461,8 +461,8 @@ export default function GlobalForm() {
       alert("Échec de l'envoi du message.");
     }
   };
-
-  const removeQuestion = (sectionIndex, questionIndex) => {
+  
+  const removeQuestion = async (sectionIndex, questionIndex) => {
     const updatedSections = sections.map((section, i) =>
       i === sectionIndex
         ? {
@@ -471,6 +471,8 @@ export default function GlobalForm() {
           }
         : section
     );
+    
+    
     setSections(updatedSections);
   };
 
