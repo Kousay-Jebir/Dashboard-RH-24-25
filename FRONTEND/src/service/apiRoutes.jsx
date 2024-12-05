@@ -46,6 +46,8 @@ const BACKEND_API_ROUTES = {
     CREATE_INTERVIEWQUESTION:'/interviewquestion/create',
     MODIFY_INTERVIEWQUESTION:'/interviewquestion/update/:id',
     DELETE_INTERVIEWQUESTION:'/interviewquestion/delete/:id',
+    GET_EVALUATION_TABLE : '/matrix',
+    UPDATE_EVALUATION_TABLE: '/matrix'
 };
 
 export { BASE_URL, BACKEND_API_ROUTES };

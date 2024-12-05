@@ -24,6 +24,7 @@ import KanbanBoard from './Pages/Recrutement/schedule/KanbanBoard';
 import TeamMembers from './Pages/Team members/TeamMembers';
 import { NotificationProvider } from "./context/SnackBarContext";
 import EditMeeting from "./Components/Meetings/MeetingDetails/EditMeeting";
+import Evaluation from "./Pages/Evaluation/Evaluation";
 
 // Higher-order component to protect routes
 const isTokenValid = (token) => {
@@ -63,7 +64,7 @@ function App() {
                 <Route path="interviews">
                 <Route path="recent" element={<ProtectedRoute element={<Interviews />} />} />
                 {/* <Route path="questions" element={<ProtectedRoute element={<GlobalForm />} />} /> */}
-                <Route path=":id" element={<ProtectedRoute element={<GlobalForm />} />} />
+                <Route path="questions/:id" element={<ProtectedRoute element={<GlobalForm />} />} />
                 </Route>
                 <Route path="schedule">
                 <Route path="list" element={<ProtectedRoute element={<InterviewsList />} />} />
@@ -90,7 +91,7 @@ function App() {
                 </Route>
                 <Route path="settings" />
               </Route>
-              <Route path="evaluation" />
+              <Route path="evaluation" element={<Evaluation/>} />
             </Route>
           </Route>
         </Routes>
