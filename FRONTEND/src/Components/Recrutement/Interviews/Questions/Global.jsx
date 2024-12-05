@@ -76,8 +76,8 @@ const getTransformData = async (id) => {
       }))
     }));
   } catch (error) {
-    console.error("Erreur lors de la récupération des données:", error);
-    alert("Une erreur s'est produite lors de la récupération des données.");
+    //console.error("Erreur lors de la récupération des données:", error);
+    //alert("Une erreur s'est produite lors de la récupération des données.");
     return []; // Return an empty array in case of an error
   }
 };
