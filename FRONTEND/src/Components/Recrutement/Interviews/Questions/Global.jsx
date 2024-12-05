@@ -47,6 +47,19 @@ const formReducer = (state, action) => {
   }
 };
 
+function transformData(data) {
+  return data.map((section) => ({
+    title: section.name, // Use the "name" as the title
+    id: section.id, // Add 28 to the "id"
+    questions: section.interviewQuestions.map((question) => ({
+      question: question.question, // Copy the "question"
+      response: question.answer, // Rename "answer" to "response"
+      id: question.id, // Add 27 to the question "id"
+      error: "" // Add an empty "error" field
+    }))
+  }));
+}
+
 export default function GlobalForm() {
   const [state, dispatch] = useReducer(formReducer, initialState);
   const [sections, setSections] = useState([]);
@@ -73,6 +86,16 @@ export default function GlobalForm() {
       associativeExperienceGrade: 0,
     },
   });
+
+  //GET the sections data:
+  const { Sec_loading, Sec_error, Sec_data } = useApi(() => {
+    return api.getInterviewSections(id);
+  });
+
+  const Sec_result = transformData(Sec_data);
+  setSections(Sec_result);
+  console.log(sections);
+
 
   useEffect(() => {
     if (interview) {
