@@ -127,13 +127,13 @@ export default function Layout({ boardColumns, setBoardColumns }) {
 
     return (
         <DragDropContext onDragEnd={onDragEnd}>
-            <Grid container xs={12} sx={{ overflow: 'auto', minWidth: 835 }} spacing={2}>
+            <Grid container xs={12} sx={{ overflow: 'auto', minWidth: 835}} spacing={2} wrap="nowrap">
                 {Object.entries(boardColumns).map(([id, column]) => (
                     <Droppable droppableId={id} key={id}>
                         {(provided) => (
                             <Grid
                                 item
-                                xs={4}
+                                xs={3}
                                 {...provided.droppableProps}
                                 ref={provided.innerRef}
                             >

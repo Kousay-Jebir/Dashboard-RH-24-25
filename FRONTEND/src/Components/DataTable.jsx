@@ -47,7 +47,7 @@ const DataTable = ({
 
   const handleExpandClick = (index) => {
     if (!expandArrowNavigation) {
-      navigate(`/recruitement/interviews/${rowData[index].id}`);
+      navigate(`/recruitement/interviews/questions/${rowData[index].id}`);
     }
     if (setMeetingId) {
       setMeetingId(rowData[index].id);

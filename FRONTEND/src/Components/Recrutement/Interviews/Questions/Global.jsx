@@ -542,7 +542,7 @@ export default function GlobalForm() {
     const { scores } = formData;
 
     // Check if any score is invalid
-    if (Object.values(scores).some((score) => score === "" || score <= 0)) {
+    if (Object.values(scores).some((score) => score === "" || score < 0)) {
       // Set errors for each invalid score
       setErrors((prevErrors) =>
         Object.keys(scores).reduce((acc, key) => {

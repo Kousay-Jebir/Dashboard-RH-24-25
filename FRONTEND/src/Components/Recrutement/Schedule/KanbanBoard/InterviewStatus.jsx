@@ -4,6 +4,8 @@ import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlin
 import RestoreOutlinedIcon from '@mui/icons-material/RestoreOutlined';
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 import { statuses } from "../../interview-states";
+import AssignmentTurnedInOutlinedIcon from '@mui/icons-material/AssignmentTurnedInOutlined';
+
 export default function InterviewStatus({columnId,columnLength}){
     let bgColor,textColor,title,icon;
     if(columnId === statuses.CONFIRMED.id){
@@ -23,6 +25,12 @@ export default function InterviewStatus({columnId,columnLength}){
          textColor = 'error.main';
          title = 'Cancelled';
          icon = <CancelOutlinedIcon sx={{color:textColor}} fontSize='small'/>
+    }
+    else if (columnId === statuses.FINISHED.id) {
+        bgColor = 'neutral.light';
+         textColor = 'secondary.main';
+         title = 'Finished';
+         icon = <AssignmentTurnedInOutlinedIcon sx={{color:textColor}} fontSize='small'/>
     }
     return(
         <Box display={'flex'} gap={1} alignItems={'center'} bgcolor={bgColor} borderRadius={1} paddingBlock={1} paddingInline={1.5} flexWrap={'wrap'} mb={1}>

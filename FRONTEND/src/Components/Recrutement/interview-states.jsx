@@ -1,6 +1,7 @@
 import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlineRounded';
 import RestoreOutlinedIcon from '@mui/icons-material/RestoreOutlined';
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
+import AssignmentTurnedInOutlinedIcon from '@mui/icons-material/AssignmentTurnedInOutlined';
 
 export const statuses = {
     ALL : {
@@ -22,5 +23,10 @@ export const statuses = {
         title:'Cancelled',
         icon: CancelOutlinedIcon,
         id : 'CANCELLED'
+    },
+    FINISHED : {
+        title: 'Finished',
+        icon: AssignmentTurnedInOutlinedIcon,
+        id: 'FINISHED'
     }
 }

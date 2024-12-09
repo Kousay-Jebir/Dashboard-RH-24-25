@@ -103,7 +103,7 @@ const ScheduleInterview = ({ close }) => {
   const startInterviewHandler = async (e) => {
     const interviewId = (await createNewInterview()).data.data.id;
     close();
-    navigate(`/recruitement/interviews/${interviewId}`);
+    navigate(`/recruitement/interviews/questions/${interviewId}`);
 
   }
 

@@ -23,7 +23,8 @@ export default function KanbanBoard() {
             const initialColumns = {
                 [statuses.CONFIRMED.id]: { id: statuses.CONFIRMED.id, items: [] },
                 [statuses.DELAYED.id]: { id: statuses.DELAYED.id, items: [] },
-                [statuses.CANCELLED.id]: { id: statuses.CANCELLED.id, items: [] }
+                [statuses.CANCELLED.id]: { id: statuses.CANCELLED.id, items: [] },
+                [statuses.FINISHED.id] : {id: statuses.FINISHED.id,items:[]}
             };
 
             InterviewsData.forEach(interview => {
