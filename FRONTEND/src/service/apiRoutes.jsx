@@ -1,4 +1,4 @@
-const BASE_URL = import.meta.env.VITE_BASE_URL || "http://localhost:5000";
+const BASE_URL = import.meta.env.VITE_BASE_URL || "https://backend-dashboard-rh-treso-24-25.onrender.com";
 const BACKEND_API_ROUTES = {
     LOGIN: '/superadmin/login',
     GET_TOKEN_VALIDITY: '/member/token',
