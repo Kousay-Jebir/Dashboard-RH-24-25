@@ -50,6 +50,7 @@ const ScheduleMeeting = ({close}) => {
         status: "Confirmed",
         department: "Executive Board Members"
       });
+      handleToggle()
       
   };
     const validateForm = () => {

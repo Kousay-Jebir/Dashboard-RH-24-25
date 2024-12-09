@@ -148,7 +148,7 @@ const MeetingDetails = ({ meetingId, handleDrawerToggle, updateMeetingService ,t
   if (!fetchedData) return <p>Loading meeting details...</p>;
 
   return updating !== -1 ? (
-    <EditMeeting meetingId={meetingId} updateMeetingService={updateMeetingService} />
+    <EditMeeting meetingId={meetingId} updateMeetingService={updateMeetingService} setUpdating={setUpdating} close={handleDrawerToggle}/>
   ) : (
     <Box sx={{ gap: 34, fontFamily: theme.typography.fontFamily, maxWidth: 521, height: '100%' }}>
       <Card elevation={0} sx={{ height: '100%', overflow: 'scroll' }}>

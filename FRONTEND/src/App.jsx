@@ -54,7 +54,6 @@ function App() {
         <RoutesProvider>
           <CssBaseline />
           <Routes>
-            <Route path='/' element={<EditMeeting/>}></Route>
           <Route path="/login" element={<LoginV2 />} />
           <Route path="/" element={<AppLayout />}>
           <Route path="dashboard" element={<ProtectedRoute element={<Dashoboard />} />} />

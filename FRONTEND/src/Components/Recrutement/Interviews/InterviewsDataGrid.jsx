@@ -7,6 +7,8 @@ import { departments } from "../jei-departments";
 import { getDepartmentIdByDepartmentTitle } from "../jei-departments";
 import { getColorById } from "../jei-departments";
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import { useNotificationError } from "../../../context/SnackBarContext";
+import { useNotificationSuccess } from "../../../context/SnackBarContext";
 import {
   Box,
   Button,
@@ -105,6 +107,8 @@ const reducer = (state, action) => {
 };
 
 const DataTable = ({ data }) => {
+  const onsuccess=useNotificationSuccess();
+  const onerror = useNotificationError();
   const navigate = useNavigate()
   const [state, dispatch] = useReducer(reducer, { ...initialState, kpiData: data });
   const [expandedRow, setExpandedRow] = useState(null);
@@ -133,9 +137,15 @@ const DataTable = ({ data }) => {
     setPopupOpen(true)
   };
 
-  const handleConfirmAddMember = () => {
-    api.upgradeCandidat({id:state.kpiData[expandedRow].candidat.id})
-    setPopupOpen(false); 
+  const handleConfirmAddMember = async  () => {
+    try{
+      await api.upgradeCandidat({id:state.kpiData[expandedRow].candidat.id})
+      onsuccess("Member has been added successfully")
+    }
+    catch(e){
+      setPopupOpen(false);
+      onerror("Error..Maybe a member with this email already exists")
+    }
   };
 
   const handleSaveChanges = () => {

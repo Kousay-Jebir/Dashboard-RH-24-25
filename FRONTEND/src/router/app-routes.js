@@ -24,7 +24,7 @@ const routesConfig = {
           {
             title: 'Questions',
             icon: HelpRoundedIcon,
-            path: '/recruitement/interviews/questions',
+            path: '/recruitement/interviews',
             secondaryMenu: [] // No nested menu
           }
         ],

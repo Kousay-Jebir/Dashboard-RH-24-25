@@ -15,11 +15,15 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
+import { useNotificationError } from "../../context/SnackBarContext";
+import { useNotificationSuccess } from "../../context/SnackBarContext";
 import React, { useState } from "react";
 import { api } from "../../service/api";
 import { useNavigate } from "react-router-dom";
 
 const ScheduleInterview = ({ close }) => {
+  const onsucess = useNotificationSuccess();
+  const onerror = useNotificationError();
   const navigate= useNavigate()
   const [showDateTime, setShowDateTime] = useState(false);
   const [errors, setErrors] = useState({});
@@ -102,14 +106,26 @@ const ScheduleInterview = ({ close }) => {
 
 
   const startInterviewHandler = async (e) => {
-    const interviewId = (await createNewInterview()).data.data.id;
-    close();
-    navigate(`/recruitement/interviews/questions/${interviewId}`);
+    try{
+      const interviewId = (await createNewInterview()).data.data.id;
+      close();
+      navigate(`/recruitement/interviews/questions/${interviewId}`);
+    }
+    catch(e){
+      onerror("Error during interview creation");
+    }
 
   }
 
   const handleScheduleClick = async (e) => {
-    await createNewInterview();
+    try{
+      await createNewInterview();
+      close();
+      onsucess("Interview has been scheduled successfully")
+    }
+    catch(e){
+      onerror("Error during interview creation");
+    }
   };
 
 

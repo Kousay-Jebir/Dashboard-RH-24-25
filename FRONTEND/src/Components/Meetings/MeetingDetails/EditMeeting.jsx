@@ -2,9 +2,13 @@
     import React, { useState,useEffect } from 'react';
     import { api } from '../../../service/api';
     import useApi from '../../../service/useApi';
+    import { useNotificationError } from '../../../context/SnackBarContext';
+    import { useNotificationSuccess } from '../../../context/SnackBarContext';
 
 
-    const EditMeeting = ({meetingId,updateMeetingService}) => {
+    const EditMeeting = ({meetingId,updateMeetingService,setUpdating,close}) => {
+        const onSuccess = useNotificationSuccess();
+        const onError = useNotificationError();
         const { data, error, loading } = useApi(() => api.getMeetingById(meetingId), {});
         const fetchedData = data?.data || {};
         const [showDateTime, setShowDateTime] = useState(false);
@@ -120,10 +124,12 @@
             console.log(formData);
             const postData = transformFormDataToPostData(formData);
             try{
-            updateMeetingService(meetingId,postData);
+            await updateMeetingService(meetingId,postData);
+            onSuccess("Meeting updated successfully")
+            setUpdating(-1)
             }
-            catch{
-                console.log("error posting the data");
+            catch(e){
+                onError("Error during meeting updation")
             }
 
         }
@@ -314,7 +320,7 @@
                                 gap: '4px',
                             }}
                         >
-                            {[ 'Executive Board Members','All members included', 'Quartet', 'Projet', 'Marketing', 'Dév. Commercial', 'Cellule qualité'].map((privacy) => (
+                            {[ 'Executive Board Members','All members included', 'Projet', 'Marketing', 'Dév. Commercial', 'Cellule qualité'].map((privacy) => (
                                 <FormControlLabel
                                     key={privacy}
                                     value={privacy}
@@ -347,6 +353,7 @@
                     <Box sx={{ display: 'flex', gap: 1, marginTop: 2 }}>
                         <Button
                             variant="outlined"
+                            onClick={()=>{setUpdating(-1)}}
                             sx={{
                                 width: '40%',
                                 height: 46,

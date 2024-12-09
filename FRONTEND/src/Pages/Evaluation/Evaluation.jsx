@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TableFooter, TextField, Button } from '@mui/material';
 import BorderBox from '../../components/BorderBox';
 import { api } from '../../service/api';
-
+import { useNotificationSuccess } from '../../context/SnackBarContext';
+import { useNotificationError } from '../../context/SnackBarContext';
 export default function Evaluation() {
+  const onsucess=useNotificationSuccess()
+  const onerror = useNotificationError()
   const initialData = [
     ['Coefficients', 'Department Meeting', 'General Assembly', 'Event', 'Team Building'],
     ['Projet', 10, 20, 30, 10],
@@ -56,10 +59,10 @@ export default function Evaluation() {
         const updatedMatrix = response.data.matrix;  // Get the updated matrix from response.data.matrix
         const updatedTableData = transformApiDataToTable(updatedMatrix);
         setData(updatedTableData);  // Update the table data with the response
-        console.log('Data updated successfully:', response);
+        onsucess("Coefficients have been updated successfully")
       })
       .catch(error => {
-        console.error('Error updating coefficients:', error);
+        onerror("Error during coefficient updating")
       });
   };
 
