@@ -2,7 +2,7 @@ import React, { useEffect, useReducer, useState } from "react";
 import { Box, Button, useTheme, Typography } from "@mui/material";
 import { api } from "../../../../service/api";
 import useApi from "../../../../service/useApi";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import GeneralInformationForm from "./GeneralInformationForm";
 import DynamicSectionsForm from "./DynamicSectionsForm";
@@ -87,7 +87,7 @@ export default function GlobalForm() {
   const [sections, setSections] = useState([]);
   const [submitError, setSubmitError] = useState("");
   const theme = useTheme();
-
+  const navigate = useNavigate();
   const { id } = useParams();
   console.log(id);
 
@@ -598,16 +598,39 @@ export default function GlobalForm() {
   return (
     <Box sx={{ padding: 0 }}>
       {submitError && <Typography color="error">{submitError}</Typography>}
+      
+      <GeneralInformationForm state={state} dispatch={dispatch} />
+      <DynamicSectionsForm
+        sections={sections}
+        addSection={addSection}
+        modifySectionTitle={modifySectionTitle}
+        removeSection={removeSection}
+        addQuestion={addQuestion}
+        handleQuestionChange={handleQuestionChange}
+        removeQuestion={removeQuestion}
+      />
+      <ScoresForm
+        scores={formData.scores}
+        onScoresChange={handleScoresChange}
+        errors={errors}
+      />
+      <Duration
+        value={formData.duration}
+        onChange={handleDurationChange}
+        error={errors.duration}
+        onBlur={handleBlur}
+      />
       <Box
         sx={{
           gap: 2,
           display: "flex",
           marginLeft: "auto",
-          justifyContent: "end",
+          justifyContent: "start",
         }}
       >
         <Button
           variant="outlined"
+          onClick={()=>{navigate("/recruitement/interviews/recent")}}
           sx={{
             mb: 2,
             color: theme.palette.neutral.normal,
@@ -639,27 +662,6 @@ export default function GlobalForm() {
           Save interview
         </Button>
       </Box>
-      <GeneralInformationForm state={state} dispatch={dispatch} />
-      <DynamicSectionsForm
-        sections={sections}
-        addSection={addSection}
-        modifySectionTitle={modifySectionTitle}
-        removeSection={removeSection}
-        addQuestion={addQuestion}
-        handleQuestionChange={handleQuestionChange}
-        removeQuestion={removeQuestion}
-      />
-      <ScoresForm
-        scores={formData.scores}
-        onScoresChange={handleScoresChange}
-        errors={errors}
-      />
-      <Duration
-        value={formData.duration}
-        onChange={handleDurationChange}
-        error={errors.duration}
-        onBlur={handleBlur}
-      />
     </Box>
   );
 }

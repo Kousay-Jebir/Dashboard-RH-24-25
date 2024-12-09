@@ -188,8 +188,8 @@ export default function DynamicSectionsForm({
       ))}
 
       {/* Add Section Button */}
-      <IconButton onClick={() => setOpenAddDialog(true)} sx={{ mt: 2 }}>
-        <AddCircleOutlineIcon sx={{ mr: 1 }} /> Add Section
+      <IconButton onClick={() => setOpenAddDialog(true)} sx={{ mt: 2 ,borderRadius:1.5}} size="small">
+        <AddCircleOutlineIcon fontSize="small" sx={{ mr: 1 }} /> Add Section
       </IconButton>
 
       {/* Add Section Dialog */}
