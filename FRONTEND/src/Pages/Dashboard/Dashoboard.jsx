@@ -120,11 +120,6 @@ const Dashoboard = () => {
         </Grid>
       </Grid>
       <Box>
-      <Button variant="contained" color="primary" onClick={handleOpen}>
-        Show QR Code
-      </Button>
-      {/* Utilisation du composant QRCodePopup pour afficher le QR code */}
-      <QRCodeDialog open={openP} handleClose={handleClose} />
     </Box>
     </Box>
   );

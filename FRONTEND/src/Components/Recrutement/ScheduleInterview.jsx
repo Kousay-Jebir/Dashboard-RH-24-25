@@ -25,7 +25,8 @@ const ScheduleInterview = ({ close }) => {
   const [errors, setErrors] = useState({});
   const [isVisible, setIsVisible] = useState(true);
   const [formData, setFormData] = useState({
-    Candidate: "",
+    firstName: "",
+    lastName: "",
     Phone: "",
     City: "",
     Adress: "",
@@ -53,13 +54,13 @@ const ScheduleInterview = ({ close }) => {
       rhQuestionsGrade: 0,
       situationGrade: 0,
       associativeExperienceGrade: 0,
-      candidatName: formData.Candidate,
+      candidatName: formData.firstName,
       candidatEmail: formData.email,
       candidatPhone: formData.Phone,
       candidatAddress: formData.Adress,
       candidatAdress: formData.Adress,
       candidatCity: formData.City,
-      candidatLastName: "last name",
+      candidatLastName: formData.lastName,
       candidatField: formData.Field,
       candidatYear: String(formData.Academic_year),
     };
@@ -120,13 +121,23 @@ const ScheduleInterview = ({ close }) => {
   const validateForm = () => {
     const newErrors = {};
 
+    // Validate first and last name
     if (
-      !formData.Candidate.match(/^[A-Za-zÀ-ÿ' -]+$/) ||
-      formData.Candidate.length < 3 ||
-      formData.Candidate.length > 20
+      !formData.firstName.match(/^[A-Za-zÀ-ÿ' -]+$/) ||
+      formData.firstName.length < 3 ||
+      formData.firstName.length > 20
     ) {
-      newErrors.Candidate = "Enter a valid candidate name";
+      newErrors.firstName = "Enter a valid first name";
     }
+
+    if (
+      !formData.lastName.match(/^[A-Za-zÀ-ÿ' -]+$/) ||
+      formData.lastName.length < 3 ||
+      formData.lastName.length > 20
+    ) {
+      newErrors.lastName = "Enter a valid last name";
+    }
+
 
     if (!formData.Phone.match(/^\d{8}$/)) {
       newErrors.Phone = "Enter a valid phone number.";
@@ -354,7 +365,8 @@ const ScheduleInterview = ({ close }) => {
           }}
         >
           <Box sx={{ display: "flex", flexDirection: "row", gap: 1 }}>
-            {renderTextField("Candidate", "Candidate", "Enter name")}
+            {renderTextField("First Name", "firstName", "Enter first name")}
+            {renderTextField("Last Name", "lastName", "Enter last name")}
             {renderTextField("Phone", "Phone", "+ 216")}
           </Box>
           <Box sx={{ display: "flex", flexDirection: "row", gap: 1 }}>
