@@ -93,7 +93,7 @@ export default function Evaluation() {
   
 
   return (
-    <TableContainer component={BorderBox} radius={2}>
+    <TableContainer component={BorderBox} radius={2}  styles={{overflow:'scroll'}}>
       <Table>
         <TableHead>
           <TableRow sx={{borderBottom:'2px solid rgb(233, 234, 235)'}}>

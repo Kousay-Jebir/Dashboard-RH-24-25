@@ -8,7 +8,8 @@ const KanbanForm = ({ getFormData }) => {
     const theme = useTheme();
 
     const [formData, setFormData] = useState({
-        interviewWith: '',
+        interviewWithFirstName: '',  // New first name field
+        interviewWithLastName: '',   // New last name field
         interviewedBy: '',
         department: departments.PROJET.title,
         date: '',
@@ -16,7 +17,6 @@ const KanbanForm = ({ getFormData }) => {
         candidatEmail: '', 
         candidatPhone: '',
         candidatAddress: '',
-        candidatLastName: '',
         candidatField: '',
         candidatYear: '',
         candidatCity: ''
@@ -48,15 +48,25 @@ const KanbanForm = ({ getFormData }) => {
 
         const hasInvalidCharacters = (value) => /[^a-zA-Z\s\-\'èéàâôîû]/.test(value);
 
-        // Validate interviewee's name
-        if (!formData.interviewWith.trim()) {
-            newErrors.interviewWith = "The interviewee's name is required.";
-        } else if (hasInvalidCharacters(formData.interviewWith)) {
-            newErrors.interviewWith = "The interviewee's name contains invalid characters.";
-        } else if (formData.interviewWith.length < 3) {
-            newErrors.interviewWith = "The interviewee's name is too short";
-        } else if (formData.interviewWith.length > 20) {
-            newErrors.interviewWith = "The interviewee's name is too long.";
+        // Validate interviewee's first and last names
+        if (!formData.interviewWithFirstName.trim()) {
+            newErrors.interviewWithFirstName = "The interviewee's first name is required.";
+        } else if (hasInvalidCharacters(formData.interviewWithFirstName)) {
+            newErrors.interviewWithFirstName = "The interviewee's first name contains invalid characters.";
+        } else if (formData.interviewWithFirstName.length < 2) {
+            newErrors.interviewWithFirstName = "The interviewee's first name is too short.";
+        } else if (formData.interviewWithFirstName.length > 20) {
+            newErrors.interviewWithFirstName = "The interviewee's first name is too long.";
+        }
+
+        if (!formData.interviewWithLastName.trim()) {
+            newErrors.interviewWithLastName = "The interviewee's last name is required.";
+        } else if (hasInvalidCharacters(formData.interviewWithLastName)) {
+            newErrors.interviewWithLastName = "The interviewee's last name contains invalid characters.";
+        } else if (formData.interviewWithLastName.length < 2) {
+            newErrors.interviewWithLastName = "The interviewee's last name is too short.";
+        } else if (formData.interviewWithLastName.length > 20) {
+            newErrors.interviewWithLastName = "The interviewee's last name is too long.";
         }
 
         // Validate interviewer's name
@@ -88,7 +98,7 @@ const KanbanForm = ({ getFormData }) => {
     };
 
     const renderTextField = (label, name, placeholder, type = 'text') => (
-        <Box sx={{ height: '28px', display: 'flex', flexDirection: 'row', gap: '6px' }}>
+        <Box sx={{  display: 'flex', flexDirection: 'row', gap: '6px' }}>
             <Typography
                 variant="body2"
                 sx={{
@@ -107,6 +117,7 @@ const KanbanForm = ({ getFormData }) => {
                 placeholder={placeholder}
                 type={type}
                 error={!!errors[name]}
+                size="small"
                 helperText={errors[name]}
                 sx={{
                     width: '100%',
@@ -153,8 +164,10 @@ const KanbanForm = ({ getFormData }) => {
                     </Typography>
                 </Box>
 
+                {/* First and Last Name for Interviewee */}
                 <Box mb={1}>
-                    {renderTextField('Interview with', 'interviewWith', "Enter name")}
+                    {renderTextField('Interview with (First Name)', 'interviewWithFirstName', "Enter first name")}
+                    {renderTextField('Interview with (Last Name)', 'interviewWithLastName', "Enter last name")}
                 </Box>
 
                 <Typography
@@ -183,7 +196,6 @@ const KanbanForm = ({ getFormData }) => {
 
                 {/* Candidate email field */}
                 {renderTextField('Candidate Email', 'candidatEmail', "Enter email", 'email')}
-
             </Box>
 
             <Box
@@ -267,8 +279,7 @@ const KanbanForm = ({ getFormData }) => {
                 <Button
                     onClick={handleSubmit}
                     sx={{
-                        width: '235px',
-                        height: '24px',
+                        width:'100%',
                         padding: '6px 6px',
                         gap: '8px',
                         color: theme.palette.white.main,
@@ -278,8 +289,6 @@ const KanbanForm = ({ getFormData }) => {
                         textAlign: 'center',
                         fontSize: '10px',
                         marginTop: '30px',
-                        marginLeft: '5px',
-                        marginRight: '5px',
                         fontFamily: theme.typography.fontFamily,
                         '&:hover': {
                             backgroundColor: '#404951',

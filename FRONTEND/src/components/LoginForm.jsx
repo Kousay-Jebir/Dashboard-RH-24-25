@@ -10,7 +10,7 @@ import BorderBox from './BorderBox';
 import MailOutlineRoundedIcon from '@mui/icons-material/MailOutlineRounded';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
-const InputField = ({ icon, placeholder, type, label, value, setValue, error }) => {
+const InputField = ({ icon, placeholder, type, label, value, setValue, error,errorMessage=false }) => {
   return (
       <>
           <Typography sx={{
@@ -44,7 +44,7 @@ const InputField = ({ icon, placeholder, type, label, value, setValue, error }) 
               }}
               required
           />
-          {error && <Typography color="error">{error}</Typography>}
+          {(error&&errorMessage) && <Typography color="error">{error}</Typography>}
       </>
   );
 };
@@ -74,6 +74,7 @@ const LoginForm = ({ handleSubmit, formData, setFormData, error,setError }) => {
                   value={formData.password}
                   setValue={(e) => setFormData({ ...formData, password: e.target.value })}
                   error={error}
+                  errorMessage
               />
               <Button type='submit' variant='contained' sx={{ textTransform: 'none', marginTop: 3 }} disableElevation fullWidth>Login</Button>
           </form>

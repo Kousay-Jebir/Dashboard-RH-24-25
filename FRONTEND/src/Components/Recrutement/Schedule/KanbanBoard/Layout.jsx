@@ -32,11 +32,11 @@ export default function Layout({ boardColumns, setBoardColumns }) {
             "rhQuestionsGrade": 0,
             "situationGrade": 0,
             "associativeExperienceGrade": 0,
-            "candidatName": formData.interviewWith,
+            "candidatName": formData.interviewWithFirstName,
             "candidatEmail": formData.candidatEmail,
             "candidatPhone": formData.candidatPhone,
             "candidatAddress": formData.candidatAddress,
-            "candidatLastName": formData.candidatLastName,
+            "candidatLastName": formData.interviewWithLastName,
             "candidatField": formData.candidatYear,
             "candidatYear": formData.candidatYear,
             "candidatCity": formData.candidatCity

@@ -15,7 +15,7 @@ const BACKEND_API_ROUTES = {
     GET_TOTAL_TEAM_BUILDING:'/meeting/total/teamBuildings',
     GET_TOTAL_EVENT:'/meeting/total/events',
     GET_TOTAL_DEPARTMENT_MEETING:'/meeting/total/departmentMeetings',
-    GET_TOTAL_GENERAL_ASSEMBLY:'/meeting/total/generalAssemblys',
+    GET_TOTAL_GENERAL_ASSEMBLY:'/meeting/total/generalAssemblies',
     GET_EVENT: '/meeting/event',
     GET_TEAM_BUILDING: '/meeting/teamBuilding',
     GET_DEPARTMENT_MEETING: '/meeting/departmentMeeting',

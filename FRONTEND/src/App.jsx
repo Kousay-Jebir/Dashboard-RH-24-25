@@ -90,7 +90,7 @@ function App() {
                 </Route>
                 <Route path="settings" />
               </Route>
-              <Route path="evaluation" element={<Evaluation/>} />
+              <Route path="evaluation" element={<ProtectedRoute  element={<Evaluation/>}/>} />
             </Route>
           </Route>
         </Routes>
