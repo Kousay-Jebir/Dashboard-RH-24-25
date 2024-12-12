@@ -257,24 +257,10 @@ export default function GlobalForm() {
           await api.updateInterview(id, submittedInterview);
         
 
-        // Optional: Handle success if all sections are posted
-        console.log("All sections posted successfully");
       } catch (error) {
         console.error("Erreur lors de l'envoi du message:", error);
         alert("Échec de l'envoi du message.");
       }
-      //dispatch({ type: "RESET_FORM" });
-      //setSections([]);
-      // setFormData({
-      //   scores: {
-      //     polePresentationGrade: 0,
-      //     jeiKnowledgeGrade: 0,
-      //     availabilityGrade: 0,
-      //     rhQuestionsGrade: 0,
-      //     situationGrade: 0,
-      //     associativeExperienceGrade: 0,
-      //   },
-      // });
     }
   };
 
@@ -348,7 +334,6 @@ export default function GlobalForm() {
       setSubmitError(newSubmitError);
       return false;
     } else {
-      // console.log("Sections submitted", sections);
       setSubmitError("");
       return true;
     }
@@ -469,10 +454,10 @@ export default function GlobalForm() {
     //console.log(question_data);
 
     try {
-      //if (blur =="blur"){
-      const response = await api.updateInterviewQuestion(ques_id, question_data);
-      console.log(response);
-      //}
+      if (blur =="blur"){
+        const response = await api.updateInterviewQuestion(ques_id, question_data);
+        //console.log(response);
+      }
 
       const updatedSections = sections.map((section, i) =>
         i === sectionIndex
