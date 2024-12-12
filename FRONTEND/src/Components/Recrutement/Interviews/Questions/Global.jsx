@@ -230,10 +230,10 @@ export default function GlobalForm() {
             phone: state.candidatPhone,
             email: state.candidatEmail,
             field: state.candidatField,
-            year: state.formData.candidatYear,
+            year: String(state.formData.candidatYear),
             adress: state.formData.candidatAddress,
             city: state.formData.candidatCity,
-            //department: state.formData.department
+            department: state.formData.department
           };
 
           // Call the API to update the candidate information
@@ -247,8 +247,7 @@ export default function GlobalForm() {
             availabilityGrade: formData.scores.availabilityGrade,
             rhQuestionsGrade: formData.scores.rhQuestionsGrade,
             situationGrade: formData.scores.situationGrade,
-            associativeExperienceGrade:
-              formData.scores.associativeExperienceGrade,
+            associativeExperienceGrade: formData.scores.associativeExperienceGrade,
             status: "finished",
           };
 
