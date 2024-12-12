@@ -444,7 +444,7 @@ export default function GlobalForm() {
     }
   };
 
-  const handleQuestionChange = async (sectionIndex, questionIndex, field, value ) => {
+  const handleQuestionChange = async (sectionIndex, questionIndex, field, value, blur ) => {
     const ques_id = sections[sectionIndex].questions[questionIndex].id
 
     const { question, response } = sections[sectionIndex].questions[questionIndex];
@@ -452,23 +452,27 @@ export default function GlobalForm() {
 
     let question_data = { question, answer: response, type: title };
 
-    if (field === "response") {
-      question_data = {
-        ...question_data,
-        answer: value,
-      };
-    }
-    else if (field === "question"){
-      question_data = {
-        ...question_data,
-        question: value,
-      };
-    }
+      if (field === "response") {
+        question_data = {
+          ...question_data,
+          answer: value,
+        };
+      }
+      else if (field === "question"){
+        question_data = {
+          ...question_data,
+          question: value,
+        };
+      }
+    
+    
     //console.log(question_data);
 
     try {
+      //if (blur =="blur"){
       const response = await api.updateInterviewQuestion(ques_id, question_data);
-      //console.log(response);
+      console.log(response);
+      //}
 
       const updatedSections = sections.map((section, i) =>
         i === sectionIndex
@@ -494,7 +498,7 @@ export default function GlobalForm() {
           : section
       );
       setSections(updatedSections);
-
+      
       //console.log(sections);
     } catch (error) {
       console.error("Erreur lors de l'envoi du message:", error);
