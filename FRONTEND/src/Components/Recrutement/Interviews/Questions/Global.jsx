@@ -215,9 +215,7 @@ export default function GlobalForm() {
     if (!validateScores()) {
       isValid = false;
     }
-    // if (!validateSections()) {
-    //   isValid = false;
-    // }
+   
     if (!validateForm()) {
       isValid = false;
     }
