@@ -226,10 +226,10 @@ export default function GlobalForm() {
       console.log("Form submitted:", formData);
       try {
           const candidatData = {
-            name: state.candidatName,
-            lastName: state.candidatLastName,
-            phone: state.candidatPhone,
-            email: state.candidatEmail,
+            name: state.formData.candidatName,
+            lastName: state.formData.candidatLastName,
+            phone: state.formData.candidatPhone,
+            email: state.formData.candidatEmail,
             field: state.formData.candidatField,
             year: String(state.formData.candidatYear),
             adress: state.formData.candidatAddress,
