@@ -96,6 +96,7 @@ export default function GlobalForm() {
   });
 
   const interview = data ? data.data : null;
+  console.log(interview);
 
   const [formData, setFormData] = useState({
     // You can add other form fields here if needed
@@ -229,12 +230,13 @@ export default function GlobalForm() {
             lastName: state.candidatLastName,
             phone: state.candidatPhone,
             email: state.candidatEmail,
-            field: state.candidatField,
-            year: state.formData.candidatYear,
+            field: state.formData.candidatField,
+            year: String(state.formData.candidatYear),
             adress: state.formData.candidatAddress,
             city: state.formData.candidatCity,
-            //department: state.formData.department
+            department: state.formData.department
           };
+          console.log("le candidat avant update: ",candidatData)
 
           // Call the API to update the candidate information
           await api.updateCandidat(id, candidatData);
@@ -247,8 +249,7 @@ export default function GlobalForm() {
             availabilityGrade: formData.scores.availabilityGrade,
             rhQuestionsGrade: formData.scores.rhQuestionsGrade,
             situationGrade: formData.scores.situationGrade,
-            associativeExperienceGrade:
-              formData.scores.associativeExperienceGrade,
+            associativeExperienceGrade: formData.scores.associativeExperienceGrade,
             status: "finished",
           };
 
