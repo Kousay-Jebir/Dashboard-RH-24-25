@@ -89,7 +89,6 @@ export default function GlobalForm() {
   const theme = useTheme();
   const navigate = useNavigate();
   const { id } = useParams();
-  console.log(id);
 
   const { loading, error, data } = useApi(() => {
     return api.getInterviewById(id);
@@ -349,7 +348,6 @@ export default function GlobalForm() {
           ...sections,
           { title, id: response.data.id, questions: [] },
         ]);
-        console.log(sections);
       } catch (error) {
         console.error("Erreur lors de l'envoi du message:", error);
         alert("Échec de l'envoi du message.");
@@ -369,7 +367,6 @@ export default function GlobalForm() {
 
       try {
         const response = await api.updateSection(Sec_id, { name: newTitle });
-        console.log(response.data);
       } catch (error) {
         console.error("Erreur lors de l'envoi du message:", error);
         alert("Échec de l'envoi du message.");
@@ -381,11 +378,9 @@ export default function GlobalForm() {
     setSections(sections.filter((_, i) => i !== index));
 
     let Sec_id = sections[index].id;
-    console.log("SecID_for_delete =", Sec_id);
 
     try {
       const response = await api.deleteSection(Sec_id);
-      console.log(response);
     } catch (error) {
       console.error("Erreur lors de l'envoi du message:", error);
       alert("Échec de l'envoi du message.");
@@ -400,11 +395,9 @@ export default function GlobalForm() {
       type: sections[sectionIndex].title,
       section: String(sections[sectionIndex].id),
     };
-    console.log(question_data);
 
     try {
       const response = await api.createInterviewQuestion(question_data);
-      console.log(response);
       const updatedSections = sections.map((section, i) =>
         i === sectionIndex
           ? {
@@ -421,7 +414,6 @@ export default function GlobalForm() {
           : section
       );
       setSections(updatedSections);
-      console.log(sections);
     } catch (error) {
       console.error("Erreur lors de l'envoi du message:", error);
       alert("Échec de l'envoi du message.");
@@ -505,7 +497,6 @@ export default function GlobalForm() {
 
     try {
       const response = await api.deleteInterviewQuestion(ques_id);
-      console.log(response);
     } catch (error) {
       console.error("Erreur lors de l'envoi du message:", error);
       alert("Échec de l'envoi du message.");
