@@ -46,7 +46,7 @@ const NavigationTabs = ({tabs,button}) => {
         value={currentIndex !== -1 ? currentIndex : false}
         onChange={handleChange}
         aria-label="navigation tabs"
-        textColor='text.primary'
+        //textColor='text.primary'
         indicatorColor='secondary'
         sx={{
           overflow: { xs: 'auto', sm:'scroll', md: 'visible' }, // Ensure overflow is not hidden
