@@ -36,8 +36,9 @@ export default function TopBar({ handleDrawerToggle, drawerWidth }) {
               Cookies.remove('accessToken');
               window.location.reload(); // Refresh the page
             }}
+            sx={{ p:0 , m:0}}
           >
-            <LogoutIcon sx={{color:'text.secondary'}} />
+            <LogoutIcon fontSize='medium' sx={{color:'text.secondary'}} />
           </IconButton>
         </BorderBox>
       </Toolbar>
