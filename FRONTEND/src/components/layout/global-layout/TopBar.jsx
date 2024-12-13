@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { AppBar, Toolbar, Typography, IconButton, TextField, InputAdornment } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
 import LogoutIcon from '@mui/icons-material/Logout';
 import BorderBox from '../../BorderBox';
 import SearchBar from '../../SearchBar';
+
 import { useTheme } from '@emotion/react';
 import { useAuth } from '../../../context/AuthContext';
 
@@ -37,13 +37,15 @@ export default function TopBar({ handleDrawerToggle, drawerWidth }) {
         </IconButton>
 
         <SearchBar placeHolder={'Search for something'}/>
+
+        <BorderBox radius={2} styles={{ display: 'flex', padding: 1 }}>
           <IconButton
-          sx={{border:`2px solid ${theme.palette.neutral.light}`,borderRadius:2}}
-          aria-label="open drawer"
-          onClick={handleLogout}
-        >
-          <LogoutIcon />
-        </IconButton>
+            onClick={handleLogout}
+            sx={{ p:0 , m:0}}
+          >
+            <LogoutIcon fontSize='medium' sx={{color:'text.secondary'}} />
+          </IconButton>
+        </BorderBox>
       </Toolbar>
     </AppBar>
   );
