@@ -96,6 +96,7 @@ export default function GlobalForm() {
   });
 
   const interview = data ? data.data : null;
+  console.log(interview);
 
   const [formData, setFormData] = useState({
     // You can add other form fields here if needed
@@ -215,9 +216,7 @@ export default function GlobalForm() {
     if (!validateScores()) {
       isValid = false;
     }
-    // if (!validateSections()) {
-    //   isValid = false;
-    // }
+   
     if (!validateForm()) {
       isValid = false;
     }
@@ -231,12 +230,13 @@ export default function GlobalForm() {
             lastName: state.candidatLastName,
             phone: state.candidatPhone,
             email: state.candidatEmail,
-            field: state.candidatField,
-            year: state.formData.candidatYear,
+            field: state.formData.candidatField,
+            year: String(state.formData.candidatYear),
             adress: state.formData.candidatAddress,
             city: state.formData.candidatCity,
-            //department: state.formData.department
+            department: state.formData.department
           };
+          console.log("le candidat avant update: ",candidatData)
 
           // Call the API to update the candidate information
           await api.updateCandidat(id, candidatData);
@@ -249,32 +249,17 @@ export default function GlobalForm() {
             availabilityGrade: formData.scores.availabilityGrade,
             rhQuestionsGrade: formData.scores.rhQuestionsGrade,
             situationGrade: formData.scores.situationGrade,
-            associativeExperienceGrade:
-              formData.scores.associativeExperienceGrade,
+            associativeExperienceGrade: formData.scores.associativeExperienceGrade,
             status: "finished",
           };
 
           await api.updateInterview(id, submittedInterview);
         
 
-        // Optional: Handle success if all sections are posted
-        console.log("All sections posted successfully");
       } catch (error) {
         console.error("Erreur lors de l'envoi du message:", error);
         alert("Échec de l'envoi du message.");
       }
-      //dispatch({ type: "RESET_FORM" });
-      //setSections([]);
-      // setFormData({
-      //   scores: {
-      //     polePresentationGrade: 0,
-      //     jeiKnowledgeGrade: 0,
-      //     availabilityGrade: 0,
-      //     rhQuestionsGrade: 0,
-      //     situationGrade: 0,
-      //     associativeExperienceGrade: 0,
-      //   },
-      // });
     }
   };
 
@@ -348,7 +333,6 @@ export default function GlobalForm() {
       setSubmitError(newSubmitError);
       return false;
     } else {
-      // console.log("Sections submitted", sections);
       setSubmitError("");
       return true;
     }
@@ -444,7 +428,7 @@ export default function GlobalForm() {
     }
   };
 
-  const handleQuestionChange = async (sectionIndex, questionIndex, field, value ) => {
+  const handleQuestionChange = async (sectionIndex, questionIndex, field, value, blur ) => {
     const ques_id = sections[sectionIndex].questions[questionIndex].id
 
     const { question, response } = sections[sectionIndex].questions[questionIndex];
@@ -452,23 +436,27 @@ export default function GlobalForm() {
 
     let question_data = { question, answer: response, type: title };
 
-    if (field === "response") {
-      question_data = {
-        ...question_data,
-        answer: value,
-      };
-    }
-    else if (field === "question"){
-      question_data = {
-        ...question_data,
-        question: value,
-      };
-    }
+      if (field === "response") {
+        question_data = {
+          ...question_data,
+          answer: value,
+        };
+      }
+      else if (field === "question"){
+        question_data = {
+          ...question_data,
+          question: value,
+        };
+      }
+    
+    
     //console.log(question_data);
 
     try {
-      const response = await api.updateInterviewQuestion(ques_id, question_data);
-      //console.log(response);
+      if (blur =="blur"){
+        const response = await api.updateInterviewQuestion(ques_id, question_data);
+        //console.log(response);
+      }
 
       const updatedSections = sections.map((section, i) =>
         i === sectionIndex
@@ -494,7 +482,7 @@ export default function GlobalForm() {
           : section
       );
       setSections(updatedSections);
-
+      
       //console.log(sections);
     } catch (error) {
       console.error("Erreur lors de l'envoi du message:", error);

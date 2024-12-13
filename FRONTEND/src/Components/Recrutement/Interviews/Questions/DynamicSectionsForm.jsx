@@ -73,7 +73,8 @@ export default function DynamicSectionsForm({
         questionSectionIndex,
         editQuestionIndex,
         "question",
-        newQuestion
+        newQuestion,
+        "blur"
       );
     } else {
       addQuestion(questionSectionIndex, {
@@ -166,14 +167,15 @@ export default function DynamicSectionsForm({
                     sectionIndex,
                     questionIndex,
                     "response",
-                    e.target.value
+                    e.target.value,
+                    "noblur"
                   )
                 }
                 onBlur={() => {
                   if (!question.response.trim()) {
-                    handleQuestionChange(sectionIndex, questionIndex, "error", "Response is required");
+                    handleQuestionChange(sectionIndex, questionIndex, "error", "Response is required", "no");
                   } else {
-                    handleQuestionChange(sectionIndex, questionIndex, "error", "");
+                    handleQuestionChange(sectionIndex, questionIndex, "error", "", "blur");
                   }
                 }}
                 size="small"
