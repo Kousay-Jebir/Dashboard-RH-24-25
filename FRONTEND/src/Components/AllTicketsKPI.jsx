@@ -19,6 +19,7 @@ const AllTicketsKPI = () => {
   const {data:totalMembers}=useApi(api.getTotalMember,NaN)
   const {data:totalTeamBuildings}=useApi(api.getTotalTeamBuilding,NaN)
   const {data:totalMeetings}=useApi(api.getTotalMeeting,NaN)
+  const {data:totalEvents}=useApi(api.getTotalEvent,NaN)
 
 
   const settings = {
@@ -36,7 +37,7 @@ const AllTicketsKPI = () => {
 
   const kpiData = [
     { title: "Total members", value: `${totalMembers.data?.totalMembers}`, icon: <PersonIcon /> },
-    { title: "Total Workshops", value: "15", icon: <WbSunnyIcon /> },
+    { title: "Total Events", value: totalEvents.data?.totalMeetings, icon: <WbSunnyIcon /> },
     { title: "Team Buildings", value: `${totalTeamBuildings.data?.totalMeetings}`, icon: <WhatshotIcon /> },
     { title: "Meetings", value: `${totalMeetings.data?.totalMeetings}`, icon: <ChatIcon /> },
   ];

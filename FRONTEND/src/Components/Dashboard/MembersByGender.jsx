@@ -20,7 +20,7 @@ export default function MembersByGender() {
           fontWeight: theme.typography.extraMeduim,
           color: theme.palette.text.main,
         }}>
-        Members by gender
+        Meetings by types
       </Typography>
       <Typography
         sx={{
@@ -30,7 +30,7 @@ export default function MembersByGender() {
           marginBlock: 0.3,
         }}
       >
-        Find how many male and female members in the association
+        Find the distribution of different meeting types within the association
       </Typography>
       <MembersByGenderChart/>
     </Box>

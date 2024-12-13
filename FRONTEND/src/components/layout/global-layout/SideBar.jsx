@@ -7,7 +7,7 @@ import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined
 import AssessmentOutlinedIcon from '@mui/icons-material/AssessmentOutlined';
 import { Toolbar, Avatar, Typography, Divider } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
-
+import jeiAvatar from "../../../assets/JEI.png"
 // Function to check if the current path is a nested route of the item path
 const isActivePath = (currentPath, itemPath) => {
   return currentPath === itemPath || currentPath.startsWith(itemPath + '/');
@@ -33,7 +33,7 @@ export default function SideBar({
   const drawerContent = (
     <Box>
       <Toolbar sx={{ gap: 2, p: 2 }}>
-        <Avatar src='/src/assets/JEI.png' sx={{ border: 1, borderColor: 'neutral.light', height: 54, width: 54 }} />
+        <Avatar src={jeiAvatar} sx={{ border: 1, borderColor: 'neutral.light', height: 54, width: 54 }} />
         <Box>
           <Typography variant='subtitle1' fontWeight={'regular'}>Junior Entreprise INSAT</Typography>
           <Typography variant='subtitle2' color={'text.secondary'}>HR Management</Typography>

@@ -11,7 +11,7 @@ const routesConfig = {
       tabs : [
         {title:'Interviews',path:'/recruitement/interviews',default:'/recent'},
         {title:'schedule',path:'/recruitement/schedule',default:'/list'},
-        {title:'Settings',path:'/recruitement/settings',default:''},
+ 
       ],
       menu : {
         interviews:[
@@ -59,7 +59,7 @@ const routesConfig = {
       root: '/meetings',
       tabs : [
         {title:'Meetings',path:'/meetings/meetings',default:'/recent'},
-        { title:'Settings',path:'/meetings/settings',default:''},
+  
       ],
       menu : {
         meetings: [

@@ -1,11 +1,19 @@
 import * as React from 'react';
 import { AppBar, Toolbar, Typography, IconButton, TextField, InputAdornment } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import LogoutIcon from '@mui/icons-material/Logout';import BorderBox from '../../BorderBox';
+import LogoutIcon from '@mui/icons-material/Logout';
+import BorderBox from '../../BorderBox';
 import SearchBar from '../../SearchBar';
-import Cookies from 'js-cookie';
+
+import { useTheme } from '@emotion/react';
+import { useAuth } from '../../../context/AuthContext';
 
 export default function TopBar({ handleDrawerToggle, drawerWidth }) {
+  const handleLogout = ()=>{
+    logout()
+  }
+  const theme = useTheme()
+  const {logout} = useAuth()
   return (
     <AppBar
       position="fixed"
@@ -32,10 +40,7 @@ export default function TopBar({ handleDrawerToggle, drawerWidth }) {
 
         <BorderBox radius={2} styles={{ display: 'flex', padding: 1 }}>
           <IconButton
-            onClick={() => {
-              Cookies.remove('accessToken');
-              window.location.reload(); // Refresh the page
-            }}
+            onClick={handleLogout}
             sx={{ p:0 , m:0}}
           >
             <LogoutIcon fontSize='medium' sx={{color:'text.secondary'}} />
