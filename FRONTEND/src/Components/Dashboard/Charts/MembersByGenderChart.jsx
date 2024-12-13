@@ -41,9 +41,13 @@ export default function MeetingTypesChart() {
   }, []);
 
   const getArcLabel = (params) => {
+    if (params.value === 0 || totalValue === 0) {
+      return null; // Skip rendering the label for 0% slices
+    }
     const percent = params.value / totalValue;
     return `${(percent * 100).toFixed(1)}%`;
   };
+  
 
   if (loading) {
     return <Typography>Loading...</Typography>;
@@ -87,7 +91,7 @@ export default function MeetingTypesChart() {
           theme.palette.green.main,
         ]}
         margin={{ top: 2, left: 2, right: 2, bottom: 2 }}
-        height={220}
+        height={250}
         slotProps={{
           legend: {
             hidden: true,
