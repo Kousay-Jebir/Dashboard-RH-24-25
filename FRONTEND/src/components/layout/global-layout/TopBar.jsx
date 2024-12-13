@@ -3,6 +3,7 @@ import { AppBar, Toolbar, Typography, IconButton, TextField, InputAdornment } fr
 import MenuIcon from '@mui/icons-material/Menu';
 import LogoutIcon from '@mui/icons-material/Logout';import BorderBox from '../../BorderBox';
 import SearchBar from '../../SearchBar';
+import Cookies from 'js-cookie';
 
 export default function TopBar({ handleDrawerToggle, drawerWidth }) {
   return (
@@ -30,7 +31,14 @@ export default function TopBar({ handleDrawerToggle, drawerWidth }) {
         <SearchBar placeHolder={'Search for something'}/>
 
         <BorderBox radius={2} styles={{ display: 'flex', padding: 1 }}>
-          <LogoutIcon sx={{color:'text.secondary'}} />
+          <IconButton
+            onClick={() => {
+              Cookies.remove('accessToken');
+              window.location.reload(); // Refresh the page
+            }}
+          >
+            <LogoutIcon sx={{color:'text.secondary'}} />
+          </IconButton>
         </BorderBox>
       </Toolbar>
     </AppBar>
