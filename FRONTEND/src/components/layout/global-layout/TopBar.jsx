@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { AppBar, Toolbar, Typography, IconButton, TextField, InputAdornment } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
-import BorderBox from '../../BorderBox';
+import LogoutIcon from '@mui/icons-material/Logout';import BorderBox from '../../BorderBox';
 import SearchBar from '../../SearchBar';
 
 export default function TopBar({ handleDrawerToggle, drawerWidth }) {
@@ -31,7 +30,7 @@ export default function TopBar({ handleDrawerToggle, drawerWidth }) {
         <SearchBar placeHolder={'Search for something'}/>
 
         <BorderBox radius={2} styles={{ display: 'flex', padding: 1 }}>
-          <NotificationsOutlinedIcon sx={{color:'text.secondary'}} />
+          <LogoutIcon sx={{color:'text.secondary'}} />
         </BorderBox>
       </Toolbar>
     </AppBar>
