@@ -86,9 +86,9 @@ function AppLayout() {
     } else if (location.pathname.startsWith('/meetings')) {
       return <ScheduleButton schedule={'Schedule meeting'}  onClick={toggleDrawer(true)}/>;
     }
-      else if (location.pathname.startsWith('/team-members')) {
+      /* else if (location.pathname.startsWith('/team-members')) {
         return <ScheduleButton schedule={'Add member'}/>
-      }
+      } */
     return null; // Ensure there's a return value for all cases
   }
 
