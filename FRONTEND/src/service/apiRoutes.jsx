@@ -10,6 +10,7 @@ const BACKEND_API_ROUTES = {
     GET_TOTAL_MEMBER_BY_DEPARTMENT:'/member/department/total',
     GET_MEMBER_BY_ID: '/member/:id',
     CREATE_MEMBER: '/member/create',
+    DELETE_MEMBER:'member/:id',
     GET_MEETING:'/meeting',
     GET_TOTAL_MEETING:'/meeting/total',
     GET_TOTAL_TEAM_BUILDING:'/meeting/total/teamBuildings',

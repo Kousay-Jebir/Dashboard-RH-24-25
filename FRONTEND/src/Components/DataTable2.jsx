@@ -11,20 +11,49 @@ import {
   IconButton,
   TablePagination,
   TableSortLabel,
-  Box,
+  Menu,
+  MenuItem,
   useTheme,
 } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { api } from "../service/api";
+import { useNotificationError, useNotificationSuccess } from "../context/SnackBarContext";
 
 const DataTable2 = ({ columns, rowData }) => {
-  // const [expandedRow, setExpandedRow] = useState(null);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [selectedRow, setSelectedRow] = useState(null);
   const theme = useTheme();
+  const onerror = useNotificationError();
+  const onsuccess = useNotificationSuccess();
 
-  const handleExpandClick = (index) => {
-    setExpandedRow(expandedRow === index ? null : index);
+  const handleMenuOpen = (event, row) => {
+    setAnchorEl(event.currentTarget);
+    setSelectedRow(row);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+    setSelectedRow(null);
+  };
+
+  const handleDelete = async () => {
+    if (selectedRow) {
+      console.log("Delete action for:", selectedRow.member_id); // Add your delete logic here
+      try{
+        const response = await api.deleteMember(selectedRow.member_id)
+        onsuccess("Member deleted successfully")
+
+      }
+      catch(e){
+        onerror("Error during member deletion")
+        console.log(e)
+      }
+
+    }
+    handleMenuClose();
   };
 
   const departmentStyles = (Department) => {
@@ -164,8 +193,9 @@ const DataTable2 = ({ columns, rowData }) => {
                                 fontSize: "0.875rem",
                               }}
                             >
-                              {row.member_name+" "+row.candidat_lastName}
-                            </Typography>):null
+                              {row.member_name + " " + row.candidat_lastName}
+                            </Typography>
+                          ) : null
                         }
                         {
                           column.id === "Score" ? (
@@ -178,57 +208,39 @@ const DataTable2 = ({ columns, rowData }) => {
                               }}
                             >
                               {(
-                                  [
-                                    row.interview_situationGrade,
-                                    row.interview_polePresentationGrade,
-                                    row.interview_jeiKnowledgeGrade,
-                                    row.interview_availabilityGrade,
-                                    row.interview_rhQuestionsGrade,
-                                    row.interview_associativeExperienceGrade
-                                  ]
-                                  // Filter out null or undefined values
-                                  .filter(grade => grade !== null && grade !== undefined)
+                                [
+                                  row.interview_situationGrade,
+                                  row.interview_polePresentationGrade,
+                                  row.interview_jeiKnowledgeGrade,
+                                  row.interview_availabilityGrade,
+                                  row.interview_rhQuestionsGrade,
+                                  row.interview_associativeExperienceGrade
+                                ]
+                                  .filter((grade) => grade !== null && grade !== undefined)
                                   .reduce((acc, grade) => acc + grade, 0) /
-                                  // Calculate the average
-                                  [
-                                    row.interview_situationGrade,
-                                    row.interview_polePresentationGrade,
-                                    row.interview_jeiKnowledgeGrade,
-                                    row.interview_availabilityGrade,
-                                    row.interview_rhQuestionsGrade,
-                                    row.interview_associativeExperienceGrade
-                                  ]
-                                    .filter(grade => grade !== null && grade !== undefined).length
-                                ).toFixed(2)} 
-                            </Typography>):null
+                                [
+                                  row.interview_situationGrade,
+                                  row.interview_polePresentationGrade,
+                                  row.interview_jeiKnowledgeGrade,
+                                  row.interview_availabilityGrade,
+                                  row.interview_rhQuestionsGrade,
+                                  row.interview_associativeExperienceGrade
+                                ].filter((grade) => grade !== null && grade !== undefined).length
+                              ).toFixed(2)}
+                            </Typography>
+                          ) : null
                         }
                       </TableCell>
                     ))}
                     <TableCell sx={{ borderBottom: "none" }}>
                       <IconButton
                         size="small"
-                        onClick={() => handleExpandClick(index)}
+                        onClick={(event) => handleMenuOpen(event, row)}
                       >
-                        <MoreVertIcon
-                          sx={{
-                            fontSize: "1.2rem",
-                            // transform: expandedRow === index ? "rotate(90deg)" : "rotate(0deg)",
-                            // transition: "transform 0.2s ease",
-                          }}
-                        />
+                        <MoreVertIcon sx={{ fontSize: "1.2rem" }} />
                       </IconButton>
                     </TableCell>
                   </TableRow>
-
-                  {/* {expandedRow === index && (
-                  <TableRow>
-                    <TableCell colSpan={columns.length + 1} sx={{ paddingBottom: 2, borderBottom: "none" }}>
-                      <Box p={2}>
-                        <Typography variant="body2">Additional details for {row.Name}...</Typography>
-                      </Box>
-                    </TableCell>
-                  </TableRow>
-                )} */}
                 </React.Fragment>
               ))}
           </TableBody>
@@ -243,6 +255,15 @@ const DataTable2 = ({ columns, rowData }) => {
         rowsPerPage={rowsPerPage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
+
+      {/* Menu for actions */}
+      <Menu
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={handleMenuClose}
+      >
+        <MenuItem onClick={handleDelete}>Delete Member</MenuItem>
+      </Menu>
     </>
   );
 };

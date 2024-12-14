@@ -31,6 +31,7 @@ export const api = {
   createSuperAdmin: (data) => base.post(BACKEND_API_ROUTES.CREATE_SUPERADMIN, data),
   getMember: () => base.get(BACKEND_API_ROUTES.GET_MEMBER),
   getTotalMember: ()=>base.get(BACKEND_API_ROUTES.GET_TOTAL_MEMBER),
+  deleteMember: (id)=>base.delete(BACKEND_API_ROUTES.DELETE_MEMBER.replace(':id',id)),
   getNumberOfMembersByDepartment : (data)=>base.post(BACKEND_API_ROUTES.GET_TOTAL_MEMBER_BY_DEPARTMENT,data),
   getMemberById: (id) => base.get(BACKEND_API_ROUTES.GET_MEMBER_BY_ID.replace(':id', id)),
   createMember: (data) => base.post(BACKEND_API_ROUTES.CREATE_MEMBER, data),
