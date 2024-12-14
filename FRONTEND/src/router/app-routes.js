@@ -21,12 +21,7 @@ const routesConfig = {
             path: '/recruitement/interviews/recent',
             secondaryMenu: [] // No nested menu
           },
-          {
-            title: 'Questions',
-            icon: HelpRoundedIcon,
-            path: '/recruitement/interviews',
-            secondaryMenu: [] // No nested menu
-          }
+        
         ],
         schedule:[
           {

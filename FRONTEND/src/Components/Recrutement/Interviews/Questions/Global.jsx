@@ -8,6 +8,7 @@ import GeneralInformationForm from "./GeneralInformationForm";
 import DynamicSectionsForm from "./DynamicSectionsForm";
 import ScoresForm from "./ScoresForm";
 import Duration from "./Duration";
+import { useNotificationError, useNotificationSuccess } from "../../../../context/SnackBarContext";
 
 // Initial form state for general information
 const initialState = {
@@ -83,6 +84,8 @@ const getTransformData = async (id) => {
 };
 
 export default function GlobalForm() {
+  const onsuccess = useNotificationSuccess();
+  const onerror = useNotificationError();
   const [state, dispatch] = useReducer(formReducer, initialState);
   const [sections, setSections] = useState([]);
   const [submitError, setSubmitError] = useState("");
@@ -238,7 +241,7 @@ export default function GlobalForm() {
           console.log("le candidat avant update: ",candidatData)
 
           // Call the API to update the candidate information
-          await api.updateCandidat(id, candidatData);
+          await api.updateCandidat(interview.candidat.id, candidatData);
 
           const submittedInterview = {
             time: interview.date,
@@ -256,8 +259,8 @@ export default function GlobalForm() {
         
           navigate('/recruitement/interviews/recent');
       } catch (error) {
-        console.error("Erreur lors de l'envoi du message:", error);
-        alert("Échec de l'envoi du message.");
+        onerror("Erreur lors du sauvegardement de l'interview")
+        console.log(error)
       }
     }
   };

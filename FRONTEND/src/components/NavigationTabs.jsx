@@ -69,7 +69,12 @@ const NavigationTabs = ({tabs,button}) => {
           <Tab
             key={tab.path} // Use tab.path as key for better uniqueness
             label={tab.title} // Use tab.title for the tab label
-            sx={{ textTransform: 'none' }}
+            sx={{ textTransform: 'none' ,
+              color: currentIndex === index ? 'text.primary' : 'text.secondary ', // Active tab text color
+        '&.Mui-selected': {
+          color: 'text.primary', // Custom color for the active tab
+        },
+            }}
           />
         ))}
       </Tabs>
